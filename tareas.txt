@@ -1,0 +1,23 @@
+1. Migrate
+2. Make auth:
+3. Install plugns
+   Datatable, Roles, Logs, Arisan, PDF, Excel, Graficos, Material
+
+4. Install Tempplate AdminLet
+5. Modelo de BD
+6. Github
+
+
+Paquetes: https://github.com/chiraggude/awesome-laravel
+Roles: https://github.com/spatie/laravel-permission
+Chart:  https://erik.cat/projects/Charts/docs
+DataTables: https://datatables.yajrabox.com/starter
+Laroute: https://github.com/aaronlord/laroute, ¿No sería increíble si pudiéramos acceder a nuestras rutas de Laravel desde JavaScript?
+Captcha: https://github.com/ARCANEDEV/noCAPTCHA/blob/master/_docs/3-Installation-and-Setup.md
+Conver images: https://github.com/spatie/laravel-glide
+Logs: https://github.com/rap2hpoutre/laravel-log-viewer
+PDF: https://github.com/barryvdh/laravel-dompdf
+Excel: https://github.com/Maatwebsite/Laravel-Excel
+Artisan View: https://github.com/svenluijten/artisan-view
+GeoIp:http://lyften.com/projects/laravel-geoip/doc/
+Auditoria https://github.com/owen-it/laravel-auditing-doc/blob/master/README.md, http://www.laravel-auditing.com/docs/3.1
