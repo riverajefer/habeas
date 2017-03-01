@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-02-2017 a las 22:53:11
+-- Tiempo de generación: 01-03-2017 a las 22:59:33
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -2927,7 +2927,8 @@ CREATE TABLE `migrations` (
 
 INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2014_10_12_000000_create_users_table', 1),
-('2014_10_12_100000_create_password_resets_table', 1);
+('2014_10_12_100000_create_password_resets_table', 1),
+('2017_03_01_152428_create_registros_table', 2);
 
 -- --------------------------------------------------------
 
@@ -3411,6 +3412,29 @@ INSERT INTO `position_t9` (`id_pos_t9`, `nom_pos_t9`, `id_dep_t9`, `created_at`,
 (120, 'INGENIERO DE SOPORTE BANCO DE SANGRE', 0, '2017-01-23 17:00:35', '0000-00-00 00:00:00'),
 (121, 'TECNICO SST', 0, '2017-01-23 17:00:35', '0000-00-00 00:00:00'),
 (122, 'ASISTENTE DE COMPRAS', 0, '2017-02-07 15:28:14', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `registros`
+--
+
+CREATE TABLE `registros` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `primer_apellido` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `segundo_apellido` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `tipo_documento` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `numero_docuemnto` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `fecha_naciomiento` date NOT NULL,
+  `profesion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `cargo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `empresa` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `telefono` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -4773,6 +4797,14 @@ ALTER TABLE `position_t9`
   ADD PRIMARY KEY (`id_pos_t9`);
 
 --
+-- Indices de la tabla `registros`
+--
+ALTER TABLE `registros`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `registros_numero_docuemnto_unique` (`numero_docuemnto`),
+  ADD UNIQUE KEY `registros_email_unique` (`email`);
+
+--
 -- Indices de la tabla `sections_t11`
 --
 ALTER TABLE `sections_t11`
@@ -4875,6 +4907,11 @@ ALTER TABLE `permissions_t13`
 ALTER TABLE `position_t9`
   MODIFY `id_pos_t9` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 --
+-- AUTO_INCREMENT de la tabla `registros`
+--
+ALTER TABLE `registros`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `sections_t11`
 --
 ALTER TABLE `sections_t11`
@@ -4898,7 +4935,7 @@ ALTER TABLE `unit_t6`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=948;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=947;
 --
 -- AUTO_INCREMENT de la tabla `users_t4`
 --

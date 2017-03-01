@@ -39,6 +39,10 @@
         <div class="container">
             <div class="content">
                 <div class="title">Laravel 5</div>
+                @if(Auth::check())
+                    <h2>Auitenticado</h2>
+                    {{Auth::user()}}
+                @endif
             </div>
         </div>
     </body>
