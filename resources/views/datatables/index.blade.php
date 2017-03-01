@@ -20,7 +20,7 @@ $(function() {
     $('#users-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{!! route('datatables.data') !!}',
+        ajax: '{!! route('data.data') !!}',
         columns: [
             { data: 'id', name: 'id' },
             { data: 'name', name: 'name' },

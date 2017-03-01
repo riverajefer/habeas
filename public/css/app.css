@@ -1,0 +1,30 @@
+ header2 {
+    border-top: 1px solid #ccc;
+    padding: 25px 0px 15px 0px;
+    background: #fafafa url(../images/cream.png) repeat;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 50px;
+}
+
+.navbar-default {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.navbar {
+    background-color: #f8f8f8;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f2f2f2));
+    background: -webkit-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: -moz-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: -ms-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: -o-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: linear-gradient(top, #f8f8f8, #f2f2f2);
+    border-bottom: 1px solid #ddd;
+    box-shadow: inset 0px 1px 1px #fff;
+    margin-bottom: 60px !important;
+}
+.img-brand{
+    max-width:200px;
+    margin-top: -7px; 
+    padding-right:10px
+}
