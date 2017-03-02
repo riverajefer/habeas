@@ -36,6 +36,17 @@ class DatatablesController extends Controller
         return Datatables::of(User::query())->make(true);
     }
 
+
+
+
+
+
+
+
+
+
+
+
     public function pdf(){
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML('<h1>Test</h1>');
@@ -46,15 +57,15 @@ class DatatablesController extends Controller
         $excel = \App::make('excel');
 
 
-Excel::create('Filename', function($excel) {
+        Excel::create('Filename', function($excel) {
 
-    $excel->sheet('Sheetname', function($sheet) {
+            $excel->sheet('Sheetname', function($sheet) {
 
-        // Sheet manipulation
+                // Sheet manipulation
 
-    });
+            });
 
-})->export('xls');
+        })->export('xls');
 
     }
 

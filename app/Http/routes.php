@@ -6,18 +6,30 @@ Route::get('/', function () {
 
 Route::get('login/{email?}', 'LoginController@index');
 Route::post('login/{email?}', 'LoginController@login');
-
-
 Route::controller('data', 'DatatablesController', [
     'anyData'  => 'data.data',
     'getIndex' => 'data',
 ]);
+
+
+/*
+Route::controller('data', 'DatatablesController', [
+    'anyData'  => 'data.data',
+    'getIndex' => 'data',
+]);
+*/
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 Route::get('pdf', 'DatatablesController@pdf');
 Route::get('excel', 'DatatablesController@excel');
 
 
+Route::resource('registros', 'RegistrosController', ['except' => [
+    'index'
+]]);;
+
+Route::get('registros','RegistrosController@index')->name('registros');
+Route::get('registros.data','RegistrosController@dataRegistros')->name('dataRegistros');
 
 
 Route::get('salir', function(){

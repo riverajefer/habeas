@@ -19,3 +19,21 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+
+$factory->define(App\Registros::class, function(Faker\Generator $faker){
+
+    return [
+        'nombre' => $faker->name,
+        'primer_apellido' => $faker->lastName,
+        'segundo_apellido' => $faker->lastName,
+        'tipo_documento' => $faker->suffix,
+        'numero_docuemnto' => $faker->isbn10,
+        'fecha_nacimiento' => $faker->date(),
+        'profesion' => $faker->jobTitle,
+        'cargo' => $faker->catchPhrase,
+        'empresa' => $faker->company,
+        'telefono' => $faker->isbn10,
+        'email' => $faker->email,
+    ];
+});

@@ -21,6 +21,8 @@
     <body>
         <!-- Header -->
         @include('../includes/header')  
+
+        <!-- Content -->
         <div class="container">
             @yield('content')
         </div>
