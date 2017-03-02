@@ -21,3 +21,9 @@ Excel: https://github.com/Maatwebsite/Laravel-Excel
 Artisan View: https://github.com/svenluijten/artisan-view
 GeoIp:http://lyften.com/projects/laravel-geoip/doc/
 Auditoria https://github.com/owen-it/laravel-auditing-doc/blob/master/README.md, http://www.laravel-auditing.com/docs/3.1
+
+
+Tareas:
+Formulario Login.
+Vuelva a escribir la contraseña
+Crear El Formulario para registros

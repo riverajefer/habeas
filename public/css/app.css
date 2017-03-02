@@ -1,15 +1,30 @@
- header2 {
+body{
+    font-size: 12px;
+    line-height: 22px;
+    color: #666;
+    border-top: 3px solid #eee;
+    background: #343434 url(../images/back.png) repeat;
+    -webkit-font-smoothing: antialiased;    
+}
+
+header {
     border-top: 1px solid #ccc;
-    padding: 25px 0px 15px 0px;
+    padding: 0px;
     background: #fafafa url(../images/cream.png) repeat;
     border-bottom: 1px solid #ddd;
-    margin-bottom: 50px;
 }
 
 .navbar-default {
     background-color: transparent !important;
     border: none !important;
 }
+
+.navbar-nav > li > a, .navbar-brand {
+    padding-top:23px !important; 
+    padding-bottom:0 !important;
+    height: 63px !important;
+}
+
 
 .navbar {
     background-color: #f8f8f8;
@@ -21,10 +36,24 @@
     background: linear-gradient(top, #f8f8f8, #f2f2f2);
     border-bottom: 1px solid #ddd;
     box-shadow: inset 0px 1px 1px #fff;
-    margin-bottom: 60px !important;
+    margin-bottom: 30px !important;
+    min-height: 63px !important;
 }
 .img-brand{
-    max-width:200px;
+    max-width:220px;
     margin-top: -7px; 
     padding-right:10px
+}
+
+.widget {
+    border: 1px solid #c9c9c9;
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background: #fafafa url(../images/cream.png) repeat;
+    padding: 20px;
+}
+
+label {
+    color: #8c8989;
 }
