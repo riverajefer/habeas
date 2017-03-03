@@ -90,3 +90,12 @@ label {
     margin-top: 10px;
     color: #aaa;
 }
+
+.list-group-item span{
+    font-weight: bold;
+}
+
+.nav-pills li a{
+    padding: 0px !important;
+}
+

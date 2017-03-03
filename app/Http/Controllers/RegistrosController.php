@@ -54,7 +54,7 @@ class RegistrosController extends Controller
      */
     public function create()
     {
-        //
+        return view('registros.create');
     }
 
     /**
@@ -65,7 +65,12 @@ class RegistrosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request,[
+            'nombre'=>'required|string',
+            'email'=>'required|email'
+        ]);
+        return $request;
     }
 
     /**
@@ -76,8 +81,8 @@ class RegistrosController extends Controller
      */
     public function show($id)
     {
-        return view('registros.show');
-        return "show: ".$id;
+        $registro = Registros::findOrFail($id);
+        return view('registros.show', compact('registro'));
     }
 
     /**

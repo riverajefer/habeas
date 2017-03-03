@@ -7,9 +7,11 @@
         <title>AnnarNet Habeas</title>
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">        
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
 
         <!-- Styles -->
         @include('../includes/styles')
+        
 
         <script>
             window.Laravel = {!! json_encode([

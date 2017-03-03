@@ -19,12 +19,13 @@ class CreateRegistrosTable extends Migration
             $table->string('segundo_apellido');
             $table->string('tipo_documento');
             $table->string('numero_docuemnto')->unique();
-            $table->date('fecha_naciomiento');
+            $table->date('fecha_nacimiento');
             $table->string('profesion');
             $table->string('cargo');
             $table->string('empresa');
             $table->string('telefono');
             $table->string('email')->unique();
+            $table->boolean('estado');
             $table->timestamps();
         });
     }

@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <a class="navbar-brand" rel="home" href="#" title="Buy Sell Rent Everyting">
+        <a class="navbar-brand" rel="home" href="{{URL::to('registros')}}" title="Buy Sell Rent Everyting">
             <img class="img-brand"  src="{{asset('images/annar_net.png')}}">
         </a>
     </div>
@@ -17,7 +17,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#">Home</a></li>
+        <li><a href="{{URL::to('registros')}}">Home</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Link</a></li>
