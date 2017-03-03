@@ -73,8 +73,31 @@ class RegistrosController extends Controller
             'numero_docuemnto'=>'required|string',
             'email'=>'required|email',
             'fecha_nacimiento'=>'required|date',
+            'profesion'=>'required|string',
+            'cargo'=>'required|string',
+            'empresa'=>'required|string',
+            'telefono'=>'required|numeric',
         ]);
-        return $request;
+        //return $request;
+
+        $registro = New Registros();
+        $registro->nombre = $request->input('nombre');
+        $registro->primer_apellido = $request->input('primer_apellido');
+        $registro->segundo_apellido = $request->input('segundo_apellido');
+        $registro->tipo_documento = $request->input('tipo_documento');
+        $registro->numero_docuemnto = $request->input('numero_docuemnto');
+        $registro->email = $request->input('email');
+        $registro->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $registro->profesion = $request->input('profesion');
+        $registro->cargo = $request->input('cargo');
+        $registro->empresa = $request->input('empresa');
+        $registro->telefono = $request->input('telefono');
+        $registro->estado = 1;
+
+        $registro->save();
+
+        return back();
+
     }
 
    
