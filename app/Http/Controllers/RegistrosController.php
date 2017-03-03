@@ -18,8 +18,6 @@ class RegistrosController extends Controller
      */
     public function index()
     {
-        //return "Index";
-        //return Registros::all();
         return view('registros.index');
     }
 
@@ -46,7 +44,6 @@ class RegistrosController extends Controller
     }
 
 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -56,6 +53,8 @@ class RegistrosController extends Controller
     {
         return view('registros.create');
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -68,11 +67,17 @@ class RegistrosController extends Controller
 
         $this->validate($request,[
             'nombre'=>'required|string',
-            'email'=>'required|email'
+            'primer_apellido'=>'required|string',
+            'segundo_apellido'=>'required|string',
+            'tipo_documento'=>'required|string',
+            'numero_docuemnto'=>'required|string',
+            'email'=>'required|email',
+            'fecha_nacimiento'=>'required|date',
         ]);
         return $request;
     }
 
+   
     /**
      * Display the specified resource.
      *
@@ -85,6 +90,7 @@ class RegistrosController extends Controller
         return view('registros.show', compact('registro'));
     }
 
+  
     /**
      * Show the form for editing the specified resource.
      *
@@ -97,6 +103,7 @@ class RegistrosController extends Controller
         return "Edit: ".$id;
     }
 
+
     /**
      * Update the specified resource in storage.
      *
@@ -108,6 +115,8 @@ class RegistrosController extends Controller
     {
         //
     }
+
+
 
     /**
      * Remove the specified resource from storage.

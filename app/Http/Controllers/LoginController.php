@@ -8,27 +8,20 @@ use Auth;
 class LoginController extends Controller
 {
 
-
-    /**
-     * Instantiate a new LoginController instance.
-     *
-     * @return void
-     */
-     protected $email;
-
-     public function __construct(){
-         //$this->email = $email;
-     }
-
-
     /**
      * Store a new user.
      * @param  String  $email
      * @return \Illuminate\View\View
      */
-    public function index($email){
-        $email = $email;
-        $this->email = $email;
+    public function index($id=null){
+
+        if(Auth::check()){
+            return redirect('registros');
+        }
+
+
+        $user = User::findOrFail($id);
+        $email = $user->email;
         return view('login.index',compact('email'));
     }
 
@@ -38,15 +31,35 @@ class LoginController extends Controller
      * @return Response
      */
     public function login(Request $request){
+
+        $this->validate($request,[
+            'email'=>'required|email',
+            'password'=>'required',
+        ]);
+
         $email   = $request->input('email');
         $password = $request->input('password');
 
         $user = User::whereEmail_t4($email)->wherePassword(md5($password))->first();
+        if(!$user){
+            return redirect()->back()->with('errorLogin', 'Datos de acceso incorrectos'); 
+        }
         
-        Auth::loginUsingId($user->id_user_t4, false);
-        return redirect('/');
-        
+        Auth::loginUsingId($user->id, false);
+        return redirect('registros');
     }
+
+
+    /**
+     * Logout
+     *
+     * @return void
+     */
+     public function salir(){
+         Auth::logout();
+         return redirect('/');
+     }
+    
 
 
 }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Eloquence, Mappable, Mutable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -25,14 +26,41 @@ class User extends Authenticatable
 
      protected $table = 'users_t4';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'nom_user_t4', 'email_t4', 'password', 'id_perf_t4'
+
+    protected $mappedOnly = true;
+    protected $map = [
+        'id_user_t4' => 'id',
+        'email_t4' => 'email',
+        'nom_user_t4' =>'nombre',
+        'estado_t4' =>'estado',
     ];
+
+
+    protected $appends = [
+        'id', 'nombre', 'email', 'estado'
+    ];
+
+    public function getidAttribute()
+    {
+        return $this->attributes['id_user_t4'];
+    }   
+
+    public function getnombreAttribute()
+    {
+        return $this->attributes['nom_user_t4'];
+    }  
+
+    public function getemailAttribute()
+    {
+        return $this->attributes['email_t4'];
+    }
+      
+
+    public function getestadoAttribute()
+    {
+        return $this->attributes['estado_t4'];
+    }   
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -40,8 +68,20 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password'
+        'password', 
+        'created_by', 
+        'updated_by', 
+        'modiniruta_t4', 
+        'created_at', 
+        'updated_at',
+        'estado_t4',
+        'nom_user_t4',
+        'email_t4',
+        'ref1_t4',
+        'id_user_t4'
     ];
+
+
 
 
   public function setAttribute($key, $value)

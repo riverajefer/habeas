@@ -38,7 +38,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title">MÓDULO HABEAS DATA</div>
                 @if(Auth::check())
                     <h2>Auitenticado</h2>
                     {{Auth::user()}}

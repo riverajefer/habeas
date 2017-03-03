@@ -17,24 +17,30 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="{{URL::to('registros')}}">Home</a></li>
+        <li><a href="{{URL::to('registros')}}"><b>INICIO</b></a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registros <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Lista</a></li>
-            <li><a href="#">Nuevo Registro</a></li>
-          </ul>
-        </li>        
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuario <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Salir</a></li>
-          </ul>
-        </li>
-      </ul>
+
+      @if(Auth::check())
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registros <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="{{URL::to('registros')}}">  <i class="fa fa-list" aria-hidden="true"></i>  Lista</a></li>
+              <li><a href="{{URL::to('registros/create')}}"> <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo Registro</a></li>
+              <li><a href="#"> <i class="fa fa-history" aria-hidden="true"></i> Historial de cambios</a></li>
+            </ul>
+          </li>        
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->nombre}} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="{{URL::to('salir')}}"> <i class="fa fa-power-off" aria-hidden="true"></i> Salir</a></li>
+            </ul>
+          </li>
+        </ul>
+      @endif
+
+
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

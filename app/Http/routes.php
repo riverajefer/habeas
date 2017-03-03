@@ -1,45 +1,35 @@
 <?php
 
 Route::get('/', function () {
+
+    if(Auth::check()){
+       return redirect('registros');
+    }    
     return view('welcome');
 });
 
-Route::get('login/{email?}', 'LoginController@index');
-Route::post('login/{email?}', 'LoginController@login');
-Route::controller('data', 'DatatablesController', [
-    'anyData'  => 'data.data',
-    'getIndex' => 'data',
-]);
+Route::get('login/{id?}', 'LoginController@index');
+Route::post('login/', 'LoginController@login');
+Route::get('salir/', 'LoginController@salir');
 
 
 /*
-Route::controller('data', 'DatatablesController', [
-    'anyData'  => 'data.data',
-    'getIndex' => 'data',
-]);
+Rutas Auth, protegidas
 */
 
-Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-Route::get('pdf', 'DatatablesController@pdf');
-Route::get('excel', 'DatatablesController@excel');
+Route::group(['middleware'=>'auth'], function(){
 
+    Route::resource('registros', 'RegistrosController', ['except' => ['index']]);
 
-Route::resource('registros', 'RegistrosController', ['except' => [
-    'index'
-]]);;
+    Route::get('registros','RegistrosController@index')->name('registros');
+    Route::get('registros.data','RegistrosController@dataRegistros')->name('dataRegistros');
 
-Route::get('registros','RegistrosController@index')->name('registros');
-Route::get('registros.data','RegistrosController@dataRegistros')->name('dataRegistros');
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+    Route::get('pdf', 'DatatablesController@pdf');
+    Route::get('excel', 'DatatablesController@excel');
 
-
-Route::get('salir', function(){
-    Auth::logout();
 });
 
-
-Route::get('login2', function(){
-
-    $user = App\User::whereEmail_t4('fabio.ramirez@annardx.com')->wherePassword(md5('2016'))->first();
-    Auth::loginUsingId($user->id_user_t4, false);
-
+Route::get('test', function(){
+    return "test";
 });

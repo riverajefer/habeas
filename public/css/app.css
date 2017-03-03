@@ -12,6 +12,7 @@ header {
     padding: 0px;
     background: #fafafa url(../images/cream.png) repeat;
     border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
 }
 
 .navbar-default {
@@ -98,4 +99,6 @@ label {
 .nav-pills li a{
     padding: 0px !important;
 }
-
+.nav{
+    padding-top: 6px;
+}
