@@ -6,23 +6,16 @@
     <div class="col-md-12">
         <div class="panel panel-default">
         <div class="panel-heading">
-            <i class="fa fa-list" aria-hidden="true"></i>  Lista de registros
+            <i class="fa fa-list" aria-hidden="true"></i>  Lista de Áreas
         </div>
         <div class="panel-body">
         <ul class="nav nav-pills" style="float:right">
             <li role="presentation">
-                <a href="{{URL::to('registros/create')}}">
+                <a href="{{URL::to('areas/create')}}">
                     <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                        <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo registro
+                        <i class="fa fa-briefcase" aria-hidden="true"></i> Agregar área
                     </button>
                 </a> 
-            </li>
-            <li role="presentation">
-                <a href="#">
-                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                        <i class="fa fa-clone" aria-hidden="true"></i> Subida masiva
-                    </button>  
-                </a>
             </li>
             <li role="presentation">
                 <a href="#">
@@ -34,14 +27,12 @@
         </ul>
         </div>
          <div class="table-responsive">        
-            <table class="table table-striped table-bordered table-hover mdl-data-table" id="registros-table">
+            <table class="table table-striped table-bordered table-hover mdl-data-table" id="areas-table">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Email</th>
-                        <th>Teléfono</th>
+                        <th>Titulo</th>
+                        <th>Persona encargada</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -56,19 +47,17 @@
 @push('scripts')
 <script>
 $(function() {
-    $('#registros-table').DataTable({
+    $('#areas-table').DataTable({
         "language": {
             "url": '//cdn.datatables.net/plug-ins/1.10.13/i18n/Spanish.json'
         },      
         processing: true,
         serverSide: true,
-        ajax: '{!! route('dataRegistros') !!}',
+        ajax: '{!! route('dataAreas') !!}',
         columns: [
             { data: 'id', name: 'id' },
-            { data: 'nombre', name: 'nombre' },
-            { data: 'primer_apellido', name: 'primer_apellido' },
-            { data: 'email', name: 'email' },
-            { data: 'telefono', name: 'telefono' },
+            { data: 'titulo', name: 'titulo' },
+            { data: 'user.nombre', name: 'user.nombre' },
             { data: 'action', name: 'action', orderable: false, searchable: false}
         ],
     });

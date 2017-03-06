@@ -102,3 +102,7 @@ label {
 .nav{
     padding-top: 6px;
 }
+.status{
+    padding-left: 15px;
+    font-style: italic;
+}
