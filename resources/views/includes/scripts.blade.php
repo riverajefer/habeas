@@ -12,6 +12,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 <script src="{{ asset('js/ajax-bootstrap-select.js') }}"></script>
 
+
 @stack('scripts')
 
 

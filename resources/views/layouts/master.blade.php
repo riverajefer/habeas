@@ -6,7 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>AnnarNet Habeas</title>
         <!-- CSRF Token -->
-        <meta name="csrf-token" content="{{ csrf_token() }}">        
+        <meta name="csrf-token" content="{{ csrf_token() }}">    
+    
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
 
         <!-- Styles -->

@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Registros;
+use App\Models\Registros;
 use Datatables;
-use App\User;
+use App\Models\Areas;
+use App\Models\Departamentos;
+use App\Models\Municipios;
+use App\Models\User;
 
 class RegistrosController extends Controller
 {
@@ -51,9 +54,10 @@ class RegistrosController extends Controller
      */
     public function create()
     {
-        return view('registros.create');
+        $departamentos = Departamentos::all();
+        $areas = Areas::orderBy('titulo','ASC')->get();
+        return view('registros.create', compact('departamentos', 'areas'));
     }
-
 
 
     /**
@@ -64,20 +68,35 @@ class RegistrosController extends Controller
      */
     public function store(Request $request)
     {
+     //   return $soporte = time().'.'.$request->soporte->getClientOriginalExtension();
+      //  return $request->all();
 
         $this->validate($request,[
             'nombre'=>'required|string',
             'primer_apellido'=>'required|string',
             'segundo_apellido'=>'required|string',
             'tipo_documento'=>'required|string',
-            'numero_docuemnto'=>'required|string',
+            'numero_docuemnto'=>'required|string|numeric',
             'email'=>'required|email',
             'fecha_nacimiento'=>'required|date',
             'profesion'=>'required|string',
             'cargo'=>'required|string',
             'empresa'=>'required|string',
             'telefono'=>'required|numeric',
+            'area_id'=>'required',
+            'departamento_id'=>'required',
+            'municipio_id'=>'required',
+            'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:2048',            
         ]);
+
+        if($request->soporte){
+            $soporte = time().'.'.$request->soporte->getClientOriginalExtension();
+            $request->soporte->move(public_path('uploads/soportes'), $soporte);
+        }
+       // return "soporte: ".$soporte;
+       // return "Guardar";
+
+
         //return $request;
 
         $registro = New Registros();
@@ -92,11 +111,15 @@ class RegistrosController extends Controller
         $registro->cargo = $request->input('cargo');
         $registro->empresa = $request->input('empresa');
         $registro->telefono = $request->input('telefono');
+        $registro->archivo_soporte = $soporte;
+        $registro->municipio_id = $request->input('municipio_id');
+        $registro->area_id = $request->input('area_id');
+        $registro->procedencia = $request->input('procedencia');
         $registro->estado = 1;
 
         $registro->save();
 
-        return back();
+        return redirect('registros')->with('success','Registro creado correctamente');
 
     }
 
@@ -151,4 +174,19 @@ class RegistrosController extends Controller
     {
         //
     }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id_departamento
+     * @return \Illuminate\Http\Response
+     */
+    public function municipios(Request $request)
+    {
+        return $departamentos = Departamentos::findOrFail($request->input('id'))->municipios()->get();
+    }
+
+
+
 }

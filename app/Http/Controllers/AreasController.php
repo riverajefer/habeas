@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Datatables;
-use App\Areas;
+use App\Models\Areas;
 
 class AreasController extends Controller
 {

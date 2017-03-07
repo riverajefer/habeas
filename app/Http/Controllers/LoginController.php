@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\User;
+use App\Models\User;
 use Auth;
 class LoginController extends Controller
 {
@@ -18,7 +18,6 @@ class LoginController extends Controller
         if(Auth::check()){
             return redirect('registros');
         }
-
 
         $user = User::findOrFail($id);
         $email = $user->email;
