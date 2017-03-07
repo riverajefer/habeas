@@ -13,13 +13,7 @@
 
     <div class="panel-body">
 
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-
-        <form action="{{ route('areas.store') }}" role="form" method="POST">
+       <form action="{{ route('areas.store') }}" role="form" method="POST">
           {{ csrf_field() }}
 
             <div class="col-md-6 col-md-offset-3">

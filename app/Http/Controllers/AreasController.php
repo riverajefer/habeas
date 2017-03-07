@@ -29,7 +29,7 @@ class AreasController extends Controller
     public function dataAreas()
     {
 
-        $areas = Areas::with('user')->select('areas.*');
+        $areas = Areas::with('user')->select('areas.*')->orderBy('id','DESC');
         //$areas = Areas::query();
         return Datatables::of($areas)
             ->addColumn('action', function ($areas) {
@@ -68,8 +68,7 @@ class AreasController extends Controller
             'titulo'=>'required|string',
         ]);
         Areas::create($request->all());
-        return back()->with('success','Item created successfully');        
-        return $request->input('titulo');
+        return redirect('areas')->with('success','Registro creado correctamente');
     }
 
     /**
@@ -104,7 +103,11 @@ class AreasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'titulo'=>'required|string',
+        ]);
+        Areas::findOrFail($id)->update($request->all());
+        return redirect('areas')->with('success','Registro modificado correctamente');
     }
 
     /**

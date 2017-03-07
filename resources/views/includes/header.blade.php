@@ -30,11 +30,13 @@
               <li><a href="#"> <i class="fa fa-history" aria-hidden="true"></i> Historial de cambios</a></li>
             </ul>
           </li>        
+            <li><a href="{{URL::to('areas')}}">Áreas</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->nombre}} <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="{{URL::to('salir')}}"> <i class="fa fa-power-off" aria-hidden="true"></i> Salir</a></li>
             </ul>
+            
           </li>
         </ul>
       @endif

@@ -26,6 +26,12 @@
             </li>
         </ul>
         </div>
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <p>{{ $message }}</p>
+        </div>
+        @endif        
          <div class="table-responsive">        
             <table class="table table-striped table-bordered table-hover mdl-data-table" id="areas-table">
                 <thead>
