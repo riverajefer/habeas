@@ -30,6 +30,7 @@ Crear El Formulario para registros
 
 
 REGISTROS:
+->Roles permisos
 ->Modificar
 ->Dar de baja
 ->Service paralelo Historial de cambios
@@ -40,3 +41,32 @@ REGISTROS:
 ->Reportes
 ->Notificaciòn de cambios al email, del encargado
 ->Captura info (Geo IP) Registro
+->Mejorar el show de Registros
+
+
+
+
+Historial de cambios
+
+Registro actual debe quedar
+->Quien lo creo
+->Quien lo modificó
+->Quien lo mando a la papelera
+->Quien lo eliminó
+
+
+Tabla Historial Registros
+
+registro_id
+
+Fecha de modificación 
+Modificado por
+Ver Registro 
+
+
+Al modificar un registro
+
+Se guarda en el historial el actual
+Y se actualiza, 
+
+

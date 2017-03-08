@@ -13,17 +13,39 @@ class Registros extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'nombre'
+        'id',
+        'nombre',
+        'primer_apellido',
+        'segundo_apellido',
+        'tipo_documento',
+        'numero_docuemnto',
+        'fecha_nacimiento',
+        'profesion',
+        'cargo',
+        'empresa',
+        'telefono',
+        'email',
+        'municipio_id',
+        'archivo_soporte',
+        'area_id',
+        'estado',
+        'procedencia',                        
     ];
-
 
     public function area(){
         return $this->belongsTo('App\Models\Areas');
     }
 
     public function municipio(){
-        return $this->hasOne('App\Models\Municipios', 'id');
+        return $this->belongsTo('App\Models\Municipios', 'municipio_id');
+    }
+    
+    public function creadoPor(){
+        return $this->belongsTo('App\Models\User', 'creado_por');
     }
 
+    public function modificadoPor(){
+        return $this->belongsTo('App\Models\User', 'modificado_por');
+    }
 
 }

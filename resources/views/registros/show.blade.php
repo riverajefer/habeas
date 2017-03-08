@@ -20,8 +20,11 @@
                     <span>Apellidos:</span> 
                      {{$registro->primer_apellido}} {{$registro->segundo_apellido}}
                 </li>
-                <li class="list-group-item"><span>Documento:</span> 
-                    <u>{{$registro->tipo_documento}}:</u> {{$registro->numero_docuemnto}}
+                <li class="list-group-item"><span>Tipo de documento:</span> 
+                    {{$registro->tipo_documento}}
+                </li>                
+                <li class="list-group-item"><span>Número de documento:</span> 
+                    {{$registro->numero_docuemnto}}
                 </li>
                 <li class="list-group-item">
                     <span>Fecha de nacimiento:</span>
@@ -57,11 +60,11 @@
                 </li>
                 <li class="list-group-item">
                     <span>Departamento:</span>  
-                    {{$registro->municipio->ndepartamento->nombre}}
+                    {{$registro->municipio->ndepartamento->nombre or ''}}
                 </li>
                 <li class="list-group-item">
                     <span>Ciudad:</span>  
-                    {{$registro->municipio->nombre_municipio}}
+                    {{$registro->municipio->nombre_municipio or ''}}
                 </li>
                 <li class="list-group-item">
                     <span>Soporte:</span>  
@@ -73,9 +76,21 @@
                     
                 </li>                  
                 <li class="list-group-item">
-                    <span>Estado::</span>  
+                    <span>Estado:</span>  
                     {{ $registro->estado ? 'Activo': 'Dado de baja'  }}
                 </li>  
+                <li class="list-group-item">
+                    <span>Procedencia del registro:</span>  
+                    {{ $registro->procedencia }}
+                </li>  
+                <li class="list-group-item">
+                    <span>Registro creado por:</span>  
+                    {{ $registro->creadoPor->nombre or '' }}
+                </li>  
+                <li class="list-group-item">
+                    <span>Registro modificado por:</span>  
+                    {{ $registro->modificadoPor->nombre or '' }}
+                </li>                  
             </ul>  
         </div>
     </div>

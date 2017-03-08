@@ -67,8 +67,6 @@ class RegistrosController extends Controller
      */
     public function store(Request $request)
     {
-     //   return $soporte = time().'.'.$request->soporte->getClientOriginalExtension();
-      //  return $request->all();
 
         $this->validate($request,[
             'nombre'=>'required|string',
@@ -85,18 +83,14 @@ class RegistrosController extends Controller
             'area_id'=>'required',
             'departamento_id'=>'required',
             'municipio_id'=>'required',
-            'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:2048',            
+            'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000',            
         ]);
 
+        $soporte = '';
         if($request->soporte){
             $soporte = time().'.'.$request->soporte->getClientOriginalExtension();
             $request->soporte->move(public_path('uploads/soportes'), $soporte);
         }
-       // return "soporte: ".$soporte;
-       // return "Guardar";
-
-
-        //return $request;
 
         $registro = New Registros();
         $registro->nombre = $request->input('nombre');
@@ -115,7 +109,6 @@ class RegistrosController extends Controller
         $registro->area_id = $request->input('area_id');
         $registro->procedencia = $request->input('procedencia');
         $registro->estado = 1;
-
         $registro->save();
 
         return redirect('registros')->with('success','Registro creado correctamente');
@@ -144,8 +137,11 @@ class RegistrosController extends Controller
      */
     public function edit($id)
     {
-        return view('registros.edit');
-        return "Edit: ".$id;
+
+        $registro = Registros::findOrFail($id);
+        $departamentos = Departamentos::all();
+        $areas = Areas::orderBy('titulo','ASC')->get();
+        return view('registros.edit', compact('registro','departamentos', 'areas'));        
     }
 
 
@@ -158,9 +154,54 @@ class RegistrosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
 
+        $this->validate($request,[
+            'nombre'=>'required|string',
+            'primer_apellido'=>'required|string',
+            'segundo_apellido'=>'required|string',
+            'tipo_documento'=>'required|string',
+            'numero_docuemnto'=>'required|string|numeric',
+            'email'=>'required|email',
+            'fecha_nacimiento'=>'required|date',
+            'profesion'=>'required|string',
+            'cargo'=>'required|string',
+            'empresa'=>'required|string',
+            'telefono'=>'required|numeric',
+            'area_id'=>'required',
+            'departamento_id'=>'required',
+            'municipio_id'=>'required',
+            'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000',            
+        ]);
+
+        $soporte = '';
+
+        if($request->soporte){
+            $soporte = time().'.'.$request->soporte->getClientOriginalExtension();
+            $request->soporte->move(public_path('uploads/soportes'), $soporte);
+        }
+
+        $registro = Registros::findOrFail($id);
+        $registro->nombre = $request->input('nombre');
+        $registro->primer_apellido = $request->input('primer_apellido');
+        $registro->segundo_apellido = $request->input('segundo_apellido');
+        $registro->tipo_documento = $request->input('tipo_documento');
+        $registro->numero_docuemnto = $request->input('numero_docuemnto');
+        $registro->email = $request->input('email');
+        $registro->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $registro->profesion = $request->input('profesion');
+        $registro->cargo = $request->input('cargo');
+        $registro->empresa = $request->input('empresa');
+        $registro->telefono = $request->input('telefono');
+        $registro->archivo_soporte = $soporte;
+        $registro->municipio_id = $request->input('municipio_id');
+        $registro->area_id = $request->input('area_id');
+        $registro->procedencia = $request->input('procedencia');
+        $registro->estado = 1;
+        $registro->save();
+
+        return redirect('registros')->with('success','Registro actualizado correctamente');
+
+    }
 
 
     /**

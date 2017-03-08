@@ -41,6 +41,8 @@ Route::group(['middleware'=>'auth'], function(){
 });
 
 Route::get('test', function(){
+
+    return App\Models\Registros::find(59)->modificadoPor;
     //return App\Models\Departamentos::find(14)->municipios()->get();
     return App\Models\Departamentos::with('municipios')->get();
     return App\Models\Areas::all();

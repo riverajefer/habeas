@@ -239,7 +239,7 @@
         <div class="seg-titulo"> SUBIR SOPORTE</div>
             <div class="col-md-6">
                 <div class="form-group{{ $errors->has('soporte') ? ' has-error' : '' }}">
-                    <label for="soporte">Soporte</label>
+                    <label for="soporte">Formatos permitidos jpeg, png, jpg, gif, svg, pdf. Tamaño máximo 10 Megas</label>
                     <input type="file" name="soporte" id="soporte">
                     @if ($errors->has('soporte'))
                         <span class="help-block">
