@@ -32,14 +32,13 @@ class RegistrosController extends Controller
     */
     public function dataRegistros()
     {
-        $registros = Registros::query();
+        $registros = Registros::query()->orderBy('id','DESC');
         return Datatables::of($registros)
             ->addColumn('action', function ($registros) {
                 return '
                     <a class="btn btn-link link-info"  href="registros/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="Ver más"><i class="fa fa-eye" aria-hidden="true"></i></a>
                     <a class="btn btn-link link-warning" href="registros/'.$registros->id.'/edit" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                    <a class="btn btn-link link-danger" data-toggle="tooltip" data-placement="top" title="Dar de baja"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                    ';
+                    <a class="btn btn-link link-danger" data-toggle="tooltip" data-placement="top" title="Dar de baja"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
             })        
             ->editColumn('nombre', '<a href="registros/{{$id}}">{{$nombre}}</a>')
             ->editColumn('id', '{{$id}}')

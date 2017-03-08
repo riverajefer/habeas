@@ -27,3 +27,16 @@ Tareas:
 Formulario Login.
 Vuelva a escribir la contraseña
 Crear El Formulario para registros
+
+
+REGISTROS:
+->Modificar
+->Dar de baja
+->Service paralelo Historial de cambios
+->URL DInamica, por categoria
+->Formulario poara área
+->Exportar a Excel
+->Importar registros (carga masiva)
+->Reportes
+->Notificaciòn de cambios al email, del encargado
+->Captura info (Geo IP) Registro

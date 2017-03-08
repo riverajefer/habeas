@@ -28,6 +28,10 @@
                     {{$registro->fecha_nacimiento}}
                 </li>
                 <li class="list-group-item">
+                    <span>Área:</span>  
+                    {{$registro->area->titulo or 'sin seleccionar'}}
+                </li>                
+                <li class="list-group-item">
                     <span>Profesion:</span>  
                     {{$registro->profesion}}
                 </li>
@@ -53,20 +57,40 @@
                 </li>
                 <li class="list-group-item">
                     <span>Departamento:</span>  
-                    {{$registro->nombre}}
+                    {{$registro->municipio->ndepartamento->nombre}}
                 </li>
                 <li class="list-group-item">
                     <span>Ciudad:</span>  
-                    {{$registro->nombre}}
-                </li>                
+                    {{$registro->municipio->nombre_municipio}}
+                </li>
+                <li class="list-group-item">
+                    <span>Soporte:</span>  
+                    @if($registro->archivo_soporte)
+                        <a data-fancybox data-caption="Soporte" href="{{asset('uploads/soportes/'.$registro->archivo_soporte.'')}}"> Ver Soporte </a>
+                    @else
+                       No hay soporte
+                    @endif
+                    
+                </li>                  
                 <li class="list-group-item">
                     <span>Estado::</span>  
-                    {{$registro->estado}}
+                    {{ $registro->estado ? 'Activo': 'Dado de baja'  }}
                 </li>  
             </ul>  
         </div>
     </div>
   </div>
 </div>
-  
 @stop
+
+@push('scripts')
+<script>
+$(function() {
+
+	$("[data-fancybox]").fancybox({
+		// Options will go here
+	});
+
+});
+</script>
+@endpush

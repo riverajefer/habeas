@@ -8,9 +8,12 @@
 <script src="https://cdn.datatables.net/1.10.13/js/dataTables.material.min.js"></script>
 
 <script src="{{ asset('js/moment.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
 <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 <script src="{{ asset('js/ajax-bootstrap-select.js') }}"></script>
+<script src="{{ asset('js/jquery.fancybox.min.js') }}"></script>
+
 
 
 @stack('scripts')

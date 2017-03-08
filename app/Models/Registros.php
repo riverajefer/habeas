@@ -18,9 +18,11 @@ class Registros extends Model
 
 
     public function area(){
+        return $this->belongsTo('App\Models\Areas');
+    }
 
-        return $this->hasOne('App\Models\Area');
-
+    public function municipio(){
+        return $this->hasOne('App\Models\Municipios', 'id');
     }
 
 

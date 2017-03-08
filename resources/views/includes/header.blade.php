@@ -25,8 +25,8 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registros <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="{{URL::to('registros')}}">  <i class="fa fa-list" aria-hidden="true"></i>  Lista</a></li>
-              <li><a href="{{URL::to('registros/create')}}"> <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo Registro</a></li>
+              <li><a href="{{URL::to('registros')}}">  <i class="fa fa-list" aria-hidden="true"></i>  Ver todos los registros</a></li>
+              <li><a href="{{URL::to('registros/create')}}"> <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo registro</a></li>
               <li><a href="#"> <i class="fa fa-history" aria-hidden="true"></i> Historial de cambios</a></li>
             </ul>
           </li>        
@@ -40,8 +40,6 @@
           </li>
         </ul>
       @endif
-
-
 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

@@ -16,6 +16,9 @@
           {{ csrf_field() }}
 
           <div class="row">
+            
+            <div class="seg-titulo"> DATOS PERSONALES </div>
+            
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
                     <label for="nombe">Nombre</label>
@@ -56,7 +59,7 @@
 
 
           <div class="row">
-            <div class="col-md-4">
+             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('tipo_documento') ? ' has-error' : '' }}">
                     <label for="tipo_documento">Tipo documento</label>
                     <select name="tipo_documento" id="tipo_documento" class="form-control">
@@ -93,8 +96,8 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('fecha_nacimiento') ? ' has-error' : '' }}">
                     <label for="fecha">Fecha de nacimiento</label>
-                    <div class='input-group date' id='datetimepicker8'>
-                        <input type='text' class="form-control" name="fecha_nacimiento" placeholder="dd/mm/aaa"  value="{{ old('fecha_nacimiento') }}">
+                    <div class='input-group date'>
+                        <input type='text' id='datetimepicker' class="form-control" name="fecha_nacimiento" placeholder="dd/mm/aaa"  value="{{ old('fecha_nacimiento') }}">
                         <span class="input-group-addon">
                             <span class="fa fa-calendar">
                             </span>
@@ -110,6 +113,25 @@
 
           </div> <!-- /row -->
           <div class="row">
+           <div class="seg-titulo"> DATOS LABORALES </div>
+
+            <div class="col-md-4">
+                <div class="form-group{{ $errors->has('area_id') ? ' has-error' : '' }}">
+                    <label for="area">Área a la que pertenece</label>
+                    <select name="area_id" id="area"  class="form-control" value="{{ old('area') }}" >
+                       <option value="">Seleccione un área</option>
+                        @foreach($areas as $area)
+                            <option value="{{$area->id}}" {{ old('area_id')==$area->id ? 'selected="selected"' : '' }}>{{$area->titulo}}</option>
+                        @endforeach
+                    </select>
+
+                    @if ($errors->has('area_id'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('area_id') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>    
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('profesion') ? ' has-error' : '' }}">
@@ -134,6 +156,10 @@
                     @endif
                 </div>
             </div>             
+        </div><!-- /row -->
+
+
+          <div class="row">
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('empresa') ? ' has-error' : '' }}">
@@ -146,11 +172,6 @@
                     @endif
                 </div>
             </div>   
-
-        </div><!-- /row -->
-
-
-          <div class="row">
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
@@ -176,23 +197,7 @@
                 </div>
             </div>   
 
-            <div class="col-md-4">
-                <div class="form-group{{ $errors->has('area_id') ? ' has-error' : '' }}">
-                    <label for="area">Área a la que pertenece</label>
-                    <select name="area_id" id="area"  class="form-control" value="{{ old('area') }}" >
-                       <option value="">Seleccione un área</option>
-                        @foreach($areas as $area)
-                            <option value="{{$area->id}}" {{ old('area_id')==$area->id ? 'selected="selected"' : '' }}>{{$area->titulo}}</option>
-                        @endforeach
-                    </select>
-
-                    @if ($errors->has('area_id'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('area_id') }}</strong>
-                        </span>
-                    @endif
-                </div>
-            </div>            
+        
 
         </div><!-- /row -->
         <div class="row">
@@ -231,6 +236,7 @@
         </div><!-- /row -->
 
         <div class="row">
+        <div class="seg-titulo"> SUBIR SOPORTE</div>
             <div class="col-md-6">
                 <div class="form-group{{ $errors->has('soporte') ? ' has-error' : '' }}">
                     <label for="soporte">Soporte</label>
@@ -271,8 +277,9 @@
             });
 
             console.log("Create")
-            $('#datetimepicker8').datetimepicker({
-                format: 'DD/MM/YYYY',
+            $('#datetimepicker').datetimepicker({
+                locale: 'es',
+                format: 'YYYY-MM-DD',
                 viewMode: 'years',
                 maxDate : 'now',
                 icons: {
@@ -282,6 +289,8 @@
                     down: "fa fa-arrow-down"
                 }
             });
+
+            // Select anidados
 
             $("#departamento").change(function(){
                 console.log("change");
@@ -301,8 +310,6 @@
 
                 });
             });
-
-
         });
     </script>
 @endpush

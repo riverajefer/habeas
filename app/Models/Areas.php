@@ -17,8 +17,8 @@ class Areas extends Model
            'titulo','user_id'
      ];
 
-  public function user(){
-      return $this->hasOne('App\User', 'id_user_t4', 'user_id');
-  }
+    public function user(){
+        return $this->hasOne('App\User', 'id_user_t4', 'user_id');
+    }
 
 }

@@ -14,4 +14,9 @@ class Municipios extends Model
      */
      protected $table = 'municipios';
 
+     public function ndepartamento(){
+         return $this->belongsTo('App\Models\Departamentos', 'departamento');
+     }
+
+
 }
