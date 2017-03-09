@@ -24,7 +24,7 @@
                     {{$registro->tipo_documento}}
                 </li>                
                 <li class="list-group-item"><span>Número de documento:</span> 
-                    {{$registro->numero_docuemnto}}
+                    {{$registro->numero_documento}}
                 </li>
                 <li class="list-group-item">
                     <span>Fecha de nacimiento:</span>

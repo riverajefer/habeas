@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li role="presentation">
-                <a href="#">
+                <a href="{{URL::route('exportExcel')}}">
                     <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
                         <i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar en Excel
                     </button>  

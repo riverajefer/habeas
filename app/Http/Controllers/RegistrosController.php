@@ -11,6 +11,8 @@ use App\Models\Areas;
 use App\Models\Departamentos;
 use App\Models\Municipios;
 use App\Models\User;
+use Excel;
+
 
 class RegistrosController extends Controller
 {
@@ -73,7 +75,7 @@ class RegistrosController extends Controller
             'primer_apellido'=>'required|string',
             'segundo_apellido'=>'required|string',
             'tipo_documento'=>'required|string',
-            'numero_docuemnto'=>'required|string|numeric',
+            'numero_documento'=>'required|string|numeric',
             'email'=>'required|email',
             'fecha_nacimiento'=>'required|date',
             'profesion'=>'required|string',
@@ -97,7 +99,7 @@ class RegistrosController extends Controller
         $registro->primer_apellido = $request->input('primer_apellido');
         $registro->segundo_apellido = $request->input('segundo_apellido');
         $registro->tipo_documento = $request->input('tipo_documento');
-        $registro->numero_docuemnto = $request->input('numero_docuemnto');
+        $registro->numero_documento = $request->input('numero_documento');
         $registro->email = $request->input('email');
         $registro->fecha_nacimiento = $request->input('fecha_nacimiento');
         $registro->profesion = $request->input('profesion');
@@ -160,7 +162,7 @@ class RegistrosController extends Controller
             'primer_apellido'=>'required|string',
             'segundo_apellido'=>'required|string',
             'tipo_documento'=>'required|string',
-            'numero_docuemnto'=>'required|string|numeric',
+            'numero_documento'=>'required|string|numeric',
             'email'=>'required|email',
             'fecha_nacimiento'=>'required|date',
             'profesion'=>'required|string',
@@ -185,7 +187,7 @@ class RegistrosController extends Controller
         $registro->primer_apellido = $request->input('primer_apellido');
         $registro->segundo_apellido = $request->input('segundo_apellido');
         $registro->tipo_documento = $request->input('tipo_documento');
-        $registro->numero_docuemnto = $request->input('numero_docuemnto');
+        $registro->numero_documento = $request->input('numero_docuemnto');
         $registro->email = $request->input('email');
         $registro->fecha_nacimiento = $request->input('fecha_nacimiento');
         $registro->profesion = $request->input('profesion');
@@ -227,6 +229,26 @@ class RegistrosController extends Controller
         return $departamentos = Departamentos::findOrFail($request->input('id'))->municipios()->get();
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function exportExcel()
+    {
 
+        $excel = \App::make('excel');
+
+        Excel::create('Registros', function($excel) {
+ 
+            $excel->sheet('Registros', function($sheet) {
+
+                $registros = Registros::all();
+                $sheet->freezeFirstRow();
+                $sheet->loadView('registros.excel')->with('registros', $registros);
+ 
+            });
+        })->export('xls');
+    }
 
 }

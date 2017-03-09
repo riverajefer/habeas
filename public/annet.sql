@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-03-2017 a las 22:39:17
+-- Tiempo de generación: 09-03-2017 a las 04:36:26
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -4621,7 +4621,7 @@ CREATE TABLE `registros` (
   `primer_apellido` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `segundo_apellido` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `tipo_documento` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `numero_docuemnto` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `numero_documento` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `fecha_nacimiento` date DEFAULT NULL,
   `profesion` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cargo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -4643,7 +4643,7 @@ CREATE TABLE `registros` (
 -- Volcado de datos para la tabla `registros`
 --
 
-INSERT INTO `registros` (`id`, `nombre`, `primer_apellido`, `segundo_apellido`, `tipo_documento`, `numero_docuemnto`, `fecha_nacimiento`, `profesion`, `cargo`, `empresa`, `telefono`, `email`, `municipio_id`, `archivo_soporte`, `area_id`, `estado`, `procedencia`, `creado_por`, `modificado_por`, `created_at`, `updated_at`) VALUES
+INSERT INTO `registros` (`id`, `nombre`, `primer_apellido`, `segundo_apellido`, `tipo_documento`, `numero_documento`, `fecha_nacimiento`, `profesion`, `cargo`, `empresa`, `telefono`, `email`, `municipio_id`, `archivo_soporte`, `area_id`, `estado`, `procedencia`, `creado_por`, `modificado_por`, `created_at`, `updated_at`) VALUES
 (1, 'Antonette Reinger', 'Gusikowski', 'Muller', 'PhD', '7142356898', '1976-03-27', 'Logging Supervisor', 'Advanced zerodefect help-desk', 'Romaguera Ltd', '5928884338', 'randal17@ernser.com', 0, '', 0, 0, '0', 0, 0, '2017-03-02 18:00:57', '2017-03-02 18:00:57'),
 (2, 'Ms. Genevieve Stroman', 'Rippin', 'Parisian', 'MD', '6116728308', '1976-08-29', 'Forest and Conservation Technician', 'Robust maximized opensystem', 'Kshlerin PLC', '6809000615', 'ykunze@blanda.info', 0, '', 0, 0, '0', 0, 0, '2017-03-02 18:00:57', '2017-03-02 18:00:57'),
 (3, 'Aliza Ullrich', 'Dooley', 'Veum', 'I', '1947434071', '1978-07-19', 'Janitor', 'Realigned context-sensitive GraphicInterface', 'Williamson-Lemke', '9886264918', 'bertrand94@yahoo.com', 0, '', 0, 0, '0', 0, 0, '2017-03-02 18:00:57', '2017-03-02 18:00:57'),
@@ -6088,7 +6088,7 @@ ALTER TABLE `position_t9`
 --
 ALTER TABLE `registros`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `registros_numero_docuemnto_unique` (`numero_docuemnto`),
+  ADD UNIQUE KEY `registros_numero_docuemnto_unique` (`numero_documento`),
   ADD UNIQUE KEY `registros_email_unique` (`email`);
 
 --

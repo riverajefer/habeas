@@ -102,7 +102,8 @@ return [
     |
     */
 
-    'cache_tags' => ['torann-geoip-location'],
+    'cache_tags' => null,
+    //'cache_tags' => ['torann-geoip-location'],
 
     /*
     |--------------------------------------------------------------------------

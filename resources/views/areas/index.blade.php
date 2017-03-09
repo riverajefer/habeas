@@ -17,13 +17,6 @@
                     </button>
                 </a> 
             </li>
-            <li role="presentation">
-                <a href="#">
-                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                        <i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar en Excel
-                    </button>  
-                </a>
-            </li>
         </ul>
         </div>
             @if ($message = Session::get('success'))

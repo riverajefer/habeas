@@ -83,12 +83,12 @@
             </div>
 
             <div class="col-md-4">
-                <div class="form-group{{ $errors->has('numero_docuemnto') ? ' has-error' : '' }}">
-                    <label for="numero_docuemnto">Número de documento</label>
-                    <input type="text" class="form-control" id="numero_docuemnto" name="numero_docuemnto" placeholder="Número de docuemnto" value="{{ $registro->numero_docuemnto }}">
-                    @if ($errors->has('numero_docuemnto'))
+                <div class="form-group{{ $errors->has('numero_documento') ? ' has-error' : '' }}">
+                    <label for="numero_documento">Número de documento</label>
+                    <input type="text" class="form-control" id="numero_documento" name="numero_documento" placeholder="Número de docuemnto" value="{{ $registro->numero_documento }}">
+                    @if ($errors->has('numero_documento'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('numero_docuemnto') }}</strong>
+                            <strong>{{ $errors->first('numero_documento') }}</strong>
                         </span>
                     @endif
                 </div>

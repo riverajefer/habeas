@@ -18,7 +18,7 @@ class Registros extends Model
         'primer_apellido',
         'segundo_apellido',
         'tipo_documento',
-        'numero_docuemnto',
+        'numero_documento',
         'fecha_nacimiento',
         'profesion',
         'cargo',

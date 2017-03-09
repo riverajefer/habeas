@@ -162,6 +162,8 @@ return [
         Sven\ArtisanView\ArtisanViewServiceProvider::class,
         Torann\GeoIP\GeoIPServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        hisorange\BrowserDetect\Provider\BrowserDetectService::class,
+
 
     ],
 
@@ -212,7 +214,9 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
         'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,        
+        'Html' => Collective\Html\HtmlFacade::class,    
+        'BrowserDetect' => hisorange\BrowserDetect\Facade\Parser::class,
+    
 
     ],
 

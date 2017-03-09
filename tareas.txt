@@ -31,12 +31,12 @@ Crear El Formulario para registros
 
 REGISTROS:
 ->Roles permisos
-->Modificar
-->Dar de baja
+->Modificar Registro
+->Dar de baja Registro
 ->Service paralelo Historial de cambios
-->URL DInamica, por categoria
-->Formulario poara área
-->Exportar a Excel
+->URL Dinamica, por categoria
+->Formulario por área
+->Exportar a Excel =>OKA
 ->Importar registros (carga masiva)
 ->Reportes
 ->Notificaciòn de cambios al email, del encargado

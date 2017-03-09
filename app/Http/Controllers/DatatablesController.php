@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\User;
+use App\Models\User;
+use App\Models\Areas;
+use App\Models\Registros;
 use Datatables;
 
 use Dompdf\Dompdf;
@@ -38,24 +40,37 @@ class DatatablesController extends Controller
 
 
 
-
-
-
-
-
-
-
-
-
-    public function pdf(){
+  public function pdf(){
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML('<h1>Test</h1>');
         return $pdf->stream();
     }
 
     public function excel(){
+
+
         $excel = \App::make('excel');
 
+
+        Excel::create('Laravel Excel', function($excel) {
+ 
+            $excel->sheet('Registros', function($sheet) {
+
+
+                $registros = Registros::all();
+                $sheet->freezeFirstRow();
+                $sheet->loadView('registros.excel')->with('registros', $registros);
+
+ 
+               
+               // $sheet->fromArray($registros);
+ 
+            });
+        })->export('xls');
+
+
+
+/*
 
         Excel::create('Filename', function($excel) {
 
@@ -67,8 +82,10 @@ class DatatablesController extends Controller
 
         })->export('xls');
 
+*/
     }
 
 
 
 }
+

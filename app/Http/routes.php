@@ -25,7 +25,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('registros.data','RegistrosController@dataRegistros')->name('dataRegistros');
 
     Route::post('municipios','RegistrosController@municipios')->name('municipios');
-
+    Route::get('registros.excel','RegistrosController@exportExcel')->name('exportExcel');
 
     Route::resource('areas', 'AreasController', ['except' => ['index']]);
     Route::get('areas','AreasController@index')->name('areas');
@@ -41,6 +41,10 @@ Route::group(['middleware'=>'auth'], function(){
 });
 
 Route::get('test', function(){
+
+    return BrowserDetect::browserName();
+
+    return json_encode(array_values((array)geoip()));
 
     return App\Models\Registros::find(59)->modificadoPor;
     //return App\Models\Departamentos::find(14)->municipios()->get();
