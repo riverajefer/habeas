@@ -29,21 +29,19 @@ class AreasController extends Controller
     public function dataAreas()
     {
 
-        $areas = Areas::with('user')->select('areas.*')->orderBy('id','DESC');
+        $areas = Areas::with('user')->select('areas.*');
         //$areas = Areas::query();
         return Datatables::of($areas)
             ->addColumn('action', function ($areas) {
                 return '
-                    <a class="btn btn-link link-info"  href="areas/'.$areas->id.'" data-toggle="tooltip" data-placement="top" title="Ver más"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a class="btn btn-link link-warning" href="areas/'.$areas->id.'/edit" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                    <a class="btn btn-link link-danger" data-toggle="tooltip" data-placement="top" title="Dar de baja"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    <a class="btn btn-xs btn-link link-warning" href="areas/'.$areas->id.'/edit" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a class="btn btn-xs btn-link link-danger" data-toggle="tooltip" data-placement="top" title="Dar de baja"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                     ';
             })        
-            ->editColumn('titulo', '<a href="areas/{{$id}}">{{$titulo}}</a>')
-            ->editColumn('id', '{{$id}}')->make(true);
+            ->editColumn('titulo', '{{$titulo}}')
+            ->editColumn('slug', '<a href="{{URL::to("formulario/".$slug)}}" target="_blank">Ver enlace</a>')->make(true);
             
     }
-
 
 
     /**
@@ -66,8 +64,15 @@ class AreasController extends Controller
     {
         $this->validate($request,[
             'titulo'=>'required|string',
+            'user_id'=>'required',
         ]);
-        Areas::create($request->all());
+        $area = new Areas();
+        $area->titulo   = $request->input('titulo');
+        $area->user_id  = $request->input('user_id');
+        $area->slug     = str_slug($request->input('titulo'));
+        $area->save();
+
+        //Areas::create($request->all());
         return redirect('areas')->with('success','Registro creado correctamente');
     }
 

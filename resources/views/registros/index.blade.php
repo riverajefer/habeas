@@ -65,7 +65,8 @@ $(function() {
     $('#registros-table').DataTable({
         "language": {
             "url": '//cdn.datatables.net/plug-ins/1.10.13/i18n/Spanish.json'
-        },      
+        },
+         order: [ [0, 'desc'] ],      
         processing: true,
         serverSide: true,
         ajax: '{!! route('dataRegistros') !!}',

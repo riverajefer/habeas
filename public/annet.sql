@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-03-2017 a las 04:36:26
+-- Tiempo de generación: 09-03-2017 a las 22:57:25
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -30,6 +30,7 @@ CREATE TABLE `areas` (
   `id` int(10) UNSIGNED NOT NULL,
   `titulo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` int(11) NOT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -38,13 +39,15 @@ CREATE TABLE `areas` (
 -- Volcado de datos para la tabla `areas`
 --
 
-INSERT INTO `areas` (`id`, `titulo`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'Comercial Diagnóstica', 2, NULL, NULL),
-(2, 'Comercial', 2, '2017-03-06 20:31:46', '2017-03-06 20:31:46'),
-(3, 'Mercadeo', 2, '2017-03-06 21:33:10', '2017-03-06 21:33:10'),
-(4, 'Mercadeo', 3, '2017-03-06 21:34:15', '2017-03-06 21:34:15'),
-(5, 'Soporte', 5, '2017-03-06 21:34:54', '2017-03-06 21:34:54'),
-(6, 'Nueva area', 9, '2017-03-07 15:28:09', '2017-03-07 15:28:09');
+INSERT INTO `areas` (`id`, `titulo`, `user_id`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'Mercadeo', 2, 'mercadeo', '2017-03-09 21:31:18', '2017-03-09 21:31:56'),
+(2, 'Financiera', 3, 'financiera', '2017-03-09 21:31:42', '2017-03-09 21:31:42'),
+(3, 'Soporte Técnico', 2, 'soporte-tecnico', '2017-03-09 21:32:21', '2017-03-09 21:32:21'),
+(4, 'Veterinaria', 2, 'veterinaria', '2017-03-09 21:32:54', '2017-03-09 21:32:54'),
+(5, 'Industria', 2, 'industria', '2017-03-09 21:33:05', '2017-03-09 21:33:05'),
+(6, 'Diagnóstica', 2, 'diagnostica', '2017-03-09 21:34:35', '2017-03-09 21:34:35'),
+(7, 'Biología Molecular', 2, 'biologia-molecular', '2017-03-09 21:35:44', '2017-03-09 21:35:44'),
+(8, 'Banco de Sangre', 2, 'banco-de-sangre', '2017-03-09 21:36:18', '2017-03-09 21:36:18');
 
 -- --------------------------------------------------------
 
@@ -6142,7 +6145,7 @@ ALTER TABLE `usuarios_envioinfo_t0`
 -- AUTO_INCREMENT de la tabla `areas`
 --
 ALTER TABLE `areas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `company_t14`
 --

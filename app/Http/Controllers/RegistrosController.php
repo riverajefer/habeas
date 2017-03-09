@@ -34,7 +34,8 @@ class RegistrosController extends Controller
     */
     public function dataRegistros()
     {
-        $registros = Registros::query()->orderBy('id','DESC');
+        $registros = Registros::query();
+        //$registros = Registros::query()->orderBy('id','DESC');
         return Datatables::of($registros)
             ->addColumn('action', function ($registros) {
                 return '
@@ -43,10 +44,8 @@ class RegistrosController extends Controller
                     <a class="btn btn-link link-danger" data-toggle="tooltip" data-placement="top" title="Dar de baja"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
             })        
             ->editColumn('nombre', '<a href="registros/{{$id}}">{{$nombre}}</a>')
-            ->editColumn('id', '{{$id}}')
             ->removeColumn('password')->make(true);
     }
-
 
     /**
      * Show the form for creating a new resource.

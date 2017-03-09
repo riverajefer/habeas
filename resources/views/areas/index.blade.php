@@ -31,7 +31,9 @@
                     <tr>
                         <th>Id</th>
                         <th>Titulo</th>
+                        <th>Enlace</th>
                         <th>Persona encargada</th>
+                        <th>Email</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -56,7 +58,9 @@ $(function() {
         columns: [
             { data: 'id', name: 'id' },
             { data: 'titulo', name: 'titulo' },
+            { data: 'slug', name: 'slug' },
             { data: 'user.nombre', name: 'user.nombre' },
+            { data: 'user.email', name: 'user.email' },
             { data: 'action', name: 'action', orderable: false, searchable: false}
         ],
     });

@@ -4,14 +4,14 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>AnnarNet Habeas</title>
+        <title>FORMULARIO</title>
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">    
     
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
 
         <!-- Styles -->
-        @include('../includes/styles')
+        @include('../includes/publico/styles')
         
         <script>
             window.Laravel = {!! json_encode([
@@ -22,7 +22,7 @@
 
     <body>
         <!-- Header -->
-        @include('../includes/header')  
+        @include('../includes/publico/header')  
 
         <!-- Content -->
         <div class="container">
@@ -30,6 +30,6 @@
         </div>
 
         <!-- Scripts -->
-        @include('../includes/scripts')
+        @include('../includes/publico/scripts')
     </body>
 </html>

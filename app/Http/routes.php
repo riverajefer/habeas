@@ -42,6 +42,8 @@ Route::group(['middleware'=>'auth'], function(){
 
 Route::get('test', function(){
 
+    return $title = str_slug('Diagnóstica', '-');
+
     return BrowserDetect::browserName();
 
     return json_encode(array_values((array)geoip()));
@@ -54,3 +56,10 @@ Route::get('test', function(){
     $areas =  App\Areas::find(1);
     return $areas->user()->get();
 });
+
+
+/**
+* RUTAS PUBLICAS
+*
+*/
+Route::get('formulario/{slug}', 'FormularioController@formulario');

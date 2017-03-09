@@ -44,8 +44,6 @@ REGISTROS:
 ->Mejorar el show de Registros
 
 
-
-
 Historial de cambios
 
 Registro actual debe quedar
@@ -70,3 +68,13 @@ Se guarda en el historial el actual
 Y se actualiza, 
 
 
+_______________________________________
+AREAS.
+->Crear el slug
+->rutas slug
+->Formulario publico
+
+->Permisos Modulo Habeas data
+
+
+FORMULARIO PARA DAR DE BAJA
