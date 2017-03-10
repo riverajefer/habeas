@@ -6,6 +6,8 @@
     <link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css"/ rel="stylesheet" >
     <link href="{{ asset('css/jquery.fancybox.min.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
     <!-- <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet"> -->
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

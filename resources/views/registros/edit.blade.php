@@ -13,7 +13,7 @@
 
       <!--   <form action="{{ route('registros.store') }}" role="form" method="POST" enctype="multipart/form-data"> -->
 
-        {!! Form::model($registro, ['method' => 'PATCH','route' => ['registros.update', $registro->id]]) !!}
+        {!! Form::model($registro, ['method' => 'PATCH','route' => ['registros.update', $registro->id], 'enctype'=>"multipart/form-data"  ]) !!}
 
           {{ csrf_field() }}
 
@@ -65,13 +65,12 @@
                 <div class="form-group{{ $errors->has('tipo_documento') ? ' has-error' : '' }}">
                     <label for="tipo_documento">Tipo documento</label>
                     <select name="tipo_documento" id="tipo_documento" class="form-control">
-                        <option selected="selected" value="1">Cédula de Ciudadanía</option>
-                        <option value="2">Cédula de Extranjería</option>
-                        <option value="3">NIT</option>
-                        <option value="5">Tarjeta de Identidad</option>
-                        <option value="6">Registro Civil</option>
-                        <option value="7">Pasaporte</option>
-                        <option value="8">Carné Diplomático</option>
+                        <option selected="selected" value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
+                        <option value="NIT">NIT</option>
+                        <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
+                        <option value="Registro Civil">Registro Civil</option>
+                        <option value="Pasaporte">Pasaporte</option>
+                        <option value="Carné Diplomático">Carné Diplomático</option>
                     </select>
 
                     @if ($errors->has('tipo_documento'))
@@ -83,12 +82,12 @@
             </div>
 
             <div class="col-md-4">
-                <div class="form-group{{ $errors->has('numero_documento') ? ' has-error' : '' }}">
-                    <label for="numero_documento">Número de documento</label>
-                    <input type="text" class="form-control" id="numero_documento" name="numero_documento" placeholder="Número de docuemnto" value="{{ $registro->numero_documento }}">
-                    @if ($errors->has('numero_documento'))
+                <div class="form-group{{ $errors->has('doc') ? ' has-error' : '' }}">
+                    <label for="doc">Número de documento</label>
+                    <input type="text" class="form-control" id="doc" name="doc" placeholder="Número de docuemnto" value="{{ $registro->doc }}">
+                    @if ($errors->has('doc'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('numero_documento') }}</strong>
+                            <strong>{{ $errors->first('doc') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -121,13 +120,8 @@
                 <div class="form-group{{ $errors->has('area_id') ? ' has-error' : '' }}">
                     <label for="area">Área a la que pertenece</label>
                     <select name="area_id" id="area"  class="form-control" value="{{ old('area') }}" >
-                       <option value="">Seleccione un área</option>
                         @foreach($areas as $area)
-                            @if(count($registro->area>0))
-                                <option value="{{$area->id}}">{{$area->titulo}}</option>
-                            @else
-                                <option value="{{$area->id}}" {{ $registro->area_id==$area->id ? 'selected="selected"' : '' }}>{{$area->titulo}}</option>
-                            @endif
+                            <option value="{{$area->id}}" {{ $registro->area_id==$area->id ? 'selected="selected"' : '' }}>{{$area->titulo}}</option>
                         @endforeach
                     </select>
 
@@ -209,13 +203,8 @@
                 <div class="form-group{{ $errors->has('departamento_id') ? ' has-error' : '' }}">
                     <label for="departamento">Departamento</label>
                     <select name="departamento_id" id="departamento" class="form-control" >
-                        <option value="">Seleccione un departamento</option>
                         @foreach($departamentos as $departamento)
-                            @if(count($registro->municipio<0))
-                                 <option value="{{$departamento->id}}" >{{$departamento->nombre}}</option>
-                            @else
-                                 <option value="{{$departamento->id}}"  {{ $registro->municipio->departamento==$departamento->id ? 'selected="selected"' : '' }} >{{$departamento->nombre}}</option>
-                            @endif
+                             <option value="{{$departamento->id}}"  {{ $registro->municipio->departamento==$departamento->id ? 'selected="selected"' : '' }} >{{$departamento->nombre}}</option>
                         @endforeach
                     </select>
                     @if ($errors->has('departamento_id'))
@@ -243,7 +232,7 @@
         </div><!-- /row -->
 
         <div class="row">
-        <div class="seg-titulo"> SUBIR SOPORTE</div>
+        <div class="seg-titulo">MODIFICAR SOPORTE</div>
             <div class="col-md-6">
                 <div class="form-group{{ $errors->has('soporte') ? ' has-error' : '' }}">
                     <label for="soporte">Formatos permitidos jpeg, png, jpg, gif, svg, pdf. Tamaño máximo 10 Megas</label>
@@ -268,6 +257,8 @@
             </div>              
         </div> <!-- /row -->
         <input type="hidden" value="Administración" name="procedencia">
+        <input type="hidden" value="{{$registro->archivo_soporte}}" name="archivo_soporte">
+        
 
         </form>
     </div>

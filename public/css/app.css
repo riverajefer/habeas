@@ -126,3 +126,17 @@ label {
 .table_complet>thead>tr>th{
     font-size: 13px !important;
 }
+
+.dtr-details tr{
+    border-bottom: 1px solid #E6E6E6;
+    padding: 10px 0px;
+}
+
+
+.dtr-details tr td{
+   padding: 5px 0px;
+}
+.Activo{
+    background-color: #5cb85c !important;
+    color:#fff !important;
+}

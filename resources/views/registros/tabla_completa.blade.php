@@ -33,9 +33,9 @@
                 </a>
             </li>
             <li role="presentation">
-                <a href="{{URL::route('registrosTablaCompleta')}}">
+                <a href="{{URL::route('registros')}}">
                     <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                        <i class="fa fa-table" aria-hidden="true"></i> Ver tabla completa
+                        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Volver
                     </button>  
                 </a>
             </li>            
@@ -48,7 +48,7 @@
                 </div>
             @endif          
          <div class="table-responsive">        
-            <table class="table table-striped table-bordered table-hover table-condensed table_complet" id="registros-table">
+            <table class="table table-striped table-bordered table-hover table-condensed display responsive nowrap" cellspacing="0" width="100%" id="registros-table">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -63,6 +63,14 @@
                         <th>Email</th>
                         <th>Teléfono</th>
                         <th>Área</th>
+                        <th>Departamento</th>
+                        <th>Ciudad</th>
+                        <th>Soporte</th>
+                        <th>Procedencia</th>
+                        <th>Creado Por</th>
+                        <th>Modificado Por</th>
+                        <th>Fecha de creación</th>
+                        <th>Fecha de modificación</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -76,10 +84,12 @@
 
 @push('scripts')
 <script>
-$(".rtable").parents('.container').css("width", "100%");
+//$(".rtable").parents('.container').css("width", "100%");
 
 
 $(function() {
+
+    $.fn.dataTable.ext.errMode = 'none';
     $('#registros-table').DataTable({
         "language": {
             "url": '//cdn.datatables.net/plug-ins/1.10.13/i18n/Spanish.json'
@@ -94,17 +104,47 @@ $(function() {
             { data: 'primer_apellido', name: 'primer_apellido' },
             { data: 'segundo_apellido', name: 'segundo_apellido' },
             { data: 'tipo_documento', name: 'tipo_documento' },
-            { data: 'numero_documento', name: 'numero_documento' },
+            { data: 'doc', name: 'doc' },
             { data: 'fecha_nacimiento', name: 'fecha_nacimiento' },
             { data: 'profesion', name: 'profesion' },
             { data: 'cargo', name: 'cargo' },
             { data: 'email', name: 'email' },
             { data: 'telefono', name: 'telefono' },
             { data: 'area.titulo', name: 'area.titulo' },
+            { data: 'municipio.ndepartamento.nombre', name: 'municipio.ndepartamento.nombre' },
+            { data: 'municipio.nombre_municipio', name: 'municipio.nombre_municipio' },
+            { data: 'soporte', name: 'soporte' },
+            { data: 'procedencia', name: 'procedencia' },
+            { data: 'creado_por.nombre', name: 'creado_por.nombre'},
+            { data: 'modificado_por', name: 'modificado_por'},
+            { data: 'created_at', name: 'created_at' },
+            { data: 'updated_at', name: 'updated_at' },
             { data: 'action', name: 'action', orderable: false, searchable: false}
         ],
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal( {
+                    header: function ( row ) {
+                        console.log("row: ", row);
+                        var data = row.data();
+                        //return 'Details for '+data[0]+' '+data[1];
+                        return 'Detalles del registro';
+                    }
+                } ),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
+                    tableClass: 'table'
+                } )
+            }
+        }
+        
     });
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+
+	$("[data-fancybox]").fancybox({
+		// Options will go here
+	});
+
+
 });
 </script>
 @endpush

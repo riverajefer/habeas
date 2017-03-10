@@ -12,6 +12,7 @@ use App\Models\Departamentos;
 use App\Models\Municipios;
 use App\Models\User;
 use Excel;
+use Auth;
 
 
 class RegistrosController extends Controller
@@ -75,7 +76,7 @@ class RegistrosController extends Controller
             'primer_apellido'=>'required|string',
             'segundo_apellido'=>'required|string',
             'tipo_documento'=>'required|string',
-            'numero_documento'=>'required|string|numeric',
+            'doc'=>'required|string|numeric',
             'email'=>'required|email',
             'fecha_nacimiento'=>'required|date',
             'profesion'=>'required|string',
@@ -99,7 +100,7 @@ class RegistrosController extends Controller
         $registro->primer_apellido = $request->input('primer_apellido');
         $registro->segundo_apellido = $request->input('segundo_apellido');
         $registro->tipo_documento = $request->input('tipo_documento');
-        $registro->numero_documento = $request->input('numero_documento');
+        $registro->doc = $request->input('doc');
         $registro->email = $request->input('email');
         $registro->fecha_nacimiento = $request->input('fecha_nacimiento');
         $registro->profesion = $request->input('profesion');
@@ -110,6 +111,7 @@ class RegistrosController extends Controller
         $registro->municipio_id = $request->input('municipio_id');
         $registro->area_id = $request->input('area_id');
         $registro->procedencia = $request->input('procedencia');
+        $registro->creado_por = Auth::user()->id;
         $registro->estado = 1;
         $registro->save();
 
@@ -162,7 +164,7 @@ class RegistrosController extends Controller
             'primer_apellido'=>'required|string',
             'segundo_apellido'=>'required|string',
             'tipo_documento'=>'required|string',
-            'numero_documento'=>'required|string|numeric',
+            'doc'=>'required|string|numeric',
             'email'=>'required|email',
             'fecha_nacimiento'=>'required|date',
             'profesion'=>'required|string',
@@ -175,11 +177,13 @@ class RegistrosController extends Controller
             'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000',            
         ]);
 
-        $soporte = '';
+        $soporte = $request->input('archivo_soporte');
+
 
         if($request->soporte){
             $soporte = time().'.'.$request->soporte->getClientOriginalExtension();
             $request->soporte->move(public_path('uploads/soportes'), $soporte);
+            $soporte = $soporte;
         }
 
         $registro = Registros::findOrFail($id);
@@ -187,7 +191,7 @@ class RegistrosController extends Controller
         $registro->primer_apellido = $request->input('primer_apellido');
         $registro->segundo_apellido = $request->input('segundo_apellido');
         $registro->tipo_documento = $request->input('tipo_documento');
-        $registro->numero_documento = $request->input('numero_docuemnto');
+        $registro->doc = $request->input('doc');
         $registro->email = $request->input('email');
         $registro->fecha_nacimiento = $request->input('fecha_nacimiento');
         $registro->profesion = $request->input('profesion');
@@ -199,6 +203,7 @@ class RegistrosController extends Controller
         $registro->area_id = $request->input('area_id');
         $registro->procedencia = $request->input('procedencia');
         $registro->estado = 1;
+        $registro->modificado_por = Auth::user()->id;
         $registro->save();
 
         return redirect('registros')->with('success','Registro actualizado correctamente');
@@ -272,14 +277,19 @@ class RegistrosController extends Controller
     public function dataRegistrosTablaCompleta()
     {
         //$registros = Registros::query();
-        $registros = Registros::with('area')->get();
+        $registros = Registros::with('area')->with('municipio')->with('municipio.ndepartamento')->with('creadoPor')->with('modificadoPor')->get();
 
         return Datatables::of($registros)
             ->addColumn('action', function ($registros) {
                 return '
                     <a class="btn btn-xs btn-link link-info"  href="registros/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="Ver más"><i class="fa fa-cog" aria-hidden="true"></i></a>';
-            })        
+            })
             ->editColumn('nombre', '<a href="registros/{{$id}}">{{$nombre}}</a>')
+            ->editColumn('soporte', '<a data-fancybox data-caption="Soporte" href="{{URL::to("uploads/soportes/$archivo_soporte")}}"> {{ $archivo_soporte? "soporte" : ""  }} </a>')
+            //->editColumn('modificado_por.nombre', '{{$modificado_por? "$modificado_por->nombre": ""}}')
+            ->addColumn('modificado_por', function ($registros) {
+                return $registros->modificadoPor? $registros->modificadoPor->nombre: '';
+            })            
             ->removeColumn('password')->make(true);
     }
 

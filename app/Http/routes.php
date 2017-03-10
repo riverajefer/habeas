@@ -48,8 +48,8 @@ Route::group(['middleware'=>'auth'], function(){
 
 Route::get('test', function(){
 
-
-    return App\Models\Registros::with('area')->get();
+    return Auth::user()->id;
+    return App\Models\Registros::with('area')->with('municipio')->with('municipio.ndepartamento')->get();
     return $title = str_slug('Diagnóstica', '-');
 
     return BrowserDetect::browserName();
@@ -71,3 +71,4 @@ Route::get('test', function(){
 *
 */
 Route::get('formulario/{slug}', 'FormularioController@formulario');
+Route::post('formulario/guardar', 'FormularioController@guardarFormulario');

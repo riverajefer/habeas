@@ -29,7 +29,7 @@
                     <td>{{$registro->primer_apellido}}</td>
                     <td>{{$registro->segundo_apellido}}</td>
                     <td>{{$registro->tipo_documento}}</td>
-                    <td>{{$registro->numero_documento}}</td>
+                    <td>{{$registro->doc}}</td>
                     <td>{{$registro->fecha_nacimiento}}</td>
                     <td>{{$registro->profesion}}</td>
                     <td>{{$registro->cargo}}</td>
