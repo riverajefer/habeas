@@ -27,6 +27,12 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('municipios','RegistrosController@municipios')->name('municipios');
     Route::get('registros.excel','RegistrosController@exportExcel')->name('exportExcel');
 
+    // Tabla completa
+    Route::get('reg/tabla_completa','RegistrosController@tablaCompleta')->name('registrosTablaCompleta');
+    Route::get('reg.tabla_completa','RegistrosController@dataRegistrosTablaCompleta')->name('dataRegistrosTablaCompleta');
+
+
+
     Route::resource('areas', 'AreasController', ['except' => ['index']]);
     Route::get('areas','AreasController@index')->name('areas');
     Route::get('areas.data','AreasController@dataAreas')->name('dataAreas');
@@ -42,6 +48,8 @@ Route::group(['middleware'=>'auth'], function(){
 
 Route::get('test', function(){
 
+
+    return App\Models\Registros::with('area')->get();
     return $title = str_slug('Diagnóstica', '-');
 
     return BrowserDetect::browserName();

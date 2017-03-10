@@ -34,8 +34,9 @@ class RegistrosController extends Controller
     */
     public function dataRegistros()
     {
-        $registros = Registros::query();
-        //$registros = Registros::query()->orderBy('id','DESC');
+        //$registros = Registros::query();
+        $registros = Registros::with('area')->get();
+
         return Datatables::of($registros)
             ->addColumn('action', function ($registros) {
                 return '
@@ -249,5 +250,39 @@ class RegistrosController extends Controller
             });
         })->export('xls');
     }
+
+
+    /**
+     * TABLA COMPLETA 
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function tablaCompleta()
+    {
+        return view('registros.tabla_completa');
+    }
+
+
+    /**
+    * Process datatables ajax request.
+    *
+    * @return \Illuminate\Http\JsonResponse
+    */
+    public function dataRegistrosTablaCompleta()
+    {
+        //$registros = Registros::query();
+        $registros = Registros::with('area')->get();
+
+        return Datatables::of($registros)
+            ->addColumn('action', function ($registros) {
+                return '
+                    <a class="btn btn-xs btn-link link-info"  href="registros/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="Ver más"><i class="fa fa-cog" aria-hidden="true"></i></a>';
+            })        
+            ->editColumn('nombre', '<a href="registros/{{$id}}">{{$nombre}}</a>')
+            ->removeColumn('password')->make(true);
+    }
+
+
 
 }

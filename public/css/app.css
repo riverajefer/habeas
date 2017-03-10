@@ -119,4 +119,10 @@ label {
     font-size: 12px;
 }
 
+.table_complet>tbody>tr>td{
+    font-size: 12px !important;
+}
 
+.table_complet>thead>tr>th{
+    font-size: 13px !important;
+}

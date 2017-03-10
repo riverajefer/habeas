@@ -1,8 +1,9 @@
 @extends('layouts.master')
 @section('content')
 
+
 <br> 
-<div class="row">
+<div class="row rtable">
     <div class="col-md-12">
         <div class="panel panel-default">
         <div class="panel-heading">
@@ -47,12 +48,18 @@
                 </div>
             @endif          
          <div class="table-responsive">        
-            <table class="table table-striped table-bordered table-hover mdl-data-table" id="registros-table">
+            <table class="table table-striped table-bordered table-hover table-condensed table_complet" id="registros-table">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Nombre</th>
-                        <th>Apellido</th>
+                        <th>Primer apellido</th>
+                        <th>Segundo apellido</th>
+                        <th>Tipo Doc</th>
+                        <th>Doc</th>
+                        <th>Fecha nacimiento</th>
+                        <th>Profesión</th>
+                        <th>Cargo</th>
                         <th>Email</th>
                         <th>Teléfono</th>
                         <th>Área</th>
@@ -69,6 +76,9 @@
 
 @push('scripts')
 <script>
+$(".rtable").parents('.container').css("width", "100%");
+
+
 $(function() {
     $('#registros-table').DataTable({
         "language": {
@@ -77,11 +87,17 @@ $(function() {
          order: [ [0, 'desc'] ],      
         processing: true,
         serverSide: true,
-        ajax: '{!! route('dataRegistros') !!}',
+        ajax: '{!! route('dataRegistrosTablaCompleta') !!}',
         columns: [
             { data: 'id', name: 'id' },
             { data: 'nombre', name: 'nombre' },
             { data: 'primer_apellido', name: 'primer_apellido' },
+            { data: 'segundo_apellido', name: 'segundo_apellido' },
+            { data: 'tipo_documento', name: 'tipo_documento' },
+            { data: 'numero_documento', name: 'numero_documento' },
+            { data: 'fecha_nacimiento', name: 'fecha_nacimiento' },
+            { data: 'profesion', name: 'profesion' },
+            { data: 'cargo', name: 'cargo' },
             { data: 'email', name: 'email' },
             { data: 'telefono', name: 'telefono' },
             { data: 'area.titulo', name: 'area.titulo' },

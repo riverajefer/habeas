@@ -123,7 +123,11 @@
                     <select name="area_id" id="area"  class="form-control" value="{{ old('area') }}" >
                        <option value="">Seleccione un área</option>
                         @foreach($areas as $area)
-                            <option value="{{$area->id}}" {{ $registro->area_id==$area->id ? 'selected="selected"' : '' }}>{{$area->titulo}}</option>
+                            @if(count($registro->area>0))
+                                <option value="{{$area->id}}">{{$area->titulo}}</option>
+                            @else
+                                <option value="{{$area->id}}" {{ $registro->area_id==$area->id ? 'selected="selected"' : '' }}>{{$area->titulo}}</option>
+                            @endif
                         @endforeach
                     </select>
 
@@ -207,7 +211,11 @@
                     <select name="departamento_id" id="departamento" class="form-control" >
                         <option value="">Seleccione un departamento</option>
                         @foreach($departamentos as $departamento)
-                             <option value="{{$departamento->id}}"  {{ $registro->municipio->departamento==$departamento->id ? 'selected="selected"' : '' }} >{{$departamento->nombre}}</option>
+                            @if(count($registro->municipio<0))
+                                 <option value="{{$departamento->id}}" >{{$departamento->nombre}}</option>
+                            @else
+                                 <option value="{{$departamento->id}}"  {{ $registro->municipio->departamento==$departamento->id ? 'selected="selected"' : '' }} >{{$departamento->nombre}}</option>
+                            @endif
                         @endforeach
                     </select>
                     @if ($errors->has('departamento_id'))
@@ -291,11 +299,11 @@
 
             // Select anidados
             var selec = '';
-            $.post('{!! route('municipios') !!}', {id:{!! $registro->municipio->departamento !!}}, function(data){
+            $.post('{!! route('municipios') !!}', {id: {!!  $registro->municipio->departamento or '1' !!} } , function(data){
                 console.log("retunr data: ", data);
                 if(data.length>0){
                     $.each(data, function(index,value){
-                        if(value.id ==  {!!$registro->municipio->id!!} )
+                        if(value.id ==  {!!$registro->municipio->id or 1!!} )
                         {
                             selec = 'selected';
                         }else{
@@ -304,7 +312,8 @@
                         $("#municipio").append('<option value='+value.id+'  '+selec+'  >'+value.nombre_municipio+'</option>')
                     });
                 }
-            });
+            });            
+
 
             $("#departamento").change(function(){
                 console.log("change");

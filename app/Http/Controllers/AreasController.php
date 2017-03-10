@@ -39,7 +39,7 @@ class AreasController extends Controller
                     ';
             })        
             ->editColumn('titulo', '{{$titulo}}')
-            ->editColumn('slug', '<a href="{{URL::to("formulario/".$slug)}}" target="_blank">Ver enlace</a>')->make(true);
+            ->editColumn('slug', '<a href="{{URL::to("formulario/".$slug)}}" target="_blank">Ver formulario</a>')->make(true);
             
     }
 
