@@ -288,6 +288,91 @@
         </div><!-- /row -->
 
         <div class="row">
+            <div class="seg-titulo"> OTROS DATOS </div>
+
+            <div class="col-md-4">
+                <div class="form-group{{ $errors->has('sn') ? ' has-error' : '' }}">
+                    <label for="sn">SN</label>
+                    <input type="text" class="form-control" id="sn" name="sn" placeholder="SN" value="{{ old('sn') }}" required>
+                    @if ($errors->has('sn'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('sn') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
+             <div class="col-md-4">
+                <div class="form-group{{ $errors->has('asesor_comercial') ? ' has-error' : '' }}">
+                    <label for="asesor_comercial">Asesor comercial</label>
+                    <select name="asesor_comercial" id="asesor_comercial" class="form-control" required>
+                        <option value="0">Seleccione un asesor</option>
+                        <option value="Cliente Activo">Cliente Activo</option>
+                        <option value="Cliente Inactivo">Cliente Inactivo</option>
+                    </select>
+
+                    @if ($errors->has('estado_cliente'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('estado_cliente') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>               
+             <div class="col-md-4">
+                <div class="form-group{{ $errors->has('estado_cliente') ? ' has-error' : '' }}">
+                    <label for="estado_cliente">Estado del cliente</label>
+                    <select name="estado_cliente" id="estado_cliente" class="form-control" required>
+                        <option value="0">Seleccione un estado</option>
+                        <option value="Cliente Activo">Cliente Activo</option>
+                        <option value="Cliente Inactivo">Cliente Inactivo</option>
+                    </select>
+
+                    @if ($errors->has('estado_cliente'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('estado_cliente') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>                            
+        </div><!-- /row -->
+        <div class="row">
+
+             <div class="col-md-4">
+                <div class="form-group{{ $errors->has('tipo_registro') ? ' has-error' : '' }}">
+                    <label for="tipo_registro">Tipo de registro</label>
+                    <select name="tipo_registro" id="tipo_registro" class="form-control" required>
+                        <option value="0">Seleccione el tipo de registro</option>
+                        <option value="Cliente Activo">Cliente Activo</option>
+                        <option value="Cliente Inactivo">Cliente Inactivo</option>
+                    </select>
+
+                    @if ($errors->has('tipo_registro'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('tipo_registro') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div> 
+
+
+        </div><!-- /row -->
+
+        <div class="row">
+             <div class="col-md-6">
+                <div class="form-group{{ $errors->has('comentarios') ? ' has-error' : '' }}">
+                    <label for="comentarios">Comentarios</label>
+                    <textarea name="comentarios" id="comentarios" placeholder="Comentarios" class="form-control" cols="30" rows="5"></textarea>
+        
+
+                    @if ($errors->has('comentarios'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('comentarios') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>         
+        </div><!-- /row -->
+
+        <div class="row">
         <div class="seg-titulo"> SUBIR SOPORTE</div>
             <div class="col-md-6">
                 <div class="form-group{{ $errors->has('soporte') ? ' has-error' : '' }}">

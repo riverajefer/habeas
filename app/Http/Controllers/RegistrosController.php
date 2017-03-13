@@ -100,10 +100,12 @@ class RegistrosController extends Controller
         /*******************************
         Calucla edad, con la fecha
         *******************************/
-        $menor_a_18 = false;
-        $edad = Carbon::parse($request->input('fecha_nacimiento'))->age;
-        if($edad<18){
-            $menor_a_18 = true;
+        if($request->input('fecha_nacimiento')){
+            $menor_a_18 = false;
+            $edad = Carbon::parse($request->input('fecha_nacimiento'))->age;
+            if($edad<18){
+                $menor_a_18 = true;
+            }
         }
 
         $registro = New Registros();
@@ -190,7 +192,6 @@ class RegistrosController extends Controller
         ]);
 
         $soporte = $request->input('archivo_soporte');
-
 
         if($request->soporte){
             $soporte = time().'.'.$request->soporte->getClientOriginalExtension();
