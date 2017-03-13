@@ -78,3 +78,40 @@ AREAS.
 
 
 FORMULARIO PARA DAR DE BAJA
+
+
+/*******************************************
+NUEVOS CAMPOS EN FORMULARIO DE REGISTRO
+*******************************************/
+
+
+SN=> varchar
+Asesor comercial => viene del SAP
+Menor a 18
+Dirección
+Teléfono Fijo corporativo
+Teléfono celular 
+Teléfono celular personal
+Correo electrónico corporativo
+Correo electrónico personal
+Tipo de registro 
+    => Colaborador 
+    => Cliente
+    => Proveedor
+(Cliente Activo / Inactivo)
+Comentarios
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

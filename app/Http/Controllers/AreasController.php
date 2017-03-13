@@ -29,7 +29,7 @@ class AreasController extends Controller
     public function dataAreas()
     {
 
-        $areas = Areas::with('user')->select('areas.*');
+        $areas = Areas::with('m_responsable')->with('m_operario')->select('areas.*');
         //$areas = Areas::query();
         return Datatables::of($areas)
             ->addColumn('action', function ($areas) {
@@ -40,7 +40,6 @@ class AreasController extends Controller
             })        
             ->editColumn('titulo', '{{$titulo}}')
             ->editColumn('slug', '<a href="{{URL::to("formulario/".$slug)}}" target="_blank">Ver formulario</a>')->make(true);
-            
     }
 
 
@@ -64,15 +63,19 @@ class AreasController extends Controller
     {
         $this->validate($request,[
             'titulo'=>'required|string',
-            'user_id'=>'required',
+            'responsable'=>'required',
+            'operario'=>'required',
         ]);
+
+        if ($request->ajax()) return;
+
         $area = new Areas();
-        $area->titulo   = $request->input('titulo');
-        $area->user_id  = $request->input('user_id');
-        $area->slug     = str_slug($request->input('titulo'));
+        $area->titulo       = $request->input('titulo');
+        $area->responsable  = $request->input('responsable');
+        $area->operario     = $request->input('operario');
+        $area->slug         = str_slug($request->input('titulo'));
         $area->save();
 
-        //Areas::create($request->all());
         return redirect('areas')->with('success','Registro creado correctamente');
     }
 
@@ -95,7 +98,10 @@ class AreasController extends Controller
      */
     public function edit($id)
     {
-        $area = Areas::with('user')->get()->find($id);
+        $area = Areas::with('m_operario')->with('m_responsable')->get()->find($id);
+        if(!$area){
+            abort(404);
+        }
         return view('areas.edit', compact('area'));
     }
 
@@ -110,6 +116,8 @@ class AreasController extends Controller
     {
         $this->validate($request,[
             'titulo'=>'required|string',
+            'responsable'=>'required',
+            'operario'=>'required',
         ]);
         Areas::findOrFail($id)->update($request->all());
         return redirect('areas')->with('success','Registro modificado correctamente');

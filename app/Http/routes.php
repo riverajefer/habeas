@@ -1,4 +1,5 @@
 <?php
+use Carbon\Carbon; 
 
 Route::get('/', function () {
 
@@ -47,6 +48,9 @@ Route::group(['middleware'=>'auth'], function(){
 });
 
 Route::get('test', function(){
+
+    //return Carbon::now();
+    return Carbon::parse('2003-01-29')->age;
 
     return Auth::user()->id;
     return App\Models\Registros::with('area')->with('municipio')->with('municipio.ndepartamento')->get();

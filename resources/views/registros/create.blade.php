@@ -111,6 +111,35 @@
             </div>    
 
           </div> <!-- /row -->
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                    <label for="email">Email personal</label>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
+                    @if ($errors->has('email'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>  
+            <div class="col-md-4">
+                <div class="form-group{{ $errors->has('celaular') ? ' has-error' : '' }}">
+                    <label for="celaular">Celaular personal</label>
+                    <input type="text" class="form-control" id="celaular" name="celaular" placeholder="Número de celaular" value="{{ old('celaular') }}" required>
+                    @if ($errors->has('celaular'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('celaular') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>  
+                               
+        </div> <!-- /row -->
+
+
+
           <div class="row">
            <div class="seg-titulo"> DATOS LABORALES </div>
 
@@ -174,7 +203,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
-                    <label for="telefono">Teléfono</label>
+                    <label for="telefono">Teléfono< corporativo</label>
                     <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" value="{{ old('telefono') }}" required>
                     @if ($errors->has('telefono'))
                         <span class="help-block">
@@ -185,22 +214,30 @@
             </div> 
 
             <div class="col-md-4">
-                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email">Email</label>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
-                    @if ($errors->has('email'))
+                <div class="form-group{{ $errors->has('email_corporativo') ? ' has-error' : '' }}">
+                    <label for="email_corporativo">Email Corporativo</label>
+                    <input type="text" class="form-control" id="email_corporativo" name="email_corporativo" placeholder="Email Corporativo" value="{{ old('email_corporativo') }}" required>
+                    @if ($errors->has('email_corporativo'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
+                            <strong>{{ $errors->first('email_corporativo') }}</strong>
                         </span>
                     @endif
                 </div>
             </div>   
 
-        
-
         </div><!-- /row -->
         <div class="row">
-
+            <div class="col-md-4">
+                <div class="form-group{{ $errors->has('celular_corporativo') ? ' has-error' : '' }}">
+                    <label for="celular_corporativo">Celular Corporativo</label>
+                    <input type="text" class="form-control" id="celular_corporativo" name="celular_corporativo" placeholder="Celular Corporativo" value="{{ old('celular_corporativo') }}" required>
+                    @if ($errors->has('celular_corporativo'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('celular_corporativo') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>  
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('departamento_id') ? ' has-error' : '' }}">
                     <label for="departamento">Departamento</label>
@@ -216,7 +253,7 @@
                         </span>
                     @endif
                 </div>
-            </div>   
+            </div>    
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('municipio_id') ? ' has-error' : '' }}">
@@ -230,7 +267,23 @@
                         </span>
                     @endif
                 </div>
-            </div>   
+            </div>                               
+        
+        </div><!-- /row -->
+        
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="form-group{{ $errors->has('direccion') ? ' has-error' : '' }}">
+                    <label for="direccion">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección" value="{{ old('direccion') }}" required>
+                    @if ($errors->has('direccion'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('direccion') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>              
 
         </div><!-- /row -->
 

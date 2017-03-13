@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Carbon\Carbon; 
 use App\Http\Requests;
 use App\Models\Registros;
 use Datatables;
@@ -76,8 +76,9 @@ class RegistrosController extends Controller
             'primer_apellido'=>'required|string',
             'segundo_apellido'=>'required|string',
             'tipo_documento'=>'required|string',
-            'doc'=>'required|string|numeric',
+            'doc'=>'required|string|unique:registros',
             'email'=>'required|email',
+            'email_corporativo'=>'required|email',
             'fecha_nacimiento'=>'required|date',
             'profesion'=>'required|string',
             'cargo'=>'required|string',
@@ -93,6 +94,16 @@ class RegistrosController extends Controller
         if($request->soporte){
             $soporte = time().'.'.$request->soporte->getClientOriginalExtension();
             $request->soporte->move(public_path('uploads/soportes'), $soporte);
+        }
+
+
+        /*******************************
+        Calucla edad, con la fecha
+        *******************************/
+        $menor_a_18 = false;
+        $edad = Carbon::parse($request->input('fecha_nacimiento'))->age;
+        if($edad<18){
+            $menor_a_18 = true;
         }
 
         $registro = New Registros();
@@ -112,6 +123,7 @@ class RegistrosController extends Controller
         $registro->area_id = $request->input('area_id');
         $registro->procedencia = $request->input('procedencia');
         $registro->creado_por = Auth::user()->id;
+        $registro->menor_de_18 = $menor_a_18;
         $registro->estado = 1;
         $registro->save();
 
@@ -164,7 +176,7 @@ class RegistrosController extends Controller
             'primer_apellido'=>'required|string',
             'segundo_apellido'=>'required|string',
             'tipo_documento'=>'required|string',
-            'doc'=>'required|string|numeric',
+            'doc'=>'required|string|unique:registros'.$id,
             'email'=>'required|email',
             'fecha_nacimiento'=>'required|date',
             'profesion'=>'required|string',

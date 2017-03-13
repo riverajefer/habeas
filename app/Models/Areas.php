@@ -14,11 +14,17 @@ class Areas extends Model
      */
 
      protected  $fillable = [
-           'titulo','user_id'
+           'titulo','responsable','operario', 
      ];
 
-    public function user(){
-        return $this->hasOne('App\User', 'id_user_t4', 'user_id');
+    public function m_responsable(){
+        return $this->hasOne('App\User', 'id_user_t4', 'responsable');
     }
+    
+    public function m_operario(){
+        return $this->hasOne('App\User', 'id_user_t4', 'operario');
+    }
+    
+
 
 }

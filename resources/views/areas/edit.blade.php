@@ -35,19 +35,34 @@
                     @endif
                 </div>      
 
-                <div class="form-group{{ $errors->has('user') ? ' has-error' : '' }}">
-                    <label for="ajax-select">Usuario encargado</label><br>
-                    <select id="ajax-select" class="selectpicker with-ajax" name="user_id" required data-live-search="true">
-                        <option value="{{$area->user->id}}" data-subtext="{{$area->user->email}}" selected>
-                            {{$area->user->nombre}}
+                <div class="form-group{{ $errors->has('responsable') ? ' has-error' : '' }}">
+                    <label for="ajax-select">Usuario responsable</label><br>
+                    <select id="ajax-select" class="selectpicker with-ajax form-control" name="responsable" required data-live-search="true">
+                        <option value="{{$area->m_responsable->id}}" data-subtext="{{$area->m_responsable->email}}" selected>
+                            {{$area->m_responsable->nombre}}
                         </option>                    
                     </select>
-                    @if ($errors->has('user'))
+                    @if ($errors->has('responsable'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('user') }}</strong>
+                            <strong>{{ $errors->first('responsable') }}</strong>
                         </span>
                     @endif
                 </div>  
+
+                <div class="form-group{{ $errors->has('operario') ? ' has-error' : '' }}">
+                    <label for="ajax-select">Usuario operario</label><br>
+                    <select id="ajax-select" class="selectpicker with-ajax form-control" name="operario" required data-live-search="true">
+                        <option value="{{$area->m_operario->id}}" data-subtext="{{$area->m_operario->email}}" selected>
+                            {{$area->m_operario->nombre}}
+                        </option>                    
+                    </select>
+                    @if ($errors->has('operario'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('operario') }}</strong>
+                        </span>
+                    @endif
+                </div>                  
+
 
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-5">

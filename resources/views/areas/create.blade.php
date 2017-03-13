@@ -20,7 +20,7 @@
             
                 <div class="form-group{{ $errors->has('titulo') ? ' has-error' : '' }}">
                     <label for="nombe">Titulo</label>
-                    <input type="text" class="form-control" id="nombe" name="titulo" placeholder="Titulo" value="{{ old('titulo') }}" autofocus required>
+                    <input type="text" class="form-control" v-model="formInputs.titulo" id="nombe" name="titulo" placeholder="Titulo" value="{{ old('titulo') }}" autofocus required>
                     @if ($errors->has('titulo'))
                         <span class="help-block">
                             <strong>{{ $errors->first('titulo') }}</strong>
@@ -28,15 +28,27 @@
                     @endif
                 </div>      
 
-                <div class="form-group{{ $errors->has('user') ? ' has-error' : '' }}">
-                    <label for="ajax-select">Usuario encargado</label><br>
-                    <select id="ajax-select" class="selectpicker with-ajax" name="user_id" required data-live-search="true"></select>
-                    @if ($errors->has('user'))
+                <div class="form-group{{ $errors->has('responsable') ? ' has-error' : '' }}">
+                    <label for="ajax-select">Usuario Responsable</label><br>
+                    <select id="ajax-select" class="selectpicker with-ajax form-control" name="responsable" required data-live-search="true"></select>
+                    @if ($errors->has('responsable'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('user') }}</strong>
+                            <strong>{{ $errors->first('responsable') }}</strong>
                         </span>
                     @endif
                 </div>  
+
+                <div class="form-group{{ $errors->has('operario') ? ' has-error' : '' }}">
+                    <label for="ajax-select">Usuario Operario</label><br>
+                    <select id="ajax-select" class="selectpicker with-ajax form-control" name="operario" required data-live-search="true"></select>
+                    @if ($errors->has('operario'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('operario') }}</strong>
+                        </span>
+                    @endif
+                </div> 
+
+
 
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-5">
