@@ -63,12 +63,10 @@
                 <div class="form-group{{ $errors->has('tipo_documento') ? ' has-error' : '' }}">
                     <label for="tipo_documento">Tipo de documento</label>
                     <select name="tipo_documento" id="tipo_documento" class="form-control" required>
-                        <option selected="selected" value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
-                        <option value="NIT">NIT</option>
-                        <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                        <option value="Registro Civil">Registro Civil</option>
-                        <option value="Pasaporte">Pasaporte</option>
-                        <option value="Carné Diplomático">Carné Diplomático</option>
+                       <option value="">Seleccione un tipo de documento</option>
+                       @foreach($tipo_documento as $tipo_documento)
+                        <option value="{{$tipo_documento}}"   {{ (collect(old('tipo_documento'))->contains($tipo_documento)) ? 'selected':'' }}  >{{$tipo_documento}}</option>
+                       @endforeach
                     </select>
 
                     @if ($errors->has('tipo_documento'))
@@ -320,6 +318,7 @@
                         <option value="">Seleccione un asesor</option>
                         <option value="1">Cliente Activo</option>
                         <option value="2">Cliente Inactivo</option>
+
                     </select>
 
                     @if ($errors->has('estado_cliente'))
@@ -333,9 +332,10 @@
                 <div class="form-group{{ $errors->has('estado_cliente') ? ' has-error' : '' }}">
                     <label for="estado_cliente">Estado del cliente</label>
                     <select name="estado_cliente" id="estado_cliente" class="form-control" required>
-                        <option value="0">Seleccione un estado</option>
-                        <option value="Cliente Activo">Cliente Activo</option>
-                        <option value="Cliente Inactivo">Cliente Inactivo</option>
+                        <option value="">Seleccione un estado</option>
+                        @foreach($estado_cliente as $estado_cliente)
+                            <option value="{{$estado_cliente}}"   {{ (collect(old('estado_cliente'))->contains($estado_cliente)) ? 'selected':'' }}  >{{$estado_cliente}}</option>
+                        @endforeach
                     </select>
 
                     @if ($errors->has('estado_cliente'))
@@ -437,8 +437,8 @@
                     down: "fa fa-arrow-down"
                 }
             });
+            console.log("Old dep: " )
 
-            // Select anidados
 
             $("#departamento").change(function(){
                 console.log("change");

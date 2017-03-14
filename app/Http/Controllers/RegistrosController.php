@@ -18,6 +18,32 @@ use Auth;
 
 class RegistrosController extends Controller
 {
+
+
+
+    /**
+     * Create a new authentication controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->tipo_documento = collect([
+            'Cédula de Ciudadanía',
+            'NIT',
+            'Tarjeta de Identidad',
+            'Registro Civil',
+            'Pasaporte',
+            'Carné Diplomático',
+        ]);
+        $this->estado_cliente = collect([
+            'Cliente Activo',
+            'Cliente Inactivo'
+        ]);
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -57,10 +83,13 @@ class RegistrosController extends Controller
      */
     public function create()
     {
+        
         $departamentos = Departamentos::all();
         $areas = Areas::orderBy('titulo','ASC')->get();
         $tipo_registro = TipoRegistro::orderBy('titulo','ASC')->get();
-        return view('registros.create', compact('departamentos', 'areas', 'tipo_registro'));
+        $tipo_documento = $this->tipo_documento;
+        $estado_cliente = $this->estado_cliente;
+        return view('registros.create', compact('departamentos', 'areas', 'tipo_registro', 'tipo_documento', 'estado_cliente'));
     }
 
 

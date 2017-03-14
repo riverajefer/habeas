@@ -102,6 +102,15 @@ Tipo de registro
 Comentarios
 
 
+Permisos Modulo
+
+
+Responsable Operario
+
+
+Tabla Users
+Tabla Modulos
+Tabla PerfilUser
 
 
 
