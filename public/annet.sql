@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-03-2017 a las 05:29:40
+-- Tiempo de generación: 14-03-2017 a las 05:50:31
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -26,6 +26,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `areas`
 --
 
+DROP TABLE IF EXISTS `areas`;
 CREATE TABLE `areas` (
   `id` int(10) UNSIGNED NOT NULL,
   `titulo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -58,6 +59,7 @@ INSERT INTO `areas` (`id`, `titulo`, `user_id`, `responsable`, `operario`, `slug
 -- Estructura de tabla para la tabla `ciudades_t1`
 --
 
+DROP TABLE IF EXISTS `ciudades_t1`;
 CREATE TABLE `ciudades_t1` (
   `id` int(11) NOT NULL,
   `nomciu` varchar(100) NOT NULL,
@@ -1198,6 +1200,7 @@ INSERT INTO `ciudades_t1` (`id`, `nomciu`, `created_at`, `created_by`) VALUES
 -- Estructura de tabla para la tabla `company_t14`
 --
 
+DROP TABLE IF EXISTS `company_t14`;
 CREATE TABLE `company_t14` (
   `id_comp_t14` int(11) NOT NULL,
   `nom_comp_t14` varchar(250) NOT NULL,
@@ -1224,6 +1227,7 @@ INSERT INTO `company_t14` (`id_comp_t14`, `nom_comp_t14`, `nit_comp_t14`, `dir_c
 -- Estructura de tabla para la tabla `contacts_t7`
 --
 
+DROP TABLE IF EXISTS `contacts_t7`;
 CREATE TABLE `contacts_t7` (
   `id_cont_t7` int(11) NOT NULL,
   `nom_cont_t7` varchar(250) NOT NULL,
@@ -1561,6 +1565,7 @@ INSERT INTO `contacts_t7` (`id_cont_t7`, `nom_cont_t7`, `apel_cont_t7`, `email_c
 -- Estructura de tabla para la tabla `departamentos`
 --
 
+DROP TABLE IF EXISTS `departamentos`;
 CREATE TABLE `departamentos` (
   `id` int(10) NOT NULL,
   `nombre` varchar(50) NOT NULL
@@ -1610,6 +1615,7 @@ INSERT INTO `departamentos` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `dep_t2`
 --
 
+DROP TABLE IF EXISTS `dep_t2`;
 CREATE TABLE `dep_t2` (
   `id` int(11) NOT NULL,
   `dep` varchar(100) NOT NULL
@@ -1693,6 +1699,7 @@ INSERT INTO `dep_t2` (`id`, `dep`) VALUES
 -- Estructura de tabla para la tabla `dep_t5`
 --
 
+DROP TABLE IF EXISTS `dep_t5`;
 CREATE TABLE `dep_t5` (
   `id_dep_t5` int(11) NOT NULL,
   `nom_dep_t5` varchar(250) NOT NULL,
@@ -1727,6 +1734,7 @@ INSERT INTO `dep_t5` (`id_dep_t5`, `nom_dep_t5`, `id_area_t5`, `ord_t5`, `create
 -- Estructura de tabla para la tabla `det_sol_rec_t17`
 --
 
+DROP TABLE IF EXISTS `det_sol_rec_t17`;
 CREATE TABLE `det_sol_rec_t17` (
   `id_sol_rec_t17` int(11) NOT NULL,
   `id_det_sol_t17` int(11) NOT NULL,
@@ -1742,6 +1750,7 @@ CREATE TABLE `det_sol_rec_t17` (
 -- Estructura de tabla para la tabla `divdep_dane_t3`
 --
 
+DROP TABLE IF EXISTS `divdep_dane_t3`;
 CREATE TABLE `divdep_dane_t3` (
   `idps_ciudades_t3` int(11) NOT NULL,
   `codigo_dane_t3` int(11) NOT NULL,
@@ -2890,6 +2899,7 @@ INSERT INTO `divdep_dane_t3` (`idps_ciudades_t3`, `codigo_dane_t3`, `cod_departa
 -- Estructura de tabla para la tabla `est_t18`
 --
 
+DROP TABLE IF EXISTS `est_t18`;
 CREATE TABLE `est_t18` (
   `id_est_t18` int(11) NOT NULL,
   `nom_est_t18` varchar(200) NOT NULL,
@@ -2911,6 +2921,7 @@ INSERT INTO `est_t18` (`id_est_t18`, `nom_est_t18`, `created_at`, `updated_at`) 
 -- Estructura de tabla para la tabla `f_certif_t19`
 --
 
+DROP TABLE IF EXISTS `f_certif_t19`;
 CREATE TABLE `f_certif_t19` (
   `idf_certif_t19` int(11) NOT NULL,
   `PERIODO_t19` int(11) DEFAULT NULL,
@@ -2966,6 +2977,7 @@ INSERT INTO `f_certif_t19` (`idf_certif_t19`, `PERIODO_t19`, `CONSECUTIVO_t19`, 
 -- Estructura de tabla para la tabla `location_t8`
 --
 
+DROP TABLE IF EXISTS `location_t8`;
 CREATE TABLE `location_t8` (
   `id_loc_t8` int(11) NOT NULL,
   `nom_loc_t8` varchar(100) NOT NULL,
@@ -2990,6 +3002,7 @@ INSERT INTO `location_t8` (`id_loc_t8`, `nom_loc_t8`, `dir_loc_t8`, `tel_loc`, `
 -- Estructura de tabla para la tabla `migrations`
 --
 
+DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
@@ -3003,7 +3016,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2014_10_12_000000_create_users_table', 1),
 ('2014_10_12_100000_create_password_resets_table', 1),
 ('2017_03_01_152428_create_registros_table', 2),
-('2017_03_06_095203_create_areas_table', 3);
+('2017_03_06_095203_create_areas_table', 3),
+('2017_03_13_221127_create_tipo_registros_table', 4);
 
 -- --------------------------------------------------------
 
@@ -3011,6 +3025,7 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 -- Estructura de tabla para la tabla `modfunc_t20`
 --
 
+DROP TABLE IF EXISTS `modfunc_t20`;
 CREATE TABLE `modfunc_t20` (
   `idmodfunc_t20` int(11) NOT NULL,
   `tipo_t20` varchar(20) NOT NULL,
@@ -3055,6 +3070,7 @@ INSERT INTO `modfunc_t20` (`idmodfunc_t20`, `tipo_t20`, `descrip_t20`, `padreid_
 -- Estructura de tabla para la tabla `municipios`
 --
 
+DROP TABLE IF EXISTS `municipios`;
 CREATE TABLE `municipios` (
   `id` int(10) NOT NULL,
   `nombre_municipio` varchar(50) NOT NULL,
@@ -4175,6 +4191,7 @@ INSERT INTO `municipios` (`id`, `nombre_municipio`, `departamento`) VALUES
 -- Estructura de tabla para la tabla `perfusr_t21`
 --
 
+DROP TABLE IF EXISTS `perfusr_t21`;
 CREATE TABLE `perfusr_t21` (
   `idperfusr_t21` bigint(20) NOT NULL,
   `idmodfunc_t21` int(11) NOT NULL,
@@ -4288,6 +4305,7 @@ INSERT INTO `perfusr_t21` (`idperfusr_t21`, `idmodfunc_t21`, `idusr_t21`) VALUES
 -- Estructura de tabla para la tabla `perf_t10`
 --
 
+DROP TABLE IF EXISTS `perf_t10`;
 CREATE TABLE `perf_t10` (
   `id_perf_t10` int(11) NOT NULL,
   `nom_perf_t10` varchar(50) NOT NULL,
@@ -4310,6 +4328,7 @@ INSERT INTO `perf_t10` (`id_perf_t10`, `nom_perf_t10`, `obs_t10`, `created_at`, 
 -- Estructura de tabla para la tabla `permissions_t13`
 --
 
+DROP TABLE IF EXISTS `permissions_t13`;
 CREATE TABLE `permissions_t13` (
   `id_per_t13` int(11) NOT NULL,
   `id_user_t13` int(11) NOT NULL,
@@ -4335,6 +4354,7 @@ INSERT INTO `permissions_t13` (`id_per_t13`, `id_user_t13`, `id_mod_t13`, `id_pe
 -- Estructura de tabla para la tabla `position_t9`
 --
 
+DROP TABLE IF EXISTS `position_t9`;
 CREATE TABLE `position_t9` (
   `id_pos_t9` int(11) NOT NULL,
   `nom_pos_t9` varchar(100) NOT NULL,
@@ -4476,6 +4496,7 @@ INSERT INTO `position_t9` (`id_pos_t9`, `nom_pos_t9`, `id_dep_t9`, `created_at`,
 -- Estructura de tabla para la tabla `registros`
 --
 
+DROP TABLE IF EXISTS `registros`;
 CREATE TABLE `registros` (
   `id` int(10) UNSIGNED NOT NULL,
   `sn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -4488,7 +4509,7 @@ CREATE TABLE `registros` (
   `profesion` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cargo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `empresa` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `telefono` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `telefono_personal` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `telefono_corporativo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `celular` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `celular_corporativo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -4499,10 +4520,12 @@ CREATE TABLE `registros` (
   `archivo_soporte` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `area_id` int(11) NOT NULL,
   `procedencia` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `tipo_cliente` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tipo_registro` int(11) DEFAULT NULL,
   `menor_de_18` tinyint(1) NOT NULL,
   `comentarios` text COLLATE utf8_unicode_ci,
+  `asesor_comercial` int(11) NOT NULL,
   `estado` tinyint(1) NOT NULL,
+  `estado_cliente` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `creado_por` int(11) NOT NULL,
   `modificado_por` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -4513,17 +4536,19 @@ CREATE TABLE `registros` (
 -- Volcado de datos para la tabla `registros`
 --
 
-INSERT INTO `registros` (`id`, `sn`, `nombre`, `primer_apellido`, `segundo_apellido`, `tipo_documento`, `doc`, `fecha_nacimiento`, `profesion`, `cargo`, `empresa`, `telefono`, `telefono_corporativo`, `celular`, `celular_corporativo`, `email`, `email_corporativo`, `direccion`, `municipio_id`, `archivo_soporte`, `area_id`, `procedencia`, `tipo_cliente`, `menor_de_18`, `comentarios`, `estado`, `creado_por`, `modificado_por`, `created_at`, `updated_at`) VALUES
-(1, '', 'Juan Andres', 'Ruiz', 'Lopez', 'Cédula de Ciudadanía', '805564873', '1971-06-11', 'Ingeniero', 'Analista', 'Annardx', '7854586', '', NULL, NULL, '', NULL, '', 525, '1489178796.PNG', 6, 'Administración', '', 0, '', 1, 2, 2, '2017-03-10 20:46:36', '2017-03-10 20:47:08'),
-(2, '', 'Maria', 'Castro', 'Riaño', 'Cédula de Ciudadanía', '102154414584', '1991-02-07', 'Publicista', 'Comercial', 'Annardx', '74715481', '', NULL, NULL, '', NULL, '', 525, '1489179043.pdf', 1, 'Administración', '', 0, '', 1, 2, 2, '2017-03-10 20:50:43', '2017-03-10 20:53:32'),
-(3, '', 'Pedro', 'Romero', 'Paez', 'Cédula de Ciudadanía', '102154240', '1985-01-30', 'Ingeniero Industrial', 'Administración', 'Annardx', '78712145', '', NULL, NULL, '', NULL, '', 70, '1489179336.png', 2, 'Administración', '', 0, '', 1, 2, 0, '2017-03-10 20:55:36', '2017-03-10 20:55:36'),
-(4, '', 'Andrea', 'Martinez', 'Gonzales', 'Cédula de Ciudadanía', '1021541545', '1983-02-11', 'Ingeniera Electrónica ', 'Soporte', 'Annardx', '78545868', '', NULL, NULL, '', NULL, '', 525, '1489179498.png', 3, 'Administración', '', 0, '', 1, 2, 2, '2017-03-10 20:58:01', '2017-03-10 20:58:18'),
-(5, '', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '55787', '2003-01-29', 'Ingeniero', 'Analista', 'Annardx', '74715485', '', NULL, NULL, '', NULL, '', 525, NULL, 1, 'Formulario_mercadeo', '', 0, '', 1, 0, 0, '2017-03-10 21:12:46', '2017-03-10 21:12:46'),
-(6, '', 'Juan', 'Romero', 'Paez', 'Cédula de Ciudadanía', '4343434', '1991-12-31', 'Ingeniero', 'Analista', 'Annardx', '74715485', '', NULL, NULL, '', NULL, '', 525, NULL, 1, 'Formulario_mercadeo', '', 0, '', 1, 0, 0, '2017-03-10 21:15:19', '2017-03-10 21:15:19'),
-(7, '', 'Daniela', 'Diaz', 'Gonzales', 'Cédula de Ciudadanía', '3434343', '1991-12-31', 'Publicista', 'Comercial', 'Annardx', '74715485', '', NULL, NULL, '', NULL, '', 525, '', 2, 'Administración', '', 0, '', 1, 0, 2, '2017-03-10 21:16:42', '2017-03-10 21:22:24'),
-(9, '', 'Jose', 'Romero', 'Paez', 'Cédula de Ciudadanía', '34343453545', '1981-12-29', 'Ingeniero', 'Comercial', 'Annardx', '1234489', '', NULL, NULL, '', NULL, '', 525, '', 6, 'Administración', '', 0, '', 1, 2, 0, '2017-03-10 21:26:44', '2017-03-10 21:26:44'),
-(16, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '123', '2012-12-29', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, NULL, NULL, 'jrivera@bancoink.com', NULL, NULL, 525, '', 8, 'Administración', NULL, 1, NULL, 1, 2, 0, '2017-03-13 03:59:27', '2017-03-13 03:59:27'),
-(17, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '1238', '1992-01-14', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, NULL, NULL, 'jrivera@bancoink.com', NULL, NULL, 525, '', 8, 'Administración', NULL, 0, NULL, 1, 2, 0, '2017-03-13 04:01:29', '2017-03-13 04:01:29');
+INSERT INTO `registros` (`id`, `sn`, `nombre`, `primer_apellido`, `segundo_apellido`, `tipo_documento`, `doc`, `fecha_nacimiento`, `profesion`, `cargo`, `empresa`, `telefono_personal`, `telefono_corporativo`, `celular`, `celular_corporativo`, `email`, `email_corporativo`, `direccion`, `municipio_id`, `archivo_soporte`, `area_id`, `procedencia`, `tipo_registro`, `menor_de_18`, `comentarios`, `asesor_comercial`, `estado`, `estado_cliente`, `creado_por`, `modificado_por`, `created_at`, `updated_at`) VALUES
+(1, '', 'Juan Andres', 'Ruiz', 'Lopez', 'Cédula de Ciudadanía', '805564873', '1971-06-11', 'Ingeniero', 'Analista', 'Annardx', '7854586', '', NULL, NULL, '', NULL, '', 525, '1489178796.PNG', 6, 'Administración', 0, 0, '', 0, 1, '0', 2, 2, '2017-03-10 20:46:36', '2017-03-10 20:47:08'),
+(2, '', 'Maria', 'Castro', 'Riaño', 'Cédula de Ciudadanía', '102154414584', '1991-02-07', 'Publicista', 'Comercial', 'Annardx', '74715481', '', NULL, NULL, '', NULL, '', 525, '1489179043.pdf', 1, 'Administración', 0, 0, '', 0, 1, '0', 2, 2, '2017-03-10 20:50:43', '2017-03-10 20:53:32'),
+(3, '', 'Pedro', 'Romero', 'Paez', 'Cédula de Ciudadanía', '102154240', '1985-01-30', 'Ingeniero Industrial', 'Administración', 'Annardx', '78712145', '', NULL, NULL, '', NULL, '', 70, '1489179336.png', 2, 'Administración', 0, 0, '', 0, 1, '0', 2, 0, '2017-03-10 20:55:36', '2017-03-10 20:55:36'),
+(4, '', 'Andrea', 'Martinez', 'Gonzales', 'Cédula de Ciudadanía', '1021541545', '1983-02-11', 'Ingeniera Electrónica ', 'Soporte', 'Annardx', '78545868', '', NULL, NULL, '', NULL, '', 525, '1489179498.png', 3, 'Administración', 0, 0, '', 0, 1, '0', 2, 2, '2017-03-10 20:58:01', '2017-03-10 20:58:18'),
+(5, '', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '55787', '2003-01-29', 'Ingeniero', 'Analista', 'Annardx', '74715485', '', NULL, NULL, '', NULL, '', 525, NULL, 1, 'Formulario_mercadeo', 0, 0, '', 0, 1, '0', 0, 0, '2017-03-10 21:12:46', '2017-03-10 21:12:46'),
+(6, '', 'Juan', 'Romero', 'Paez', 'Cédula de Ciudadanía', '4343434', '1991-12-31', 'Ingeniero', 'Analista', 'Annardx', '74715485', '', NULL, NULL, '', NULL, '', 525, NULL, 1, 'Formulario_mercadeo', 0, 0, '', 0, 1, '0', 0, 0, '2017-03-10 21:15:19', '2017-03-10 21:15:19'),
+(7, '', 'Daniela', 'Diaz', 'Gonzales', 'Cédula de Ciudadanía', '3434343', '1991-12-31', 'Publicista', 'Comercial', 'Annardx', '74715485', '', NULL, NULL, '', NULL, '', 525, '', 2, 'Administración', 0, 0, '', 0, 1, '0', 0, 2, '2017-03-10 21:16:42', '2017-03-10 21:22:24'),
+(9, '', 'Jose', 'Romero', 'Paez', 'Cédula de Ciudadanía', '34343453545', '1981-12-29', 'Ingeniero', 'Comercial', 'Annardx', '1234489', '', NULL, NULL, '', NULL, '', 525, '', 6, 'Administración', 0, 0, '', 0, 1, '0', 2, 0, '2017-03-10 21:26:44', '2017-03-10 21:26:44'),
+(16, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '123', '2012-12-29', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, NULL, NULL, 'jrivera@bancoink.com', NULL, NULL, 525, '', 8, 'Administración', NULL, 1, NULL, 0, 1, '0', 2, 0, '2017-03-13 03:59:27', '2017-03-13 03:59:27'),
+(17, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '1238', '1992-01-14', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, NULL, NULL, 'jrivera@bancoink.com', NULL, NULL, 525, '', 8, 'Administración', NULL, 0, NULL, 0, 1, '0', 2, 0, '2017-03-13 04:01:29', '2017-03-13 04:01:29'),
+(18, '1234', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '11121', '1999-12-28', 'Ingeniero', 'Analista', 'Annardx', '74715485', NULL, '32121212', '12132343', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 123', 525, '1489460418.png', 8, 'Administración', 1, 1, 'Hola mundo', 0, 1, 'Cliente Activo', 2, 0, '2017-03-14 03:00:18', '2017-03-14 03:00:18'),
+(19, '1234', 'Carlos', 'Gomez', 'Diaz', 'Cédula de Ciudadanía', '1233434', '1987-01-28', 'Ingeniero', 'Analista', 'Annardx', '32324454', '2334455', '3100287372', '12132343', 'example@gmail.com', 'jrivera@bancoink.com', 'Calle falsa 123', 525, '', 3, 'Panel de administración', 2, 0, 'Comentarios', 0, 1, 'Cliente Activo', 2, 0, '2017-03-14 04:07:46', '2017-03-14 04:07:46');
 
 -- --------------------------------------------------------
 
@@ -4531,6 +4556,7 @@ INSERT INTO `registros` (`id`, `sn`, `nombre`, `primer_apellido`, `segundo_apell
 -- Estructura de tabla para la tabla `sections_t11`
 --
 
+DROP TABLE IF EXISTS `sections_t11`;
 CREATE TABLE `sections_t11` (
   `id_sec_t11` int(11) NOT NULL,
   `nom_sec` varchar(50) NOT NULL,
@@ -4555,6 +4581,7 @@ INSERT INTO `sections_t11` (`id_sec_t11`, `nom_sec`, `obs_t11`, `created_at`, `u
 -- Estructura de tabla para la tabla `sol_rec_t15`
 --
 
+DROP TABLE IF EXISTS `sol_rec_t15`;
 CREATE TABLE `sol_rec_t15` (
   `id_sol_t15` int(11) NOT NULL,
   `id_usr_sol_t15` int(11) NOT NULL,
@@ -4576,6 +4603,7 @@ CREATE TABLE `sol_rec_t15` (
 -- Estructura de tabla para la tabla `sub_sec_t12`
 --
 
+DROP TABLE IF EXISTS `sub_sec_t12`;
 CREATE TABLE `sub_sec_t12` (
   `id_subsec_t12` int(11) NOT NULL,
   `id_sec_t12` int(11) NOT NULL,
@@ -4602,9 +4630,33 @@ INSERT INTO `sub_sec_t12` (`id_subsec_t12`, `id_sec_t12`, `nom_subsec_t12`, `cre
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipo_registros`
+--
+
+DROP TABLE IF EXISTS `tipo_registros`;
+CREATE TABLE `tipo_registros` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `titulo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_registros`
+--
+
+INSERT INTO `tipo_registros` (`id`, `titulo`, `created_at`, `updated_at`) VALUES
+(1, 'Colaborador', '2017-03-13 12:19:28', '2017-03-13 12:19:28'),
+(2, 'Cliente', '2017-03-13 12:19:28', '2017-03-13 12:19:28'),
+(3, 'Proveedor', '2017-03-13 12:19:28', '2017-03-13 12:19:28');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tip_rec_t16`
 --
 
+DROP TABLE IF EXISTS `tip_rec_t16`;
 CREATE TABLE `tip_rec_t16` (
   `id_rec_t16` int(11) NOT NULL,
   `nom_rec_t16` varchar(120) NOT NULL,
@@ -4638,6 +4690,7 @@ INSERT INTO `tip_rec_t16` (`id_rec_t16`, `nom_rec_t16`, `id_tip_rec_t16`, `creat
 -- Estructura de tabla para la tabla `unit_t6`
 --
 
+DROP TABLE IF EXISTS `unit_t6`;
 CREATE TABLE `unit_t6` (
   `id_unit_t6` int(11) NOT NULL,
   `unit_name_t6` varchar(250) NOT NULL,
@@ -4684,6 +4737,7 @@ INSERT INTO `unit_t6` (`id_unit_t6`, `unit_name_t6`, `ord_t6`, `created_at`, `up
 -- Estructura de tabla para la tabla `users_t4`
 --
 
+DROP TABLE IF EXISTS `users_t4`;
 CREATE TABLE `users_t4` (
   `id_user_t4` int(11) NOT NULL,
   `nom_user_t4` varchar(250) NOT NULL,
@@ -4767,6 +4821,7 @@ INSERT INTO `users_t4` (`id_user_t4`, `nom_user_t4`, `email_t4`, `password`, `id
 -- Estructura de tabla para la tabla `usuarios_envioinfo_t0`
 --
 
+DROP TABLE IF EXISTS `usuarios_envioinfo_t0`;
 CREATE TABLE `usuarios_envioinfo_t0` (
   `idusuarios_envioinfo_t0` int(11) NOT NULL,
   `nombre_t0` varchar(250) NOT NULL,
@@ -4931,6 +4986,12 @@ ALTER TABLE `sub_sec_t12`
   ADD PRIMARY KEY (`id_subsec_t12`);
 
 --
+-- Indices de la tabla `tipo_registros`
+--
+ALTER TABLE `tipo_registros`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `tip_rec_t16`
 --
 ALTER TABLE `tip_rec_t16`
@@ -5022,7 +5083,7 @@ ALTER TABLE `position_t9`
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT de la tabla `sections_t11`
 --
@@ -5033,6 +5094,11 @@ ALTER TABLE `sections_t11`
 --
 ALTER TABLE `sub_sec_t12`
   MODIFY `id_subsec_t12` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT de la tabla `tipo_registros`
+--
+ALTER TABLE `tipo_registros`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tip_rec_t16`
 --

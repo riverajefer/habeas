@@ -61,7 +61,7 @@
           <div class="row">
              <div class="col-md-4">
                 <div class="form-group{{ $errors->has('tipo_documento') ? ' has-error' : '' }}">
-                    <label for="tipo_documento">Tipo documento</label>
+                    <label for="tipo_documento">Tipo de documento</label>
                     <select name="tipo_documento" id="tipo_documento" class="form-control" required>
                         <option selected="selected" value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
                         <option value="NIT">NIT</option>
@@ -125,16 +125,28 @@
                 </div>
             </div>  
             <div class="col-md-4">
-                <div class="form-group{{ $errors->has('celaular') ? ' has-error' : '' }}">
-                    <label for="celaular">Celaular personal</label>
-                    <input type="text" class="form-control" id="celaular" name="celaular" placeholder="Número de celaular" value="{{ old('celaular') }}" required>
-                    @if ($errors->has('celaular'))
+                <div class="form-group{{ $errors->has('celular') ? ' has-error' : '' }}">
+                    <label for="celular">Celular personal</label>
+                    <input type="text" class="form-control" id="celular" name="celular" placeholder="Número de celular" value="{{ old('celular') }}" required>
+                    @if ($errors->has('celular'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('celaular') }}</strong>
+                            <strong>{{ $errors->first('celular') }}</strong>
                         </span>
                     @endif
                 </div>
-            </div>  
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group{{ $errors->has('telefono_personal') ? ' has-error' : '' }}">
+                    <label for="telefono_personal">Teléfono fijo personal</label>
+                    <input type="text" class="form-control" id="telefono_personal" name="telefono_personal" placeholder="Teléfono personal" value="{{ old('telefono_personal') }}" required>
+                    @if ($errors->has('telefono_personal'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('telefono_personal') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>               
                                
         </div> <!-- /row -->
 
@@ -202,12 +214,12 @@
             </div>   
 
             <div class="col-md-4">
-                <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
-                    <label for="telefono">Teléfono< corporativo</label>
-                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" value="{{ old('telefono') }}" required>
-                    @if ($errors->has('telefono'))
+                <div class="form-group{{ $errors->has('telefono_corporativo') ? ' has-error' : '' }}">
+                    <label for="telefono_corporativo">Teléfono corporativo</label>
+                    <input type="text" class="form-control" id="telefono_corporativo" name="telefono_corporativo" placeholder="Teléfono corporativo" value="{{ old('telefono_corporativo') }}" required>
+                    @if ($errors->has('telefono_corporativo'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('telefono') }}</strong>
+                            <strong>{{ $errors->first('telefono_corporativo') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -215,8 +227,8 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('email_corporativo') ? ' has-error' : '' }}">
-                    <label for="email_corporativo">Email Corporativo</label>
-                    <input type="text" class="form-control" id="email_corporativo" name="email_corporativo" placeholder="Email Corporativo" value="{{ old('email_corporativo') }}" required>
+                    <label for="email_corporativo">Email corporativo</label>
+                    <input type="email" class="form-control" id="email_corporativo" name="email_corporativo" placeholder="Email corporativo" value="{{ old('email_corporativo') }}" required>
                     @if ($errors->has('email_corporativo'))
                         <span class="help-block">
                             <strong>{{ $errors->first('email_corporativo') }}</strong>
@@ -229,8 +241,8 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('celular_corporativo') ? ' has-error' : '' }}">
-                    <label for="celular_corporativo">Celular Corporativo</label>
-                    <input type="text" class="form-control" id="celular_corporativo" name="celular_corporativo" placeholder="Celular Corporativo" value="{{ old('celular_corporativo') }}" required>
+                    <label for="celular_corporativo">Celular corporativo</label>
+                    <input type="text" class="form-control" id="celular_corporativo" name="celular_corporativo" placeholder="Celular corporativo" value="{{ old('celular_corporativo') }}" required>
                     @if ($errors->has('celular_corporativo'))
                         <span class="help-block">
                             <strong>{{ $errors->first('celular_corporativo') }}</strong>
@@ -305,9 +317,9 @@
                 <div class="form-group{{ $errors->has('asesor_comercial') ? ' has-error' : '' }}">
                     <label for="asesor_comercial">Asesor comercial</label>
                     <select name="asesor_comercial" id="asesor_comercial" class="form-control" required>
-                        <option value="0">Seleccione un asesor</option>
-                        <option value="Cliente Activo">Cliente Activo</option>
-                        <option value="Cliente Inactivo">Cliente Inactivo</option>
+                        <option value="">Seleccione un asesor</option>
+                        <option value="1">Cliente Activo</option>
+                        <option value="2">Cliente Inactivo</option>
                     </select>
 
                     @if ($errors->has('estado_cliente'))
@@ -335,14 +347,25 @@
             </div>                            
         </div><!-- /row -->
         <div class="row">
-
+             <div class="col-md-4">
+                <div class="form-group{{ $errors->has('comentarios') ? ' has-error' : '' }}">
+                    <label for="comentarios">Comentarios</label>
+                    <textarea name="comentarios" id="comentarios" placeholder="Comentarios" class="form-control" cols="30" rows="3">{{ old('comentarios') }}</textarea>
+                    @if ($errors->has('comentarios'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('comentarios') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>   
              <div class="col-md-4">
                 <div class="form-group{{ $errors->has('tipo_registro') ? ' has-error' : '' }}">
                     <label for="tipo_registro">Tipo de registro</label>
                     <select name="tipo_registro" id="tipo_registro" class="form-control" required>
-                        <option value="0">Seleccione el tipo de registro</option>
-                        <option value="Cliente Activo">Cliente Activo</option>
-                        <option value="Cliente Inactivo">Cliente Inactivo</option>
+                        <option value="">Seleccione el tipo de registro</option>
+                        @foreach($tipo_registro as $tipo_registro)
+                            <option value="{{$tipo_registro->id}}">{{$tipo_registro->titulo}}</option>
+                        @endforeach
                     </select>
 
                     @if ($errors->has('tipo_registro'))
@@ -352,24 +375,11 @@
                     @endif
                 </div>
             </div> 
-
-
         </div><!-- /row -->
 
         <div class="row">
-             <div class="col-md-6">
-                <div class="form-group{{ $errors->has('comentarios') ? ' has-error' : '' }}">
-                    <label for="comentarios">Comentarios</label>
-                    <textarea name="comentarios" id="comentarios" placeholder="Comentarios" class="form-control" cols="30" rows="5"></textarea>
-        
 
-                    @if ($errors->has('comentarios'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('comentarios') }}</strong>
-                        </span>
-                    @endif
-                </div>
-            </div>         
+      
         </div><!-- /row -->
 
         <div class="row">
@@ -397,10 +407,11 @@
                 </div>
             </div>              
         </div> <!-- /row -->
-        <input type="hidden" value="Administración" name="procedencia">
+        <input type="hidden" value="Panel de administración" name="procedencia">
 
         </form>
     </div>
+    <br><br>
 </div>
 @stop
 

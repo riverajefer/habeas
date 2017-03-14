@@ -6,7 +6,7 @@
 <div class="panel panel-default">
 
     <div class="panel-heading"> 
-        <i class="fa fa-user-plus" aria-hidden="true"></i> Crear registro
+        <i class="fa fa-user-plus" aria-hidden="true"></i> Modificar registro
     </div>
 
     <div class="panel-body">

@@ -48,4 +48,9 @@ class Registros extends Model
         return $this->belongsTo('App\Models\User', 'modificado_por');
     }
 
+    public function tipoRegistro(){
+        return $this->belongsTo('App\Models\TipoRegistro', 'tipo_registro');
+    }
+    
+
 }

@@ -52,9 +52,8 @@
                     <tr>
                         <th>Id</th>
                         <th>Nombre</th>
-                        <th>Apellido</th>
+                        <th>Apellidos</th>
                         <th>Email</th>
-                        <th>Teléfono</th>
                         <th>Área</th>
                         <th>Acciones</th>
                     </tr>
@@ -83,7 +82,6 @@ $(function() {
             { data: 'nombre', name: 'nombre' },
             { data: 'primer_apellido', name: 'primer_apellido' },
             { data: 'email', name: 'email' },
-            { data: 'telefono', name: 'telefono' },
             { data: 'area.titulo', name: 'area.titulo' },
             { data: 'action', name: 'action', orderable: false, searchable: false}
         ],

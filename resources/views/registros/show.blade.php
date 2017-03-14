@@ -31,9 +31,21 @@
                     {{$registro->fecha_nacimiento}}
                 </li>
                 <li class="list-group-item">
+                    <span>Email personal:</span>  
+                    {{$registro->email}}
+                </li> 
+                <li class="list-group-item">
+                    <span>Teléfono personal:</span>  
+                    {{$registro->telefono_personal}}
+                </li>
+                <li class="list-group-item">
+                    <span>Celular personal:</span>  
+                    {{$registro->celular}}
+                </li>                                 
+                <li class="list-group-item">
                     <span>Área:</span>  
                     {{$registro->area->titulo or 'sin seleccionar'}}
-                </li>                
+                </li>               
                 <li class="list-group-item">
                     <span>Profesion:</span>  
                     {{$registro->profesion}}
@@ -45,19 +57,25 @@
                 <li class="list-group-item">
                     <span>Empresa:</span>  
                     {{$registro->empresa}}
-                </li> 
+                </li>
                 <li class="list-group-item">
-                    <span>Teléfono:</span>  
-                    {{$registro->telefono}}
-                </li>                               
+                    <span>Teléfono corporativo:</span>  
+                    {{$registro->telefono_corporativo}}
+                </li>
+                <li class="list-group-item">
+                    <span>Email corporativo:</span>  
+                    {{$registro->email_corporativo}}
+                </li>   
+                <li class="list-group-item">
+                    <span>Celular corporativo:</span>  
+                    {{$registro->celular_corporativo}}
+                </li>                 
             </ul>  
         </div>
         <div class="col-md-6">
             <ul class="list-group">
-                <li class="list-group-item">
-                    <span>Email:</span>  
-                    {{$registro->email}}
-                </li>
+             
+                               
                 <li class="list-group-item">
                     <span>Departamento:</span>  
                     {{$registro->municipio->ndepartamento->nombre or ''}}
@@ -67,13 +85,42 @@
                     {{$registro->municipio->nombre_municipio or ''}}
                 </li>
                 <li class="list-group-item">
+                    <span>Dirección:</span>  
+                    {{$registro->direccion}}
+                </li>                                
+                
+                <li class="list-group-item">
                     <span>Archivo de soporte:</span>  
                     @if($registro->archivo_soporte)
                         <a data-fancybox data-caption="Soporte" href="{{asset('uploads/soportes/'.$registro->archivo_soporte.'')}}"> Ver Soporte </a>
                     @else
                        
                     @endif
-                </li>                  
+                </li>
+                <li class="list-group-item">
+                    <span>SN:</span>  
+                    {{ $registro->sn }}
+                </li>   
+                <li class="list-group-item">
+                    <span>Asesor comercial:</span>  
+                    {{ $registro->asesor_comercial }}
+                </li>   
+                <li class="list-group-item">
+                    <span>Estado del cliente:</span>  
+                    {{ $registro->estado_cliente }}
+                </li>  
+                <li class="list-group-item">
+                    <span>Tipo de registro:</span>  
+                    {{ $registro->tipo_registro }}
+                </li> 
+                <li class="list-group-item">
+                    <span>Menor de 18 años:</span>  
+                    {{ $registro->menor_de_18 ? 'SI': 'NO' }}
+                </li>                 
+                <li class="list-group-item">
+                    <span>Comentarios:</span>  
+                    {{ str_limit($registro->comentarios,20) }}
+                </li>                                                                                                    
                 <li class="list-group-item">
                     <span>Procedencia del registro:</span>  
                     {{ $registro->procedencia }}
@@ -105,7 +152,7 @@
 
 
 <div class="row">
-    <div class="col-md-3 col-md-offset-3">
+    <div class="col-md-2 col-md-offset-3">
         <a href="{{URL::to('registros/'.$registro->id.'/edit')}}">
             <button class="mdl-button mdl-js-button mdl-button--primary">
                 MODIFICAR REGISTRO
@@ -113,13 +160,21 @@
         </a>
     </div>
     
-    <div class="col-md-3">
+    <div class="col-md-2">
         <a href="{{URL::to('registros/create')}}">
             <button class="mdl-button mdl-js-button mdl-button--accent">
                 NUEVO REGISTRO
             </button>
         </a>
-    </div>    
+    </div>  
+
+    <div class="col-md-3">
+        <a href="{{URL::to('registros')}}">
+            <button class="mdl-button mdl-js-button mdl-button--primary">
+                VER TODOS LOS REGISTROS
+            </button>
+        </a>
+    </div>        
 </div>
 <br><br>
 

@@ -11,6 +11,7 @@ use App\Models\Areas;
 use App\Models\Departamentos;
 use App\Models\Municipios;
 use App\Models\User;
+use App\Models\TipoRegistro;
 use Excel;
 use Auth;
 
@@ -58,7 +59,8 @@ class RegistrosController extends Controller
     {
         $departamentos = Departamentos::all();
         $areas = Areas::orderBy('titulo','ASC')->get();
-        return view('registros.create', compact('departamentos', 'areas'));
+        $tipo_registro = TipoRegistro::orderBy('titulo','ASC')->get();
+        return view('registros.create', compact('departamentos', 'areas', 'tipo_registro'));
     }
 
 
@@ -72,22 +74,33 @@ class RegistrosController extends Controller
     {
 
         $this->validate($request,[
-            'nombre'=>'required|string',
-            'primer_apellido'=>'required|string',
-            'segundo_apellido'=>'required|string',
+            'nombre'=>'required|string|max:80',
+            'primer_apellido'=>'required|string|max:50',
+            'segundo_apellido'=>'required|string|max:50',
             'tipo_documento'=>'required|string',
-            'doc'=>'required|string|unique:registros',
-            'email'=>'required|email',
-            'email_corporativo'=>'required|email',
+            'doc'=>'required|string|unique:registros|max:50',
             'fecha_nacimiento'=>'required|date',
-            'profesion'=>'required|string',
-            'cargo'=>'required|string',
-            'empresa'=>'required|string',
-            'telefono'=>'required|numeric',
+            'email'=>'required|email|max:100',
+            'celular'=>'required|numeric',
+            'telefono_personal'=>'numeric',
+
             'area_id'=>'required',
+            'profesion'=>'required|string|max:60',
+            'cargo'=>'required|string|max:60',
+            'empresa'=>'required|string|max:80',
+            'telefono_corporativo'=>'numeric',
+            'email_corporativo'=>'email|max:100',
+            'celular_corporativo'=>'numeric',
             'departamento_id'=>'required',
             'municipio_id'=>'required',
-            'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000',            
+            'direccion'=>'max:60',
+
+            'sn'=>'max:80',
+            'asesor_comercial'=>'required',
+            'estado_cliente'=>'required',
+            'comentarios'=>'max:800',
+            'tipo_registro'=>'required',
+            'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000',    
         ]);
 
         $soporte = '';
@@ -100,6 +113,7 @@ class RegistrosController extends Controller
         /*******************************
         Calucla edad, con la fecha
         *******************************/
+        $menor_a_18 = false;
         if($request->input('fecha_nacimiento')){
             $menor_a_18 = false;
             $edad = Carbon::parse($request->input('fecha_nacimiento'))->age;
@@ -119,13 +133,25 @@ class RegistrosController extends Controller
         $registro->profesion = $request->input('profesion');
         $registro->cargo = $request->input('cargo');
         $registro->empresa = $request->input('empresa');
-        $registro->telefono = $request->input('telefono');
+        $registro->telefono_personal = $request->input('telefono_personal');
         $registro->archivo_soporte = $soporte;
         $registro->municipio_id = $request->input('municipio_id');
         $registro->area_id = $request->input('area_id');
         $registro->procedencia = $request->input('procedencia');
         $registro->creado_por = Auth::user()->id;
         $registro->menor_de_18 = $menor_a_18;
+
+        $registro->sn = $request->input('sn');
+        $registro->telefono_corporativo = $request->input('telefono_corporativo');
+        $registro->celular = $request->input('celular');
+        $registro->celular_corporativo = $request->input('celular_corporativo');
+        $registro->email_corporativo = $request->input('email_corporativo');
+        $registro->direccion = $request->input('direccion');
+        $registro->comentarios = $request->input('comentarios');
+        $registro->estado_cliente = $request->input('estado_cliente');
+        $registro->tipo_registro = $request->input('tipo_registro');
+        $registro->comentarios = $request->input('comentarios');
+        
         $registro->estado = 1;
         $registro->save();
 
