@@ -12,7 +12,7 @@
                     {{ csrf_field() }}
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                         <label for="pw">Vuelva a escribir la contraseña</label>
-                        <input type="password" name="password" class="form-control" id="pw" placeholder="Contraseña" autofocus>
+                        <input type="password" name="password" class="form-control" id="pw" placeholder="Contraseña" autofocus required>
 
                         @if ($errors->has('password'))
                             <span class="help-block">

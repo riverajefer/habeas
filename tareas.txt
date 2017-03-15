@@ -113,6 +113,22 @@ Tabla Modulos
 Tabla PerfilUser
 
 
+En el Auth, preguntar si el usuario está asignado en el modulo 21
+
+Perfil Responsable
+No puede crear ni editar ni eliminar, Solo vé
+
+Perfil Operario
+Puede hacer todo
+
+Responsable debe cumpir con lo siguiente:
+Estar asignado al modulo de tratamiento de datos Y pertenecer a la tabla de Áreas
+
+
+
+
+*************************************
+Preguntas, el operario y el Responsable, pueden ser la misma persona ?
 
 
 

@@ -67,7 +67,13 @@ class AreasController extends Controller
             'operario'=>'required',
         ]);
 
-        if ($request->ajax()) return;
+        $reponsable = $request->input('responsable');
+        $operario = $request->input('operario');
+
+
+        if($reponsable == $operario){
+            //return redirect('errorStore')->with('success','Registro creado correctamente');
+        }
 
         $area = new Areas();
         $area->titulo       = $request->input('titulo');

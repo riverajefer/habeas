@@ -19,8 +19,6 @@ use Auth;
 class RegistrosController extends Controller
 {
 
-
-
     /**
      * Create a new authentication controller instance.
      *
@@ -28,6 +26,13 @@ class RegistrosController extends Controller
      */
     public function __construct()
     {
+
+
+        $this->middleware('perfil', ['only'=>[
+            'create'
+        ]]);
+
+
         $this->tipo_documento = collect([
             'Cédula de Ciudadanía',
             'NIT',

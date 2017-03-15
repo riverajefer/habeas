@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\User;
 use Auth;
+use DB;
 class LoginController extends Controller
 {
 
@@ -40,8 +41,17 @@ class LoginController extends Controller
         $password = $request->input('password');
 
         $user = User::whereEmail_t4($email)->wherePassword(md5($password))->first();
+
+
         if(!$user){
             return redirect()->back()->with('errorLogin', 'Datos de acceso incorrectos'); 
+        }
+        //return $user;
+        $perfil = DB::table('perfusr_t21')->where('idmodfunc_t21', '21')->first();
+        //return $perfil->idusr_t21;
+
+        if($perfil->idusr_t21 != $user->id){
+            return redirect()->back()->with('errorLogin', 'No tienes acceso a este módulo'); 
         }
         
         Auth::loginUsingId($user->id, false);

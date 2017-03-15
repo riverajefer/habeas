@@ -49,6 +49,9 @@ Route::group(['middleware'=>'auth'], function(){
 
 Route::get('test', function(){
 
+     $perfil = DB::table('perfusr_t21')->where('idmodfunc_t21', '21')->first();
+     return $perfil->idusr_t21;
+
     //return Carbon::now();
     return Carbon::parse('2003-01-29')->age;
 
