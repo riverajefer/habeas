@@ -56,16 +56,29 @@
                         <th>Primer apellido</th>
                         <th>Segundo apellido</th>
                         <th>Tipo Doc</th>
-                        <th>Doc</th>
+                        <th>Documento</th>
                         <th>Fecha nacimiento</th>
+                        <th>Email</th>
+                        <th>Teléfono personal</th>
+                        <th>Celular personal</th>
+                        <th>Área</th>
                         <th>Profesión</th>
                         <th>Cargo</th>
-                        <th>Email</th>
-                        <th>Teléfono</th>
-                        <th>Área</th>
+                        <th>Empresa</th>
+                        <th>Teléfono corporativo</th>
+                        <th>Email corporativo</th>
+                        <th>Celular corporativo</th>
                         <th>Departamento</th>
                         <th>Ciudad</th>
+                        <th>Dirección</th>
                         <th>Soporte</th>
+                        <th>SN</th>
+                        <th>Asesor comercial</th>
+                        <th>Estado del cliente</th>
+                        <th>Tipo de registro</th>
+                        <th>Menor de 18</th>
+                        <th>Comentarios</th>
+
                         <th>Procedencia</th>
                         <th>Creado Por</th>
                         <th>Modificado Por</th>
@@ -106,14 +119,27 @@ $(function() {
             { data: 'tipo_documento', name: 'tipo_documento' },
             { data: 'doc', name: 'doc' },
             { data: 'fecha_nacimiento', name: 'fecha_nacimiento' },
+            { data: 'email', name: 'email' },
+            { data: 'telefono_personal', name: 'telefono_personal' },
+            { data: 'celular', name: 'celular' },
+            { data: 'area.titulo', name: 'area.titulo' },
             { data: 'profesion', name: 'profesion' },
             { data: 'cargo', name: 'cargo' },
-            { data: 'email', name: 'email' },
-            { data: 'telefono', name: 'telefono' },
-            { data: 'area.titulo', name: 'area.titulo' },
+            { data: 'empresa', name: 'empresa' },
+            { data: 'telefono_corporativo', name: 'telefono_corporativo' },
+            { data: 'email_corporativo', name: 'email_corporativo' },
+            { data: 'celular_corporativo', name: 'celular_corporativo' },
             { data: 'municipio.ndepartamento.nombre', name: 'municipio.ndepartamento.nombre' },
             { data: 'municipio.nombre_municipio', name: 'municipio.nombre_municipio' },
+            { data: 'direccion', name: 'direccion' },
             { data: 'soporte', name: 'soporte' },
+            { data: 'sn', name: 'sn' },
+            { data: 'sn', name: 'sn' }, // asesor comercial
+            { data: 'estado_cliente', name: 'estado_cliente' },
+            { data: 'tipo_registro.titulo', name: 'tipo_registro.titulo' }, 
+            { data: 'menor_de_18', name: 'menor_de_18' }, // ajustar
+            { data: 'comentarios', name: 'comentarios' }, // ajustar
+
             { data: 'procedencia', name: 'procedencia' },
             { data: 'creado_por.nombre', name: 'creado_por.nombre'},
             { data: 'modificado_por', name: 'modificado_por'},

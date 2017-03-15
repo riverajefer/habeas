@@ -350,7 +350,7 @@ class RegistrosController extends Controller
     public function dataRegistrosTablaCompleta()
     {
         //$registros = Registros::query();
-        $registros = Registros::with('area')->with('municipio')->with('municipio.ndepartamento')->with('creadoPor')->with('modificadoPor')->get();
+        $registros = Registros::with('area')->with('municipio')->with('municipio.ndepartamento')->with('creadoPor')->with('modificadoPor')->with('tipoRegistro')->get();
 
         return Datatables::of($registros)
             ->addColumn('action', function ($registros) {

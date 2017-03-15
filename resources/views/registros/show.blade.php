@@ -75,7 +75,6 @@
         <div class="col-md-6">
             <ul class="list-group">
              
-                               
                 <li class="list-group-item">
                     <span>Departamento:</span>  
                     {{$registro->municipio->ndepartamento->nombre or ''}}
@@ -111,7 +110,7 @@
                 </li>  
                 <li class="list-group-item">
                     <span>Tipo de registro:</span>  
-                    {{ $registro->tipo_registro }}
+                    {{ $registro->tipoRegistro->titulo or '' }}
                 </li> 
                 <li class="list-group-item">
                     <span>Menor de 18 años:</span>  

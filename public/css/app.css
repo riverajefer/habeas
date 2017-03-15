@@ -142,5 +142,21 @@ label {
 }
 ul.list-group >li:hover{
     background-color: #f8f8f8;
-    
+}
+
+.modal-header {
+    padding: 7px 10px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.dtr-details tr:hover{
+    background-color: #f8f8f8;
+}
+
+.dtr-details tr td:first-child{
+    font-weight: 500;
+}
+
+.modal-title {
+    font-size: 19px;
 }
