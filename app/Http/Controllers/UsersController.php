@@ -31,7 +31,7 @@ class UsersController extends Controller
      */
     public function habeas()
     {
-        $modulos = Modulos::find(21);
+        $modulos = Modulos::find(17);
         return $modulos->users()->get();
         
     }
