@@ -23,16 +23,19 @@
       @if(Auth::check())
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registros <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> REGISTROS <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="{{URL::to('registros')}}">  <i class="fa fa-list" aria-hidden="true"></i>  Ver lista de registros</a></li>
+              <li><a href="{{URL::to('registros')}}">  <i class="fa fa-list" aria-hidden="true"></i> lista de registros</a></li>
               <li><a href="{{URL::to('registros/create')}}"> <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo registro</a></li>
+              <li><a href="{{URL::route('exportExcel')}}">  <i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar en Excel</a></li>
+              <li><a href="{{URL::route('registrosTablaCompleta')}}">  <i class="fa fa-table" aria-hidden="true"></i> Tabla expandida</a></li>
+              
               <li><a href="#"> <i class="fa fa-history" aria-hidden="true"></i> Historial de cambios</a></li>
             </ul>
           </li>        
-            <li><a href="{{URL::to('areas')}}">Áreas</a></li>
+            <li><a href="{{URL::to('areas')}}">ÁREAS</a></li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->nombre}} <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ strtoupper(Auth::user()->nombre) }} <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="{{URL::to('salir')}}"> <i class="fa fa-power-off" aria-hidden="true"></i> Salir</a></li>
             </ul>

@@ -12,8 +12,12 @@ use App\Models\Departamentos;
 use App\Models\Municipios;
 use App\Models\User;
 use App\Models\TipoRegistro;
+use App\Models\DeviceRegistro;
 use Excel;
 use Auth;
+use Jenssegers\Agent\Agent;
+
+
 
 
 class RegistrosController extends Controller
@@ -32,7 +36,6 @@ class RegistrosController extends Controller
             'create'
         ]]);
 
-
         $this->tipo_documento = collect([
             'Cédula de Ciudadanía',
             'NIT',
@@ -41,12 +44,13 @@ class RegistrosController extends Controller
             'Pasaporte',
             'Carné Diplomático',
         ]);
+
         $this->estado_cliente = collect([
             'Cliente Activo',
             'Cliente Inactivo'
         ]);
+       
     }
-
 
 
     /**
@@ -74,7 +78,7 @@ class RegistrosController extends Controller
             ->addColumn('action', function ($registros) {
                 return '
                     <a class="btn btn-link link-info"  href="registros/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="Ver más"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a class="btn btn-link link-warning" href="registros/'.$registros->id.'/edit" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a class="btn btn-link link-warning" href="registros/'.$registros->id.'/edit" data-toggle="tooltip" data-placement="top" title="Actualizar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                     <a class="btn btn-link link-danger" data-toggle="tooltip" data-placement="top" title="Dar de baja"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
             })        
             ->editColumn('nombre', '<a href="registros/{{$id}}">{{$nombre}}</a>')
@@ -145,7 +149,7 @@ class RegistrosController extends Controller
 
 
         /*******************************
-        Calucla edad, con la fecha
+        Obtiene edad, con la fecha
         *******************************/
         $menor_a_18 = false;
         if($request->input('fecha_nacimiento')){
@@ -185,9 +189,10 @@ class RegistrosController extends Controller
         $registro->estado_cliente = $request->input('estado_cliente');
         $registro->tipo_registro = $request->input('tipo_registro');
         $registro->comentarios = $request->input('comentarios');
-        
         $registro->estado = 1;
         $registro->save();
+
+        $this->saveInfoAgent($registro->id);
 
         return redirect('registros')->with('success','Registro creado correctamente');
 
@@ -219,7 +224,12 @@ class RegistrosController extends Controller
         $registro = Registros::findOrFail($id);
         $departamentos = Departamentos::all();
         $areas = Areas::orderBy('titulo','ASC')->get();
-        return view('registros.edit', compact('registro','departamentos', 'areas'));        
+        $tipo_registro = TipoRegistro::orderBy('titulo','ASC')->get();
+        $tipo_documento = $this->tipo_documento;
+        $estado_cliente = $this->estado_cliente;
+        
+        return view('registros.edit', compact('registro','departamentos', 'areas','tipo_registro', 'tipo_documento', 'estado_cliente'));
+
     }
 
 
@@ -234,25 +244,50 @@ class RegistrosController extends Controller
     {
 
         $this->validate($request,[
-            'nombre'=>'required|string',
-            'primer_apellido'=>'required|string',
-            'segundo_apellido'=>'required|string',
+            'nombre'=>'required|string|max:80',
+            'primer_apellido'=>'required|string|max:50',
+            'segundo_apellido'=>'required|string|max:50',
             'tipo_documento'=>'required|string',
-            'doc'=>'required|string|unique:registros'.$id,
-            'email'=>'required|email',
+            'doc'=>'required|string|unique:registros,id,'.$id,
             'fecha_nacimiento'=>'required|date',
-            'profesion'=>'required|string',
-            'cargo'=>'required|string',
-            'empresa'=>'required|string',
-            'telefono'=>'required|numeric',
+            'email'=>'required|email|max:100',
+            'celular'=>'required|numeric',
+            'telefono_personal'=>'numeric',
+
             'area_id'=>'required',
+            'profesion'=>'required|string|max:60',
+            'cargo'=>'required|string|max:60',
+            'empresa'=>'required|string|max:80',
+            'telefono_corporativo'=>'numeric',
+            'email_corporativo'=>'email|max:100',
+            'celular_corporativo'=>'numeric',
             'departamento_id'=>'required',
             'municipio_id'=>'required',
-            'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000',            
+            'direccion'=>'max:60',
+
+            'sn'=>'max:80',
+            'asesor_comercial'=>'required',
+            'estado_cliente'=>'required',
+            'comentarios'=>'max:800',
+            'tipo_registro'=>'required',
+            'estado_registro'=>'required',
+            'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000',    
         ]);
 
-        $soporte = $request->input('archivo_soporte');
 
+        /*******************************
+        Obtiene edad, con la fecha
+        *******************************/
+        $menor_a_18 = false;
+        if($request->input('fecha_nacimiento')){
+            $menor_a_18 = false;
+            $edad = Carbon::parse($request->input('fecha_nacimiento'))->age;
+            if($edad<18){
+                $menor_a_18 = true;
+            }
+        }
+
+        $soporte = $request->input('archivo_soporte');
         if($request->soporte){
             $soporte = time().'.'.$request->soporte->getClientOriginalExtension();
             $request->soporte->move(public_path('uploads/soportes'), $soporte);
@@ -270,13 +305,23 @@ class RegistrosController extends Controller
         $registro->profesion = $request->input('profesion');
         $registro->cargo = $request->input('cargo');
         $registro->empresa = $request->input('empresa');
-        $registro->telefono = $request->input('telefono');
+        $registro->telefono_personal = $request->input('telefono_personal');
         $registro->archivo_soporte = $soporte;
         $registro->municipio_id = $request->input('municipio_id');
         $registro->area_id = $request->input('area_id');
-        $registro->procedencia = $request->input('procedencia');
-        $registro->estado = 1;
+        $registro->menor_de_18 = $menor_a_18;
+        $registro->sn = $request->input('sn');
+        $registro->telefono_corporativo = $request->input('telefono_corporativo');
+        $registro->celular = $request->input('celular');
+        $registro->celular_corporativo = $request->input('celular_corporativo');
+        $registro->email_corporativo = $request->input('email_corporativo');
+        $registro->direccion = $request->input('direccion');
+        $registro->comentarios = $request->input('comentarios');
+        $registro->estado_cliente = $request->input('estado_cliente');
+        $registro->tipo_registro = $request->input('tipo_registro');
+        $registro->comentarios = $request->input('comentarios');
         $registro->modificado_por = Auth::user()->id;
+        $registro->estado = $request->input('estado_registro'); // esto tiene que venir dinamico
         $registro->save();
 
         return redirect('registros')->with('success','Registro actualizado correctamente');
@@ -293,6 +338,46 @@ class RegistrosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function saveInfoAgent($registro_id)
+    {
+        $agent = new Agent();
+        $platform = $agent->platform();
+        $version  = $agent->version($platform);
+
+        $tipo_device = '';
+        $ip = Request()->ip();
+
+        if($agent->isMobile()){
+            $tipo_device = 'Mobile';
+        }elseif($agent->isTablet()){
+            $tipo_device = 'Tablet';
+        }else{
+            $tipo_device = 'Desktop';
+        }
+
+        $deviceRegistro = new DeviceRegistro();
+        $deviceRegistro->registro_id = $registro_id;
+        $deviceRegistro->SO = $platform;
+        $deviceRegistro->SO_version = $version;
+        $deviceRegistro->device = $agent->device();
+        $deviceRegistro->browser = $agent->browser();
+        $deviceRegistro->ip = $ip;
+        $deviceRegistro->tipo_device = $tipo_device;
+        $deviceRegistro->pais = geoip()->getLocation($ip)->country;
+        $deviceRegistro->Departamento = geoip()->getLocation($ip)->state_name;
+        $deviceRegistro->ciudad = geoip()->getLocation($ip)->city;
+        $deviceRegistro->lat = geoip()->getLocation($ip)->lat;
+        $deviceRegistro->lon = geoip()->getLocation($ip)->lon;
+        $deviceRegistro->save();
+
     }
 
 
@@ -314,6 +399,9 @@ class RegistrosController extends Controller
      */
     public function exportExcel()
     {
+
+        //$registros = Registros::all();
+        //return view('registros.excel', compact('registros'));
 
         $excel = \App::make('excel');
 
@@ -354,15 +442,26 @@ class RegistrosController extends Controller
 
         return Datatables::of($registros)
             ->addColumn('action', function ($registros) {
-                return '
-                    <a class="btn btn-xs btn-link link-info"  href="registros/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="Ver más"><i class="fa fa-cog" aria-hidden="true"></i></a>';
+                return '<a href="../registros/'.$registros->id.'/edit">
+                        <button class="mdl-button mdl-js-button mdl-button--primary">
+                            Actualizar
+                        </button></a>
+                        <a href="../registros/'.$registros->id.'">
+                        <button class="mdl-button mdl-js-button mdl-button--primary">
+                            Ver
+                        </button></a>
+                        <button data-dismiss="modal" class="mdl-button mdl-js-button mdl-button--accent">
+                            Cancelar
+                        </button>';
             })
-            ->editColumn('nombre', '<a href="registros/{{$id}}">{{$nombre}}</a>')
+            ->editColumn('nombre', '<a href="../registros/{{$id}}">{{$nombre}}</a>')
             ->editColumn('soporte', '<a data-fancybox data-caption="Soporte" href="{{URL::to("uploads/soportes/$archivo_soporte")}}"> {{ $archivo_soporte? "soporte" : ""  }} </a>')
-            //->editColumn('modificado_por.nombre', '{{$modificado_por? "$modificado_por->nombre": ""}}')
             ->addColumn('modificado_por', function ($registros) {
                 return $registros->modificadoPor? $registros->modificadoPor->nombre: '';
-            })            
+            })
+            ->editColumn('menor_de_18', '{{ $menor_de_18 ? "SI":"NO" }}')
+            ->editColumn('estado', '{{ $estado ? "Activo":"Inactivo" }}')
+            ->editColumn('comentarios', '{{str_limit($comentarios,50)}}')
             ->removeColumn('password')->make(true);
     }
 

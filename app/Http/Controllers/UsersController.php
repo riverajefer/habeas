@@ -9,6 +9,7 @@ use App\Models\Registros;
 use Datatables;
 use App\Models\Areas;
 use App\Models\User;
+use App\Models\Modulos;
 
 class UsersController extends Controller
 {
@@ -20,6 +21,19 @@ class UsersController extends Controller
     public function index()
     {
         return User::all();
+    }
+
+
+    /**
+     * Retorna los usuarios que estàn en el módulo de habeas
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function habeas()
+    {
+        $modulos = Modulos::find(21);
+        return $modulos->users()->get();
+        
     }
 
 }

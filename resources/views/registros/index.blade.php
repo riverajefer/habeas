@@ -55,6 +55,7 @@
                         <th>Apellidos</th>
                         <th>Email</th>
                         <th>Área</th>
+                        <th>Procedencia</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -83,6 +84,7 @@ $(function() {
             { data: 'primer_apellido', name: 'primer_apellido' },
             { data: 'email', name: 'email' },
             { data: 'area.titulo', name: 'area.titulo' },
+            { data: 'procedencia', name: 'procedencia' },
             { data: 'action', name: 'action', orderable: false, searchable: false}
         ],
     });

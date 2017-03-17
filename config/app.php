@@ -163,6 +163,9 @@ return [
         Torann\GeoIP\GeoIPServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         hisorange\BrowserDetect\Provider\BrowserDetectService::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
+        Stevebauman\Location\LocationServiceProvider::class,
+        App\Providers\HelperServiceProvider::class,
 
 
     ],
@@ -216,7 +219,9 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,    
         'BrowserDetect' => hisorange\BrowserDetect\Facade\Parser::class,
-    
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'Location' => Stevebauman\Location\Facades\Location::class,
+        'MyFuncs' => App\Helpers\MyFuncs::class,
 
     ],
 

@@ -1,5 +1,6 @@
 <?php
 use Carbon\Carbon; 
+use App\Http\Requests;
 
 Route::get('/', function () {
 
@@ -40,6 +41,7 @@ Route::group(['middleware'=>'auth'], function(){
 
 
     Route::get('users', 'UsersController@index')->name('users');
+    Route::get('users_habeas', 'UsersController@habeas')->name('usersHabeas');
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('pdf', 'DatatablesController@pdf');
@@ -47,7 +49,50 @@ Route::group(['middleware'=>'auth'], function(){
 
 });
 
+
+Route::get('save','RegistrosController@saveInfoAgent')->name('save');
+
+Route::get('save2', function(){
+
+
+    $deviceRegistro = new App\Models\DeviceRegistro();
+    $deviceRegistro->ip = '';
+    $deviceRegistro->save();
+
+    return $deviceRegistro;
+
+
+});
+
+
+
 Route::get('test', function(){
+
+    //$modulos =  App\Models\Modulos::find(21);
+
+    $modulos =  App\Models\Modulos::find(21);
+    return $modulos->users()->get();
+
+
+   return $modulos = App\Models\User::find(2)->modulos()->where('idmodfunc_t20', 21)->get();
+
+
+    return dd( geoip()->getLocation(Request::ip()) );
+    return Request::ip();
+    return dd(Agent::isMobile());
+    return MyFuncs::full_name("John","Doe");
+    return dd(geoip()->getLocation('27.974.399.65'));
+
+    return dd($position = Location::get('192.168.1.1'));
+    return Agent::device();
+    return Agent::version(Agent::platform());
+    $bro = Agent::browser();
+    return $version = Agent::version($bro);
+
+    //$agent = new Agent();
+    //return var_dump($agent->is('Windows'));
+
+    return BrowserDetect::detect();
 
      $perfil = DB::table('perfusr_t21')->where('idmodfunc_t21', '21')->first();
      return $perfil->idusr_t21;

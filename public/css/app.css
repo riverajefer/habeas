@@ -140,6 +140,11 @@ label {
     background-color: #5cb85c !important;
     color:#fff !important;
 }
+.Inactivo{
+    background-color: #e86767 !important;
+    color:#fff !important;
+}
+
 ul.list-group >li:hover{
     background-color: #f8f8f8;
 }
@@ -157,6 +162,17 @@ ul.list-group >li:hover{
     font-weight: 500;
 }
 
+.mdl-dialog__content{
+    padding: 15px 24px 0px !important;
+}
+.mdl-dialog__content p{
+    text-align: center;
+}
 .modal-title {
     font-size: 19px;
 }
+.mdl-list__item{
+    height: 30px !important;
+    padding: 5px 0px 13px !important;
+}
+

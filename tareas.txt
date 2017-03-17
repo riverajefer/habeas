@@ -108,11 +108,6 @@ Permisos Modulo
 Responsable Operario
 
 
-Tabla Users
-Tabla Modulos
-Tabla PerfilUser
-
-
 En el Auth, preguntar si el usuario está asignado en el modulo 21
 
 Perfil Responsable
@@ -128,9 +123,48 @@ Estar asignado al modulo de tratamiento de datos Y pertenecer a la tabla de Áre
 
 
 *************************************
-Preguntas, el operario y el Responsable, pueden ser la misma persona ?
+Preguntas:
+->El operario y el Responsable, pueden ser la misma persona ?
+->Definir la lave primaria
+->De todos los campos, cuales son obligatorios y cuales no.
 
 
+
+
+1.  Exportar Excel  ::Check
+2.  Permiso Reponsable y operario
+3.  Modificar registro ::Check
+4.  Dar de baja registro (boton) ::Check
+5.  Dar de baja registro (formulario)
+6.  Verificar, ajustar formularios publicos ::Check
+7.  Enviar email de Notificaciòn (Responsable y Operario)
+8.  Obtener datos como IP, Ubicación, etc para el registro ::Check
+9.  Carga masiva
+10. Conectar a SAP, Asesores comerciales
+11. Enlace desde Codignither
+12  Historial de cambios
+13. CRUD para Tipo de Registro
+14. Filtrado por área
+15. Estadisticas
+
+
+Responsabe -> Solo vé
+Operario ->Puede crear actualizar
+Pasos. 
+Tomar un Usuario, asignarlo al modulo Tratamiento de datos
+La otra opción es que cuando lo asigne a un área,  de una vez se agregue al modulo de Habeas
+
+Mejor dicho, sino está en el modulo, se agrega.
+
+Entonces, cuando haga el login.
+Verifica, que este en el modulo habeas-> esto ya.
+Luego verifica que sea Responsable, como ?
+Consulto en la tabla de Areas, si el usuario está, entonces, pasa
+Y solo vería, la informacion de su área. ? esta es la pregunta.
+Solo vé lo de su area o lo de todas las areas.
+
+El responsable también entra normal.
+Ya se valida en las vistas y en el middleware
 
 
 

@@ -94,7 +94,7 @@
                 <div class="form-group{{ $errors->has('fecha_nacimiento') ? ' has-error' : '' }}">
                     <label for="fecha">Fecha de nacimiento</label>
                     <div class='input-group date'>
-                        <input type='text' id='datetimepicker' class="form-control" name="fecha_nacimiento" placeholder="dd/mm/aaa"  value="{{ old('fecha_nacimiento') }}" required>
+                        <input type='text' id='datetimepicker' class="form-control" name="fecha_nacimiento" placeholder="aaa/mm/dd"  value="{{ old('fecha_nacimiento') }}" required>
                         <span class="input-group-addon">
                             <span class="fa fa-calendar">
                             </span>
@@ -364,7 +364,7 @@
                     <select name="tipo_registro" id="tipo_registro" class="form-control" required>
                         <option value="">Seleccione el tipo de registro</option>
                         @foreach($tipo_registro as $tipo_registro)
-                            <option value="{{$tipo_registro->id}}">{{$tipo_registro->titulo}}</option>
+                            <option value="{{$tipo_registro->id}}" {{ old('tipo_registro')==$tipo_registro->id ? 'selected="selected"' : '' }}>{{$tipo_registro->titulo}}</option>
                         @endforeach
                     </select>
 
@@ -375,11 +375,6 @@
                     @endif
                 </div>
             </div> 
-        </div><!-- /row -->
-
-        <div class="row">
-
-      
         </div><!-- /row -->
 
         <div class="row">
@@ -430,6 +425,7 @@
                 format: 'YYYY-MM-DD',
                 viewMode: 'years',
                 maxDate : 'now',
+                minDate : '-1910/12/31',
                 icons: {
                     time: "fa fa-clock-o",
                     date: "fa fa-calendar",

@@ -82,6 +82,9 @@ class AreasController extends Controller
         $area->slug         = str_slug($request->input('titulo'));
         $area->save();
 
+        // preguntar si e operario y el responsable estáa asignados al modulos habes,
+        /// Sino están asignarlos  
+
         return redirect('areas')->with('success','Registro creado correctamente');
     }
 

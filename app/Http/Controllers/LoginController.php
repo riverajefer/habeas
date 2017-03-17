@@ -42,20 +42,20 @@ class LoginController extends Controller
 
         $user = User::whereEmail_t4($email)->wherePassword(md5($password))->first();
 
-
         if(!$user){
             return redirect()->back()->with('errorLogin', 'Datos de acceso incorrectos'); 
         }
-        //return $user;
-        $perfil = DB::table('perfusr_t21')->where('idmodfunc_t21', '21')->first();
-        //return $perfil->idusr_t21;
 
-        if($perfil->idusr_t21 != $user->id){
+        // Valida que el usuario tenga acceso al modulo de habeas data    
+        $modulo_habeas =  $user->modulos()->where('idmodfunc_t20', 21)->get();
+
+        if(count($modulo_habeas)){
+            Auth::loginUsingId($user->id, false);
+            return redirect('registros');
+        }else{
             return redirect()->back()->with('errorLogin', 'No tienes acceso a este módulo'); 
         }
-        
-        Auth::loginUsingId($user->id, false);
-        return redirect('registros');
+
     }
 
 

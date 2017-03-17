@@ -47,7 +47,7 @@
                     {{$registro->area->titulo or 'sin seleccionar'}}
                 </li>               
                 <li class="list-group-item">
-                    <span>Profesion:</span>  
+                    <span>Profesión:</span>  
                     {{$registro->profesion}}
                 </li>
                 <li class="list-group-item">
@@ -70,19 +70,18 @@
                     <span>Celular corporativo:</span>  
                     {{$registro->celular_corporativo}}
                 </li>                 
-            </ul>  
-        </div>
-        <div class="col-md-6">
-            <ul class="list-group">
-             
                 <li class="list-group-item">
                     <span>Departamento:</span>  
                     {{$registro->municipio->ndepartamento->nombre or ''}}
                 </li>
+            </ul>  
+        </div>
+        <div class="col-md-6">
+            <ul class="list-group">
                 <li class="list-group-item">
                     <span>Ciudad:</span>  
                     {{$registro->municipio->nombre_municipio or ''}}
-                </li>
+                </li>                
                 <li class="list-group-item">
                     <span>Dirección:</span>  
                     {{$registro->direccion}}
@@ -118,7 +117,7 @@
                 </li>                 
                 <li class="list-group-item">
                     <span>Comentarios:</span>  
-                    {{ str_limit($registro->comentarios,20) }}
+                    {{ $registro->comentarios }}
                 </li>                                                                                                    
                 <li class="list-group-item">
                     <span>Procedencia del registro:</span>  
@@ -126,7 +125,7 @@
                 </li>  
                 <li class="list-group-item">
                     <span>Registro creado por:</span>  
-                    {{ $registro->creadoPor->nombre or '' }}
+                    {{ $registro->creadoPor->nombre or 'Usuario' }}
                 </li>  
                 <li class="list-group-item">
                     <span>Registro modificado por:</span>  
@@ -140,6 +139,12 @@
                     <span>Fecha de Modificación:</span>  
                     {{ $registro->updated_at}}
                 </li>  
+                <li class="list-group-item">
+                    <span>Avanzado:</span>  
+                    <button id="show-dialog" type="button" class="mdl-button">
+                       {{ $registro->deviceRegistro ? 'VER':''}}
+                    </button>
+                </li>                  
                 <li class="list-group-item {{ $registro->estado ? 'Activo': 'Inactivo'  }}">
                     <span>Estado:</span>  
                     {{ $registro->estado ? 'Activo': 'Dado de baja'  }}
@@ -149,12 +154,68 @@
     </div>
   </div>
 
+  <button id="show-dialog" type="button" class="mdl-button">Información avanzada</button>
+  <dialog class="mdl-dialog">
+    <div class="mdl-dialog__content">
+      <p><b> Información de donde se hizo el registro </b> </p>
+        <ul class="demo-list-item mdl-list">
+        @if($registro->deviceRegistro)
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    Sistema: {{$registro->deviceRegistro->SO}} {{$registro->deviceRegistro->SO_version}}
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   Tipo: {{$registro->deviceRegistro->device}}
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   Navegador: {{$registro->deviceRegistro->browser}}
+                </span>
+            </li> 
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    IP: {{$registro->deviceRegistro->ip}}
+                </span>
+            </li> 
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    Dispositivo: {{$registro->deviceRegistro->tipo_device}}
+                </span>
+            </li>  
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    Pais: {{$registro->deviceRegistro->pais}}
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    {{$registro->deviceRegistro->departamento}} - 
+                    {{$registro->deviceRegistro->ciudad}}
+                </span>
+            </li>                                                            
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   Ubicación: {{$registro->deviceRegistro->lat}},  
+                   {{$registro->deviceRegistro->lon}}
+                </span>
+            </li>
+            @endif 
+        </ul>      
+    </div>
+    <div class="mdl-dialog__actions">
+      <button class="mdl-button mdl-js-button mdl-button--accent close">Cerrar</button>
+    </div>
+  </dialog>
+
 
 <div class="row">
     <div class="col-md-2 col-md-offset-3">
         <a href="{{URL::to('registros/'.$registro->id.'/edit')}}">
             <button class="mdl-button mdl-js-button mdl-button--primary">
-                MODIFICAR REGISTRO
+                ACTUALIZAR REGISTRO
             </button>
         </a>
     </div>
@@ -185,6 +246,19 @@
 @push('scripts')
 <script>
 $(function() {
+
+    var dialog = document.querySelector('dialog');
+    var showDialogButton = document.querySelector('#show-dialog');
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    showDialogButton.addEventListener('click', function() {
+      dialog.showModal();
+    });
+    dialog.querySelector('.close').addEventListener('click', function() {
+      dialog.close();
+    });
+
 
 	$("[data-fancybox]").fancybox({
 		// Options will go here

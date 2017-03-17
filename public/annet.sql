@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-03-2017 a las 22:48:08
+-- Tiempo de generación: 17-03-2017 a las 05:55:30
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -1746,6 +1746,39 @@ CREATE TABLE `det_sol_rec_t17` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `device_registros`
+--
+
+CREATE TABLE `device_registros` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `registro_id` int(11) NOT NULL,
+  `SO` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `SO_version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `device` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `browser` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `tipo_device` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `pais` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `departamento` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ciudad` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `lat` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `lon` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `device_registros`
+--
+
+INSERT INTO `device_registros` (`id`, `registro_id`, `SO`, `SO_version`, `device`, `browser`, `ip`, `tipo_device`, `pais`, `departamento`, `ciudad`, `lat`, `lon`, `created_at`, `updated_at`) VALUES
+(1, 0, '', '', '', '', '', '', '', '', '', '', '', '2017-03-16 22:18:35', '2017-03-16 22:18:35'),
+(2, 26, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31', '-72.92', '2017-03-16 23:42:16', '2017-03-16 23:42:16'),
+(3, 29, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31', '-72.92', '2017-03-17 00:51:47', '2017-03-17 00:51:47');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `divdep_dane_t3`
 --
 
@@ -3011,7 +3044,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2014_10_12_100000_create_password_resets_table', 1),
 ('2017_03_01_152428_create_registros_table', 2),
 ('2017_03_06_095203_create_areas_table', 3),
-('2017_03_13_221127_create_tipo_registros_table', 4);
+('2017_03_13_221127_create_tipo_registros_table', 4),
+('2017_03_16_131318_create_device_registros_table', 5);
 
 -- --------------------------------------------------------
 
@@ -4535,7 +4569,8 @@ INSERT INTO `perfusr_t21` (`idperfusr_t21`, `idmodfunc_t21`, `idusr_t21`) VALUES
 (655, 11, 62),
 (656, 8, 62),
 (657, 5, 62),
-(658, 13, 62);
+(658, 13, 62),
+(659, 21, 5);
 
 -- --------------------------------------------------------
 
@@ -4772,18 +4807,27 @@ CREATE TABLE `registros` (
 --
 
 INSERT INTO `registros` (`id`, `sn`, `nombre`, `primer_apellido`, `segundo_apellido`, `tipo_documento`, `doc`, `fecha_nacimiento`, `profesion`, `cargo`, `empresa`, `telefono_personal`, `telefono_corporativo`, `celular`, `celular_corporativo`, `email`, `email_corporativo`, `direccion`, `municipio_id`, `archivo_soporte`, `area_id`, `procedencia`, `tipo_registro`, `menor_de_18`, `comentarios`, `asesor_comercial`, `estado`, `estado_cliente`, `creado_por`, `modificado_por`, `created_at`, `updated_at`) VALUES
-(1, '', 'Juan Andres', 'Ruiz', 'Lopez', 'Cédula de Ciudadanía', '805564873', '1971-06-11', 'Ingeniero', 'Analista', 'Annardx', '7854586', '', NULL, NULL, '', NULL, '', 525, '1489178796.PNG', 6, 'Administración', 0, 0, '', 0, 1, '0', 2, 2, '2017-03-10 20:46:36', '2017-03-10 20:47:08'),
-(2, '', 'Maria', 'Castro', 'Riaño', 'Cédula de Ciudadanía', '102154414584', '1991-02-07', 'Publicista', 'Comercial', 'Annardx', '74715481', '', NULL, NULL, '', NULL, '', 525, '1489179043.pdf', 1, 'Administración', 0, 0, '', 0, 1, '0', 2, 2, '2017-03-10 20:50:43', '2017-03-10 20:53:32'),
-(3, '', 'Pedro', 'Romero', 'Paez', 'Cédula de Ciudadanía', '102154240', '1985-01-30', 'Ingeniero Industrial', 'Administración', 'Annardx', '78712145', '', NULL, NULL, '', NULL, '', 70, '1489179336.png', 2, 'Administración', 0, 0, '', 0, 1, '0', 2, 0, '2017-03-10 20:55:36', '2017-03-10 20:55:36'),
-(4, '', 'Andrea', 'Martinez', 'Gonzales', 'Cédula de Ciudadanía', '1021541545', '1983-02-11', 'Ingeniera Electrónica ', 'Soporte', 'Annardx', '78545868', '', NULL, NULL, '', NULL, '', 525, '1489179498.png', 3, 'Administración', 0, 0, '', 0, 1, '0', 2, 2, '2017-03-10 20:58:01', '2017-03-10 20:58:18'),
-(5, '', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '55787', '2003-01-29', 'Ingeniero', 'Analista', 'Annardx', '74715485', '', NULL, NULL, '', NULL, '', 525, NULL, 1, 'Formulario_mercadeo', 0, 0, '', 0, 1, '0', 0, 0, '2017-03-10 21:12:46', '2017-03-10 21:12:46'),
-(6, '', 'Juan', 'Romero', 'Paez', 'Cédula de Ciudadanía', '4343434', '1991-12-31', 'Ingeniero', 'Analista', 'Annardx', '74715485', '', NULL, NULL, '', NULL, '', 525, NULL, 1, 'Formulario_mercadeo', 0, 0, '', 0, 1, '0', 0, 0, '2017-03-10 21:15:19', '2017-03-10 21:15:19'),
-(7, '', 'Daniela', 'Diaz', 'Gonzales', 'Cédula de Ciudadanía', '3434343', '1991-12-31', 'Publicista', 'Comercial', 'Annardx', '74715485', '', NULL, NULL, '', NULL, '', 525, '', 2, 'Administración', 0, 0, '', 0, 1, '0', 0, 2, '2017-03-10 21:16:42', '2017-03-10 21:22:24'),
-(9, '', 'Jose', 'Romero', 'Paez', 'Cédula de Ciudadanía', '34343453545', '1981-12-29', 'Ingeniero', 'Comercial', 'Annardx', '1234489', '', NULL, NULL, '', NULL, '', 525, '', 6, 'Administración', 0, 0, '', 0, 1, '0', 2, 0, '2017-03-10 21:26:44', '2017-03-10 21:26:44'),
+(1, '', 'Juan Andres', 'Ruiz', 'Lopez', 'Cédula de Ciudadanía', '805564873', '1971-06-11', 'Ingeniero', 'Analista', 'Annardx', '7854586', '', NULL, NULL, '', NULL, '', 525, '1489178796.PNG', 6, 'Administración', 0, 0, NULL, 0, 1, '0', 2, 2, '2017-03-10 20:46:36', '2017-03-10 20:47:08'),
+(2, '', 'Maria', 'Castro', 'Riaño', 'Cédula de Ciudadanía', '102154414584', '1991-02-07', 'Publicista', 'Comercial', 'Annardx', '74715481', '', NULL, NULL, '', NULL, '', 525, '1489179043.pdf', 1, 'Administración', 0, 0, NULL, 0, 1, '0', 2, 2, '2017-03-10 20:50:43', '2017-03-10 20:53:32'),
+(3, '', 'Pedro', 'Romero', 'Paez', 'Cédula de Ciudadanía', '102154240', '1985-01-30', 'Ingeniero Industrial', 'Administración', 'Annardx', '78712145', '', NULL, NULL, '', NULL, '', 70, '1489179336.png', 2, 'Administración', 0, 0, NULL, 0, 1, '0', 2, 0, '2017-03-10 20:55:36', '2017-03-10 20:55:36'),
+(4, '', 'Andrea', 'Martinez', 'Gonzales', 'Cédula de Ciudadanía', '1021541545', '1983-02-11', 'Ingeniera Electrónica ', 'Soporte', 'Annardx', '78545868', '', NULL, NULL, '', NULL, '', 525, '1489179498.png', 3, 'Administración', 0, 0, NULL, 0, 1, '0', 2, 2, '2017-03-10 20:58:01', '2017-03-10 20:58:18'),
+(5, '', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '55787', '2003-01-29', 'Ingeniero', 'Analista', 'Annardx', '74715485', '', NULL, NULL, '', NULL, '', 525, NULL, 1, 'Formulario_mercadeo', 0, 0, NULL, 0, 1, '0', 0, 0, '2017-03-10 21:12:46', '2017-03-10 21:12:46'),
+(6, '', 'Juan', 'Romero', 'Paez', 'Cédula de Ciudadanía', '4343434', '1991-12-31', 'Ingeniero', 'Analista', 'Annardx', '74715485', '', NULL, NULL, '', NULL, '', 525, NULL, 1, 'Formulario_mercadeo', 0, 0, NULL, 0, 1, '0', 0, 0, '2017-03-10 21:15:19', '2017-03-10 21:15:19'),
+(7, '', 'Daniela', 'Diaz', 'Gonzales', 'Cédula de Ciudadanía', '3434343', '1991-12-31', 'Publicista', 'Comercial', 'Annardx', '74715485', '', NULL, NULL, '', NULL, '', 525, '', 2, 'Administración', 0, 0, NULL, 0, 1, '0', 0, 2, '2017-03-10 21:16:42', '2017-03-10 21:22:24'),
+(9, '', 'Jose', 'Romero', 'Paez', 'Cédula de Ciudadanía', '34343453545', '1981-12-29', 'Ingeniero', 'Comercial', 'Annardx', '1234489', '', NULL, NULL, '', NULL, '', 525, '', 6, 'Administración', 0, 0, NULL, 0, 1, '0', 2, 0, '2017-03-10 21:26:44', '2017-03-10 21:26:44'),
 (16, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '123', '2012-12-29', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, NULL, NULL, 'jrivera@bancoink.com', NULL, NULL, 525, '', 8, 'Administración', NULL, 1, NULL, 0, 1, '0', 2, 0, '2017-03-13 03:59:27', '2017-03-13 03:59:27'),
 (17, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '1238', '1992-01-14', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, NULL, NULL, 'jrivera@bancoink.com', NULL, NULL, 525, '', 8, 'Administración', NULL, 0, NULL, 0, 1, '0', 2, 0, '2017-03-13 04:01:29', '2017-03-13 04:01:29'),
-(18, '1234', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '11121', '1999-12-28', 'Ingeniero', 'Analista', 'Annardx', '74715485', NULL, '32121212', '12132343', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 123', 525, '1489460418.png', 8, 'Administración', 1, 1, 'Hola mundo', 0, 1, 'Cliente Activo', 2, 0, '2017-03-14 03:00:18', '2017-03-14 03:00:18'),
-(19, '1234', 'Carlos', 'Gomez', 'Diaz', 'Cédula de Ciudadanía', '1233434', '1987-01-28', 'Ingeniero', 'Analista', 'Annardx', '32324454', '2334455', '3100287372', '12132343', 'example@gmail.com', 'jrivera@bancoink.com', 'Calle falsa 123', 525, '', 3, 'Panel de administración', 2, 0, 'Comentarios', 0, 1, 'Cliente Activo', 2, 0, '2017-03-14 04:07:46', '2017-03-14 04:07:46');
+(18, '1234', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '11121', '1999-12-28', 'Ingeniero', 'Analista', 'Annardx', '74715485', NULL, '32121212', '12132343', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 123', 525, '1489460418.png', 8, 'Administración', 1, 1, 'Hola mundo', 0, 0, 'Cliente Activo', 2, 0, '2017-03-14 03:00:18', '2017-03-14 03:00:18'),
+(19, '1234', 'Carlos', 'Gomez', 'Diaz', 'Cédula de Ciudadanía', '1233434', '1987-01-28', 'Ingeniero', 'Analista', 'Annardx', '32324454', '2334455', '3100287372', '12132343', 'example@gmail.com', 'jrivera@bancoink.com', 'Calle falsa 123', 525, '', 3, 'Panel de administración', 2, 0, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut earum vero mollitia impedit illum optio quam architecto doloribus voluptatum veniam ea asperiores nulla odio molestias, voluptas ab, aliquid vel temporibus.', 0, 1, 'Cliente Activo', 2, 0, '2017-03-14 04:07:46', '2017-03-14 04:07:46'),
+(20, '12123600', 'Danielm', 'Romerom', 'Ariasm', 'Cédula de Ciudadanía', '7638238200', '1993-10-28', 'Ingeniero Industrial m', 'Administración m', 'Annardx m', '3232445400', '233445500', '310028737200', '1213234000', 'jriveramm@bancoink.com', 'jriveramc@bancoink.com', 'Calle 57 # 70-180', 70, '1489679807.png', 6, 'Administración', 3, 0, 'No tengo comentaros mod00', 0, 0, 'Cliente Inactivo', 2, 2, '2017-03-16 14:33:32', '2017-03-16 16:23:16'),
+(21, '1212', 'Lina', 'Pineda', 'Gonzales', 'Cédula de Ciudadanía', '8787', '1986-05-13', 'Ingeniero', 'Analista', 'Annardx', '1234489', '', '1212', '', 'jrivera@bancoink.com', '', '', 525, '', 1, 'Administración', 1, 0, 'Actualización', 0, 1, 'Cliente Activo', 2, 2, '2017-03-16 17:05:32', '2017-03-16 17:09:59'),
+(22, '2323', 'Juan', 'Doe', 'Gonzales', 'Cédula de Ciudadanía', '767676', '1957-08-10', 'Ingeniero', 'Analista', 'Annardx m', '7848816', '', '3343565656', '', 'jrivera@bancoink.com', '', '', 525, '', 4, 'Formulario_veterinaria', 2, 0, '', 0, 1, 'Cliente Activo', 2, 2, '2017-03-16 17:16:01', '2017-03-16 17:17:19'),
+(23, '1212', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '34334', '2000-01-04', 'Ingeniero', 'Analista', 'Annardx', '74715485', '', '32121212', '', 'jrivera@bancoink.com', '', '', 525, '', 5, 'Formulario_industria', 2, 1, '', 0, 1, 'Cliente Activo', 2, 2, '2017-03-16 17:19:26', '2017-03-16 17:20:02'),
+(24, '1234', 'Pedro', 'Doe', 'Gonzales', 'Cédula de Ciudadanía', '76767', '1990-01-02', 'Ingeniero Industrial', 'Analista', 'Annardx', '32324454', '2334455', '3100287372', '12132343', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 123', 525, '1489706968.PNG', 6, 'Panel de administración', 2, 0, 'Comentarios', 0, 1, 'Cliente Activo', 2, 0, '2017-03-16 23:29:28', '2017-03-16 23:29:28'),
+(25, '12123', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '123111', '1992-02-04', 'Ingeniero', 'Administración', 'Annardx m', '32324454', '2334455', '3100287372', '12132340', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 123', 525, '', 8, 'Panel de administración', 2, 0, 'cometartsas', 0, 1, 'Cliente Activo', 2, 0, '2017-03-16 23:32:59', '2017-03-16 23:32:59'),
+(26, '12123', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '12311111', '1992-02-04', 'Ingeniero', 'Administración', 'Annardx m', '32324454', '2334455', '3100287372', '12132340', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 123', 526, '', 8, 'Panel de administración', 2, 0, 'cometartsas', 0, 1, 'Cliente Activo', 2, 0, '2017-03-16 23:42:15', '2017-03-16 23:42:15'),
+(27, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '12121212', '2001-12-31', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, '3100287372', NULL, 'jrivera@bancoink.com', NULL, NULL, 525, NULL, 3, 'Formulario_soporte-tecnico', NULL, 1, NULL, 0, 1, '', 0, 0, '2017-03-17 00:48:15', '2017-03-17 00:48:15'),
+(29, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '121212121', '2001-12-31', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, '3100287372', NULL, 'jrivera@bancoink.com', NULL, NULL, 525, NULL, 3, 'Formulario_soporte-tecnico', NULL, 1, NULL, 0, 1, '', 0, 0, '2017-03-17 00:51:46', '2017-03-17 00:51:46');
 
 -- --------------------------------------------------------
 
@@ -5168,6 +5212,12 @@ ALTER TABLE `dep_t5`
   ADD PRIMARY KEY (`id_dep_t5`);
 
 --
+-- Indices de la tabla `device_registros`
+--
+ALTER TABLE `device_registros`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `divdep_dane_t3`
 --
 ALTER TABLE `divdep_dane_t3`
@@ -5296,6 +5346,11 @@ ALTER TABLE `contacts_t7`
 ALTER TABLE `dep_t5`
   MODIFY `id_dep_t5` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
+-- AUTO_INCREMENT de la tabla `device_registros`
+--
+ALTER TABLE `device_registros`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT de la tabla `divdep_dane_t3`
 --
 ALTER TABLE `divdep_dane_t3`
@@ -5319,7 +5374,7 @@ ALTER TABLE `modfunc_t20`
 -- AUTO_INCREMENT de la tabla `perfusr_t21`
 --
 ALTER TABLE `perfusr_t21`
-  MODIFY `idperfusr_t21` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=659;
+  MODIFY `idperfusr_t21` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=660;
 --
 -- AUTO_INCREMENT de la tabla `perf_t10`
 --
@@ -5339,7 +5394,7 @@ ALTER TABLE `position_t9`
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT de la tabla `sections_t11`
 --

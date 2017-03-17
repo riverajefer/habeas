@@ -52,5 +52,8 @@ class Registros extends Model
         return $this->belongsTo('App\Models\TipoRegistro', 'tipo_registro');
     }
     
+    public function deviceRegistro(){
+        return $this->hasOne('App\Models\DeviceRegistro', 'registro_id');
+    }    
 
 }

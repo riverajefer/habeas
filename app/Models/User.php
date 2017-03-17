@@ -14,8 +14,6 @@ class User extends Authenticatable
      *
      * @var string
      */
-
-
     protected $primaryKey = 'id_user_t4';
 
      /**
@@ -90,6 +88,14 @@ class User extends Authenticatable
     }
   }
 
+
+    /**
+     * Los modulos que pertenecen al usuario.
+     */
+    public function modulos()
+    {
+        return $this->belongsToMany('App\Models\Modulos', 'perfusr_t21', 'idusr_t21', 'idmodfunc_t21');
+    }
 
 
 

@@ -58,7 +58,7 @@
                         <th>Tipo Doc</th>
                         <th>Documento</th>
                         <th>Fecha nacimiento</th>
-                        <th>Email</th>
+                        <th>Email personal</th>
                         <th>Teléfono personal</th>
                         <th>Celular personal</th>
                         <th>Área</th>
@@ -78,10 +78,10 @@
                         <th>Tipo de registro</th>
                         <th>Menor de 18</th>
                         <th>Comentarios</th>
-
                         <th>Procedencia</th>
                         <th>Creado Por</th>
                         <th>Modificado Por</th>
+                        <th>Estado</th>
                         <th>Fecha de creación</th>
                         <th>Fecha de modificación</th>
                         <th>Acciones</th>
@@ -139,10 +139,10 @@ $(function() {
             { data: 'tipo_registro.titulo', name: 'tipo_registro.titulo' }, 
             { data: 'menor_de_18', name: 'menor_de_18' }, // ajustar
             { data: 'comentarios', name: 'comentarios' }, // ajustar
-
             { data: 'procedencia', name: 'procedencia' },
             { data: 'creado_por.nombre', name: 'creado_por.nombre'},
             { data: 'modificado_por', name: 'modificado_por'},
+            { data: 'estado', name: 'estado'},
             { data: 'created_at', name: 'created_at' },
             { data: 'updated_at', name: 'updated_at' },
             { data: 'action', name: 'action', orderable: false, searchable: false}

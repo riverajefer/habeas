@@ -68,13 +68,10 @@
                 <div class="form-group{{ $errors->has('tipo_documento') ? ' has-error' : '' }}">
                     <label for="tipo_documento">Tipo documento</label>
                     <select name="tipo_documento" id="tipo_documento" class="form-control" required>
-                        <option selected="selected" value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
-                        <option value="Cédula de Extranjería">Cédula de Extranjería</option>
-                        <option value="NIT">NIT</option>
-                        <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                        <option value="Registro Civil">Registro Civil</option>
-                        <option value="Pasaporte">Pasaporte</option>
-                        <option value="Carné Diplomático">Carné Diplomático</option>
+                       <option value="">Seleccione un tipo de documento</option>
+                       @foreach($tipo_documento as $tipo_documento)
+                        <option value="{{$tipo_documento}}"   {{ (collect(old('tipo_documento'))->contains($tipo_documento)) ? 'selected':'' }}  >{{$tipo_documento}}</option>
+                       @endforeach
                     </select>
 
                     @if ($errors->has('tipo_documento'))
@@ -88,7 +85,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('doc') ? ' has-error' : '' }}">
                     <label for="doc">Número de documento</label>
-                    <input type="text" class="form-control" id="doc" name="doc" placeholder="Número de docuemnto" value="{{ old('doc') }}" required>
+                    <input type="text" class="form-control" id="doc" name="doc" placeholder="Número de documento" value="{{ old('doc') }}" required>
                     @if ($errors->has('doc'))
                         <span class="help-block">
                             <strong>{{ $errors->first('doc') }}</strong>
@@ -102,7 +99,7 @@
                 <div class="form-group{{ $errors->has('fecha_nacimiento') ? ' has-error' : '' }}">
                     <label for="fecha">Fecha de nacimiento</label>
                     <div class='input-group date'>
-                        <input type='text' id='datetimepicker' class="form-control" name="fecha_nacimiento" placeholder="dd/mm/aaa"  value="{{ old('fecha_nacimiento') }}" required>
+                        <input type='text' id='datetimepicker' class="form-control" name="fecha_nacimiento" placeholder="aaa-mm-dd"  value="{{ old('fecha_nacimiento') }}" required>
                         <span class="input-group-addon">
                             <span class="fa fa-calendar">
                             </span>
@@ -146,7 +143,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                     <label for="email">Email</label>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
                     @if ($errors->has('email'))
                         <span class="help-block">
                             <strong>{{ $errors->first('email') }}</strong>
@@ -173,11 +170,23 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
-                    <label for="telefono">Teléfono</label>
-                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" value="{{ old('telefono') }}" required>
+                    <label for="telefono">Teléfono fijo</label>
+                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono fijo" value="{{ old('telefono') }}">
                     @if ($errors->has('telefono'))
                         <span class="help-block">
                             <strong>{{ $errors->first('telefono') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div> 
+
+            <div class="col-md-4">
+                <div class="form-group{{ $errors->has('celular') ? ' has-error' : '' }}">
+                    <label for="celular">Celular</label>
+                    <input type="text" class="form-control" id="celular" name="celular" placeholder="Celular" value="{{ old('celular') }}" required>
+                    @if ($errors->has('celular'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('celular') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -223,11 +232,16 @@
             <p style="padding:15px">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem voluptates minus illum aperiam, nisi qui voluptatibus incidunt facere, natus cupiditate. Blanditiis corrupti, omnis tenetur nisi unde maiores eveniet asperiores vitae.
             </p>
-            <div class="col-md-6">
+            <div class="col-md-3 col-md-offset-5">
                 <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-                    <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input">
+                    <input type="checkbox" name="autorizo" id="checkbox-1" class="mdl-checkbox__input" required>
                     <span class="mdl-checkbox__label">Si autorizo</span>
                 </label>
+                @if ($errors->has('autorizo'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('autorizo') }}</strong>
+                    </span>
+                @endif                
             </div>
           </div>
         </div>
@@ -240,7 +254,8 @@
                         ENVIAR INFORMACIÓN
                     </button>
                 </div>
-            </div>              
+            </div>  
+            <br><br>            
         </div> <!-- /row -->
         <input type="hidden" value="Formulario_{{$slug}}" name="procedencia">
         <input type="hidden" value="{{$area->id}}" name="area_id">
@@ -272,6 +287,7 @@
                 format: 'YYYY-MM-DD',
                 viewMode: 'years',
                 maxDate : 'now',
+                minDate : '-1910/12/31',
                 icons: {
                     time: "fa fa-clock-o",
                     date: "fa fa-calendar",
