@@ -1,6 +1,7 @@
 <?php
 use Carbon\Carbon; 
 use App\Http\Requests;
+use Illuminate\Support\Collection;
 
 Route::get('/', function () {
 
@@ -31,7 +32,7 @@ Route::group(['middleware'=>'auth'], function(){
 
     // Tabla completa
     Route::get('reg/tabla_completa','RegistrosController@tablaCompleta')->name('registrosTablaCompleta');
-    Route::get('reg.tabla_completa','RegistrosController@dataRegistrosTablaCompleta')->name('dataRegistrosTablaCompleta');
+    Route::post('reg.tabla_completa','RegistrosController@dataRegistrosTablaCompleta')->name('dataRegistrosTablaCompleta');
 
 
 
@@ -52,21 +53,64 @@ Route::group(['middleware'=>'auth'], function(){
 
 Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
-Route::get('save2', function(){
-
-
-    $deviceRegistro = new App\Models\DeviceRegistro();
-    $deviceRegistro->ip = '';
-    $deviceRegistro->save();
-
-    return $deviceRegistro;
-
-
-});
-
-
 
 Route::get('test', function(){
+
+
+            $re =  App\Models\Registros::find(2);
+return             $area = $re->area()->first()->m_operario;
+
+            $user = App\Models\User::find(5);
+            $areas =  $user->areasOperario()->get();
+
+            if($user->areasOperario()->first()){
+                return "tiene areas";
+            }else{
+                return "No tiene areas";
+
+            }
+            $user =  Auth::user();
+
+
+            return $areas =  $user->areasResponsable()->get();
+
+            $registros = new Collection;
+            foreach(collect($areas) as $area){
+                if(count($area->registros()->get())>0)
+                {
+                    $registros->push(App\Models\Registros::with('area')->where('area_id', $area->id)->first());
+                }
+            }
+
+          return $registros;
+
+
+
+
+
+
+    //$user =  Auth::user();
+    //$area = App\Models\Areas::find(6);
+    //return $registros_area  = $area->registros()->get();
+    $user = App\Models\User::find(1);
+   return  $areas =  $user->areasOperario()->get();
+   return  $areas =  $user->areasResponsable()->get();
+
+   
+
+    $R = array();
+    foreach($areas as $area){
+        if(count($area->registros()->get())>0)
+        {
+            array_push($R, $area->registros()->with('area')->get());
+            //$R[] = $area->registros()->with('area')->get();
+        }
+    }
+    return $R[0][0];
+    
+
+ //   return $user->areasResponsable()->registros->get();
+    
 
     //$modulos =  App\Models\Modulos::find(21);
 

@@ -32,6 +32,8 @@
                 <th>Estado del cliente</th>
                 <th>Tipo de registro</th>
                 <th>Menor de 18</th>
+                <th>Responsable</th>
+                <th>Operario</th>
                 <th>Procedencia</th>
                 <th>Creado Por</th>
                 <th>Modificado Por</th>
@@ -67,6 +69,8 @@
                     <td>{{$registro->estado_cliente}}</td>
                     <td>{{$registro->tipoRegistro->titulo or ''}}</td>
                     <td>{{$registro->menor_de_18 ? 'SI':'NO' }}</td>
+                    <td>{{$registro->area->m_responsable->nombre}}</td>
+                    <td>{{$registro->area->m_operario->nombre}}</td>
                     <td>{{$registro->procedencia}}</td>
                     <td>{{$registro->creadoPor->nombre or ''}}</td>
                     <td>{{$registro->modificadoPor->nombre or ''}}</td>

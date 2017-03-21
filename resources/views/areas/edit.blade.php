@@ -87,7 +87,7 @@ $(function() {
 
 var options = {
         ajax        : {
-            url     : '{!! route('users') !!}',
+            url     : '{!! route('usersHabeas') !!}',
             type    : 'GET',
             dataType: 'json',
         },

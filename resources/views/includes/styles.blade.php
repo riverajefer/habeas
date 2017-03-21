@@ -8,7 +8,8 @@
     <link href="{{ asset('css/jquery.fancybox.min.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
-    <!-- <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet"> -->
+
+    <link href="{{ asset('css/dialog-polyfill.css') }}" rel="stylesheet">
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

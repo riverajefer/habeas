@@ -91,6 +91,13 @@ class User extends Authenticatable
     }
   }
 
+  public function areasResponsable(){
+      return $this->hasMany('App\Models\Areas', 'responsable');
+  }
+
+  public function areasOperario(){
+     return $this->hasMany('App\Models\Areas', 'operario');
+  }
 
 
 

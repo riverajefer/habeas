@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
+use App\Models\Registros;
 
 class RolMiddleware
 {
@@ -14,17 +15,32 @@ class RolMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $voting)
     {
 
-        return $next($request);
-        return abort('403');
-        return $request->all();
-        if(Auth::user()->id==2){
-            return $next($request);
-        }else{
-            return redirect('/');
+        $segment =  $request->segments()[1];
+
+        // Evento crear
+        if($segment=='create'){
+
+            if(Auth::user()->areasOperario()->first()){
+                return $next($request);
+            }else{
+                return redirect('/');
+            }
+
+        }else{ // Evento modificar
+
+            // Si tiene permiso para modificar el registro o es administrador
+            $registro = Registros::findOrFail($segment);
+            if($registro->area()->first()->m_operario->id == Auth::user()->id  || Auth::user()->id==73){
+                return $next($request);
+            }else{
+                return redirect('/'); 
+            }
         }
+
+        //return abort('403');
 
     }
 }

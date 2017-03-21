@@ -54,6 +54,7 @@ class Registros extends Model
     
     public function deviceRegistro(){
         return $this->hasOne('App\Models\DeviceRegistro', 'registro_id');
-    }    
+    }
+
 
 }

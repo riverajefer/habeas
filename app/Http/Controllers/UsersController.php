@@ -33,7 +33,6 @@ class UsersController extends Controller
     {
         $modulos = Modulos::find(17);
         return $modulos->users()->get();
-        
     }
 
 }

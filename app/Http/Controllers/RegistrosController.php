@@ -16,6 +16,7 @@ use App\Models\DeviceRegistro;
 use Excel;
 use Auth;
 use Jenssegers\Agent\Agent;
+use Illuminate\Support\Collection;
 
 
 
@@ -32,8 +33,8 @@ class RegistrosController extends Controller
     {
 
 
-        $this->middleware('perfil', ['only'=>[
-            'create'
+        $this->middleware('perfil:voting', ['only'=>[
+            'create', 'edit'
         ]]);
 
         $this->tipo_documento = collect([
@@ -71,18 +72,67 @@ class RegistrosController extends Controller
     */
     public function dataRegistros()
     {
-        //$registros = Registros::query();
-        $registros = Registros::with('area')->get();
+
+        $user =  Auth::user();
+        if($user->id==73){
+             $registros = Registros::with('area')->get();
+
+        }elseif($user->areasOperario()->first() || $user->areasResponsable()->first()){
+
+            $registros = new Collection;
+            $R = Array();
+            $areas =  $user->areasOperario()->get();
+            foreach(collect($areas) as $area){
+                if($area->registros()->first())
+                {
+                    $registros->push(Registros::with('area')->where('area_id', $area->id)->get());
+                }
+
+            }
+            
+            if( count($registros)>0){
+                $registros = $registros[0];
+            }
+
+
+            if($user->areasResponsable()->first()){
+
+                $areasR =  $user->areasResponsable()->get();
+                $registrosR = new Collection;
+                foreach(collect($areasR) as $area){
+                    if($area->registros()->first())
+                    {
+                        if($registros[0]->area_id != $area->id)
+                        {
+                            $registros = $registros->merge(Registros::with('area')->where('area_id', $area->id)->get());
+                        }
+                    }
+                }                   
+            }
+        }else{
+             $registros = Registros::with('area')->get();
+        }
 
         return Datatables::of($registros)
             ->addColumn('action', function ($registros) {
-                return '
-                    <a class="btn btn-link link-info"  href="registros/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="Ver más"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a class="btn btn-link link-warning" href="registros/'.$registros->id.'/edit" data-toggle="tooltip" data-placement="top" title="Actualizar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                    <a class="btn btn-link link-danger" data-toggle="tooltip" data-placement="top" title="Dar de baja"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
-            })        
+                if($registros->area()->first()->m_operario->id == Auth::user()->id  || Auth::user()->id==73){
+                    return '
+                        <a class="btn btn-link link-info"  href="registros/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="Ver más"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a class="btn btn-link link-warning" href="registros/'.$registros->id.'/edit" data-toggle="tooltip" data-placement="top" title="Actualizar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <a class="btn btn-link link-danger" data-toggle="tooltip" data-placement="top" title="Dar de baja"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';                
+                }else{
+                    return '
+                        <a class="btn btn-link link-info"  href="registros/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="Ver más"><i class="fa fa-eye" aria-hidden="true"></i></a>';
+                }
+
+            })
             ->editColumn('nombre', '<a href="registros/{{$id}}">{{$nombre}}</a>')
-            ->removeColumn('password')->make(true);
+            ->addColumn('responsable', function ($registros) {
+                return $registros->area()->first()->m_responsable->nombre;
+            })->addColumn('operario', function ($registros) {
+                return $registros->area()->first()->m_operario->nombre;
+            })
+            ->make(true);
     }
 
     /**
@@ -92,9 +142,13 @@ class RegistrosController extends Controller
      */
     public function create()
     {
-        
+
         $departamentos = Departamentos::all();
-        $areas = Areas::orderBy('titulo','ASC')->get();
+        $areas =  Auth::user()->areasOperario()->orderBy('titulo','ASC')->get();
+        if(Auth::user()->id==73){
+            $areas = Areas::orderBy('titulo','ASC')->get();
+        }
+        
         $tipo_registro = TipoRegistro::orderBy('titulo','ASC')->get();
         $tipo_documento = $this->tipo_documento;
         $estado_cliente = $this->estado_cliente;
@@ -223,7 +277,10 @@ class RegistrosController extends Controller
 
         $registro = Registros::findOrFail($id);
         $departamentos = Departamentos::all();
-        $areas = Areas::orderBy('titulo','ASC')->get();
+        $areas =  Auth::user()->areasOperario()->orderBy('titulo','ASC')->get();
+        if(Auth::user()->id==73){
+            $areas = Areas::orderBy('titulo','ASC')->get();
+        }
         $tipo_registro = TipoRegistro::orderBy('titulo','ASC')->get();
         $tipo_documento = $this->tipo_documento;
         $estado_cliente = $this->estado_cliente;
@@ -409,7 +466,46 @@ class RegistrosController extends Controller
  
             $excel->sheet('Registros', function($sheet) {
 
-                $registros = Registros::all();
+            $user =  Auth::user();
+                if($user->id==73){
+                    $registros = Registros::with('area')->get();
+
+                }elseif($user->areasOperario()->first() || $user->areasResponsable()->first()){
+
+                    $registros = new Collection;
+                    $R = Array();
+                    $areas =  $user->areasOperario()->get();
+                    foreach(collect($areas) as $area){
+                        if($area->registros()->first())
+                        {
+                            $registros->push(Registros::with('area')->where('area_id', $area->id)->get());
+                        }
+
+                    }
+                    
+                    if( count($registros)>0){
+                        $registros = $registros[0];
+                    }
+
+
+                    if($user->areasResponsable()->first()){
+
+                        $areasR =  $user->areasResponsable()->get();
+                        $registrosR = new Collection;
+                        foreach(collect($areasR) as $area){
+                            if($area->registros()->first())
+                            {
+                                if($registros[0]->area_id != $area->id)
+                                {
+                                    $registros = $registros->merge(Registros::with('area')->where('area_id', $area->id)->get());
+                                }
+                            }
+                        }                   
+                    }
+                }else{
+                    $registros = Registros::with('area')->get();
+                }
+
                 $sheet->freezeFirstRow();
                 $sheet->loadView('registros.excel')->with('registros', $registros);
  
@@ -438,11 +534,14 @@ class RegistrosController extends Controller
     public function dataRegistrosTablaCompleta()
     {
         //$registros = Registros::query();
-        $registros = Registros::with('area')->with('municipio')->with('municipio.ndepartamento')->with('creadoPor')->with('modificadoPor')->with('tipoRegistro')->get();
+        $registros = Registros::with('area')->with('area.m_responsable')->with('area.m_operario')->with('municipio')->with('municipio.ndepartamento')->with('creadoPor')->with('modificadoPor')->with('tipoRegistro')->get();
 
         return Datatables::of($registros)
             ->addColumn('action', function ($registros) {
-                return '<a href="../registros/'.$registros->id.'/edit">
+
+                if($registros->area()->first()->m_operario->id == Auth::user()->id  || Auth::user()->id==73){
+                    return 
+                        '<a href="../registros/'.$registros->id.'/edit">
                         <button class="mdl-button mdl-js-button mdl-button--primary">
                             Actualizar
                         </button></a>
@@ -452,7 +551,14 @@ class RegistrosController extends Controller
                         </button></a>
                         <button data-dismiss="modal" class="mdl-button mdl-js-button mdl-button--accent">
                             Cancelar
-                        </button>';
+                        </button>';                    
+                }else{
+                    return '<a href="../registros/'.$registros->id.'">
+                        <button class="mdl-button mdl-js-button mdl-button--primary">
+                            Ver
+                        </button></a>';
+                }
+
             })
             ->editColumn('nombre', '<a href="../registros/{{$id}}">{{$nombre}}</a>')
             ->editColumn('soporte', '<a data-fancybox data-caption="Soporte" href="{{URL::to("uploads/soportes/$archivo_soporte")}}"> {{ $archivo_soporte? "soporte" : ""  }} </a>')

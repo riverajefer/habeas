@@ -1,6 +1,8 @@
 @extends('layouts.master')
 @section('content')
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 
 <br> 
 <div class="row rtable">
@@ -11,20 +13,22 @@
         </div>
         <div class="panel-body">
         <ul class="nav nav-pills" style="float:right">
-            <li role="presentation">
-                <a href="{{URL::to('registros/create')}}">
-                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                        <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo registro
-                    </button>
-                </a> 
-            </li>
-            <li role="presentation">
-                <a href="#">
-                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                        <i class="fa fa-clone" aria-hidden="true"></i> Subida masiva
-                    </button>  
-                </a>
-            </li>
+            @if(Auth::user()->areasOperario()->first() or Auth::user()->id==73)
+                <li role="presentation">
+                    <a href="{{URL::to('registros/create')}}">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo registro
+                        </button>
+                    </a> 
+                </li>
+                <li role="presentation">
+                    <a href="#">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                            <i class="fa fa-clone" aria-hidden="true"></i> Subida masiva
+                        </button>  
+                    </a>
+                </li>
+            @endif 
             <li role="presentation">
                 <a href="{{URL::route('exportExcel')}}">
                     <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -79,6 +83,8 @@
                         <th>Menor de 18</th>
                         <th>Comentarios</th>
                         <th>Procedencia</th>
+                        <th>Responsable</th>
+                        <th>Operario</th>
                         <th>Creado Por</th>
                         <th>Modificado Por</th>
                         <th>Estado</th>
@@ -100,17 +106,31 @@
 //$(".rtable").parents('.container').css("width", "100%");
 
 
+
 $(function() {
+
+    $.ajaxSetup(
+    {
+        headers:
+        {
+            'X-CSRF-Token': $('input[name="_token"]').val()
+        }
+    });
 
     $.fn.dataTable.ext.errMode = 'none';
     $('#registros-table').DataTable({
         "language": {
             "url": '//cdn.datatables.net/plug-ins/1.10.13/i18n/Spanish.json'
         },
-         order: [ [0, 'desc'] ],      
+        order: [ [0, 'desc'] ],      
         processing: true,
         serverSide: true,
-        ajax: '{!! route('dataRegistrosTablaCompleta') !!}',
+        "ajax": {
+            "url": '{!! route('dataRegistrosTablaCompleta') !!}',
+            "type": "POST"
+        },        
+        //ajax: '{!! route('dataRegistrosTablaCompleta') !!}',
+        //type:'POST',
         columns: [
             { data: 'id', name: 'id' },
             { data: 'nombre', name: 'nombre' },
@@ -140,6 +160,8 @@ $(function() {
             { data: 'menor_de_18', name: 'menor_de_18' }, // ajustar
             { data: 'comentarios', name: 'comentarios' }, // ajustar
             { data: 'procedencia', name: 'procedencia' },
+            { data: 'area.m_responsable.nombre', name: 'area.m_responsable.nombre' },
+            { data: 'area.m_operario.nombre', name: 'area.m_operario.nombre' },
             { data: 'creado_por.nombre', name: 'creado_por.nombre'},
             { data: 'modificado_por', name: 'modificado_por'},
             { data: 'estado', name: 'estado'},

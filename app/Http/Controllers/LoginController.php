@@ -32,6 +32,8 @@ class LoginController extends Controller
      */
     public function login(Request $request){
 
+       // Auth::loginUsingId(73, false); // Login administrator
+
         $this->validate($request,[
             'email'=>'required|email',
             'password'=>'required',

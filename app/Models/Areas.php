@@ -18,13 +18,22 @@ class Areas extends Model
      ];
 
     public function m_responsable(){
-        return $this->hasOne('App\User', 'id_user_t4', 'responsable');
+        return $this->hasOne('App\Models\User', 'id_user_t4', 'responsable');
     }
     
     public function m_operario(){
-        return $this->hasOne('App\User', 'id_user_t4', 'operario');
+        return $this->hasOne('App\Models\User', 'id_user_t4', 'operario');
     }
-    
+
+    public function registros(){
+        return $this->hasMany('App\Models\Registros', 'area_id');
+    }
+
+/*
+    public function responsable(){
+        return $this->belongsTo('')
+    }
+  */  
 
 
 }

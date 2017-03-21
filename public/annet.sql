@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-03-2017 a las 05:55:30
+-- Tiempo de generación: 21-03-2017 a las 06:06:00
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -42,7 +42,7 @@ CREATE TABLE `areas` (
 --
 
 INSERT INTO `areas` (`id`, `titulo`, `user_id`, `responsable`, `operario`, `slug`, `created_at`, `updated_at`) VALUES
-(1, 'Mercadeo', 2, 10, 4, 'mercadeo', '2017-03-09 21:31:18', '2017-03-13 03:43:01'),
+(1, 'Mercadeo', 2, 2, 1, 'mercadeo', '2017-03-09 21:31:18', '2017-03-18 17:25:46'),
 (2, 'Financiera', 3, 2, 2, 'financiera', '2017-03-09 21:31:42', '2017-03-09 21:31:42'),
 (3, 'Soporte Técnico', 2, 2, 2, 'soporte-tecnico', '2017-03-09 21:32:21', '2017-03-09 21:32:21'),
 (4, 'Veterinaria', 2, 2, 2, 'veterinaria', '2017-03-09 21:32:54', '2017-03-09 21:32:54'),
@@ -50,7 +50,8 @@ INSERT INTO `areas` (`id`, `titulo`, `user_id`, `responsable`, `operario`, `slug
 (6, 'Diagnóstica', 2, 2, 2, 'diagnostica', '2017-03-09 21:34:35', '2017-03-09 21:34:35'),
 (7, 'Biología Molecular', 2, 2, 2, 'biologia-molecular', '2017-03-09 21:35:44', '2017-03-09 21:35:44'),
 (8, 'Banco de Sangre', 2, 2, 2, 'banco-de-sangre', '2017-03-09 21:36:18', '2017-03-09 21:36:18'),
-(9, 'prueba', 0, 5, 6, 'prueba', '2017-03-13 03:43:54', '2017-03-13 03:43:54');
+(9, 'prueba', 0, 2, 2, 'prueba', '2017-03-13 03:43:54', '2017-03-18 17:49:36'),
+(10, 'Nueva areaw', 0, 1, 2, 'nueva-area', '2017-03-18 17:51:29', '2017-03-18 17:51:40');
 
 -- --------------------------------------------------------
 
@@ -1774,7 +1775,8 @@ CREATE TABLE `device_registros` (
 INSERT INTO `device_registros` (`id`, `registro_id`, `SO`, `SO_version`, `device`, `browser`, `ip`, `tipo_device`, `pais`, `departamento`, `ciudad`, `lat`, `lon`, `created_at`, `updated_at`) VALUES
 (1, 0, '', '', '', '', '', '', '', '', '', '', '', '2017-03-16 22:18:35', '2017-03-16 22:18:35'),
 (2, 26, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31', '-72.92', '2017-03-16 23:42:16', '2017-03-16 23:42:16'),
-(3, 29, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31', '-72.92', '2017-03-17 00:51:47', '2017-03-17 00:51:47');
+(3, 29, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31', '-72.92', '2017-03-17 00:51:47', '2017-03-17 00:51:47'),
+(4, 30, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31', '-72.92', '2017-03-18 19:39:33', '2017-03-18 19:39:33');
 
 -- --------------------------------------------------------
 
@@ -4827,7 +4829,8 @@ INSERT INTO `registros` (`id`, `sn`, `nombre`, `primer_apellido`, `segundo_apell
 (25, '12123', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '123111', '1992-02-04', 'Ingeniero', 'Administración', 'Annardx m', '32324454', '2334455', '3100287372', '12132340', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 123', 525, '', 8, 'Panel de administración', 2, 0, 'cometartsas', 0, 1, 'Cliente Activo', 2, 0, '2017-03-16 23:32:59', '2017-03-16 23:32:59'),
 (26, '12123', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '12311111', '1992-02-04', 'Ingeniero', 'Administración', 'Annardx m', '32324454', '2334455', '3100287372', '12132340', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 123', 526, '', 8, 'Panel de administración', 2, 0, 'cometartsas', 0, 1, 'Cliente Activo', 2, 0, '2017-03-16 23:42:15', '2017-03-16 23:42:15'),
 (27, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '12121212', '2001-12-31', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, '3100287372', NULL, 'jrivera@bancoink.com', NULL, NULL, 525, NULL, 3, 'Formulario_soporte-tecnico', NULL, 1, NULL, 0, 1, '', 0, 0, '2017-03-17 00:48:15', '2017-03-17 00:48:15'),
-(29, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '121212121', '2001-12-31', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, '3100287372', NULL, 'jrivera@bancoink.com', NULL, NULL, 525, NULL, 3, 'Formulario_soporte-tecnico', NULL, 1, NULL, 0, 1, '', 0, 0, '2017-03-17 00:51:46', '2017-03-17 00:51:46');
+(29, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '121212121', '2001-12-31', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, '3100287372', NULL, 'jrivera@bancoink.com', NULL, NULL, 525, NULL, 3, 'Formulario_soporte-tecnico', NULL, 1, NULL, 0, 1, '', 0, 0, '2017-03-17 00:51:46', '2017-03-17 00:51:46'),
+(30, '1234', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '43434', '2011-12-27', 'Ingeniero', 'Analista', 'Annardx m', '3232445400', '2334455', '3100287372', '12132340', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 1233', 634, '', 10, 'Panel de administración', 2, 1, '3434', 0, 1, 'Cliente Activo', 1, 73, '2017-03-18 19:39:31', '2017-03-21 04:22:46');
 
 -- --------------------------------------------------------
 
@@ -5329,7 +5332,7 @@ ALTER TABLE `usuarios_envioinfo_t0`
 -- AUTO_INCREMENT de la tabla `areas`
 --
 ALTER TABLE `areas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `company_t14`
 --
@@ -5349,7 +5352,7 @@ ALTER TABLE `dep_t5`
 -- AUTO_INCREMENT de la tabla `device_registros`
 --
 ALTER TABLE `device_registros`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `divdep_dane_t3`
 --
@@ -5394,7 +5397,7 @@ ALTER TABLE `position_t9`
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT de la tabla `sections_t11`
 --

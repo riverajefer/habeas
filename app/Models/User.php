@@ -97,6 +97,12 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Modulos', 'perfusr_t21', 'idusr_t21', 'idmodfunc_t21');
     }
 
+    public function areasResponsable(){
+        return $this->hasMany('App\Models\Areas', 'responsable');
+    }
 
+    public function areasOperario(){
+        return $this->hasMany('App\Models\Areas', 'operario');
+    }
 
 }
