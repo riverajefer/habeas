@@ -3,6 +3,7 @@ use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Support\Collection;
 
+
 Route::get('/', function () {
 
     if(Auth::check()){
@@ -56,6 +57,23 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
 Route::get('test', function(){
 
+
+ 
+
+
+$r =  Auth::user()->areasResponsable()->first();
+$o =  Auth::user()->areasOperario()->first();
+if(count($r)>0 && count($o)==0 )
+{
+    return "No pasa";
+}
+return count($o);
+//if($o)
+
+
+return $user =  Auth::user;
+
+//return Auth::user()->areasResponsable()->first();
 
             $re =  App\Models\Registros::find(2);
 return             $area = $re->area()->first()->m_operario;

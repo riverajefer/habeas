@@ -16,7 +16,8 @@
         "laravelcollective/html": "5.2.*",
         "hisorange/browser-detect": "2.*",
         "jenssegers/agent": "^2.5",
-        "stevebauman/location": "2.0.*"
+        "stevebauman/location": "2.0.*",
+        "ixudra/curl": "6.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

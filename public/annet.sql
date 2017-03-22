@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-03-2017 a las 06:06:00
+-- Tiempo de generación: 22-03-2017 a las 01:01:59
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -42,7 +42,7 @@ CREATE TABLE `areas` (
 --
 
 INSERT INTO `areas` (`id`, `titulo`, `user_id`, `responsable`, `operario`, `slug`, `created_at`, `updated_at`) VALUES
-(1, 'Mercadeo', 2, 2, 1, 'mercadeo', '2017-03-09 21:31:18', '2017-03-18 17:25:46'),
+(1, 'Mercadeo', 2, 4, 2, 'mercadeo', '2017-03-09 21:31:18', '2017-03-18 17:25:46'),
 (2, 'Financiera', 3, 2, 2, 'financiera', '2017-03-09 21:31:42', '2017-03-09 21:31:42'),
 (3, 'Soporte Técnico', 2, 2, 2, 'soporte-tecnico', '2017-03-09 21:32:21', '2017-03-09 21:32:21'),
 (4, 'Veterinaria', 2, 2, 2, 'veterinaria', '2017-03-09 21:32:54', '2017-03-09 21:32:54'),
@@ -4572,7 +4572,8 @@ INSERT INTO `perfusr_t21` (`idperfusr_t21`, `idmodfunc_t21`, `idusr_t21`) VALUES
 (656, 8, 62),
 (657, 5, 62),
 (658, 13, 62),
-(659, 21, 5);
+(659, 21, 5),
+(660, 17, 4);
 
 -- --------------------------------------------------------
 
@@ -5377,7 +5378,7 @@ ALTER TABLE `modfunc_t20`
 -- AUTO_INCREMENT de la tabla `perfusr_t21`
 --
 ALTER TABLE `perfusr_t21`
-  MODIFY `idperfusr_t21` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=660;
+  MODIFY `idperfusr_t21` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=661;
 --
 -- AUTO_INCREMENT de la tabla `perf_t10`
 --

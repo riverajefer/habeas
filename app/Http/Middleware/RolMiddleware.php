@@ -19,11 +19,12 @@ class RolMiddleware
     {
 
         $segment =  $request->segments()[1];
+        $user = Auth::user();
 
         // Evento crear
         if($segment=='create'){
 
-            if(Auth::user()->areasOperario()->first()){
+            if($user->areasOperario()->first() || (count($user->areasOperario()->first())==0 and count($user->areasResponsable()->first())==0) ){
                 return $next($request);
             }else{
                 return redirect('/');
@@ -33,7 +34,7 @@ class RolMiddleware
 
             // Si tiene permiso para modificar el registro o es administrador
             $registro = Registros::findOrFail($segment);
-            if($registro->area()->first()->m_operario->id == Auth::user()->id  || Auth::user()->id==73){
+            if($registro->area()->first()->m_operario->id == $user->id  || (count($user->areasOperario()->first())==0 and count($user->areasResponsable()->first())==0)){
                 return $next($request);
             }else{
                 return redirect('/'); 

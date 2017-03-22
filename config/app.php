@@ -166,6 +166,7 @@ return [
         Jenssegers\Agent\AgentServiceProvider::class,
         Stevebauman\Location\LocationServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
+        Ixudra\Curl\CurlServiceProvider::class,
 
 
     ],
@@ -222,6 +223,7 @@ return [
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'Location' => Stevebauman\Location\Facades\Location::class,
         'MyFuncs' => App\Helpers\MyFuncs::class,
+        'Curl'          => Ixudra\Curl\Facades\Curl::class,
 
     ],
 

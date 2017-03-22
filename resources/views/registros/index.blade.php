@@ -12,7 +12,7 @@
         <div class="panel-body">
         <ul class="nav nav-pills" style="float:right">
 
-            @if(Auth::user()->areasOperario()->first() or Auth::user()->id==73)
+            @unless( count(Auth::user()->areasResponsable()->first())>0  && count(Auth::user()->areasOperario()->first())==0 )
                 <li role="presentation">
                     <a href="{{URL::to('registros/create')}}">
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -27,7 +27,7 @@
                         </button>  
                     </a>
                 </li>
-            @endif        
+            @endunless        
 
             <li role="presentation">
                 <a href="{{URL::route('exportExcel')}}">

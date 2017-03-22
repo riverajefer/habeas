@@ -17,7 +17,7 @@ use Excel;
 use Auth;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Collection;
-
+use Ixudra\Curl\Facades\Curl;
 
 
 
@@ -61,6 +61,8 @@ class RegistrosController extends Controller
      */
     public function index()
     {
+        $response = Curl::to('https://jsonip.com/')->withData( array( 'callback' => '?' ) )->asJson()->get();
+        return dd($response);
         return view('registros.index');
     }
 
@@ -74,40 +76,42 @@ class RegistrosController extends Controller
     {
 
         $user =  Auth::user();
-        if($user->id==73){
+        if(count($user->areasOperario()->first())==0 and count($user->areasResponsable()->first())==0){
              $registros = Registros::with('area')->get();
 
         }elseif($user->areasOperario()->first() || $user->areasResponsable()->first()){
 
             $registros = new Collection;
-            $R = Array();
             $areas =  $user->areasOperario()->get();
-            foreach(collect($areas) as $area){
+            foreach($areas as $area){
                 if($area->registros()->first())
                 {
-                    $registros->push(Registros::with('area')->where('area_id', $area->id)->get());
+                    $registros = $registros->merge(Registros::with('area')->where('area_id', $area->id)->get());
                 }
-
             }
-            
-            if( count($registros)>0){
-                $registros = $registros[0];
-            }
-
 
             if($user->areasResponsable()->first()){
-
+   
+                
                 $areasR =  $user->areasResponsable()->get();
                 $registrosR = new Collection;
-                foreach(collect($areasR) as $area){
+
+                foreach($areasR as $index => $area){
                     if($area->registros()->first())
                     {
-                        if($registros[0]->area_id != $area->id)
-                        {
-                            $registros = $registros->merge(Registros::with('area')->where('area_id', $area->id)->get());
+                        if(count($registros)>0){
+                            $registrosR = $registros->merge(Registros::with('area')->where('area_id', $area->id)->get());
                         }
+                        else{
+                            //return $area->id;
+                             $registrosR  = $registrosR->merge(Registros::with('area')->where('area_id', $area->id)->get());
+                        }                        
+                                
                     }
-                }                   
+                }  
+                if(count($registrosR)>0){
+                    $registros = $registrosR->unique();
+                }
             }
         }else{
              $registros = Registros::with('area')->get();
@@ -409,6 +413,9 @@ class RegistrosController extends Controller
         $platform = $agent->platform();
         $version  = $agent->version($platform);
 
+
+
+
         $tipo_device = '';
         $ip = Request()->ip();
 
@@ -436,6 +443,7 @@ class RegistrosController extends Controller
         $deviceRegistro->save();
 
     }
+
 
 
     /**
@@ -466,45 +474,49 @@ class RegistrosController extends Controller
  
             $excel->sheet('Registros', function($sheet) {
 
-            $user =  Auth::user();
-                if($user->id==73){
+
+                $user =  Auth::user();
+                if(count($user->areasOperario()->first())==0 and count($user->areasResponsable()->first())==0){
                     $registros = Registros::with('area')->get();
 
                 }elseif($user->areasOperario()->first() || $user->areasResponsable()->first()){
 
                     $registros = new Collection;
-                    $R = Array();
                     $areas =  $user->areasOperario()->get();
-                    foreach(collect($areas) as $area){
+                    foreach($areas as $area){
                         if($area->registros()->first())
                         {
-                            $registros->push(Registros::with('area')->where('area_id', $area->id)->get());
+                            $registros = $registros->merge(Registros::with('area')->where('area_id', $area->id)->get());
                         }
-
                     }
-                    
-                    if( count($registros)>0){
-                        $registros = $registros[0];
-                    }
-
 
                     if($user->areasResponsable()->first()){
-
+        
+                        
                         $areasR =  $user->areasResponsable()->get();
                         $registrosR = new Collection;
-                        foreach(collect($areasR) as $area){
+
+                        foreach($areasR as $index => $area){
                             if($area->registros()->first())
                             {
-                                if($registros[0]->area_id != $area->id)
-                                {
-                                    $registros = $registros->merge(Registros::with('area')->where('area_id', $area->id)->get());
+                                if(count($registros)>0){
+                                    $registrosR = $registros->merge(Registros::with('area')->where('area_id', $area->id)->get());
                                 }
+                                else{
+                                    //return $area->id;
+                                    $registrosR  = $registrosR->merge(Registros::with('area')->where('area_id', $area->id)->get());
+                                }                        
+                                        
                             }
-                        }                   
+                        }  
+                        if(count($registrosR)>0){
+                            $registros = $registrosR->unique();
+                        }
                     }
                 }else{
                     $registros = Registros::with('area')->get();
                 }
+
 
                 $sheet->freezeFirstRow();
                 $sheet->loadView('registros.excel')->with('registros', $registros);
@@ -533,8 +545,51 @@ class RegistrosController extends Controller
     */
     public function dataRegistrosTablaCompleta()
     {
-        //$registros = Registros::query();
-        $registros = Registros::with('area')->with('area.m_responsable')->with('area.m_operario')->with('municipio')->with('municipio.ndepartamento')->with('creadoPor')->with('modificadoPor')->with('tipoRegistro')->get();
+
+        $user =  Auth::user();
+
+        if(count($user->areasOperario()->first())==0 and count($user->areasResponsable()->first())==0){
+
+             $registros = Registros::with('area')->get();
+
+        }elseif($user->areasOperario()->first() || $user->areasResponsable()->first()){
+            
+
+            $registros = new Collection;
+            $areas =  $user->areasOperario()->get();
+            foreach($areas as $area){
+                if($area->registros()->first())
+                {
+                    $registros = $registros->merge(Registros::with('area')->with('area.m_responsable')->with('area.m_operario')->with('municipio')->with('municipio.ndepartamento')->with('creadoPor')->with('modificadoPor')->with('tipoRegistro')->where('area_id', $area->id)->get());
+                }
+
+            }
+
+            if($user->areasResponsable()->first()){
+                
+                $areasR =  $user->areasResponsable()->get();
+                $registrosR = new Collection;
+
+                foreach($areasR as $index => $area){
+                    if($area->registros()->first())
+                    {
+                        if(count($registros)>0){
+                            $registrosR = $registros->merge(Registros::with('area')->with('area.m_responsable')->with('area.m_operario')->with('municipio')->with('municipio.ndepartamento')->with('creadoPor')->with('modificadoPor')->with('tipoRegistro')->where('area_id', $area->id)->get());
+                        }
+                        else{
+                             $registrosR  = $registrosR->merge(Registros::with('area')->with('area.m_responsable')->with('area.m_operario')->with('municipio')->with('municipio.ndepartamento')->with('creadoPor')->with('modificadoPor')->with('tipoRegistro')->where('area_id', $area->id)->get());
+                        }                        
+                                
+                    }
+                }  
+                if(count($registrosR)>0){
+                    $registros = $registrosR->unique();
+                }
+            }
+        }else{
+             $registros = Registros::with('area')->with('area.m_responsable')->with('area.m_operario')->with('municipio')->with('municipio.ndepartamento')->with('creadoPor')->with('modificadoPor')->with('tipoRegistro')->get();
+        }
+
 
         return Datatables::of($registros)
             ->addColumn('action', function ($registros) {
