@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-03-2017 a las 01:01:59
+-- Tiempo de generación: 22-03-2017 a las 23:05:45
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -51,7 +51,38 @@ INSERT INTO `areas` (`id`, `titulo`, `user_id`, `responsable`, `operario`, `slug
 (7, 'Biología Molecular', 2, 2, 2, 'biologia-molecular', '2017-03-09 21:35:44', '2017-03-09 21:35:44'),
 (8, 'Banco de Sangre', 2, 2, 2, 'banco-de-sangre', '2017-03-09 21:36:18', '2017-03-09 21:36:18'),
 (9, 'prueba', 0, 2, 2, 'prueba', '2017-03-13 03:43:54', '2017-03-18 17:49:36'),
-(10, 'Nueva areaw', 0, 1, 2, 'nueva-area', '2017-03-18 17:51:29', '2017-03-18 17:51:40');
+(10, 'Nueva areaw', 0, 1, 2, 'nueva-area', '2017-03-18 17:51:29', '2017-03-18 17:51:40'),
+(11, 'Comercial r', 0, 4, 1, 'comercial-r', '2017-03-22 20:44:48', '2017-03-22 20:44:48'),
+(12, 'Comercial r', 0, 4, 1, 'comercial-r', '2017-03-22 20:48:37', '2017-03-22 20:48:37'),
+(13, 'Comercial r', 0, 4, 1, 'comercial-r', '2017-03-22 21:00:06', '2017-03-22 21:00:06');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `audits`
+--
+
+CREATE TABLE `audits` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
+  `event` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `auditable_id` int(10) UNSIGNED NOT NULL,
+  `auditable_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `old_values` text COLLATE utf8_unicode_ci,
+  `new_values` text COLLATE utf8_unicode_ci,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ip_address` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `audits`
+--
+
+INSERT INTO `audits` (`id`, `user_id`, `event`, `auditable_id`, `auditable_type`, `old_values`, `new_values`, `url`, `ip_address`, `created_at`) VALUES
+(1, 2, 'created', 13, 'App\\Models\\Areas', '[]', '{\"titulo\":\"Comercial r\",\"responsable\":\"4\",\"operario\":\"1\",\"slug\":\"comercial-r\",\"id\":13}', 'http://localhost/habeas/public/areas', '::1', '2017-03-22 21:00:06'),
+(2, 2, 'created', 34, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Daniela\",\"primer_apellido\":\"Perez\",\"segundo_apellido\":\"Perez\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"3433444444\",\"email\":\"jefersonpatino@yahoo.es\",\"fecha_nacimiento\":\"1992-01-20\",\"profesion\":\"Publicista\",\"cargo\":\"Administraci\\u00f3n\",\"empresa\":\"Annardx\",\"telefono_personal\":\"32324454\",\"archivo_soporte\":\"\",\"municipio_id\":\"138\",\"area_id\":\"8\",\"procedencia\":\"Panel de administraci\\u00f3n\",\"creado_por\":2,\"menor_de_18\":false,\"sn\":\"1212\",\"telefono_corporativo\":\"2334455\",\"celular\":\"32121212\",\"celular_corporativo\":\"12132343\",\"email_corporativo\":\"jrivera@bancoink.com\",\"direccion\":\"Calle 57 # 70-15\",\"comentarios\":\"Hola\",\"estado_cliente\":\"Cliente Activo\",\"tipo_registro\":\"2\",\"estado\":1,\"id\":34}', 'http://localhost/habeas/public/registros', '::1', '2017-03-22 21:01:47'),
+(3, 2, 'updated', 34, 'App\\Models\\Registros', '{\"email\":\"jefersonpatino@yahoo.es\",\"menor_de_18\":0,\"modificado_por\":0}', '{\"email\":\"riverajefer@gmail.com\",\"menor_de_18\":false,\"modificado_por\":2}', 'http://localhost/habeas/public/registros/34', '::1', '2017-03-22 21:04:09');
 
 -- --------------------------------------------------------
 
@@ -1762,8 +1793,7 @@ CREATE TABLE `device_registros` (
   `pais` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `departamento` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `ciudad` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `lat` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `lon` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ubicacion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -1772,11 +1802,13 @@ CREATE TABLE `device_registros` (
 -- Volcado de datos para la tabla `device_registros`
 --
 
-INSERT INTO `device_registros` (`id`, `registro_id`, `SO`, `SO_version`, `device`, `browser`, `ip`, `tipo_device`, `pais`, `departamento`, `ciudad`, `lat`, `lon`, `created_at`, `updated_at`) VALUES
-(1, 0, '', '', '', '', '', '', '', '', '', '', '', '2017-03-16 22:18:35', '2017-03-16 22:18:35'),
-(2, 26, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31', '-72.92', '2017-03-16 23:42:16', '2017-03-16 23:42:16'),
-(3, 29, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31', '-72.92', '2017-03-17 00:51:47', '2017-03-17 00:51:47'),
-(4, 30, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31', '-72.92', '2017-03-18 19:39:33', '2017-03-18 19:39:33');
+INSERT INTO `device_registros` (`id`, `registro_id`, `SO`, `SO_version`, `device`, `browser`, `ip`, `tipo_device`, `pais`, `departamento`, `ciudad`, `ubicacion`, `created_at`, `updated_at`) VALUES
+(1, 0, '', '', '', '', '', '', '', '', '', '', '2017-03-16 22:18:35', '2017-03-16 22:18:35'),
+(2, 26, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31', '2017-03-16 23:42:16', '2017-03-16 23:42:16'),
+(3, 29, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31', '2017-03-17 00:51:47', '2017-03-17 00:51:47'),
+(4, 30, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31', '2017-03-18 19:39:33', '2017-03-18 19:39:33'),
+(5, 32, 'Windows', '10.0', 'WebKit', 'Chrome', '190.93.151.78', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.6492, -74.0628', '2017-03-22 19:40:11', '2017-03-22 19:40:11'),
+(6, 34, 'Windows', '10.0', 'WebKit', 'Chrome', '190.93.151.78', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.6492, -74.0628', '2017-03-22 21:01:47', '2017-03-22 21:01:47');
 
 -- --------------------------------------------------------
 
@@ -3047,7 +3079,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2017_03_01_152428_create_registros_table', 2),
 ('2017_03_06_095203_create_areas_table', 3),
 ('2017_03_13_221127_create_tipo_registros_table', 4),
-('2017_03_16_131318_create_device_registros_table', 5);
+('2017_03_16_131318_create_device_registros_table', 5),
+('2017_03_22_153216_create_audits_table', 6);
 
 -- --------------------------------------------------------
 
@@ -4831,7 +4864,11 @@ INSERT INTO `registros` (`id`, `sn`, `nombre`, `primer_apellido`, `segundo_apell
 (26, '12123', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '12311111', '1992-02-04', 'Ingeniero', 'Administración', 'Annardx m', '32324454', '2334455', '3100287372', '12132340', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 123', 526, '', 8, 'Panel de administración', 2, 0, 'cometartsas', 0, 1, 'Cliente Activo', 2, 0, '2017-03-16 23:42:15', '2017-03-16 23:42:15'),
 (27, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '12121212', '2001-12-31', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, '3100287372', NULL, 'jrivera@bancoink.com', NULL, NULL, 525, NULL, 3, 'Formulario_soporte-tecnico', NULL, 1, NULL, 0, 1, '', 0, 0, '2017-03-17 00:48:15', '2017-03-17 00:48:15'),
 (29, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '121212121', '2001-12-31', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, '3100287372', NULL, 'jrivera@bancoink.com', NULL, NULL, 525, NULL, 3, 'Formulario_soporte-tecnico', NULL, 1, NULL, 0, 1, '', 0, 0, '2017-03-17 00:51:46', '2017-03-17 00:51:46'),
-(30, '1234', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '43434', '2011-12-27', 'Ingeniero', 'Analista', 'Annardx m', '3232445400', '2334455', '3100287372', '12132340', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 1233', 634, '', 10, 'Panel de administración', 2, 1, '3434', 0, 1, 'Cliente Activo', 1, 73, '2017-03-18 19:39:31', '2017-03-21 04:22:46');
+(30, '1234', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '43434', '2011-12-27', 'Ingeniero', 'Analista', 'Annardx m', '3232445400', '2334455', '3100287372', '12132340', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 1233', 634, '', 10, 'Panel de administración', 2, 1, '3434', 0, 1, 'Cliente Activo', 1, 73, '2017-03-18 19:39:31', '2017-03-21 04:22:46'),
+(31, '12123', 'juan', 'Perez', 'Perez', 'Cédula de Ciudadanía', '454545', '2011-12-27', 'Ingeniero', 'Comercial', 'Annardx', '32324454', '2334455', '32121212', '12132343', 'jefersonpatino@yahoo.es', 'jrivera@bancoink.com', 'Calle 57 # 70-15', 524, '', 8, 'Panel de administración', 2, 1, '', 0, 1, 'Cliente Activo', 2, 0, '2017-03-22 19:39:12', '2017-03-22 19:39:12'),
+(32, '12123', 'juan', 'Perez', 'Gonzales', 'Cédula de Ciudadanía', '3432323', '2016-01-05', 'Publicista', 'Administración', 'Annardx', '32324454', '2334455', '3100287372', '12132343', 'jefersonpatino@yahoo.es', 'jrivera@bancoink.com', 'Calle 57 # 70-15', 130, '', 8, 'Panel de administración', 2, 1, 'rtrtrt', 0, 1, 'Cliente Inactivo', 2, 0, '2017-03-22 19:40:11', '2017-03-22 19:40:11'),
+(33, '12123', 'Lina', 'Perez', 'Perez', 'Cédula de Ciudadanía', '454545666', '1981-12-29', 'Publicista', 'Comercial', 'Annardx', '32324454', '2334455', '32121212', '12132343', 'jefersonpatino@yahoo.es', 'jrivera@bancoink.com', 'Calle 57 # 70-15', 525, '', 1, 'Panel de administración', 2, 0, 'Hola', 0, 1, 'Cliente Activo', 2, 0, '2017-03-22 20:34:49', '2017-03-22 20:34:49'),
+(34, '1212', 'Daniela', 'Perez', 'Perez', 'Cédula de Ciudadanía', '3433444444', '1992-01-20', 'Publicista', 'Administración', 'Annardx', '32324454', '2334455', '32121212', '12132343', 'riverajefer@gmail.com', 'jrivera@bancoink.com', 'Calle 57 # 70-15', 138, '', 8, 'Panel de administración', 2, 0, 'Hola', 0, 1, 'Cliente Activo', 2, 2, '2017-03-22 21:01:47', '2017-03-22 21:04:09');
 
 -- --------------------------------------------------------
 
@@ -5192,6 +5229,13 @@ ALTER TABLE `areas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `audits`
+--
+ALTER TABLE `audits`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `audits_auditable_id_auditable_type_index` (`auditable_id`,`auditable_type`);
+
+--
 -- Indices de la tabla `company_t14`
 --
 ALTER TABLE `company_t14`
@@ -5333,7 +5377,12 @@ ALTER TABLE `usuarios_envioinfo_t0`
 -- AUTO_INCREMENT de la tabla `areas`
 --
 ALTER TABLE `areas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT de la tabla `audits`
+--
+ALTER TABLE `audits`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `company_t14`
 --
@@ -5353,7 +5402,7 @@ ALTER TABLE `dep_t5`
 -- AUTO_INCREMENT de la tabla `device_registros`
 --
 ALTER TABLE `device_registros`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `divdep_dane_t3`
 --
@@ -5398,7 +5447,7 @@ ALTER TABLE `position_t9`
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT de la tabla `sections_t11`
 --

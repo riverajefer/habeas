@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 use Illuminate\Database\Eloquent\Model;
 
-class Registros extends Model
+class Registros extends Model implements AuditableContract
 {
+
+     use Auditable;
 
     /**
      * The attributes that are mass assignable.

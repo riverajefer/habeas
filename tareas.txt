@@ -169,3 +169,17 @@ Lrod*2017
 ->  Filtrado por área
 ->  Estadisticas
 ->  Actualizar por llave primaria (Doc, email)
+
+
+Hitorial de cambios
+
+Campos:
+Id_Registro
+Accion o evento
+Usuario
+Old Values (Antes)
+new values (Despues)
+URL
+IP
+Fecha
+Numero de campos afectados (3) => ver campos => muestra la tabla comparativa

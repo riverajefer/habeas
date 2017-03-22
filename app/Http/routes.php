@@ -18,6 +18,7 @@ Route::get('salir/', 'LoginController@salir');
 */
 Route::group(['middleware'=>'auth'], function(){
 
+
     Route::resource('registros', 'RegistrosController', ['except' => ['index']]);
 
     Route::get('registros','RegistrosController@index')->name('registros');
@@ -41,6 +42,13 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('pdf', 'DatatablesController@pdf');
     Route::get('excel', 'DatatablesController@excel');
 
+
+    // Auditoria
+    Route::get('registros/auditing/{id}', function($id){
+        return "Auditing:  ".$id;
+    });
+
+
 });
 
 Route::get('save','RegistrosController@saveInfoAgent')->name('save');
@@ -48,6 +56,9 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
 
 Route::get('test', function(){
+
+    $re =  App\Models\Registros::find(34);
+    return $re->audits;
 
     return  $tables = DB::select('SHOW TABLES');
     //return $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();

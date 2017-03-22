@@ -167,7 +167,7 @@ return [
         Stevebauman\Location\LocationServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
-
+        OwenIt\Auditing\AuditingServiceProvider::class,
 
     ],
 

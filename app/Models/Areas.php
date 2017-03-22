@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class Areas extends Model
+
+class Areas extends Model implements AuditableContract
 {
+    use Auditable;
 
     /**
      * The attributes that are mass assignable.
