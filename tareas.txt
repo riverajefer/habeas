@@ -79,11 +79,9 @@ AREAS.
 
 FORMULARIO PARA DAR DE BAJA
 
-
 /*******************************************
 NUEVOS CAMPOS EN FORMULARIO DE REGISTRO
 *******************************************/
-
 
 SN=> varchar
 Asesor comercial => viene del SAP
@@ -124,28 +122,10 @@ Estar asignado al modulo de tratamiento de datos Y pertenecer a la tabla de Áre
 
 *************************************
 Preguntas:
-->El operario y el Responsable, pueden ser la misma persona ?
-->Definir la lave primaria
+->El operario y el Responsable, pueden ser la misma persona ? Si
+->Definir la llave primaria
 ->De todos los campos, cuales son obligatorios y cuales no.
 
-
-
-
-1.  Exportar Excel  ::Check
-2.  Permiso Reponsable y operario
-3.  Modificar registro ::Check
-4.  Dar de baja registro (boton) ::Check
-5.  Dar de baja registro (formulario)
-6.  Verificar, ajustar formularios publicos ::Check
-7.  Enviar email de Notificaciòn (Responsable y Operario)
-8.  Obtener datos como IP, Ubicación, etc para el registro ::Check
-9.  Carga masiva
-10. Conectar a SAP, Asesores comerciales
-11. Enlace desde Codignither
-12  Historial de cambios
-13. CRUD para Tipo de Registro
-14. Filtrado por área
-15. Estadisticas
 
 
 Responsabe -> Solo vé
@@ -167,11 +147,25 @@ El responsable también entra normal.
 Ya se valida en las vistas y en el middleware
 
 
-
-
 http://jsfiddle.net/rBL3D/79/
 
 
-
-
 Lrod*2017
+
+->  Exportar Excel  ::Check
+->  Permiso Reponsable y operario ::Check
+->  Modificar registro ::Check
+->  Dar de baja registro (boton) ::Check
+->  Verificar, ajustar formularios publicos ::Check
+->  Obtener datos como IP, Ubicación, etc para el registro ::Check
+
+->  Dar de baja registro (formulario)
+->  Enviar email de Notificaciòn (Responsable y Operario)
+->  Carga masiva
+->  Conectar a SAP, Asesores comerciales, esto toca probarlo desde el servidor
+->  Enlace desde Codignither
+->  Historial de cambios
+->  CRUD para Tipo de Registro
+->  Filtrado por área
+->  Estadisticas
+->  Actualizar por llave primaria (Doc, email)

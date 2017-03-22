@@ -17,9 +17,6 @@ use Excel;
 use Auth;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Collection;
-use Ixudra\Curl\Facades\Curl;
-
-
 
 class RegistrosController extends Controller
 {
@@ -61,8 +58,6 @@ class RegistrosController extends Controller
      */
     public function index()
     {
-        $response = Curl::to('https://jsonip.com/')->withData( array( 'callback' => '?' ) )->asJson()->get();
-        return dd($response);
         return view('registros.index');
     }
 
@@ -168,6 +163,7 @@ class RegistrosController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request->all();
 
         $this->validate($request,[
             'nombre'=>'required|string|max:80',
@@ -250,7 +246,7 @@ class RegistrosController extends Controller
         $registro->estado = 1;
         $registro->save();
 
-        $this->saveInfoAgent($registro->id);
+        $this->saveInfoAgent($registro->id, $request->input('ip'));
 
         return redirect('registros')->with('success','Registro creado correctamente');
 
@@ -407,17 +403,13 @@ class RegistrosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function saveInfoAgent($registro_id)
+    public function saveInfoAgent($registro_id, $ip)
     {
         $agent = new Agent();
         $platform = $agent->platform();
         $version  = $agent->version($platform);
 
-
-
-
         $tipo_device = '';
-        $ip = Request()->ip();
 
         if($agent->isMobile()){
             $tipo_device = 'Mobile';
@@ -438,8 +430,7 @@ class RegistrosController extends Controller
         $deviceRegistro->pais = geoip()->getLocation($ip)->country;
         $deviceRegistro->Departamento = geoip()->getLocation($ip)->state_name;
         $deviceRegistro->ciudad = geoip()->getLocation($ip)->city;
-        $deviceRegistro->lat = geoip()->getLocation($ip)->lat;
-        $deviceRegistro->lon = geoip()->getLocation($ip)->lon;
+        $deviceRegistro->ubicacion = geoip()->getLocation($ip)->lat.', '.geoip()->getLocation($ip)->lon;
         $deviceRegistro->save();
 
     }

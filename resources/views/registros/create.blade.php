@@ -403,6 +403,7 @@
             </div>              
         </div> <!-- /row -->
         <input type="hidden" value="Panel de administración" name="procedencia">
+        <input type="hidden" value="" name="ip" id="ip">
 
         </form>
     </div>
@@ -418,6 +419,12 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+            $.getJSON("http://jsonip.com/?callback=?", function (data) {
+                console.log("IP: ",data.ip);
+                $("#ip").val(data.ip);
+
+            });            
 
             console.log("Create")
             $('#datetimepicker').datetimepicker({

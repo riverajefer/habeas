@@ -198,8 +198,7 @@
             </li>                                                            
             <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
-                   Ubicación: {{$registro->deviceRegistro->lat}},  
-                   {{$registro->deviceRegistro->lon}}
+                   Ubicación: {{$registro->deviceRegistro->ubicacion}}
                 </span>
             </li>
             @endif 
