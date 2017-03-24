@@ -26,15 +26,11 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> REGISTROS <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="{{URL::to('registros')}}">  <i class="fa fa-list" aria-hidden="true"></i> lista de registros</a></li>
-
               @unless( count(Auth::user()->areasResponsable()->first())>0  && count(Auth::user()->areasOperario()->first())==0 )
                 <li><a href="{{URL::to('registros/create')}}"> <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo registro</a></li>
               @endunless
-
               <li><a href="{{URL::route('exportExcel')}}">  <i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar en Excel</a></li>
               <li><a href="{{URL::route('registrosTablaCompleta')}}">  <i class="fa fa-table" aria-hidden="true"></i> Tabla expandida</a></li>
-              
-              <li><a href="#"> <i class="fa fa-history" aria-hidden="true"></i> Historial de cambios</a></li>
             </ul>
           </li>        
             <li><a href="{{URL::to('areas')}}">ÁREAS</a></li>

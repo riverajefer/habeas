@@ -13,10 +13,9 @@ use Jenssegers\Agent\Agent;
 use App\Models\DeviceRegistro;
 use App\Models\User;
 use Carbon\Carbon; 
-
+use Mail;
 class FormularioController extends Controller
 {
-
 
     /**
      * Create a new authentication controller instance.
@@ -110,13 +109,24 @@ class FormularioController extends Controller
         $registro->celular = $request->input('celular');
         $registro->municipio_id = $request->input('municipio_id');
         $registro->procedencia = $request->input('procedencia');
-        $registro->creado_por = 'Usuario_'.$request->input('procedencia');
         $registro->area_id = $request->input('area_id');
         $registro->menor_de_18 = $menor_a_18;
         $registro->estado = 1;
         $registro->save();
 
         $this->saveInfoAgent($registro->id);
+
+        // Aca enviar el correo, para el responsable y el operario
+        $id = 1;
+        $user = User::findOrFail($id);
+        /*
+        Mail::send('emails.registro', ['user' => $user], function ($m) use ($user) {
+            $m->from('hello@app.com', 'Your Application');
+
+            $m->to('riverajefer@gmail.com', 'Jefferson')->subject('Your Reminder!');
+            //$m->to($user->email, $user->name)->subject('Your Reminder!');
+        });
+        */
 
         return back()->with('success','Gracias: Registro creado correctamente');
 
@@ -156,9 +166,33 @@ class FormularioController extends Controller
         $deviceRegistro->pais = geoip()->getLocation($ip)->country;
         $deviceRegistro->Departamento = geoip()->getLocation($ip)->state_name;
         $deviceRegistro->ciudad = geoip()->getLocation($ip)->city;
-        $deviceRegistro->lat = geoip()->getLocation($ip)->lat;
-        $deviceRegistro->lon = geoip()->getLocation($ip)->lon;
+        $deviceRegistro->ubicacion = geoip()->getLocation($ip)->lat.', '.geoip()->getLocation($ip)->lon;
         $deviceRegistro->save();
     }
+
+
+
+
+    /**
+     * Store a id user.
+     * @param  String  $slug
+     * @return \Illuminate\View\View
+     */
+     public function baja($id){
+         return "Baja: ".$id;
+
+     }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  $request
+     * @return \Illuminate\Http\Response
+     */
+     public function bajaPost(Request $request){
+         return $request->all();
+     }
+
 
 }

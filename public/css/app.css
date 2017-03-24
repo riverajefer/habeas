@@ -16,6 +16,32 @@ header {
     margin-bottom: 20px;
 }
 
+
+@media (min-width: 1200px)
+{
+    .container {
+        width: 1245px !important;
+    }
+}
+.btn-link {
+    font-weight: 400;
+    color: #337ab7;
+    border-radius: 0;
+    padding: 0px 6px !important;
+}
+
+.table-bordered>tbody>tr>td {
+    padding: 11px 10px !important;
+    height: 15px !important;
+}
+.mdl-data-table tbody tr {
+    position: relative;
+    height: 40px !important;
+    transition-duration: .28s;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-property: background-color;
+}
+
 .navbar-default {
     background-color: transparent !important;
     border: none !important;
@@ -176,3 +202,7 @@ ul.list-group >li:hover{
     padding: 5px 0px 13px !important;
 }
 
+.table>thead>tr>th{
+    font-weight: bold !important;
+    font-size: 15px;
+}

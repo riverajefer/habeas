@@ -158,17 +158,17 @@ Lrod*2017
 ->  Dar de baja registro (boton) ::Check
 ->  Verificar, ajustar formularios publicos ::Check
 ->  Obtener datos como IP, Ubicación, etc para el registro ::Check
+->  Historial de cambios ::check
 
 ->  Dar de baja registro (formulario)
 ->  Enviar email de Notificaciòn (Responsable y Operario)
 ->  Carga masiva
 ->  Conectar a SAP, Asesores comerciales, esto toca probarlo desde el servidor
 ->  Enlace desde Codignither
-->  Historial de cambios
-->  CRUD para Tipo de Registro
 ->  Filtrado por área
-->  Estadisticas
 ->  Actualizar por llave primaria (Doc, email)
+->  Estadisticas
+->  CRUD para Tipo de Registro
 
 
 Hitorial de cambios

@@ -154,7 +154,6 @@
     </div>
   </div>
 
-  <button id="show-dialog" type="button" class="mdl-button">Información avanzada</button>
   <dialog class="mdl-dialog">
     <div class="mdl-dialog__content">
       <p><b> Información de donde se hizo el registro </b> </p>
@@ -211,8 +210,8 @@
 
 
 <div class="row">
-    <div class="col-md-2 col-md-offset-3">
-        <a href="{{URL::to('registros/'.$registro->id.'/edit')}}">
+    <div class="col-md-3 col-md-offset-1">
+        <a href="{{URL::to('registros/'.$registro->id.'/edit')}}" title="Actualizar registro">
             <button class="mdl-button mdl-js-button mdl-button--primary">
                 ACTUALIZAR REGISTRO
             </button>
@@ -220,20 +219,28 @@
     </div>
     
     <div class="col-md-2">
-        <a href="{{URL::to('registros/create')}}">
+        <a href="{{URL::to('registros/create')}}" title="Nuevo registro">
             <button class="mdl-button mdl-js-button mdl-button--accent">
-                NUEVO REGISTRO
+                NUEVO
             </button>
         </a>
     </div>  
 
-    <div class="col-md-3">
-        <a href="{{URL::to('registros')}}">
+    <div class="col-md-2">
+        <a href="{{URL::to('registros')}}" title="Ver lista de registros">
             <button class="mdl-button mdl-js-button mdl-button--primary">
-                VER TODOS LOS REGISTROS
+                TODOS LOS REGISTROS
             </button>
         </a>
-    </div>        
+    </div>  
+    
+    <div class="col-md-3">
+        <a href="{{URL::to('registros/auditoria/'.$registro->id)}}" title="Historial de cambios">
+            <button {{$registro->audits()->first()? '':'disabled'}} class="mdl-button mdl-js-button mdl-button--accent">
+                HISTORIAL DE CAMBIOS
+            </button>
+        </a>
+    </div>            
 </div>
 <br><br>
 

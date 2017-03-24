@@ -140,7 +140,7 @@ class AreasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // cuando se elimine un área, eliminar los registros asociados 
     }
 
     

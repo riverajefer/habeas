@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-03-2017 a las 23:05:45
+-- Tiempo de generación: 24-03-2017 a las 04:35:02
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -42,17 +42,14 @@ CREATE TABLE `areas` (
 --
 
 INSERT INTO `areas` (`id`, `titulo`, `user_id`, `responsable`, `operario`, `slug`, `created_at`, `updated_at`) VALUES
-(1, 'Mercadeo', 2, 4, 2, 'mercadeo', '2017-03-09 21:31:18', '2017-03-18 17:25:46'),
+(1, 'Mercadeo', 2, 4, 4, 'mercadeo', '2017-03-09 21:31:18', '2017-03-24 00:44:46'),
 (2, 'Financiera', 3, 2, 2, 'financiera', '2017-03-09 21:31:42', '2017-03-09 21:31:42'),
 (3, 'Soporte Técnico', 2, 2, 2, 'soporte-tecnico', '2017-03-09 21:32:21', '2017-03-09 21:32:21'),
 (4, 'Veterinaria', 2, 2, 2, 'veterinaria', '2017-03-09 21:32:54', '2017-03-09 21:32:54'),
 (5, 'Industria', 2, 2, 2, 'industria', '2017-03-09 21:33:05', '2017-03-09 21:33:05'),
 (6, 'Diagnóstica', 2, 2, 2, 'diagnostica', '2017-03-09 21:34:35', '2017-03-09 21:34:35'),
-(7, 'Biología Molecular', 2, 2, 2, 'biologia-molecular', '2017-03-09 21:35:44', '2017-03-09 21:35:44'),
+(7, 'Biología Molecular', 2, 2, 4, 'biologia-molecular', '2017-03-09 21:35:44', '2017-03-24 00:45:17'),
 (8, 'Banco de Sangre', 2, 2, 2, 'banco-de-sangre', '2017-03-09 21:36:18', '2017-03-09 21:36:18'),
-(9, 'prueba', 0, 2, 2, 'prueba', '2017-03-13 03:43:54', '2017-03-18 17:49:36'),
-(10, 'Nueva areaw', 0, 1, 2, 'nueva-area', '2017-03-18 17:51:29', '2017-03-18 17:51:40'),
-(11, 'Comercial r', 0, 4, 1, 'comercial-r', '2017-03-22 20:44:48', '2017-03-22 20:44:48'),
 (12, 'Comercial r', 0, 4, 1, 'comercial-r', '2017-03-22 20:48:37', '2017-03-22 20:48:37'),
 (13, 'Comercial r', 0, 4, 1, 'comercial-r', '2017-03-22 21:00:06', '2017-03-22 21:00:06');
 
@@ -82,7 +79,25 @@ CREATE TABLE `audits` (
 INSERT INTO `audits` (`id`, `user_id`, `event`, `auditable_id`, `auditable_type`, `old_values`, `new_values`, `url`, `ip_address`, `created_at`) VALUES
 (1, 2, 'created', 13, 'App\\Models\\Areas', '[]', '{\"titulo\":\"Comercial r\",\"responsable\":\"4\",\"operario\":\"1\",\"slug\":\"comercial-r\",\"id\":13}', 'http://localhost/habeas/public/areas', '::1', '2017-03-22 21:00:06'),
 (2, 2, 'created', 34, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Daniela\",\"primer_apellido\":\"Perez\",\"segundo_apellido\":\"Perez\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"3433444444\",\"email\":\"jefersonpatino@yahoo.es\",\"fecha_nacimiento\":\"1992-01-20\",\"profesion\":\"Publicista\",\"cargo\":\"Administraci\\u00f3n\",\"empresa\":\"Annardx\",\"telefono_personal\":\"32324454\",\"archivo_soporte\":\"\",\"municipio_id\":\"138\",\"area_id\":\"8\",\"procedencia\":\"Panel de administraci\\u00f3n\",\"creado_por\":2,\"menor_de_18\":false,\"sn\":\"1212\",\"telefono_corporativo\":\"2334455\",\"celular\":\"32121212\",\"celular_corporativo\":\"12132343\",\"email_corporativo\":\"jrivera@bancoink.com\",\"direccion\":\"Calle 57 # 70-15\",\"comentarios\":\"Hola\",\"estado_cliente\":\"Cliente Activo\",\"tipo_registro\":\"2\",\"estado\":1,\"id\":34}', 'http://localhost/habeas/public/registros', '::1', '2017-03-22 21:01:47'),
-(3, 2, 'updated', 34, 'App\\Models\\Registros', '{\"email\":\"jefersonpatino@yahoo.es\",\"menor_de_18\":0,\"modificado_por\":0}', '{\"email\":\"riverajefer@gmail.com\",\"menor_de_18\":false,\"modificado_por\":2}', 'http://localhost/habeas/public/registros/34', '::1', '2017-03-22 21:04:09');
+(3, 2, 'updated', 34, 'App\\Models\\Registros', '{\"email\":\"jefersonpatino@yahoo.es\",\"menor_de_18\":0,\"modificado_por\":0}', '{\"email\":\"riverajefer@gmail.com\",\"menor_de_18\":false,\"modificado_por\":2}', 'http://localhost/habeas/public/registros/34', '::1', '2017-03-22 21:04:09'),
+(4, 2, 'updated', 34, 'App\\Models\\Registros', '{\"direccion\":\"Calle 57 # 70-15\"}', '{\"direccion\":\"Calle falsa 123\"}', 'http://localhost:81/habeas/public/registros/34', '::1', '2017-03-23 18:09:15'),
+(5, 2, 'updated', 34, 'App\\Models\\Registros', '{\"celular_corporativo\":\"12132343\",\"comentarios\":\"Hola\"}', '{\"celular_corporativo\":\"3119978734\",\"comentarios\":\"Hola, mundo\"}', 'http://localhost:81/habeas/public/registros/34', '::1', '2017-03-23 18:29:46'),
+(6, 2, 'updated', 34, 'App\\Models\\Registros', '{\"direccion\":\"Calle falsa 123\"}', '{\"direccion\":\"Calle 57 # 70-180\"}', 'http://localhost:81/habeas/public/registros/34', '::1', '2017-03-23 18:31:48'),
+(7, 2, 'updated', 34, 'App\\Models\\Registros', '{\"sn\":\"1212\",\"nombre\":\"Daniela\",\"primer_apellido\":\"Perez\",\"segundo_apellido\":\"Perez\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"3433444444\",\"fecha_nacimiento\":\"1992-01-20\",\"profesion\":\"Publicista\",\"cargo\":\"Administraci\\u00f3n\",\"empresa\":\"Annardx\",\"telefono_personal\":\"32324454\",\"telefono_corporativo\":\"2334455\",\"celular\":\"32121212\",\"celular_corporativo\":\"3119978734\",\"email\":\"riverajefer@gmail.com\",\"email_corporativo\":\"jrivera@bancoink.com\",\"direccion\":\"Calle 57 # 70-180\",\"municipio_id\":138,\"area_id\":8,\"tipo_registro\":2,\"comentarios\":\"Hola, mundo\",\"estado\":1,\"estado_cliente\":\"Cliente Activo\"}', '{\"sn\":\"121200\",\"nombre\":\"Daniela M\",\"primer_apellido\":\"Perez M\",\"segundo_apellido\":\"Perez M\",\"tipo_documento\":\"Tarjeta de Identidad\",\"doc\":\"343344444400\",\"fecha_nacimiento\":\"1993-07-15\",\"profesion\":\"Publicista M\",\"cargo\":\"Administraci\\u00f3n M\",\"empresa\":\"Annardx M\",\"telefono_personal\":\"3232445400\",\"telefono_corporativo\":\"233445500\",\"celular\":\"3212121200\",\"celular_corporativo\":\"311997873400\",\"email\":\"riverajefer@gmail.com8\",\"email_corporativo\":\"jrivera@bancoink.comm\",\"direccion\":\"Calle 57 # 70-180-00\",\"municipio_id\":\"525\",\"area_id\":\"7\",\"tipo_registro\":\"1\",\"comentarios\":\"Hola, mundo MM\",\"estado\":\"0\",\"estado_cliente\":\"Cliente Inactivo\"}', 'http://localhost:81/habeas/public/registros/34', '::1', '2017-03-23 23:25:38'),
+(8, 2, 'updated', 34, 'App\\Models\\Registros', '{\"archivo_soporte\":\"\",\"estado\":0}', '{\"archivo_soporte\":\"1490315467.png\",\"estado\":\"1\"}', 'http://localhost:81/habeas/public/registros/34', '::1', '2017-03-24 00:31:07'),
+(9, 2, 'updated', 34, 'App\\Models\\Registros', '{\"archivo_soporte\":\"1490315467.png\"}', '{\"archivo_soporte\":\"1490316150.png\"}', 'http://localhost:81/habeas/public/registros/34', '::1', '2017-03-24 00:42:30'),
+(10, 4, 'updated', 1, 'App\\Models\\Areas', '{\"operario\":2}', '{\"operario\":\"4\"}', 'http://localhost:81/habeas/public/areas/1', '::1', '2017-03-24 00:44:46'),
+(11, 4, 'updated', 7, 'App\\Models\\Areas', '{\"operario\":2}', '{\"operario\":\"4\"}', 'http://localhost:81/habeas/public/areas/7', '::1', '2017-03-24 00:45:17'),
+(12, 4, 'updated', 34, 'App\\Models\\Registros', '{\"tipo_documento\":\"Tarjeta de Identidad\",\"direccion\":\"Calle 57 # 70-180-00\",\"modificado_por\":2}', '{\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"direccion\":\"Calle 57 # 70-180\",\"modificado_por\":4}', 'http://localhost:81/habeas/public/registros/34', '::1', '2017-03-24 00:45:59'),
+(13, 4, 'updated', 33, 'App\\Models\\Registros', '{\"modificado_por\":0}', '{\"modificado_por\":4}', 'http://localhost:81/habeas/public/registros/33', '::1', '2017-03-24 01:05:50'),
+(14, 4, 'updated', 33, 'App\\Models\\Registros', '{\"tipo_registro\":2,\"estado_cliente\":\"Cliente Activo\"}', '{\"tipo_registro\":\"1\",\"estado_cliente\":\"Cliente Inactivo\"}', 'http://localhost:81/habeas/public/registros/33', '::1', '2017-03-24 01:06:36'),
+(15, 4, 'created', 35, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Daniela\",\"primer_apellido\":\"Doe\",\"segundo_apellido\":\"Paez\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"232323\",\"email\":\"jrivera@bancoink.com\",\"fecha_nacimiento\":\"2002-01-01\",\"profesion\":\"Ingeniero Industrial\",\"cargo\":\"Administraci\\u00f3n\",\"empresa\":\"Annardx m\",\"telefono_personal\":\"74715485\",\"celular\":\"3100287372\",\"municipio_id\":\"525\",\"procedencia\":\"Formulario_soporte-tecnico\",\"creado_por\":\"Usuario_Formulario_soporte-tecnico\",\"area_id\":\"3\",\"menor_de_18\":true,\"estado\":1,\"id\":35}', 'http://localhost:81/habeas/public/formulario/guardar', '::1', '2017-03-24 01:57:15'),
+(16, 4, 'created', 36, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Daniela\",\"primer_apellido\":\"Doe\",\"segundo_apellido\":\"Paez\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"232323111\",\"email\":\"jrivera@bancoink.com\",\"fecha_nacimiento\":\"2002-01-01\",\"profesion\":\"Ingeniero Industrial\",\"cargo\":\"Administraci\\u00f3n\",\"empresa\":\"Annardx m\",\"telefono_personal\":\"74715485\",\"celular\":\"3100287372\",\"municipio_id\":\"525\",\"procedencia\":\"Formulario_soporte-tecnico\",\"creado_por\":\"Usuario_Formulario_soporte-tecnico\",\"area_id\":\"3\",\"menor_de_18\":true,\"estado\":1,\"id\":36}', 'http://localhost:81/habeas/public/formulario/guardar', '::1', '2017-03-24 01:58:41'),
+(17, 4, 'created', 37, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Daniela\",\"primer_apellido\":\"Doe\",\"segundo_apellido\":\"Paez\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"232323111000\",\"email\":\"jrivera@bancoink.com\",\"fecha_nacimiento\":\"2002-01-01\",\"profesion\":\"Ingeniero Industrial\",\"cargo\":\"Administraci\\u00f3n\",\"empresa\":\"Annardx m\",\"telefono_personal\":\"74715485\",\"celular\":\"3100287372\",\"municipio_id\":\"525\",\"procedencia\":\"Formulario_soporte-tecnico\",\"creado_por\":\"Usuario_Formulario_soporte-tecnico\",\"area_id\":\"3\",\"menor_de_18\":true,\"estado\":1,\"id\":37}', 'http://localhost:81/habeas/public/formulario/guardar', '::1', '2017-03-24 01:59:20'),
+(18, 2, 'created', 38, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Daniela\",\"primer_apellido\":\"Doe\",\"segundo_apellido\":\"Paez\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"232323111000\",\"email\":\"jrivera@bancoink.com\",\"fecha_nacimiento\":\"2002-01-01\",\"profesion\":\"Ingeniero Industrial\",\"cargo\":\"Administraci\\u00f3n\",\"empresa\":\"Annardx m\",\"telefono_personal\":\"74715485\",\"celular\":\"3100287372\",\"municipio_id\":\"525\",\"procedencia\":\"Formulario_soporte-tecnico\",\"area_id\":\"3\",\"menor_de_18\":true,\"estado\":1,\"id\":38}', 'http://localhost:81/habeas/public/formulario/guardar', '::1', '2017-03-24 02:06:43'),
+(19, 2, 'created', 39, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Daniela\",\"primer_apellido\":\"Doe\",\"segundo_apellido\":\"Paez\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"000222\",\"email\":\"jrivera@bancoink.com\",\"fecha_nacimiento\":\"2002-01-01\",\"profesion\":\"Ingeniero Industrial\",\"cargo\":\"Administraci\\u00f3n\",\"empresa\":\"Annardx m\",\"telefono_personal\":\"74715485\",\"celular\":\"3100287372\",\"municipio_id\":\"525\",\"procedencia\":\"Formulario_soporte-tecnico\",\"area_id\":\"3\",\"menor_de_18\":true,\"estado\":1,\"id\":39}', 'http://localhost:81/habeas/public/formulario/guardar', '::1', '2017-03-24 02:09:25'),
+(20, 2, 'created', 40, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Daniela\",\"primer_apellido\":\"Doe\",\"segundo_apellido\":\"Paez\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"00022211\",\"email\":\"jrivera@bancoink.com\",\"fecha_nacimiento\":\"2002-01-01\",\"profesion\":\"Ingeniero Industrial\",\"cargo\":\"Administraci\\u00f3n\",\"empresa\":\"Annardx m\",\"telefono_personal\":\"74715485\",\"celular\":\"3100287372\",\"municipio_id\":\"525\",\"procedencia\":\"Formulario_soporte-tecnico\",\"area_id\":\"3\",\"menor_de_18\":true,\"estado\":1,\"id\":40}', 'http://localhost:81/habeas/public/formulario/guardar', '::1', '2017-03-24 02:12:19'),
+(21, 2, 'created', 41, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Pedro\",\"primer_apellido\":\"Doe\",\"segundo_apellido\":\"Perez\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"43434\",\"email\":\"jrivera@bancoink.com\",\"fecha_nacimiento\":\"2012-01-02\",\"profesion\":\"Ingeniero Industrial\",\"cargo\":\"Analista\",\"empresa\":\"Annardx m\",\"telefono_personal\":\"74715485\",\"celular\":\"3100287372\",\"municipio_id\":\"634\",\"procedencia\":\"Formulario_prueba\",\"area_id\":\"9\",\"menor_de_18\":true,\"estado\":1,\"id\":41}', 'http://localhost:81/habeas/public/formulario/guardar', '::1', '2017-03-24 02:18:58');
 
 -- --------------------------------------------------------
 
@@ -1808,7 +1823,13 @@ INSERT INTO `device_registros` (`id`, `registro_id`, `SO`, `SO_version`, `device
 (3, 29, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31', '2017-03-17 00:51:47', '2017-03-17 00:51:47'),
 (4, 30, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31', '2017-03-18 19:39:33', '2017-03-18 19:39:33'),
 (5, 32, 'Windows', '10.0', 'WebKit', 'Chrome', '190.93.151.78', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.6492, -74.0628', '2017-03-22 19:40:11', '2017-03-22 19:40:11'),
-(6, 34, 'Windows', '10.0', 'WebKit', 'Chrome', '190.93.151.78', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.6492, -74.0628', '2017-03-22 21:01:47', '2017-03-22 21:01:47');
+(6, 34, 'Windows', '10.0', 'WebKit', 'Chrome', '190.93.151.78', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.6492, -74.0628', '2017-03-22 21:01:47', '2017-03-22 21:01:47'),
+(7, 36, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31, -72.92', '2017-03-24 01:58:42', '2017-03-24 01:58:42'),
+(8, 37, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31, -72.92', '2017-03-24 01:59:21', '2017-03-24 01:59:21'),
+(9, 38, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31, -72.92', '2017-03-24 02:06:44', '2017-03-24 02:06:44'),
+(10, 39, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31, -72.92', '2017-03-24 02:09:26', '2017-03-24 02:09:26'),
+(11, 40, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31, -72.92', '2017-03-24 02:12:20', '2017-03-24 02:12:20'),
+(12, 41, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31, -72.92', '2017-03-24 02:18:59', '2017-03-24 02:18:59');
 
 -- --------------------------------------------------------
 
@@ -4824,7 +4845,7 @@ CREATE TABLE `registros` (
   `direccion` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `municipio_id` int(11) NOT NULL,
   `archivo_soporte` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `area_id` int(11) NOT NULL,
+  `area_id` int(11) UNSIGNED NOT NULL,
   `procedencia` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `tipo_registro` int(11) DEFAULT NULL,
   `menor_de_18` tinyint(1) NOT NULL,
@@ -4854,21 +4875,21 @@ INSERT INTO `registros` (`id`, `sn`, `nombre`, `primer_apellido`, `segundo_apell
 (16, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '123', '2012-12-29', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, NULL, NULL, 'jrivera@bancoink.com', NULL, NULL, 525, '', 8, 'Administración', NULL, 1, NULL, 0, 1, '0', 2, 0, '2017-03-13 03:59:27', '2017-03-13 03:59:27'),
 (17, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '1238', '1992-01-14', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, NULL, NULL, 'jrivera@bancoink.com', NULL, NULL, 525, '', 8, 'Administración', NULL, 0, NULL, 0, 1, '0', 2, 0, '2017-03-13 04:01:29', '2017-03-13 04:01:29'),
 (18, '1234', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '11121', '1999-12-28', 'Ingeniero', 'Analista', 'Annardx', '74715485', NULL, '32121212', '12132343', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 123', 525, '1489460418.png', 8, 'Administración', 1, 1, 'Hola mundo', 0, 0, 'Cliente Activo', 2, 0, '2017-03-14 03:00:18', '2017-03-14 03:00:18'),
-(19, '1234', 'Carlos', 'Gomez', 'Diaz', 'Cédula de Ciudadanía', '1233434', '1987-01-28', 'Ingeniero', 'Analista', 'Annardx', '32324454', '2334455', '3100287372', '12132343', 'example@gmail.com', 'jrivera@bancoink.com', 'Calle falsa 123', 525, '', 3, 'Panel de administración', 2, 0, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut earum vero mollitia impedit illum optio quam architecto doloribus voluptatum veniam ea asperiores nulla odio molestias, voluptas ab, aliquid vel temporibus.', 0, 1, 'Cliente Activo', 2, 0, '2017-03-14 04:07:46', '2017-03-14 04:07:46'),
 (20, '12123600', 'Danielm', 'Romerom', 'Ariasm', 'Cédula de Ciudadanía', '7638238200', '1993-10-28', 'Ingeniero Industrial m', 'Administración m', 'Annardx m', '3232445400', '233445500', '310028737200', '1213234000', 'jriveramm@bancoink.com', 'jriveramc@bancoink.com', 'Calle 57 # 70-180', 70, '1489679807.png', 6, 'Administración', 3, 0, 'No tengo comentaros mod00', 0, 0, 'Cliente Inactivo', 2, 2, '2017-03-16 14:33:32', '2017-03-16 16:23:16'),
 (21, '1212', 'Lina', 'Pineda', 'Gonzales', 'Cédula de Ciudadanía', '8787', '1986-05-13', 'Ingeniero', 'Analista', 'Annardx', '1234489', '', '1212', '', 'jrivera@bancoink.com', '', '', 525, '', 1, 'Administración', 1, 0, 'Actualización', 0, 1, 'Cliente Activo', 2, 2, '2017-03-16 17:05:32', '2017-03-16 17:09:59'),
 (22, '2323', 'Juan', 'Doe', 'Gonzales', 'Cédula de Ciudadanía', '767676', '1957-08-10', 'Ingeniero', 'Analista', 'Annardx m', '7848816', '', '3343565656', '', 'jrivera@bancoink.com', '', '', 525, '', 4, 'Formulario_veterinaria', 2, 0, '', 0, 1, 'Cliente Activo', 2, 2, '2017-03-16 17:16:01', '2017-03-16 17:17:19'),
 (23, '1212', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '34334', '2000-01-04', 'Ingeniero', 'Analista', 'Annardx', '74715485', '', '32121212', '', 'jrivera@bancoink.com', '', '', 525, '', 5, 'Formulario_industria', 2, 1, '', 0, 1, 'Cliente Activo', 2, 2, '2017-03-16 17:19:26', '2017-03-16 17:20:02'),
 (24, '1234', 'Pedro', 'Doe', 'Gonzales', 'Cédula de Ciudadanía', '76767', '1990-01-02', 'Ingeniero Industrial', 'Analista', 'Annardx', '32324454', '2334455', '3100287372', '12132343', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 123', 525, '1489706968.PNG', 6, 'Panel de administración', 2, 0, 'Comentarios', 0, 1, 'Cliente Activo', 2, 0, '2017-03-16 23:29:28', '2017-03-16 23:29:28'),
 (25, '12123', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '123111', '1992-02-04', 'Ingeniero', 'Administración', 'Annardx m', '32324454', '2334455', '3100287372', '12132340', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 123', 525, '', 8, 'Panel de administración', 2, 0, 'cometartsas', 0, 1, 'Cliente Activo', 2, 0, '2017-03-16 23:32:59', '2017-03-16 23:32:59'),
-(26, '12123', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '12311111', '1992-02-04', 'Ingeniero', 'Administración', 'Annardx m', '32324454', '2334455', '3100287372', '12132340', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 123', 526, '', 8, 'Panel de administración', 2, 0, 'cometartsas', 0, 1, 'Cliente Activo', 2, 0, '2017-03-16 23:42:15', '2017-03-16 23:42:15'),
 (27, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '12121212', '2001-12-31', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, '3100287372', NULL, 'jrivera@bancoink.com', NULL, NULL, 525, NULL, 3, 'Formulario_soporte-tecnico', NULL, 1, NULL, 0, 1, '', 0, 0, '2017-03-17 00:48:15', '2017-03-17 00:48:15'),
 (29, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '121212121', '2001-12-31', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, '3100287372', NULL, 'jrivera@bancoink.com', NULL, NULL, 525, NULL, 3, 'Formulario_soporte-tecnico', NULL, 1, NULL, 0, 1, '', 0, 0, '2017-03-17 00:51:46', '2017-03-17 00:51:46'),
-(30, '1234', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '43434', '2011-12-27', 'Ingeniero', 'Analista', 'Annardx m', '3232445400', '2334455', '3100287372', '12132340', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 1233', 634, '', 10, 'Panel de administración', 2, 1, '3434', 0, 1, 'Cliente Activo', 1, 73, '2017-03-18 19:39:31', '2017-03-21 04:22:46'),
 (31, '12123', 'juan', 'Perez', 'Perez', 'Cédula de Ciudadanía', '454545', '2011-12-27', 'Ingeniero', 'Comercial', 'Annardx', '32324454', '2334455', '32121212', '12132343', 'jefersonpatino@yahoo.es', 'jrivera@bancoink.com', 'Calle 57 # 70-15', 524, '', 8, 'Panel de administración', 2, 1, '', 0, 1, 'Cliente Activo', 2, 0, '2017-03-22 19:39:12', '2017-03-22 19:39:12'),
-(32, '12123', 'juan', 'Perez', 'Gonzales', 'Cédula de Ciudadanía', '3432323', '2016-01-05', 'Publicista', 'Administración', 'Annardx', '32324454', '2334455', '3100287372', '12132343', 'jefersonpatino@yahoo.es', 'jrivera@bancoink.com', 'Calle 57 # 70-15', 130, '', 8, 'Panel de administración', 2, 1, 'rtrtrt', 0, 1, 'Cliente Inactivo', 2, 0, '2017-03-22 19:40:11', '2017-03-22 19:40:11'),
-(33, '12123', 'Lina', 'Perez', 'Perez', 'Cédula de Ciudadanía', '454545666', '1981-12-29', 'Publicista', 'Comercial', 'Annardx', '32324454', '2334455', '32121212', '12132343', 'jefersonpatino@yahoo.es', 'jrivera@bancoink.com', 'Calle 57 # 70-15', 525, '', 1, 'Panel de administración', 2, 0, 'Hola', 0, 1, 'Cliente Activo', 2, 0, '2017-03-22 20:34:49', '2017-03-22 20:34:49'),
-(34, '1212', 'Daniela', 'Perez', 'Perez', 'Cédula de Ciudadanía', '3433444444', '1992-01-20', 'Publicista', 'Administración', 'Annardx', '32324454', '2334455', '32121212', '12132343', 'riverajefer@gmail.com', 'jrivera@bancoink.com', 'Calle 57 # 70-15', 138, '', 8, 'Panel de administración', 2, 0, 'Hola', 0, 1, 'Cliente Activo', 2, 2, '2017-03-22 21:01:47', '2017-03-22 21:04:09');
+(33, '12123', 'Lina', 'Perez', 'Perez', 'Cédula de Ciudadanía', '454545666', '1981-12-29', 'Publicista', 'Comercial', 'Annardx', '32324454', '2334455', '32121212', '12132343', 'jefersonpatino@yahoo.es', 'jrivera@bancoink.com', 'Calle 57 # 70-15', 525, '', 1, 'Panel de administración', 1, 0, 'Hola', 0, 1, 'Cliente Inactivo', 2, 4, '2017-03-22 20:34:49', '2017-03-24 01:06:36'),
+(34, '121200', 'Daniela M', 'Perez M', 'Perez M', 'Cédula de Ciudadanía', '343344444400', '1993-07-15', 'Publicista M', 'Administración M', 'Annardx M', '3232445400', '233445500', '3212121200', '311997873400', 'riverajefer@gmail.com8', 'jrivera@bancoink.comm', 'Calle 57 # 70-180', 525, '1490316150.png', 7, 'Panel de administración', 1, 0, 'Hola, mundo MM', 0, 1, 'Cliente Inactivo', 2, 4, '2017-03-22 21:01:47', '2017-03-24 00:45:59'),
+(38, NULL, 'Daniela', 'Doe', 'Paez', 'Cédula de Ciudadanía', '232323111000', '2002-01-01', 'Ingeniero Industrial', 'Administración', 'Annardx m', '74715485', NULL, '3100287372', NULL, 'jrivera@bancoink.com', NULL, NULL, 525, NULL, 3, 'Formulario_soporte-tecnico', NULL, 1, NULL, 0, 1, '', 0, 0, '2017-03-24 02:06:43', '2017-03-24 02:06:43'),
+(39, NULL, 'Daniela', 'Doe', 'Paez', 'Cédula de Ciudadanía', '000222', '2002-01-01', 'Ingeniero Industrial', 'Administración', 'Annardx m', '74715485', NULL, '3100287372', NULL, 'jrivera@bancoink.com', NULL, NULL, 525, NULL, 3, 'Formulario_soporte-tecnico', NULL, 1, NULL, 0, 1, '', 0, 0, '2017-03-24 02:09:25', '2017-03-24 02:09:25'),
+(40, NULL, 'Daniela', 'Doe', 'Paez', 'Cédula de Ciudadanía', '00022211', '2002-01-01', 'Ingeniero Industrial', 'Administración', 'Annardx m', '74715485', NULL, '3100287372', NULL, 'jrivera@bancoink.com', NULL, NULL, 525, NULL, 3, 'Formulario_soporte-tecnico', NULL, 1, NULL, 0, 1, '', 0, 0, '2017-03-24 02:12:19', '2017-03-24 02:12:19'),
+(41, NULL, 'Pedro', 'Doe', 'Perez', 'Cédula de Ciudadanía', '43434', '2012-01-02', 'Ingeniero Industrial', 'Analista', 'Annardx m', '74715485', NULL, '3100287372', NULL, 'jrivera@bancoink.com', NULL, NULL, 634, NULL, 9, 'Formulario_prueba', NULL, 1, NULL, 0, 1, '', 0, 0, '2017-03-24 02:18:58', '2017-03-24 02:18:58');
 
 -- --------------------------------------------------------
 
@@ -5226,7 +5247,8 @@ INSERT INTO `usuarios_envioinfo_t0` (`idusuarios_envioinfo_t0`, `nombre_t0`, `ap
 -- Indices de la tabla `areas`
 --
 ALTER TABLE `areas`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
 
 --
 -- Indices de la tabla `audits`
@@ -5325,7 +5347,8 @@ ALTER TABLE `position_t9`
 --
 ALTER TABLE `registros`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `registros_numero_docuemnto_unique` (`doc`);
+  ADD UNIQUE KEY `registros_numero_docuemnto_unique` (`doc`),
+  ADD KEY `area_id` (`area_id`);
 
 --
 -- Indices de la tabla `sections_t11`
@@ -5382,7 +5405,7 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT de la tabla `audits`
 --
 ALTER TABLE `audits`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT de la tabla `company_t14`
 --
@@ -5402,7 +5425,7 @@ ALTER TABLE `dep_t5`
 -- AUTO_INCREMENT de la tabla `device_registros`
 --
 ALTER TABLE `device_registros`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `divdep_dane_t3`
 --
@@ -5447,7 +5470,7 @@ ALTER TABLE `position_t9`
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT de la tabla `sections_t11`
 --

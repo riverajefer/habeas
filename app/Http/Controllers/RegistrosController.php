@@ -115,10 +115,18 @@ class RegistrosController extends Controller
         return Datatables::of($registros)
             ->addColumn('action', function ($registros) {
                 if($registros->area()->first()->m_operario->id == Auth::user()->id  || Auth::user()->id==73){
-                    return '
-                        <a class="btn btn-link link-info"  href="registros/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="Ver más"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                        <a class="btn btn-link link-warning" href="registros/'.$registros->id.'/edit" data-toggle="tooltip" data-placement="top" title="Actualizar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                        <a class="btn btn-link link-danger" data-toggle="tooltip" data-placement="top" title="Dar de baja"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';                
+
+                    $view = '<a class="btn btn-link link-info"  href="registros/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="Ver más"><i class="fa fa-eye" aria-hidden="true"></i></a>';
+                    $edit =  '<a class="btn btn-link link-warning" href="registros/'.$registros->id.'/edit" data-toggle="tooltip" data-placement="top" title="Actualizar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
+
+                    if($registros->audits->first()){
+                        $history = '<a class="btn btn-link"  href="registros/auditoria/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="Ver historial de cambios"><i class="fa fa-history" aria-hidden="true"></i></a>';
+                    }else{
+                        $history = '<a class="btn btn-link" disabled  href="registros/auditoria/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="No hay cambios"><i class="fa fa-history" aria-hidden="true"></i></a>';
+                    }
+                    $delete = '<a class="btn btn-link link-danger" data-toggle="tooltip" data-placement="top" title="Dar de baja"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+
+                    return $view.''.$edit.''.$history.''.$delete;
                 }else{
                     return '
                         <a class="btn btn-link link-info"  href="registros/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="Ver más"><i class="fa fa-eye" aria-hidden="true"></i></a>';
@@ -249,9 +257,7 @@ class RegistrosController extends Controller
         $this->saveInfoAgent($registro->id, $request->input('ip'));
 
         return redirect('registros')->with('success','Registro creado correctamente');
-
     }
-
    
     /**
      * Display the specified resource.
@@ -483,7 +489,6 @@ class RegistrosController extends Controller
 
                     if($user->areasResponsable()->first()){
         
-                        
                         $areasR =  $user->areasResponsable()->get();
                         $registrosR = new Collection;
 
@@ -617,6 +622,22 @@ class RegistrosController extends Controller
             ->removeColumn('password')->make(true);
     }
 
+
+
+    /**
+     * AUDITORIA
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function auditoria($id)
+    {
+        //return "Auditoria:  ".$id;
+        $registro  = Registros::findOrFail($id);
+        $auditoria = $registro->audits()->with('user')->get();
+        //return count($auditoria[0]->old_values);
+        return view('registros.auditoria.index', compact('auditoria'));
+    }
 
 
 }

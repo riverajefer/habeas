@@ -44,9 +44,8 @@ Route::group(['middleware'=>'auth'], function(){
 
 
     // Auditoria
-    Route::get('registros/auditing/{id}', function($id){
-        return "Auditing:  ".$id;
-    });
+    Route::get('registros/auditoria/{id}','RegistrosController@auditoria')->name('auditoria');
+    
 
 
 });
@@ -58,7 +57,13 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 Route::get('test', function(){
 
     $re =  App\Models\Registros::find(34);
+    //echo $re->audits[0]->id.PHP_EOL;
+    return $re->audits[0]->getModified(true);
+    echo $re->old_values;
+
+    return;
     return $re->audits;
+
 
     return  $tables = DB::select('SHOW TABLES');
     //return $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
@@ -75,3 +80,5 @@ Route::get('test', function(){
 */
 Route::get('formulario/{slug}', 'FormularioController@formulario');
 Route::post('formulario/guardar', 'FormularioController@guardarFormulario');
+Route::get('formulario/baja/{id}', 'FormularioController@baja');
+Route::post('formulario/baja', 'FormularioController@bajaPost');
