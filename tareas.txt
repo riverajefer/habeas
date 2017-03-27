@@ -119,7 +119,6 @@ Estar asignado al modulo de tratamiento de datos Y pertenecer a la tabla de Áre
 
 
 
-
 *************************************
 Preguntas:
 ->El operario y el Responsable, pueden ser la misma persona ? Si
@@ -161,8 +160,8 @@ Lrod*2017
 ->  Historial de cambios ::check
 ->  Dar de baja registro (formulario) ::ckeck (Pendiente unos texto y más purebas)
 ->  Dado de baja por boton (Alert()) ::check
-
 ->  Campos obligatorios formularios
+
 ->  Texto formularios
 ->  Carga masiva
 ->  Enlace desde Codignither
@@ -176,7 +175,6 @@ Lrod*2017
 ->  Prevent double click
 ->  Acabados Areas
 ->  Acabado generales 
-
 
 
 Hitorial de cambios

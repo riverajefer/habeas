@@ -26,7 +26,7 @@
             
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
-                    <label for="nombe">Nombre</label>
+                    <label for="nombe">Nombre *</label>
                     <input type="text" class="form-control" id="nombe" name="nombre" placeholder="Nombre" value="{{ old('nombre') }}" autofocus required>
                     @if ($errors->has('nombre'))
                         <span class="help-block">
@@ -38,7 +38,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('primer_apellido') ? ' has-error' : '' }}">
-                    <label for="primer_apellido">Primer apellido</label>
+                    <label for="primer_apellido">Primer Apellido *</label>
                     <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" placeholder="Primer apellido" value="{{ old('primer_apellido') }}" required>
                     @if ($errors->has('primer_apellido'))
                         <span class="help-block">
@@ -51,7 +51,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('segundo_apellido') ? ' has-error' : '' }}">
-                    <label for="segundo_apellido">Segundo apellido</label>
+                    <label for="segundo_apellido">Segundo Apellido *</label>
                     <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" placeholder="Segundo apellido" value="{{ old('segundo_apellido') }}" required> 
                     @if ($errors->has('segundo_apellido'))
                         <span class="help-block">
@@ -66,7 +66,7 @@
           <div class="row">
              <div class="col-md-4">
                 <div class="form-group{{ $errors->has('tipo_documento') ? ' has-error' : '' }}">
-                    <label for="tipo_documento">Tipo documento</label>
+                    <label for="tipo_documento">Tipo Documento *</label>
                     <select name="tipo_documento" id="tipo_documento" class="form-control" required>
                        <option value="">Seleccione un tipo de documento</option>
                        @foreach($tipo_documento as $tipo_documento)
@@ -84,7 +84,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('doc') ? ' has-error' : '' }}">
-                    <label for="doc">Número de documento</label>
+                    <label for="doc">Número de Documento *</label>
                     <input type="text" class="form-control" id="doc" name="doc" placeholder="Número de documento" value="{{ old('doc') }}" required>
                     @if ($errors->has('doc'))
                         <span class="help-block">
@@ -97,7 +97,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('fecha_nacimiento') ? ' has-error' : '' }}">
-                    <label for="fecha">Fecha de nacimiento</label>
+                    <label for="datetimepicker">Fecha de Nacimiento *</label>
                     <div class='input-group date'>
                         <input type='text' id='datetimepicker' class="form-control" name="fecha_nacimiento" placeholder="aaa-mm-dd"  value="{{ old('fecha_nacimiento') }}" required>
                         <span class="input-group-addon">
@@ -118,7 +118,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('profesion') ? ' has-error' : '' }}">
-                    <label for="profesion">Profesión</label>
+                    <label for="profesion">Profesión *</label>
                     <input type="text" class="form-control" id="profesion" name="profesion" placeholder="Profesion" value="{{ old('profesion') }}" required>
                     @if ($errors->has('profesion'))
                         <span class="help-block">
@@ -130,7 +130,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('cargo') ? ' has-error' : '' }}">
-                    <label for="cargo">Cargo</label>
+                    <label for="cargo">Cargo *</label>
                     <input type="text" class="form-control" id="cargo" name="cargo" placeholder="Cargo" value="{{ old('cargo') }}" required>
                     @if ($errors->has('cargo'))
                         <span class="help-block">
@@ -142,7 +142,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email">Email</label>
+                    <label for="email">Correo Electrónico Personal *</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
                     @if ($errors->has('email'))
                         <span class="help-block">
@@ -158,7 +158,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('empresa') ? ' has-error' : '' }}">
-                    <label for="empresa">Empresa o Entidad</label>
+                    <label for="empresa">Empresa o Entidad *</label>
                     <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Empresa o Entidad" value="{{ old('empresa') }}" required>
                     @if ($errors->has('empresa'))
                         <span class="help-block">
@@ -170,7 +170,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
-                    <label for="telefono">Teléfono fijo</label>
+                    <label for="telefono">Teléfono Fijo</label>
                     <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono fijo" value="{{ old('telefono') }}">
                     @if ($errors->has('telefono'))
                         <span class="help-block">
@@ -182,7 +182,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('celular') ? ' has-error' : '' }}">
-                    <label for="celular">Celular</label>
+                    <label for="celular">Teléfono Celular Personal *</label>
                     <input type="text" class="form-control" id="celular" name="celular" placeholder="Celular" value="{{ old('celular') }}" required>
                     @if ($errors->has('celular'))
                         <span class="help-block">
@@ -197,7 +197,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('departamento_id') ? ' has-error' : '' }}">
-                    <label for="departamento">Departamento</label>
+                    <label for="departamento">Departamento *</label>
                     <select name="departamento_id" id="departamento" class="form-control" required>
                         <option value="">Seleccione un departamento</option>
                         @foreach($departamentos as $departamento)
@@ -214,7 +214,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('municipio_id') ? ' has-error' : '' }}">
-                    <label for="municipio">Ciudad</label>
+                    <label for="municipio">Ciudad * </label>
                     <select name="municipio_id" id="municipio" class="form-control" required>
                     </select>
                     @if ($errors->has('municipio_id'))
@@ -231,6 +231,7 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">    
+                <label for="">Esta pregunta es para comprobar si eres un usuario humano y evitar el spam automatizado</label>
                     {!! Recaptcha::render() !!}
                     @if ($errors->has('g-recaptcha-response'))
                         <span class="help-block">
@@ -244,13 +245,16 @@
 
         <hr>    
         <div class="row">
-            <p style="padding:15px">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem voluptates minus illum aperiam, nisi qui voluptatibus incidunt facere, natus cupiditate. Blanditiis corrupti, omnis tenetur nisi unde maiores eveniet asperiores vitae.
+            <p style="padding:10px 30px">
+            La información del formato, el cual forma parte integral de la presente autorización, la he suministrado de forma voluntaria, y es completa, confiable, veraz, exacta y verídica.
+            <br>
+                <a data-fancybox data-caption="Soporte" href="{{asset('files/tratamiento_de_datos.pdf')}}"> 
+                Politica de tratamiento de datos
+                </a>
             </p>
-            <p>
-            <a data-fancybox data-caption="Soporte" href="{{asset('files/tratamiento_de_datos.pdf')}}"> Ver Soporte </a>
-            </p>
+
             <div class="col-md-3 col-md-offset-5">
+                <p>Autoriza el tratamiento de sus datos personales sensibles?: *</p>
                 <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
                     <input type="checkbox" name="autorizo" id="checkbox-1" class="mdl-checkbox__input" required>
                     <span class="mdl-checkbox__label">Si autorizo</span>
@@ -298,8 +302,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
-            console.log("Create")
             $('#datetimepicker').datetimepicker({
                 locale: 'es',
                 format: 'YYYY-MM-DD',

@@ -1116,16 +1116,16 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "2.1.12",
+            "version": "2.1.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-                "reference": "46f1f9168202877d2d9c570042af315567b268c0"
+                "reference": "2a0f21352254c3c5b2248222cbaaf985253905bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/46f1f9168202877d2d9c570042af315567b268c0",
-                "reference": "46f1f9168202877d2d9c570042af315567b268c0",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/2a0f21352254c3c5b2248222cbaaf985253905bf",
+                "reference": "2a0f21352254c3c5b2248222cbaaf985253905bf",
                 "shasum": ""
             },
             "require": {
@@ -1180,7 +1180,7 @@
                 "import",
                 "laravel"
             ],
-            "time": "2017-03-24T12:44:02+00:00"
+            "time": "2017-03-27T17:06:29+00:00"
         },
         {
             "name": "maxmind-db/reader",

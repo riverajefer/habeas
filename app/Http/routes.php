@@ -18,7 +18,6 @@ Route::get('salir/', 'LoginController@salir');
 */
 Route::group(['middleware'=>'auth'], function(){
 
-
     Route::resource('registros', 'RegistrosController', ['except' => ['index']]);
 
     Route::get('registros','RegistrosController@index')->name('registros');
@@ -31,6 +30,11 @@ Route::group(['middleware'=>'auth'], function(){
     // Tabla completa
     Route::get('reg/tabla_completa','RegistrosController@tablaCompleta')->name('registrosTablaCompleta');
     Route::post('reg.tabla_completa','RegistrosController@dataRegistrosTablaCompleta')->name('dataRegistrosTablaCompleta');
+
+    // Subida Masiva
+    Route::get('reg/subida_masiva','RegistrosController@subidaMasiva')->name('subidaMasiva');
+    Route::post('reg/subida_masiva','RegistrosController@postSubidaMasiva')->name('postSubidaMasiva');
+
 
     Route::resource('areas', 'AreasController', ['except' => ['index']]);
     Route::get('areas','AreasController@index')->name('areas');
@@ -46,8 +50,6 @@ Route::group(['middleware'=>'auth'], function(){
 
     // Auditoria
     Route::get('registros/auditoria/{id}','RegistrosController@auditoria')->name('auditoria');
-    
-
 
 });
 

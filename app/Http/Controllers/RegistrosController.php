@@ -672,4 +672,30 @@ class RegistrosController extends Controller
     }
 
 
+
+    /**
+     * SUBIDA MASIVA
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function subidaMasiva()
+    {
+        return view('registros.subida_masiva');
+    }
+
+
+    /**
+     * POST SUBIDA MASIVA
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postSubidaMasiva(Request $request)
+    {
+        //
+    }
+
+
 }
