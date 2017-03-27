@@ -94,7 +94,7 @@
                 <div class="form-group{{ $errors->has('fecha_nacimiento') ? ' has-error' : '' }}">
                     <label for="fecha">Fecha de nacimiento</label>
                     <div class='input-group date'>
-                        <input type='text' id='datetimepicker' class="form-control" name="fecha_nacimiento" placeholder="aaa/mm/dd"  value="{{ old('fecha_nacimiento') }}" required>
+                        <input type='text' id='datetimepicker' class="form-control" name="fecha_nacimiento" placeholder="aaa/mm/dd"  value="{{ old('fecha_nacimiento') }}">
                         <span class="input-group-addon">
                             <span class="fa fa-calendar">
                             </span>
@@ -125,7 +125,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('celular') ? ' has-error' : '' }}">
                     <label for="celular">Celular personal</label>
-                    <input type="text" class="form-control" id="celular" name="celular" placeholder="Número de celular" value="{{ old('celular') }}" required>
+                    <input type="text" class="form-control" id="celular" name="celular" placeholder="Número de celular" value="{{ old('celular') }}">
                     @if ($errors->has('celular'))
                         <span class="help-block">
                             <strong>{{ $errors->first('celular') }}</strong>
@@ -137,7 +137,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('telefono_personal') ? ' has-error' : '' }}">
                     <label for="telefono_personal">Teléfono fijo personal</label>
-                    <input type="text" class="form-control" id="telefono_personal" name="telefono_personal" placeholder="Teléfono personal" value="{{ old('telefono_personal') }}" required>
+                    <input type="text" class="form-control" id="telefono_personal" name="telefono_personal" placeholder="Teléfono personal" value="{{ old('telefono_personal') }}">
                     @if ($errors->has('telefono_personal'))
                         <span class="help-block">
                             <strong>{{ $errors->first('telefono_personal') }}</strong>
@@ -214,7 +214,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('telefono_corporativo') ? ' has-error' : '' }}">
                     <label for="telefono_corporativo">Teléfono corporativo</label>
-                    <input type="text" class="form-control" id="telefono_corporativo" name="telefono_corporativo" placeholder="Teléfono corporativo" value="{{ old('telefono_corporativo') }}" required>
+                    <input type="text" class="form-control" id="telefono_corporativo" name="telefono_corporativo" placeholder="Teléfono corporativo" value="{{ old('telefono_corporativo') }}">
                     @if ($errors->has('telefono_corporativo'))
                         <span class="help-block">
                             <strong>{{ $errors->first('telefono_corporativo') }}</strong>
@@ -226,7 +226,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('email_corporativo') ? ' has-error' : '' }}">
                     <label for="email_corporativo">Email corporativo</label>
-                    <input type="email" class="form-control" id="email_corporativo" name="email_corporativo" placeholder="Email corporativo" value="{{ old('email_corporativo') }}" required>
+                    <input type="email" class="form-control" id="email_corporativo" name="email_corporativo" placeholder="Email corporativo" value="{{ old('email_corporativo') }}">
                     @if ($errors->has('email_corporativo'))
                         <span class="help-block">
                             <strong>{{ $errors->first('email_corporativo') }}</strong>
@@ -240,7 +240,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('celular_corporativo') ? ' has-error' : '' }}">
                     <label for="celular_corporativo">Celular corporativo</label>
-                    <input type="text" class="form-control" id="celular_corporativo" name="celular_corporativo" placeholder="Celular corporativo" value="{{ old('celular_corporativo') }}" required>
+                    <input type="text" class="form-control" id="celular_corporativo" name="celular_corporativo" placeholder="Celular corporativo" value="{{ old('celular_corporativo') }}">
                     @if ($errors->has('celular_corporativo'))
                         <span class="help-block">
                             <strong>{{ $errors->first('celular_corporativo') }}</strong>
@@ -286,7 +286,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('direccion') ? ' has-error' : '' }}">
                     <label for="direccion">Dirección</label>
-                    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección" value="{{ old('direccion') }}" required>
+                    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección" value="{{ old('direccion') }}">
                     @if ($errors->has('direccion'))
                         <span class="help-block">
                             <strong>{{ $errors->first('direccion') }}</strong>
@@ -303,7 +303,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('sn') ? ' has-error' : '' }}">
                     <label for="sn">SN</label>
-                    <input type="text" class="form-control" id="sn" name="sn" placeholder="SN" value="{{ old('sn') }}" required>
+                    <input type="text" class="form-control" id="sn" name="sn" placeholder="SN" value="{{ old('sn') }}">
                     @if ($errors->has('sn'))
                         <span class="help-block">
                             <strong>{{ $errors->first('sn') }}</strong>
@@ -314,7 +314,7 @@
              <div class="col-md-4">
                 <div class="form-group{{ $errors->has('asesor_comercial') ? ' has-error' : '' }}">
                     <label for="asesor_comercial">Asesor comercial</label>
-                    <select name="asesor_comercial" id="asesor_comercial" class="form-control" required>
+                    <select name="asesor_comercial" id="asesor_comercial" class="form-control">
                         <option value="">Seleccione un asesor</option>
                         <option value="1">Cliente Activo</option>
                         <option value="2">Cliente Inactivo</option>
@@ -331,8 +331,7 @@
              <div class="col-md-4">
                 <div class="form-group{{ $errors->has('estado_cliente') ? ' has-error' : '' }}">
                     <label for="estado_cliente">Estado del cliente</label>
-                    <select name="estado_cliente" id="estado_cliente" class="form-control" required>
-                        <option value="">Seleccione un estado</option>
+                    <select name="estado_cliente" id="estado_cliente" class="form-control">
                         @foreach($estado_cliente as $estado_cliente)
                             <option value="{{$estado_cliente}}"   {{ (collect(old('estado_cliente'))->contains($estado_cliente)) ? 'selected':'' }}  >{{$estado_cliente}}</option>
                         @endforeach
@@ -361,7 +360,7 @@
              <div class="col-md-4">
                 <div class="form-group{{ $errors->has('tipo_registro') ? ' has-error' : '' }}">
                     <label for="tipo_registro">Tipo de registro</label>
-                    <select name="tipo_registro" id="tipo_registro" class="form-control" required>
+                    <select name="tipo_registro" id="tipo_registro" class="form-control">
                         <option value="">Seleccione el tipo de registro</option>
                         @foreach($tipo_registro as $tipo_registro)
                             <option value="{{$tipo_registro->id}}" {{ old('tipo_registro')==$tipo_registro->id ? 'selected="selected"' : '' }}>{{$tipo_registro->titulo}}</option>

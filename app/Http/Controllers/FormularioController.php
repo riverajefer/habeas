@@ -79,6 +79,7 @@ class FormularioController extends Controller
             'departamento_id'=>'required',
             'municipio_id'=>'required',
             'autorizo'=>'required',
+            'g-recaptcha-response' => 'required|recaptcha',
         ]);
 
 
@@ -179,6 +180,10 @@ class FormularioController extends Controller
      * @return \Illuminate\View\View
      */
      public function baja($id){
+         $registro = Registros::findOrFail($id);
+         $areas = Areas::all();
+         $tipo_documento = $this->tipo_documento;
+         return view('formularios_publico.baja', compact('registro', 'areas', 'tipo_documento'));
          return "Baja: ".$id;
 
      }
@@ -191,8 +196,83 @@ class FormularioController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function bajaPost(Request $request){
+
+        $registro = Registros::findOrFail($request->input('registro_id'));
+
+        $this->validate($request,[
+            'area_id'=>'required',
+        ]);
+        $area_id = $request->input('area_id');
+
+        if($request->input('fijo')){
+            $this->validate($request,[
+                'area_id'=>'required',
+                'telefono_personal'=>'required|numeric',
+            ]);
+
+            if( ($registro->area_id == $area_id) and ($registro->telefono_personal == $request->input('telefono_personal')) ){
+                $registro->estado = 0;
+                $registro->baja_por = 0;
+                $registro->save();
+                return back()->with('success','Su suscripción fue cancelada correctamente.');
+            }
+            else{
+                return back()->with('error_baja','Validación incorrecta, verifica los campos y vuelve a envíar la información ')->withInput();
+            }
+            
+        }
+
+        if($request->input('ncelular')){
+            $this->validate($request,[
+                'area_id'=>'required',
+                'celular'=>'required|numeric',
+            ]);
+            if( ($registro->area_id == $area_id) and ($registro->celular == $request->input('celular')) ){
+                $registro->estado = 0;
+                $registro->baja_por = 0;
+                $registro->save();                
+                return back()->with('success','Su suscripción fue cancelada correctamente.');
+            }
+            else{
+                return back()->with('error_baja','Validación incorrecta, verifica los campos y vuelve a envíar la información ')->withInput();
+            }
+
+        }
+
+        if($request->input('fecha')){
+            $this->validate($request,[
+                'area_id'=>'required',
+                'fecha_nacimiento'=>'required|date',
+            ]);
+            if( ($registro->area_id == $area_id) and ($registro->fecha_nacimiento == $request->input('fecha_nacimiento')) ){
+                $registro->estado = 0;
+                $registro->baja_por = 0;
+                $registro->save();                
+                return back()->with('success','Su suscripción fue cancelada correctamente.');
+            }      
+            else{
+                return back()->with('error_baja','Validación incorrecta, verifica los campos y vuelve a envíar la información ')->withInput();
+            }                  
+        }
+
+        if($request->input('ndoc')){
+            $this->validate($request,[
+                'area_id'=>'required',
+                'doc'=>'required|numeric',
+            ]);
+            if( ($registro->area_id == $area_id) and ($registro->doc == $request->input('doc')) ){
+                $registro->estado = 0;
+                $registro->baja_por = 0;
+                $registro->save();                
+                return back()->with('success','Su suscripción fue cancelada correctamente.');
+            }   
+            else{
+                return back()->with('error_baja','Validación incorrecta, verifica los campos y vuelve a envíar la información ')->withInput();
+            }                      
+        }
          return $request->all();
      }
 
 
 }
+

@@ -168,6 +168,8 @@ return [
         App\Providers\HelperServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
         OwenIt\Auditing\AuditingServiceProvider::class,
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
+
 
     ],
 
@@ -223,7 +225,9 @@ return [
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'Location' => Stevebauman\Location\Facades\Location::class,
         'MyFuncs' => App\Helpers\MyFuncs::class,
-        'Curl'          => Ixudra\Curl\Facades\Curl::class,
+        'Curl'    => Ixudra\Curl\Facades\Curl::class,
+        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
+
 
     ],
 

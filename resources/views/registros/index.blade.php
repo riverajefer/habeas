@@ -1,7 +1,60 @@
 @extends('layouts.master')
 @section('content')
 
+<script>
 
+    function eliminar(id){
+        $('#span_id').text(id);
+        
+        var dialog = document.querySelector('dialog');
+        var showDialogButton = document.querySelector('#show-dialog');
+        if (! dialog.showModal) {
+             dialogPolyfill.registerDialog(dialog);
+        }
+
+        dialog.showModal();
+
+        dialog.querySelector('.close').addEventListener('click', function() {
+            dialog.close();
+        });
+        
+        dialog.querySelector('.aceptar').addEventListener('click', function() {
+
+            $('.msg_delete').empty();
+            $("#load").show();
+            $('.mdl-dialog__actions').hide();
+            $('.msg_delete').text('Procesando...');
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '{!!  URL::to('registros/baja') !!}',
+                type: 'post',
+                data: {id:id},
+
+                success:function(msg){
+                    console.log("msg: ",msg);
+                    if(msg.status){
+                        $("#load").hide();
+                        $('.msg_delete').text('Registro dado de baja correctamente');
+                        $('.mdl-dialog__actions').show();
+                        setTimeout(function(){ dialog.close(); }, 1500);
+                        window.location.href=window.location.href;
+                    }else{
+                        $('.msg_delete').text('Ha ocurrido un eror');
+                        $("#load").hide();
+                        $('.mdl-dialog__actions').show();
+                    }
+                }
+            });
+
+        });    
+  }
+
+</script>
 <br> 
 <div class="row">
     <div class="col-md-12">
@@ -64,6 +117,7 @@
                         <th>Operario</th>
                         <th>Responsable</th>
                         <th>Procedencia</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -73,20 +127,49 @@
     </div>
 </div>
 
+ <button id="show-dialog" type="button" class="mdl-button">Show Dialog</button>
+  <dialog class="mdl-dialog">
+    <h6 class="mdl-dialog__title">
+      Alerta  <i class="fa fa-exclamation" aria-hidden="true"></i>
+    </h6>
+    <div align="center" class="mdl-dialog__content">
+      <p>
+        Desea dar de baja este registro
+      </p>
+      <p  class="text-danger">
+        Id: <b><span id="span_id"></span></b>
+      </p>
+      <p id="load" style="display:none">
+        <img src="{{asset('images/load.gif')}}" alt="load">
+      </p>
+       <span class="msg_delete"></span> 
+
+    </div>
+    <div class="mdl-dialog__actions">
+      <button class="mdl-button mdl-js-button mdl-button--primary aceptar">Aceptar</button>
+      <button type="button" class="mdl-button mdl-js-buttonmdl-button--accent close">Cerrar</button>
+    </div>
+  </dialog>
+
 @stop
 
 @push('scripts')
 <script>
 $(function() {
-        $.fn.dataTable.ext.errMode = 'none';
+     $.fn.dataTable.ext.errMode = 'none';
 
     $('#registros-table').DataTable({
         "language": {
             "url": '//cdn.datatables.net/plug-ins/1.10.13/i18n/Spanish.json'
         },
-         order: [ [0, 'desc'] ],      
+        order: [ [8, 'desc'], [0, 'desc']],      
         processing: true,
         serverSide: true,
+        "createdRow": function( row, data, dataIndex ) {
+            if ( data['estado'] == "Inactivo" ) {
+                $( row ).addClass( "danger" );
+            }
+        },    
         ajax: '{!! route('dataRegistros') !!}',
         columns: [
             { data: 'id', name: 'id' },
@@ -97,10 +180,16 @@ $(function() {
             { data: 'operario', name: 'operario' },
             { data: 'responsable', name: 'responsable' },
             { data: 'procedencia', name: 'procedencia' },
+            { data: 'estado', name: 'estado' },
             { data: 'action', name: 'action', orderable: false, searchable: false}
         ],
+
+
+
     });
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+
 });
+
 </script>
 @endpush

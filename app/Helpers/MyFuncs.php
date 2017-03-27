@@ -143,6 +143,20 @@ class MyFuncs {
                     $colletion->new = User::find($colletion->new)->nombre;
                 }
                 break;
+            case 'baja_por';
+                $colletion->atributo = 'Dado de baja por';
+                if($colletion->old==0){
+                    $colletion->old = 'Mismo usuario';
+                }else{
+                    $colletion->old = User::find($colletion->old)->nombre;
+                }
+                if($colletion->new == 0){
+                    $colletion->old = 'Mismo usuario';
+                }else{
+                    $colletion->new = User::find($colletion->new)->nombre;
+                }
+
+                break;                
             case 'creado_por';
                 $colletion->atributo = 'Creado por';
                 if($colletion->old){

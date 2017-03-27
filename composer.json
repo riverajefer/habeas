@@ -18,7 +18,8 @@
         "jenssegers/agent": "^2.5",
         "stevebauman/location": "2.0.*",
         "ixudra/curl": "6.*",
-        "owen-it/laravel-auditing": "^4.0"
+        "owen-it/laravel-auditing": "^4.0",
+        "greggilbert/recaptcha": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

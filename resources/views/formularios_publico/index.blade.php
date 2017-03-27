@@ -1,4 +1,4 @@
-@extends('layouts.publico')
+@extends('layouts.publico', ['titulo'=>'ACTUALIZACIÓN DE DATOS', 'texto'=>'FORMULARIO DE ACTUALIZACIÓN DE DATOS'])
 
 @section('content')
 
@@ -216,7 +216,6 @@
                 <div class="form-group{{ $errors->has('municipio_id') ? ' has-error' : '' }}">
                     <label for="municipio">Ciudad</label>
                     <select name="municipio_id" id="municipio" class="form-control" required>
-                        
                     </select>
                     @if ($errors->has('municipio_id'))
                         <span class="help-block">
@@ -227,10 +226,29 @@
             </div>   
 
         </div><!-- /row -->
+        <br><br>
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">    
+                    {!! Recaptcha::render() !!}
+                    @if ($errors->has('g-recaptcha-response'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                        </span>
+                    @endif            
+                <!--     <div class="g-recaptcha" data-sitekey="6LcMbhoUAAAAADK6U1bVRh0xcDSlDQ1MvlDhLzAr"></div> -->
+                </div>
+           </div>
+        </div>
+
         <hr>    
         <div class="row">
             <p style="padding:15px">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem voluptates minus illum aperiam, nisi qui voluptatibus incidunt facere, natus cupiditate. Blanditiis corrupti, omnis tenetur nisi unde maiores eveniet asperiores vitae.
+            </p>
+            <p>
+            <a data-fancybox data-caption="Soporte" href="{{asset('files/tratamiento_de_datos.pdf')}}"> Ver Soporte </a>
             </p>
             <div class="col-md-3 col-md-offset-5">
                 <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
@@ -315,6 +333,10 @@
                     });
 
                 });
+            });
+                
+            $("[data-fancybox]").fancybox({
+                // Options will go here
             });
         });
     </script>

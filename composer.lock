@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a54005cf3e0fc9d03d8ba525d502dfb",
+    "content-hash": "1d9076aa2f749472db5f98800136b629",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -343,6 +343,58 @@
             "time": "2015-09-24T17:29:28+00:00"
         },
         {
+            "name": "greggilbert/recaptcha",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/greggilbert/recaptcha.git",
+                "reference": "cffaaa600ba73765e9c6e1aec6306d708d8cdb2b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/greggilbert/recaptcha/zipball/cffaaa600ba73765e9c6e1aec6306d708d8cdb2b",
+                "reference": "cffaaa600ba73765e9c6e1aec6306d708d8cdb2b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.1",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/migrations"
+                ],
+                "psr-4": {
+                    "Greggilbert\\Recaptcha\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Gilbert",
+                    "email": "greg@greg-gilbert.com"
+                }
+            ],
+            "description": "reCAPTCHA Validator for Laravel 5",
+            "homepage": "http://github.com/greggilbert/recaptcha",
+            "keywords": [
+                "captcha",
+                "laravel",
+                "laravel5",
+                "recaptcha"
+            ],
+            "time": "2017-02-16T18:36:44+00:00"
+        },
+        {
             "name": "hisorange/browser-detect",
             "version": "2.0.2",
             "source": {
@@ -439,16 +491,16 @@
         },
         {
             "name": "ixudra/curl",
-            "version": "6.8.1",
+            "version": "6.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ixudra/curl.git",
-                "reference": "c2bf23f90a0a504793b4965557c7c0e418c198a0"
+                "reference": "fb4d7bc42d1e53ce072287544642a3074535ea3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ixudra/curl/zipball/c2bf23f90a0a504793b4965557c7c0e418c198a0",
-                "reference": "c2bf23f90a0a504793b4965557c7c0e418c198a0",
+                "url": "https://api.github.com/repos/ixudra/curl/zipball/fb4d7bc42d1e53ce072287544642a3074535ea3a",
+                "reference": "fb4d7bc42d1e53ce072287544642a3074535ea3a",
                 "shasum": ""
             },
             "require": {
@@ -478,7 +530,7 @@
                 "curl",
                 "laravel"
             ],
-            "time": "2017-02-12T16:47:20+00:00"
+            "time": "2017-03-23T11:16:12+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -1064,16 +1116,16 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "2.1.10",
+            "version": "2.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-                "reference": "a544a9b45b971499fb3b0fb7499ba0ac3b430233"
+                "reference": "46f1f9168202877d2d9c570042af315567b268c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/a544a9b45b971499fb3b0fb7499ba0ac3b430233",
-                "reference": "a544a9b45b971499fb3b0fb7499ba0ac3b430233",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/46f1f9168202877d2d9c570042af315567b268c0",
+                "reference": "46f1f9168202877d2d9c570042af315567b268c0",
                 "shasum": ""
             },
             "require": {
@@ -1081,6 +1133,7 @@
                 "illuminate/config": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*",
                 "illuminate/filesystem": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*",
                 "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*",
+                "jeremeamia/superclosure": "^2.3",
                 "nesbot/carbon": "~1.0",
                 "php": ">=5.5",
                 "phpoffice/phpexcel": "1.8.*",
@@ -1127,7 +1180,7 @@
                 "import",
                 "laravel"
             ],
-            "time": "2017-01-20T16:16:51+00:00"
+            "time": "2017-03-24T12:44:02+00:00"
         },
         {
             "name": "maxmind-db/reader",
@@ -4426,7 +4479,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "greggilbert/recaptcha": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

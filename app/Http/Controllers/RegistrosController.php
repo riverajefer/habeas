@@ -124,7 +124,11 @@ class RegistrosController extends Controller
                     }else{
                         $history = '<a class="btn btn-link" disabled  href="registros/auditoria/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="No hay cambios"><i class="fa fa-history" aria-hidden="true"></i></a>';
                     }
-                    $delete = '<a class="btn btn-link link-danger" data-toggle="tooltip" data-placement="top" title="Dar de baja"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+                    if($registros->estado){
+                        $delete = '<a class="btn btn-link link-danger" data-token="'.csrf_token().'"  data-toggle="tooltip" data-placement="top" onClick="eliminar('.$registros->id.')" title="Dar de baja"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+                    }else{
+                        $delete = '';
+                    }
 
                     return $view.''.$edit.''.$history.''.$delete;
                 }else{
@@ -139,6 +143,7 @@ class RegistrosController extends Controller
             })->addColumn('operario', function ($registros) {
                 return $registros->area()->first()->m_operario->nombre;
             })
+            ->editColumn('estado', '{{$estado? "Activo":"Inactivo"}}')
             ->make(true);
     }
 
@@ -179,9 +184,9 @@ class RegistrosController extends Controller
             'segundo_apellido'=>'required|string|max:50',
             'tipo_documento'=>'required|string',
             'doc'=>'required|string|unique:registros|max:50',
-            'fecha_nacimiento'=>'required|date',
+            'fecha_nacimiento'=>'date',
             'email'=>'required|email|max:100',
-            'celular'=>'required|numeric',
+            'celular'=>'numeric',
             'telefono_personal'=>'numeric',
 
             'area_id'=>'required',
@@ -196,10 +201,10 @@ class RegistrosController extends Controller
             'direccion'=>'max:60',
 
             'sn'=>'max:80',
-            'asesor_comercial'=>'required',
+            //'asesor_comercial'=>'required',
             'estado_cliente'=>'required',
             'comentarios'=>'max:800',
-            'tipo_registro'=>'required',
+            //'tipo_registro'=>'required',
             'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000',    
         ]);
 
@@ -312,9 +317,9 @@ class RegistrosController extends Controller
             'segundo_apellido'=>'required|string|max:50',
             'tipo_documento'=>'required|string',
             'doc'=>'required|string|unique:registros,id,'.$id,
-            'fecha_nacimiento'=>'required|date',
+            'fecha_nacimiento'=>'date',
             'email'=>'required|email|max:100',
-            'celular'=>'required|numeric',
+            'celular'=>'numeric',
             'telefono_personal'=>'numeric',
 
             'area_id'=>'required',
@@ -329,10 +334,10 @@ class RegistrosController extends Controller
             'direccion'=>'max:60',
 
             'sn'=>'max:80',
-            'asesor_comercial'=>'required',
+            //'asesor_comercial'=>'required',
             'estado_cliente'=>'required',
             'comentarios'=>'max:800',
-            'tipo_registro'=>'required',
+            //'tipo_registro'=>'required',
             'estado_registro'=>'required',
             'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000',    
         ]);
@@ -356,6 +361,11 @@ class RegistrosController extends Controller
             $request->soporte->move(public_path('uploads/soportes'), $soporte);
             $soporte = $soporte;
         }
+
+        $baja_por = 0;
+        if($request->input('estado_registro')==0){
+            $baja_por = Auth::user()->id;
+        }         
 
         $registro = Registros::findOrFail($id);
         $registro->nombre = $request->input('nombre');
@@ -385,6 +395,7 @@ class RegistrosController extends Controller
         $registro->comentarios = $request->input('comentarios');
         $registro->modificado_por = Auth::user()->id;
         $registro->estado = $request->input('estado_registro'); // esto tiene que venir dinamico
+        $registro->baja_por = $baja_por;
         $registro->save();
 
         return redirect('registros')->with('success','Registro actualizado correctamente');
@@ -401,7 +412,28 @@ class RegistrosController extends Controller
     public function destroy($id)
     {
         //
+
     }
+
+    /**
+     * Toggle Dar de baja el registro the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function darDebaja(Request $request)
+    {
+
+        $registro = Registros::find($request->input('id'));
+        $registro->estado = 0;
+        $registro->baja_por = Auth::user()->id;
+        $registro->save();
+        sleep(2);
+        return response()->json([
+            'status' => true,
+        ]);
+    }
+
 
 
     /**

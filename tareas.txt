@@ -159,20 +159,27 @@ Lrod*2017
 ->  Verificar, ajustar formularios publicos ::Check
 ->  Obtener datos como IP, Ubicación, etc para el registro ::Check
 ->  Historial de cambios ::check
+->  Dar de baja registro (formulario) ::ckeck (Pendiente unos texto y más purebas)
+->  Dado de baja por boton (Alert()) ::check
 
-->  Dar de baja registro (formulario)
-->  Enviar email de Notificaciòn (Responsable y Operario)
+->  Campos obligatorios formularios
+->  Texto formularios
 ->  Carga masiva
-->  Conectar a SAP, Asesores comerciales, esto toca probarlo desde el servidor
 ->  Enlace desde Codignither
+->  Enviar email de Notificaciòn (Responsable y Operario)
+->  Conectar a SAP, Asesores comerciales, esto toca probarlo desde el servidor
+->  Estadisticas
+
 ->  Filtrado por área
 ->  Actualizar por llave primaria (Doc, email)
-->  Estadisticas
 ->  CRUD para Tipo de Registro
+->  Prevent double click
+->  Acabados Areas
+->  Acabado generales 
+
 
 
 Hitorial de cambios
-
 Campos:
 Id_Registro
 Accion o evento
@@ -183,3 +190,29 @@ URL
 IP
 Fecha
 Numero de campos afectados (3) => ver campos => muestra la tabla comparativa
+
+
+* Nombre
+* Primer apellido
+* Segundo apellido
+* Tipo de documento      
+* Número de documento
+Fecha de nacimiento    
+* Email personal  
+Celular personal             
+Teléfono fijo personal
+* Área a la que pertenece
+* Profesión
+* Cargo
+* Empresa o Entidad
+Teléfono corporativo
+Email corporativo
+Celular corporativo
+* Departamento
+* Ciudad
+Dirección
+SN
+Asesor comercial
+Estado del cliente
+Comentarios
+Tipo de registro

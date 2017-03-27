@@ -24,7 +24,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
                     <label for="nombe">Nombre</label>
-                    <input type="text" class="form-control" id="nombe" name="nombre" placeholder="Nombre" value="{{ $registro->nombre }}">
+                    <input type="text" class="form-control" id="nombe" name="nombre" placeholder="Nombre" value="{{ $registro->nombre }}" required>
                     @if ($errors->has('nombre'))
                         <span class="help-block">
                             <strong>{{ $errors->first('nombre') }}</strong>
@@ -36,7 +36,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('primer_apellido') ? ' has-error' : '' }}">
                     <label for="primer_apellido">Primer apellido</label>
-                    <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" placeholder="Primer apellido" value="{{ $registro->primer_apellido }}">
+                    <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" placeholder="Primer apellido" value="{{ $registro->primer_apellido }}" required>
                     @if ($errors->has('primer_apellido'))
                         <span class="help-block">
                             <strong>{{ $errors->first('primer_apellido') }}</strong>
@@ -45,11 +45,10 @@
                 </div>
             </div> 
 
-
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('segundo_apellido') ? ' has-error' : '' }}">
                     <label for="segundo_apellido">Segundo apellido</label>
-                    <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" placeholder="Segundo apellido" value="{{ $registro->segundo_apellido }}"> 
+                    <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" placeholder="Segundo apellido" value="{{ $registro->segundo_apellido }}" required>  
                     @if ($errors->has('segundo_apellido'))
                         <span class="help-block">
                             <strong>{{ $errors->first('segundo_apellido') }}</strong>
@@ -59,13 +58,11 @@
             </div>    
           </div> <!-- /row -->
 
-
           <div class="row">
              <div class="col-md-4">
                 <div class="form-group{{ $errors->has('tipo_documento') ? ' has-error' : '' }}">
                     <label for="tipo_documento">Tipo documento</label>
                     <select name="tipo_documento" id="tipo_documento" class="form-control" required>
-                       <option value="">Seleccione un tipo de documento</option>
                        @foreach($tipo_documento as $tipo_documento)
                         <option value="{{$tipo_documento}}"  {{ $registro->tipo_documento==$tipo_documento ? 'selected="selected"' : '' }}>{{$tipo_documento}}</option>
                        @endforeach
@@ -82,7 +79,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('doc') ? ' has-error' : '' }}">
                     <label for="doc">Número de documento</label>
-                    <input type="text" class="form-control" id="doc" name="doc" placeholder="Número de docuemnto" value="{{ $registro->doc }}">
+                    <input type="text" class="form-control" id="doc" name="doc" placeholder="Número de docuemnto" value="{{ $registro->doc }}" required>
                     @if ($errors->has('doc'))
                         <span class="help-block">
                             <strong>{{ $errors->first('doc') }}</strong>
@@ -124,7 +121,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('celular') ? ' has-error' : '' }}">
                     <label for="celular">Celular personal</label>
-                    <input type="text" class="form-control" id="celular" name="celular" placeholder="Número de celular" value="{{ $registro->celular }}" required>
+                    <input type="text" class="form-control" id="celular" name="celular" placeholder="Número de celular" value="{{ $registro->celular }}">
                     @if ($errors->has('celular'))
                         <span class="help-block">
                             <strong>{{ $errors->first('celular') }}</strong>
@@ -136,7 +133,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('telefono_personal') ? ' has-error' : '' }}">
                     <label for="telefono_personal">Teléfono fijo personal</label>
-                    <input type="text" class="form-control" id="telefono_personal" name="telefono_personal" placeholder="Teléfono personal" value="{{ $registro->telefono_personal }}" required>
+                    <input type="text" class="form-control" id="telefono_personal" name="telefono_personal" placeholder="Teléfono personal" value="{{ $registro->telefono_personal }}">
                     @if ($errors->has('telefono_personal'))
                         <span class="help-block">
                             <strong>{{ $errors->first('telefono_personal') }}</strong>
@@ -155,7 +152,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('area_id') ? ' has-error' : '' }}">
                     <label for="area">Área a la que pertenece</label>
-                    <select name="area_id" id="area"  class="form-control" value="{{ old('area') }}" >
+                    <select name="area_id" id="area"  class="form-control" value="{{ old('area') }}" required>
                         @foreach($areas as $area)
                             <option value="{{$area->id}}" {{ $registro->area_id==$area->id ? 'selected="selected"' : '' }}>{{$area->titulo}}</option>
                         @endforeach
@@ -172,7 +169,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('profesion') ? ' has-error' : '' }}">
                     <label for="profesion">Profesión</label>
-                    <input type="text" class="form-control" id="profesion" name="profesion" placeholder="Profesion" value="{{ $registro->profesion }}">
+                    <input type="text" class="form-control" id="profesion" name="profesion" placeholder="Profesion" value="{{ $registro->profesion }}" required>
                     @if ($errors->has('profesion'))
                         <span class="help-block">
                             <strong>{{ $errors->first('profesion') }}</strong>
@@ -184,7 +181,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('cargo') ? ' has-error' : '' }}">
                     <label for="cargo">Cargo</label>
-                    <input type="text" class="form-control" id="cargo" name="cargo" placeholder="Cargo" value="{{ $registro->cargo }}">
+                    <input type="text" class="form-control" id="cargo" name="cargo" placeholder="Cargo" value="{{ $registro->cargo }}" required>
                     @if ($errors->has('cargo'))
                         <span class="help-block">
                             <strong>{{ $errors->first('cargo') }}</strong>
@@ -200,7 +197,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('empresa') ? ' has-error' : '' }}">
                     <label for="empresa">Empresa o Entidad</label>
-                    <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Empresa o Entidad" value="{{ $registro->empresa }}">
+                    <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Empresa o Entidad" value="{{ $registro->empresa }}" required>
                     @if ($errors->has('empresa'))
                         <span class="help-block">
                             <strong>{{ $errors->first('empresa') }}</strong>
@@ -251,7 +248,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('departamento_id') ? ' has-error' : '' }}">
                     <label for="departamento">Departamento</label>
-                    <select name="departamento_id" id="departamento" class="form-control" >
+                    <select name="departamento_id" id="departamento" class="form-control" required>
                         @foreach($departamentos as $departamento)
                              <option value="{{$departamento->id}}"  {{ $registro->municipio->departamento==$departamento->id ? 'selected="selected"' : '' }} >{{$departamento->nombre}}</option>
                         @endforeach
@@ -267,7 +264,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('municipio_id') ? ' has-error' : '' }}">
                     <label for="municipio">Ciudad</label>
-                    <select name="municipio_id" id="municipio" class="form-control" >
+                    <select name="municipio_id" id="municipio" class="form-control" required>
                         
                     </select>
                     @if ($errors->has('municipio_id'))
@@ -300,7 +297,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('sn') ? ' has-error' : '' }}">
                     <label for="sn">SN</label>
-                    <input type="text" class="form-control" id="sn" name="sn" placeholder="SN" value="{{ $registro->sn }}" required>
+                    <input type="text" class="form-control" id="sn" name="sn" placeholder="SN" value="{{ $registro->sn }}">
                     @if ($errors->has('sn'))
                         <span class="help-block">
                             <strong>{{ $errors->first('sn') }}</strong>
@@ -327,7 +324,7 @@
              <div class="col-md-4">
                 <div class="form-group{{ $errors->has('estado_cliente') ? ' has-error' : '' }}">
                     <label for="estado_cliente">Estado del cliente</label>
-                    <select name="estado_cliente" id="estado_cliente" class="form-control" required>
+                    <select name="estado_cliente" id="estado_cliente" class="form-control">
                         @foreach($estado_cliente as $estado_cliente)
                             <option value="{{$estado_cliente}}"  {{ $registro->estado_cliente==$estado_cliente ? 'selected="selected"' : '' }}  >{{$estado_cliente}}</option>
                         @endforeach
@@ -356,7 +353,7 @@
              <div class="col-md-4">
                 <div class="form-group{{ $errors->has('tipo_registro') ? ' has-error' : '' }}">
                     <label for="tipo_registro">Tipo de registro</label>
-                    <select name="tipo_registro" id="tipo_registro" class="form-control" required>
+                    <select name="tipo_registro" id="tipo_registro" class="form-control">
                         @foreach($tipo_registro as $tipo_registro)
                             <option value="{{$tipo_registro->id}}" {{ $registro->tipo_registro==$tipo_registro->id ? 'selected="selected"' : '' }} >{{$tipo_registro->titulo}}</option>
                         @endforeach
@@ -373,11 +370,11 @@
              <div class="col-md-4">
                 <div class="form-group{{ $errors->has('estado_registro') ? ' has-error' : '' }}">
                     <label for="estado_registro">Estado del registro</label>
-                    <select name="estado_registro" id="estado_registro" class="form-control" required>
-                        <option value="1" {{ $registro->estado_registro? 'selected="selected"' : '' }}>
+                    <select name="estado_registro" id="estado_registro" class="form-control">
+                        <option value="1" {{ $registro->estado? 'selected="selected"' : '' }}>
                             Registro activo
                         </option>
-                        <option value="0" {{ $registro->estado_registro? 'selected="selected"' : '' }}>
+                        <option value="0" {{ $registro->estado? '' : 'selected="selected"' }}>
                             Registro inactivo
                         </option>
                         

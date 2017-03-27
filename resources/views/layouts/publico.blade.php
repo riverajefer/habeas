@@ -4,9 +4,10 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>FORMULARIO</title>
+        <title>{{$titulo or 'FORMULARIO'}}</title>
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">    
+
     
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
 
@@ -22,7 +23,18 @@
 
     <body>
         <!-- Header -->
-        @include('../includes/publico/header')  
+<header>
+
+            <div class="row" align="center">
+            <div class="col-md-2 col-xs-6 col-md-offset-3">
+                <img src="{{asset('images/logo_annar.png')}}" alt="Annardx">
+            </div>
+            <div class="col-md-5 col-xs-6">
+                <h1>{{$texto or 'FORMULARIO'}}</h1>
+            </div>
+            </div>
+            
+            </header>
 
         <!-- Content -->
         <div class="container">

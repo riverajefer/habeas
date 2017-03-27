@@ -146,8 +146,19 @@
                     </button>
                 </li>                  
                 <li class="list-group-item {{ $registro->estado ? 'Activo': 'Inactivo'  }}">
-                    <span>Estado:</span>  
-                    {{ $registro->estado ? 'Activo': 'Dado de baja'  }}
+                    
+                    {{-- $registro->estado ? 'Activo': 'Dado de baja'  --}}
+                    @if($registro->estado)
+                        <span>Estado:</span>  Activo
+                    @else
+                        <span>Estado:</span>  Dado de baja <br>
+                        <span>Por:</span>
+                          @if($registro->baja_por)
+                            {{App\Models\User::find($registro->baja_por)->nombre}}
+                          @else
+                            Mismo usuario
+                          @endif
+                    @endif
                 </li>                  
             </ul>  
         </div>
@@ -210,45 +221,58 @@
 
 
 <div class="row">
-    <div class="col-md-3 col-md-offset-1">
-        <a href="{{URL::to('registros/'.$registro->id.'/edit')}}" title="Actualizar registro">
-            <button class="mdl-button mdl-js-button mdl-button--primary">
-                ACTUALIZAR REGISTRO
-            </button>
-        </a>
-    </div>
-    
-    <div class="col-md-2">
-        <a href="{{URL::to('registros/create')}}" title="Nuevo registro">
-            <button class="mdl-button mdl-js-button mdl-button--accent">
-                NUEVO
-            </button>
-        </a>
-    </div>  
+    <div class="col-md-10 col-md-offset-1">
+            <ul class="nav nav-pills">
+                @unless( count(Auth::user()->areasResponsable()->first())>0  && count(Auth::user()->areasOperario()->first())==0 )
+                    <li role="presentation">
+                        <a href="{{URL::to('registros/create')}}">
+                            <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo registro
+                            </button>
+                        </a> 
+                    </li>
+                    <li role="presentation">
+                        <a href="{{URL::to('registros/'.$registro->id.'/edit')}}" title="Actualizar registro">
+                            <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Actualizar registro
+                            </button>  
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#" title="Dar de baja el registro">
+                            <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i> Dar de baja el registro
+                            </button>  
+                        </a>
+                    </li>                 
+                @endunless        
 
-    <div class="col-md-2">
-        <a href="{{URL::to('registros')}}" title="Ver lista de registros">
-            <button class="mdl-button mdl-js-button mdl-button--primary">
-                TODOS LOS REGISTROS
-            </button>
-        </a>
-    </div>  
-    
-    <div class="col-md-3">
-        <a href="{{URL::to('registros/auditoria/'.$registro->id)}}" title="Historial de cambios">
-            <button {{$registro->audits()->first()? '':'disabled'}} class="mdl-button mdl-js-button mdl-button--accent">
-                HISTORIAL DE CAMBIOS
-            </button>
-        </a>
-    </div>            
+                <li role="presentation">
+                    <a href="{{URL::to('registros')}}" title="Ver lista de registros">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                            <i class="fa fa-list" aria-hidden="true"></i> Ver todos 
+                        </button>  
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="{{URL::to('registros/auditoria/'.$registro->id)}}" title="Historial de cambios">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect" {{$registro->audits()->first()? '':'disabled'}}>
+                            <i class="fa fa-history" aria-hidden="true"></i> Historial de cambios
+                        </button>  
+                    </a>
+                </li>  
+            </ul>
+    </div>
 </div>
 <br><br>
-
-
-
 </div>
-@stop
 
+<br>
+<br>
+<br>
+
+
+@stop
 @push('scripts')
 <script>
 $(function() {

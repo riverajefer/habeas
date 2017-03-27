@@ -23,6 +23,7 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::get('registros','RegistrosController@index')->name('registros');
     Route::get('registros.data','RegistrosController@dataRegistros')->name('dataRegistros');
+    Route::post('registros/baja','RegistrosController@darDebaja')->name('baja');
 
     Route::post('municipios','RegistrosController@municipios')->name('municipios');
     Route::get('registros.excel','RegistrosController@exportExcel')->name('exportExcel');
