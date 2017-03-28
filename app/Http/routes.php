@@ -35,6 +35,9 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('reg/subida_masiva','RegistrosController@subidaMasiva')->name('subidaMasiva');
     Route::post('reg/subida_masiva','RegistrosController@postSubidaMasiva')->name('postSubidaMasiva');
 
+    // DEscarga excel municipios
+    Route::get('reg/excel_municipios','RegistrosController@excelMunicipios')->name('excelMunicipios');
+
 
     Route::resource('areas', 'AreasController', ['except' => ['index']]);
     Route::get('areas','AreasController@index')->name('areas');
@@ -59,7 +62,7 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
 Route::get('test', function(){
 
-    $re =  App\Models\Registros::find(34);
+    return $re =  App\Models\Registros::find(3);
     //echo $re->audits[0]->id.PHP_EOL;
     return $re->audits[0]->getModified(true);
     echo $re->old_values;

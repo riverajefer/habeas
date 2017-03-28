@@ -161,7 +161,7 @@ Lrod*2017
 ->  Dar de baja registro (formulario) ::ckeck (Pendiente unos texto y más purebas)
 ->  Dado de baja por boton (Alert()) ::check
 ->  Campos obligatorios formularios
-
+->  Tipo de registro:: dejarlo en varchar
 ->  Texto formularios
 ->  Carga masiva
 ->  Enlace desde Codignither

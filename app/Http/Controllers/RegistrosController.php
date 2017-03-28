@@ -547,6 +547,7 @@ class RegistrosController extends Controller
 
 
                 $sheet->freezeFirstRow();
+                $sheet->setAutoFilter('A1:AH1');
                 $sheet->loadView('registros.excel')->with('registros', $registros);
  
             });
@@ -673,6 +674,47 @@ class RegistrosController extends Controller
 
 
 
+
+    /**
+     * DESCARGA DEPARTAMENTOS EN EXCEL
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function excelMunicipios()
+    {
+        $areas = Areas::select('id', 'titulo')->get();
+        $mun   = Municipios::all();
+     
+        $ciudades = new Collection;
+
+        foreach($mun as $mun){
+            $ciudades->push(
+                ['ID'=>$mun->id, 'Departamento'=>$mun->ndepartamento->nombre, 'Municipio'=>$mun->nombre_municipio]
+            );
+        }
+
+        return Excel::create('Ciudades_Areas', function($excel) use ($ciudades, $areas) {
+
+			$excel->sheet('Ciudades', function($sheet) use ($ciudades)
+	        {
+                $sheet->setAutoFilter('A1:C1');
+                $sheet->freezeFirstRow();
+				$sheet->fromArray($ciudades);
+	        });
+            
+            // Our second sheet
+            $excel->sheet('Areas', function($sheet) use ($areas) {
+                $sheet->freezeFirstRow();
+                $sheet->fromArray($areas);
+            });            
+
+		})->download();
+
+
+    }
+
+
     /**
      * SUBIDA MASIVA
      * Display a listing of the resource.
@@ -694,7 +736,42 @@ class RegistrosController extends Controller
      */
     public function postSubidaMasiva(Request $request)
     {
-        //
+
+        /*
+        Campos:
+        Que toca asociar
+        Departamento
+        Ciudad
+        Area
+        Asesor comercial ?
+
+        Descargar Areas, departamentos, Ciudaddes en Excel
+
+        */
+
+        if($request->hasFile('file')){
+                $path = $request->file('file')->getRealPath();
+                $data = Excel::load($path, function($reader) {
+                })->get();
+                return $data;
+
+                if(!empty($data) && $data->count()){
+                    foreach ($data as $key => $value) {
+                        //$insert[] = ['title' => $value, 'description' => $value];
+                        $insert[] = ['title' => $value->title, 'description' => $value->description];
+                    }
+                    if(!empty($insert)){
+                        //DB::table('items')->insert($insert);
+                        return $insert;
+                        dd('Insert Record successfully.');
+                    }
+                }
+            }
+
+
+        //return $request->all();
+        return dd($request->file('file')->getRealPath());
+        return dd($request->hasFile('file'));
     }
 
 
