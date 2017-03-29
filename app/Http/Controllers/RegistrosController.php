@@ -17,6 +17,7 @@ use Excel;
 use Auth;
 use DB;
 use File;
+use Validator;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Collection;
 
@@ -208,7 +209,7 @@ class RegistrosController extends Controller
             'estado_cliente'=>'required',
             'comentarios'=>'max:800',
             //'tipo_registro'=>'required',
-            'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000',    
+            'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000|uploaded',    
         ]);
 
         $soporte = '';
@@ -342,7 +343,7 @@ class RegistrosController extends Controller
             'comentarios'=>'max:800',
             //'tipo_registro'=>'required',
             'estado_registro'=>'required',
-            'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000',    
+            'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000|uploaded',    
         ]);
 
 
@@ -689,13 +690,6 @@ class RegistrosController extends Controller
 
         $areas = Areas::select('id', 'titulo')->get();
         $mun   = Municipios::all();
-        $usuarios = new Collection;
-        $users = User::all();
-        foreach($users as $user){
-           $usuarios->push(
-                ['ID_user'=>$user->id, 'Nombre'=>$user->nombre]
-            );
-        }
      
         $ciudades = new Collection;
         foreach($mun as $mun){
@@ -706,12 +700,6 @@ class RegistrosController extends Controller
 
         return Excel::create('Ciudades_Areas', function($excel) use ($ciudades, $areas, $usuarios) {
 
-            // sheet 1 Usuarios
-            $excel->sheet('Usuarios', function($sheet) use ($usuarios) {
-                $sheet->setAutoFilter('A1:B1');
-                $sheet->freezeFirstRow();
-                $sheet->fromArray($usuarios);
-            });  
 
             // sheet 2 Ciudades
 			$excel->sheet('Ciudades', function($sheet) use ($ciudades)
@@ -771,53 +759,11 @@ class RegistrosController extends Controller
      */
     public function subidaMasivaTest()
     {
-            $path = storage_path('pruebas/formato_subida_masiva.xlsx');
-           //  return File::get($path);
-            return $data = Excel::load($path, function($reader) {
-            })->get();
-            //return key($data->toArray());
 
-            if(!empty($data) && $data->count()){
-                foreach ($data as $key => $value) {
-                    
-                    $newRegistro = new Registros();
-                    $newRegistro->nombre = $value->nombre;
-                    $newRegistro->primer_apellido = $value->nombre;
-                    $newRegistro->segundo_apellido = $value->nombre;
-                    $newRegistro->tipo_documento = $value->nombre; // condición
-                    $newRegistro->doc = $value->nombre;
-                    $newRegistro->fecha_nacimiento = $value->nombre;
-                    $newRegistro->profesion = $value->profesion;
-                    $newRegistro->cargo = $value->cargo;
-                    $newRegistro->telefono_personal = $value->empresa;
-                    $newRegistro->telefono_corporativo = $value->nombre;
-                    $newRegistro->celular = $value->nombre;
-                    $newRegistro->celular_corporativo = $value->nombre;
-                    $newRegistro->email = $value->nombre;
-                    $newRegistro->email_corporativo = $value->nombre;
-                    $newRegistro->direccion = $value->nombre;
-                    $newRegistro->municipio_id = $value->nombre;
-                    $newRegistro->area_id = $value->nombre;
-                    $newRegistro->procedencia = 'Admin';
-                    $newRegistro->tipo_registro = $value->nombre;
-                    $newRegistro->menor_de_18 = $value->nombre;                                        
-                    $newRegistro->comentarios = $value->nombre;                                        
-                    $newRegistro->asesor_comercial = $value->nombre;
-                    $newRegistro->estado = $value->nombre;
-                    $newRegistro->estado_cliente = $value->nombre;
-                    $newRegistro->creado_por = $value->nombre;
-                    $newRegistro->subida_masiva_id = $value->nombre;
-                    
-                    
-                    $newRegistro->save();
-                    
-                    $registros[] = ['Nombre' => $value->nombre, 'documento' => $value->documento];
-                }
-                return $registros;
-            }
+        return Registros::max('subida_masiva_id') + 1;
+
+        return $path = storage_path('pruebas/formato_subida_masiva.xlsx');
     }
-
-
 
     /**
      * POST SUBIDA MASIVA
@@ -828,37 +774,147 @@ class RegistrosController extends Controller
      */
     public function postSubidaMasiva(Request $request)
     {
-
         // aca se puede hacer la validación $request->file('file')->getClientOriginalExtension();
         //return File::extension($request->file('file')->getRealPath());
 
         sleep(1);
-        $this->validate($request, [
-            'file' => 'required|file|mimes:xlsx,xls|max:10000',
-        ]);
 
         if($request->hasFile('file')){
 
                 $path = $request->file('file')->getRealPath();
 
                 $data = Excel::load($path, function($reader) {})->get();
+                $subida_id = Registros::max('subida_masiva_id') + 1;
+                $count = 0;
 
                 if(!empty($data) && $data->count()){
                     foreach ($data as $key => $value) {
-                        return $key;
-                       // MyFuncs::procesaSubida()
 
-                        $registros[] = ['Nombre' => $value->nombre, 'documento' => $value->documento];
+                        $dataValidation = array(
+                                'area_id'=>$value->id_area,
+                                'id_ciudad'=>$value->id_ciudad,
+                                'nombre'=>$value->nombre,
+                                'primer_apellido'=>$value->primer_apellido,
+                                'segundo_apellido'=>$value->segundo_apellido,
+                                'tipo_documento'=>$value->tipo_documento,
+                                'doc'=>$value->documento,
+                                'fecha_de_nacimiento'=>$value->fecha_de_nacimiento,
+                                'email_personal'=>$value->email_personal,
+                                'telefono_personal'=>$value->telefono_personal,
+                                'celular_personal'=>$value->celular_personal,
+                                'profesion'=>$value->profesion,
+                                'cargo'=>$value->cargo,
+                                'empresa'=>$value->empresa,
+                                'telefono_corporativo'=>$value->telefono_corporativo,
+                                'email_corporativo'=>$value->email_corporativo,
+                                'celular_corporativo'=>$value->celular_corporativo,
+                                'direccion'=>$value->direccion,
+                                'sn'=>$value->sn,
+                                'tipo_de_registro'=>$value->tipo_de_registro,
+                                'menor_de_18'=>$value->menor_de_18,
+                                'comentarios'=>$value->comentarios,
+                                'estado_del_cliente'=>$value->estado_del_cliente,                                                                                   
+                            );
+
+                            $v = Validator::make($dataValidation, [
+                                'email_personal' => 'required|email',
+                                'area_id'        => 'required|exists:Areas,id',
+                                'nombre'=>'required|string|max:80',
+                                'primer_apellido'=>'required|string|max:50',
+                                'segundo_apellido'=>'required|string|max:50',
+                                'tipo_documento'=>'required|numeric',
+                                'doc'=>'required|numeric|unique:registros',
+                                'fecha_de_nacimiento'=>'date',
+                                'email_personal'=>'required|email|max:100',
+                                'celular_personal'=>'numeric',
+                                'telefono_personal'=>'numeric',
+                                'profesion'=>'string|max:60',
+                                'cargo'=>'string|max:60',
+                                'empresa'=>'string|max:80',
+                                'telefono_corporativo'=>'numeric',
+                                'email_corporativo'=>'email|max:100',
+                                'celular_corporativo'=>'numeric',
+                                'id_ciudad'=>'required|exists:Municipios,id',
+                                'direccion'=>'max:60',
+                                'sn'=>'max:80',
+                                'estado_del_cliente'=>'max:10',
+                                'comentarios'=>'max:800',
+                            ]);
+
+                            if ($v->fails()) {
+                                return response()->json(['status' => false, 'errors'=>$v->errors()->all()]);
+                            }
+        
+                            // validation tipo_documento
+                            try {
+                                $this->tipo_documento[$value->tipo_documento];
+                            }
+                            catch (\Exception $e)  {
+                                $errors[0] = 'tipo_documento no existe en base de datos';
+                                return response()->json(['status' => false, 'errors'=>$errors]);
+                            }                    
+
+                            // validation menor_18
+                            if( !(is_numeric($value->menor_de_18) and ($value->menor_de_18==0 or $value->menor_de_18 == 1) and strlen($value->menor_de_18)==1)  ){
+                                $errors[0] = 'menor_de_18 debe ser 1 o 0';
+                                return response()->json(['status' => false, 'errors'=>$errors]);
+                            } 
+
+                            // validation estado_del_cliente
+                            if( !(is_numeric($value->estado_del_cliente) and ($value->estado_del_cliente==0 or $value->estado_del_cliente == 1) and strlen($value->estado_del_cliente)==1)  ){
+                                $errors[0] = 'estado_del_cliente debe ser 1 o 0';
+                                return response()->json(['status' => false, 'errors'=>$errors]);
+                            }
+
+
+                            $newRegistro = new Registros();
+                            $newRegistro->nombre = $value->nombre;
+                            $newRegistro->primer_apellido = $value->primer_apellido;
+                            $newRegistro->segundo_apellido = $value->segundo_apellido;
+                            $newRegistro->tipo_documento =  $this->tipo_documento[$value->tipo_documento]; // condición
+                            $newRegistro->doc = $value->documento;
+                            $newRegistro->fecha_nacimiento = $value->fecha_de_nacimiento;
+                            $newRegistro->profesion = $value->profesion;
+                            $newRegistro->cargo = $value->cargo;
+                            $newRegistro->telefono_personal = $value->empresa;
+                            $newRegistro->telefono_corporativo = $value->telefono_corporativo;
+                            $newRegistro->celular = $value->celular_corporativo;
+                            $newRegistro->celular_corporativo = $value->nombre;
+                            $newRegistro->email = $value->email_personal;
+                            $newRegistro->email_corporativo = $value->email_corporativo;
+                            $newRegistro->direccion = $value->direccion;
+                            $newRegistro->municipio_id = $value->id_ciudad;
+                            $newRegistro->area_id = $value->id_area;
+                            $newRegistro->procedencia = 'Panel de administración Subida masiva';
+                            $newRegistro->tipo_registro = $value->tipo_de_registro;
+                            $newRegistro->menor_de_18 = $value->menor_de_18;
+                            $newRegistro->comentarios = $value->comentarios;
+                            //$newRegistro->asesor_comercial = $value->nombre;
+                            $newRegistro->estado = 1;
+                            $newRegistro->estado_cliente = $value->estado_del_cliente;
+                            $newRegistro->creado_por = Auth::user()->id;
+                            $newRegistro->subida_masiva_id = $subida_id; // logica
+                            $newRegistro->save();
+                            $count = $count + count($newRegistro);
 
                     }
-                    if(!empty($registros)){
-                        return response()->json(['status' => true, 'cantidad' => count($registros), 'registros'=>$registros]);
-                    }else{
-                        return response()->json(['status' => false, 'error'=>'El archivo está vacio']);
-                    }
+                    return response()->json(['status' => true, 'cantidad' => $count, 'id'=>$newRegistro->subida_masiva_id]);
+
                 }else{
                     return response()->json(['status' => false, 'error'=>'El archivo está vacio']);
                 }
             }
         }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function subidaMasivaRegistros($id){
+        $registros = Registros::where('subida_masiva_id',$id)->paginate(30);  
+        return view('registros.registros_subida_masiva', compact('registros'));
+    }
+
 }

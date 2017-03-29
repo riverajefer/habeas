@@ -127,7 +127,6 @@
     </div>
 </div>
 
- <button id="show-dialog" type="button" class="mdl-button">Show Dialog</button>
   <dialog class="mdl-dialog">
     <h6 class="mdl-dialog__title">
       Alerta  <i class="fa fa-exclamation" aria-hidden="true"></i>

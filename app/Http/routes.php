@@ -34,11 +34,12 @@ Route::group(['middleware'=>'auth'], function(){
     // Subida Masiva
     Route::get('reg/subida_masiva','RegistrosController@subidaMasiva')->name('subidaMasiva');
     Route::post('reg/subida_masiva','RegistrosController@postSubidaMasiva')->name('postSubidaMasiva');
+    Route::get('reg/subida_masiva_registros/{id}','RegistrosController@subidaMasivaRegistros')->name('subidaMasivaRegistros');
 
     Route::get('reg/subida_masiva_test','RegistrosController@subidaMasivaTest')->name('subidaMasivaTest');
     
 
-    // DEscarga excel municipios
+    // Descarga excel municipios
     Route::get('reg/excel_municipios','RegistrosController@excelMunicipios')->name('excelMunicipios');
 
 

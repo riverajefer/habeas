@@ -40,7 +40,7 @@
                 </div> 
                 <div id="load_ok" class="alert alert-success" role="alert">
                    <h4>Registros guardados correctamente: <span class="badge cantidad"></span></h4>
-                   <p align="center"> <a href="#">VER REGISTROS</a> </p>
+                   <p align="center"> <a href="#" id="enlace">VER REGISTROS</a> </p>
                 </div>
                 <div id="load_error" class="alert alert-danger" role="alert">
                    <h4>Ha ocurrido un error, revise el archivo de registro</h4>
@@ -53,7 +53,7 @@
         <div class="col-md-6">
             <h4>Instrucciones</h4>
             <ul>
-                <li>Descargue el archivo base <a href="#"> AQUÌ </a> </li> 
+                <li>Descargue el archivo base <a href="#" > AQUÌ </a> </li> 
                 <li>Complete las celdas</li>
                 <li>Descargar archivo de identificadores para Users, Áreas, Ciudades: <a href="{{URL::Route('excelMunicipios')}}">AQUÍ</a></li>
             </ul> 
@@ -117,13 +117,26 @@ $('form').submit(function(e){
                 $load_progress.hide();
                 $load_ok.show('slow');
                 $('.cantidad').text(data.cantidad);
+                $('#enlace').attr('href', '{!! URL::to("reg/subida_masiva_registros/") !!}'+'/'+data.id)
             }else{
                 $load_btn.show();
                 $load_progress.hide();
                 console.log("Error");
                 $('form')[0].reset();
+                $validation_errors.show();
                 $load_error.show();
-                $("#error_text").text(data.error);
+                //$("#error_text").text(data.errors);
+
+                errorsHtml = '<div class="alert alert-danger"><ul>';
+
+                $.each( data.errors, function( key, value ) {
+                    errorsHtml += '<li>' + value + '</li>';
+                });
+                errorsHtml += '</ul></div>';
+                    
+                $('#validation_errors').html( errorsHtml );
+
+
             }
         },
         error :function( jqXhr ) {
@@ -139,7 +152,7 @@ $('form').submit(function(e){
                 $.each( $errors, function( key, value ) {
                     errorsHtml += '<li>' + value[0] + '</li>';
                 });
-                errorsHtml += '</ul></di>';
+                errorsHtml += '</ul></div>';
                     
                 $('#validation_errors').html( errorsHtml );
                 
