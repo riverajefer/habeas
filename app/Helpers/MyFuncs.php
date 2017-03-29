@@ -184,5 +184,24 @@ class MyFuncs {
         return $colletion;
     }
 
+    public static function procesaSubida($campo, $valor){
+        $collection = collect([
+            ['campo' => ''],
+            ['valor' => ''],
+        ]);
+
+        switch($campo){
+            case 'cargo':
+                $collection->campo = $campo;
+                $collection->valor = $valor;
+                break;
+            default:
+                $collection->campo = $campo;
+                $collection->valor = $valor;
+
+        }
+        return $collection;
+    }
+
 
 }

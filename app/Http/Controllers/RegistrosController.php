@@ -15,8 +15,11 @@ use App\Models\TipoRegistro;
 use App\Models\DeviceRegistro;
 use Excel;
 use Auth;
+use DB;
+use File;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Collection;
+
 
 class RegistrosController extends Controller
 {
@@ -683,34 +686,66 @@ class RegistrosController extends Controller
      */
     public function excelMunicipios()
     {
+
         $areas = Areas::select('id', 'titulo')->get();
         $mun   = Municipios::all();
+        $usuarios = new Collection;
+        $users = User::all();
+        foreach($users as $user){
+           $usuarios->push(
+                ['ID_user'=>$user->id, 'Nombre'=>$user->nombre]
+            );
+        }
      
         $ciudades = new Collection;
-
         foreach($mun as $mun){
             $ciudades->push(
                 ['ID'=>$mun->id, 'Departamento'=>$mun->ndepartamento->nombre, 'Municipio'=>$mun->nombre_municipio]
             );
         }
 
-        return Excel::create('Ciudades_Areas', function($excel) use ($ciudades, $areas) {
+        return Excel::create('Ciudades_Areas', function($excel) use ($ciudades, $areas, $usuarios) {
 
+            // sheet 1 Usuarios
+            $excel->sheet('Usuarios', function($sheet) use ($usuarios) {
+                $sheet->setAutoFilter('A1:B1');
+                $sheet->freezeFirstRow();
+                $sheet->fromArray($usuarios);
+            });  
+
+            // sheet 2 Ciudades
 			$excel->sheet('Ciudades', function($sheet) use ($ciudades)
 	        {
                 $sheet->setAutoFilter('A1:C1');
                 $sheet->freezeFirstRow();
 				$sheet->fromArray($ciudades);
 	        });
-            
-            // Our second sheet
+
+
+            // sheet 3 Áreas
             $excel->sheet('Areas', function($sheet) use ($areas) {
                 $sheet->freezeFirstRow();
                 $sheet->fromArray($areas);
-            });            
+            });   
+
+            // sheet 4 Tipo documento
+            $excel->sheet('Tipo documento', function($sheet) {
+                $sheet->freezeFirstRow();
+
+                $tipo_documento = Array(
+                    ['id'=>1,'Tipo documento'=>'Cédula de Ciudadanía'],
+                    ['id'=>2,'Tipo documento'=>'NIT'],
+                    ['id'=>3,'Tipo documento'=>'Tarjeta de Identidad'],
+                    ['id'=>4,'Tipo documento'=>'Registro Civil'],
+                    ['id'=>5,'Tipo documento'=>'Pasaporte'],
+                    ['id'=>6,'Tipo documento'=>'Carné Diplomático'],
+                );
+
+                $sheet->fromArray($tipo_documento);
+
+            });                        
 
 		})->download();
-
 
     }
 
@@ -727,6 +762,63 @@ class RegistrosController extends Controller
     }
 
 
+
+    /**
+     * SUBIDA MASIVA test
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function subidaMasivaTest()
+    {
+            $path = storage_path('pruebas/formato_subida_masiva.xlsx');
+           //  return File::get($path);
+            return $data = Excel::load($path, function($reader) {
+            })->get();
+            //return key($data->toArray());
+
+            if(!empty($data) && $data->count()){
+                foreach ($data as $key => $value) {
+                    
+                    $newRegistro = new Registros();
+                    $newRegistro->nombre = $value->nombre;
+                    $newRegistro->primer_apellido = $value->nombre;
+                    $newRegistro->segundo_apellido = $value->nombre;
+                    $newRegistro->tipo_documento = $value->nombre; // condición
+                    $newRegistro->doc = $value->nombre;
+                    $newRegistro->fecha_nacimiento = $value->nombre;
+                    $newRegistro->profesion = $value->profesion;
+                    $newRegistro->cargo = $value->cargo;
+                    $newRegistro->telefono_personal = $value->empresa;
+                    $newRegistro->telefono_corporativo = $value->nombre;
+                    $newRegistro->celular = $value->nombre;
+                    $newRegistro->celular_corporativo = $value->nombre;
+                    $newRegistro->email = $value->nombre;
+                    $newRegistro->email_corporativo = $value->nombre;
+                    $newRegistro->direccion = $value->nombre;
+                    $newRegistro->municipio_id = $value->nombre;
+                    $newRegistro->area_id = $value->nombre;
+                    $newRegistro->procedencia = 'Admin';
+                    $newRegistro->tipo_registro = $value->nombre;
+                    $newRegistro->menor_de_18 = $value->nombre;                                        
+                    $newRegistro->comentarios = $value->nombre;                                        
+                    $newRegistro->asesor_comercial = $value->nombre;
+                    $newRegistro->estado = $value->nombre;
+                    $newRegistro->estado_cliente = $value->nombre;
+                    $newRegistro->creado_por = $value->nombre;
+                    $newRegistro->subida_masiva_id = $value->nombre;
+                    
+                    
+                    $newRegistro->save();
+                    
+                    $registros[] = ['Nombre' => $value->nombre, 'documento' => $value->documento];
+                }
+                return $registros;
+            }
+    }
+
+
+
     /**
      * POST SUBIDA MASIVA
      * Display a listing of the resource.
@@ -737,42 +829,36 @@ class RegistrosController extends Controller
     public function postSubidaMasiva(Request $request)
     {
 
-        /*
-        Campos:
-        Que toca asociar
-        Departamento
-        Ciudad
-        Area
-        Asesor comercial ?
+        // aca se puede hacer la validación $request->file('file')->getClientOriginalExtension();
+        //return File::extension($request->file('file')->getRealPath());
 
-        Descargar Areas, departamentos, Ciudaddes en Excel
-
-        */
+        sleep(1);
+        $this->validate($request, [
+            'file' => 'required|file|mimes:xlsx,xls|max:10000',
+        ]);
 
         if($request->hasFile('file')){
+
                 $path = $request->file('file')->getRealPath();
-                $data = Excel::load($path, function($reader) {
-                })->get();
-                return $data;
+
+                $data = Excel::load($path, function($reader) {})->get();
 
                 if(!empty($data) && $data->count()){
                     foreach ($data as $key => $value) {
-                        //$insert[] = ['title' => $value, 'description' => $value];
-                        $insert[] = ['title' => $value->title, 'description' => $value->description];
+                        return $key;
+                       // MyFuncs::procesaSubida()
+
+                        $registros[] = ['Nombre' => $value->nombre, 'documento' => $value->documento];
+
                     }
-                    if(!empty($insert)){
-                        //DB::table('items')->insert($insert);
-                        return $insert;
-                        dd('Insert Record successfully.');
+                    if(!empty($registros)){
+                        return response()->json(['status' => true, 'cantidad' => count($registros), 'registros'=>$registros]);
+                    }else{
+                        return response()->json(['status' => false, 'error'=>'El archivo está vacio']);
                     }
+                }else{
+                    return response()->json(['status' => false, 'error'=>'El archivo está vacio']);
                 }
             }
-
-
-        //return $request->all();
-        return dd($request->file('file')->getRealPath());
-        return dd($request->hasFile('file'));
-    }
-
-
+        }
 }

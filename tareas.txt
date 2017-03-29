@@ -214,3 +214,7 @@ Asesor comercial
 Estado del cliente
 Comentarios
 Tipo de registro
+
+*******************************************
+Subida masiva
+
