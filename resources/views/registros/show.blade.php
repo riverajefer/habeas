@@ -1,6 +1,100 @@
 @extends('layouts.master')
-
 @section('content')
+
+
+  <dialog class="mdl-dialog">
+    <h6 class="mdl-dialog__title">
+      Alerta  <i class="fa fa-exclamation" aria-hidden="true"></i>
+    </h6>
+    <div align="center" class="mdl-dialog__content">
+      <p>
+        Desea dar de baja este registro
+      </p>
+      <p  class="text-danger">
+        Id: <b><span id="span_id"></span></b>
+      </p>
+      <p id="load" style="display:none">
+        <img src="{{asset('images/load.gif')}}" alt="load">
+      </p>
+       <span class="msg_delete"></span> 
+
+    </div>
+    <div class="mdl-dialog__actions">
+      <button class="mdl-button mdl-js-button mdl-button--primary aceptar">Aceptar</button>
+      <button type="button" class="mdl-button mdl-js-buttonmdl-button--accent close">Cerrar</button>
+    </div>
+  </dialog>
+
+<script>
+
+    function eliminar(id){
+        console.log('id: '+id);
+        $('#span_id').text(id);
+        
+        var dialog = document.querySelector('dialog');
+        var showDialogButton = document.querySelector('#show-dialog');
+        if (! dialog.showModal) {
+             dialogPolyfill.registerDialog(dialog);
+        }
+
+        dialog.showModal();
+
+/*
+        $('.close').click(function(){
+            dialog.close();
+        });
+
+
+        $('.aceptar').click(function(){
+        });
+*/
+
+
+        dialog.querySelector('.close').addEventListener('click', function() {
+            dialog.close();
+        });
+
+        dialog.querySelector('.aceptar').addEventListener('click', function() {
+            $('.msg_delete').empty();
+            $("#load").show();
+            $('.mdl-dialog__actions').hide();
+            $('.msg_delete').text('Procesando...');
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '{!!  URL::to('registros/baja') !!}',
+                type: 'post',
+                data: {id:id},
+
+                success:function(msg){
+                    console.log("msg: ",msg);
+                    if(msg.status){
+                        $("#load").hide();
+                        $('.msg_delete').text('Registro dado de baja correctamente');
+                        $('.mdl-dialog__actions').show();
+                        setTimeout(function(){ dialog.close(); }, 1500);
+                        window.location.href=window.location.href;
+                        location.reload();
+                    }else{
+                        $('.msg_delete').text('Ha ocurrido un eror');
+                        $("#load").hide();
+                        $('.mdl-dialog__actions').show();
+                    }
+                }
+            });
+
+        });    
+
+  }
+
+</script>
+
+
+
 <br>
 <div class="panel panel-default">
 
@@ -238,13 +332,15 @@
                             </button>  
                         </a>
                     </li>
-                    <li role="presentation">
-                        <a href="#" title="Dar de baja el registro">
-                            <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                                <i class="fa fa-trash-o" aria-hidden="true"></i> Dar de baja el registro
-                            </button>  
-                        </a>
-                    </li>                 
+                    @if($registro->estado==1)
+                        <li role="presentation">
+                            <a onclick="eliminar( {{$registro->id}} )" href="javascript:void(0)" title="Dar de baja el registro">
+                                <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i> Dar de baja el registro
+                                </button>  
+                            </a>
+                        </li>
+                    @endif                 
                 @endunless        
 
                 <li role="presentation">
@@ -270,6 +366,9 @@
 <br>
 <br>
 <br>
+
+
+
 
 
 @stop

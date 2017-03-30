@@ -69,8 +69,8 @@
                     <td>{{$registro->estado_cliente}}</td>
                     <td>{{$registro->tipoRegistro->titulo or ''}}</td>
                     <td>{{$registro->menor_de_18 ? 'SI':'NO' }}</td>
-                    <td>{{$registro->area->m_responsable->nombre}}</td>
-                    <td>{{$registro->area->m_operario->nombre}}</td>
+                    <td>{{$registro->area->m_responsable->nombre or ''}}</td>
+                    <td>{{$registro->area->m_operario->nombre or ''}}</td>
                     <td>{{$registro->procedencia}}</td>
                     <td>{{$registro->creadoPor->nombre or ''}}</td>
                     <td>{{$registro->modificadoPor->nombre or ''}}</td>

@@ -34,7 +34,7 @@ class RegistrosController extends Controller
     {
 
 
-        $this->middleware('perfil:voting', ['only'=>[
+        $this->middleware('perfil:registros', ['only'=>[
             'create', 'edit'
         ]]);
 
@@ -118,7 +118,7 @@ class RegistrosController extends Controller
 
         return Datatables::of($registros)
             ->addColumn('action', function ($registros) {
-                if($registros->area()->first()->m_operario->id == Auth::user()->id  || Auth::user()->id==73){
+                if ( !(count(Auth::user()->areasResponsable()->first())>0  && count(Auth::user()->areasOperario()->first())==0) ){
 
                     $view = '<a class="btn btn-link link-info"  href="registros/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="Ver más"><i class="fa fa-eye" aria-hidden="true"></i></a>';
                     $edit =  '<a class="btn btn-link link-warning" href="registros/'.$registros->id.'/edit" data-toggle="tooltip" data-placement="top" title="Actualizar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
@@ -223,13 +223,20 @@ class RegistrosController extends Controller
         Obtiene edad, con la fecha
         *******************************/
         $menor_a_18 = 0;
+        $fecha_nacimiento = NULL;
         if($request->input('fecha_nacimiento')){
+            $fecha_nacimiento = $request->input('fecha_nacimiento');
             $menor_a_18 = 0;
-            $edad = Carbon::parse($request->input('fecha_nacimiento'))->age;
+            $edad = Carbon::parse($fecha_nacimiento)->age;
             if($edad<18){
                 $menor_a_18 = 1;
             }
         }
+
+        $sn = NULL;
+        if($request->input('sn')){
+            $sn = $request->input('sn');
+        }        
 
         $registro = New Registros();
         $registro->nombre = $request->input('nombre');
@@ -238,7 +245,7 @@ class RegistrosController extends Controller
         $registro->tipo_documento = $request->input('tipo_documento');
         $registro->doc = $request->input('doc');
         $registro->email = $request->input('email');
-        $registro->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $registro->fecha_nacimiento = $fecha_nacimiento;
         $registro->profesion = $request->input('profesion');
         $registro->cargo = $request->input('cargo');
         $registro->empresa = $request->input('empresa');
@@ -249,8 +256,7 @@ class RegistrosController extends Controller
         $registro->procedencia = $request->input('procedencia');
         $registro->creado_por = Auth::user()->id;
         $registro->menor_de_18 = $menor_a_18;
-
-        $registro->sn = $request->input('sn');
+        $registro->sn = $sn;
         $registro->telefono_corporativo = $request->input('telefono_corporativo');
         $registro->celular = $request->input('celular');
         $registro->celular_corporativo = $request->input('celular_corporativo');
@@ -314,6 +320,7 @@ class RegistrosController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //return $request->all();
 
         $this->validate($request,[
             'nombre'=>'required|string|max:80',
@@ -351,13 +358,20 @@ class RegistrosController extends Controller
         Obtiene edad, con la fecha
         *******************************/
         $menor_a_18 = 0;
+        $fecha_nacimiento = NULL;
         if($request->input('fecha_nacimiento')){
+            $fecha_nacimiento = $request->input('fecha_nacimiento');
             $menor_a_18 = 0;
-            $edad = Carbon::parse($request->input('fecha_nacimiento'))->age;
+            $edad = Carbon::parse($fecha_nacimiento)->age;
             if($edad<18){
                 $menor_a_18 = 1;
             }
         }
+
+        $sn = NULL;
+        if($request->input('sn')){
+            $sn = $request->input('sn');
+        }  
 
         $soporte = NULL;
         if($request->soporte){
@@ -366,10 +380,15 @@ class RegistrosController extends Controller
             $soporte = $soporte;
         }
 
-        $baja_por = 0;
-        if($request->input('estado_registro')==0){
+        $baja_por = NULL;
+        if(!$request->input('estado_registro')){
             $baja_por = Auth::user()->id;
-        }         
+        }
+
+        $tipo_registro = 0;
+        if($request->input('tipo_registro')){
+            $tipo_registro = $request->input('tipo_registro');
+        }        
 
         $registro = Registros::findOrFail($id);
         $registro->nombre = $request->input('nombre');
@@ -378,7 +397,7 @@ class RegistrosController extends Controller
         $registro->tipo_documento = $request->input('tipo_documento');
         $registro->doc = $request->input('doc');
         $registro->email = $request->input('email');
-        $registro->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $registro->fecha_nacimiento = $fecha_nacimiento;
         $registro->profesion = $request->input('profesion');
         $registro->cargo = $request->input('cargo');
         $registro->empresa = $request->input('empresa');
@@ -387,7 +406,7 @@ class RegistrosController extends Controller
         $registro->municipio_id = $request->input('municipio_id');
         $registro->area_id = $request->input('area_id');
         $registro->menor_de_18 = $menor_a_18;
-        $registro->sn = $request->input('sn');
+        $registro->sn = $sn;
         $registro->telefono_corporativo = $request->input('telefono_corporativo');
         $registro->celular = $request->input('celular');
         $registro->celular_corporativo = $request->input('celular_corporativo');
@@ -395,11 +414,12 @@ class RegistrosController extends Controller
         $registro->direccion = $request->input('direccion');
         $registro->comentarios = $request->input('comentarios');
         $registro->estado_cliente = $request->input('estado_cliente');
-        $registro->tipo_registro = $request->input('tipo_registro');
+        $registro->tipo_registro = $tipo_registro;
         $registro->comentarios = $request->input('comentarios');
         $registro->modificado_por = Auth::user()->id;
         $registro->estado = $request->input('estado_registro'); // esto tiene que venir dinamico
         $registro->baja_por = $baja_por;
+        $registro;
         $registro->save();
 
         return redirect('registros')->with('success','Registro actualizado correctamente');

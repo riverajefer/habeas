@@ -354,6 +354,7 @@
                 <div class="form-group{{ $errors->has('tipo_registro') ? ' has-error' : '' }}">
                     <label for="tipo_registro">Tipo de registro</label>
                     <select name="tipo_registro" id="tipo_registro" class="form-control">
+                        <option value="">Seleccione el tipo de registro</option>
                         @foreach($tipo_registro as $tipo_registro)
                             <option value="{{$tipo_registro->id}}" {{ $registro->tipo_registro==$tipo_registro->id ? 'selected="selected"' : '' }} >{{$tipo_registro->titulo}}</option>
                         @endforeach

@@ -6,10 +6,23 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Datatables;
+use Auth;
 use App\Models\Areas;
 
 class AreasController extends Controller
 {
+
+
+    /**
+     * Create a new authentication controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('perfil:areas');
+    }
+
     /**
      * Display a listing of the resource.
      *

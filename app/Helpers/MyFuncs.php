@@ -113,7 +113,11 @@ class MyFuncs {
                     $colletion->new = TipoRegistro::find($colletion->new)->titulo;
                     $colletion->old = TipoRegistro::find($colletion->old)->titulo;
                 }else{
-                    $colletion->new = TipoRegistro::find($colletion->new)->titulo;
+                    if(!$colletion->new){
+                        $colletion->new = '';
+                    }else{
+                        $colletion->new = TipoRegistro::find($colletion->new)->titulo;
+                    }
                 }                
                 break;   
             case 'segundo_apellido';
@@ -146,12 +150,12 @@ class MyFuncs {
             case 'baja_por';
                 $colletion->atributo = 'Dado de baja por';
                 if($colletion->old==0){
-                    $colletion->old = 'Mismo usuario';
+                    $colletion->old = '';
                 }else{
                     $colletion->old = User::find($colletion->old)->nombre;
                 }
                 if($colletion->new == 0){
-                    $colletion->old = 'Mismo usuario';
+                    $colletion->old = '';
                 }else{
                     $colletion->new = User::find($colletion->new)->nombre;
                 }

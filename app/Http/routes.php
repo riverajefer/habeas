@@ -41,11 +41,9 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('reg/subida_masiva_registros/{id}','RegistrosController@subidaMasivaRegistros')->name('subidaMasivaRegistros');
 
     Route::get('reg/subida_masiva_test','RegistrosController@subidaMasivaTest')->name('subidaMasivaTest');
-    
-
+  
     // Descarga excel municipios
     Route::get('reg/excel_municipios','RegistrosController@excelMunicipios')->name('excelMunicipios');
-
 
     Route::resource('areas', 'AreasController', ['except' => ['index']]);
     Route::get('areas','AreasController@index')->name('areas');
@@ -55,12 +53,13 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('users_habeas', 'UsersController@habeas')->name('usersHabeas');
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-    Route::get('pdf', 'DatatablesController@pdf');
-    Route::get('excel', 'DatatablesController@excel');
-
 
     // Auditoria
     Route::get('registros/auditoria/{id}','RegistrosController@auditoria')->name('auditoria');
+
+    // Reportes controller
+    Route::get('reportes', 'ReportesController@index')->name('reportes');
+    
 
 });
 

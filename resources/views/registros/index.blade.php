@@ -73,15 +73,16 @@
                         </button>
                     </a> 
                 </li>
-                <li role="presentation">
-                    <a href="{{URL::route('subidaMasiva')}}">
-                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                            <i class="fa fa-clone" aria-hidden="true"></i> Subida masiva
-                        </button>  
-                    </a>
-                </li>
-            @endunless        
-
+                @endunless        
+                @if( count(Auth::user()->areasResponsable()->first())==0  && count(Auth::user()->areasOperario()->first())==0 )
+                    <li role="presentation">
+                        <a href="{{URL::route('subidaMasiva')}}">
+                            <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                <i class="fa fa-clone" aria-hidden="true"></i> Subida masiva
+                            </button>  
+                        </a>
+                    </li>
+                @endif        
             <li role="presentation">
                 <a href="{{URL::route('exportExcel')}}">
                     <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -102,7 +103,7 @@
             @if ($message = Session::get('success'))
                 <div class="alert alert-success alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <p>{{ $message }}</p>
+                    <h5>{{ $message }}</h5>
                 </div>
             @endif          
          <div class="table-responsive">        

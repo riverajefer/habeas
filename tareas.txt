@@ -64,11 +64,13 @@ Lrod*2017
 ->  Enviar email de Notificaciòn (Responsable y Operario)
 ->  Enlace desde Codignither
 ->  Conectar a SAP, Asesores comerciales, esto toca probarlo desde el servidor
-->  Estadisticas
+->  Reportes
 ->  Acabados Areas
+->  Muchas pruebas
 ->  Acabado generales 
 ->  ELIMINAR ÁREA con registros asociados
 ->  MOSTRAR EN ALGÚN LADO FORMULARIO PARA DAR DE BAJA
+->  Refactorización
 
 
 ********************************
@@ -87,7 +89,12 @@ Lrod*2017
 ********************************
  EN PROCESO
 ********************************
+-> Pruebas, usuario Admin
+-> Historial de cambios
+
+
 -> Envío URL Regisro email
+
 
 
 Email=> Ver Registro

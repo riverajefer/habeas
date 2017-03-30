@@ -15,32 +15,43 @@ class RolMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $voting)
+    public function handle($request, Closure $next, $page)
     {
 
-        $segment =  $request->segments()[1];
-        $user = Auth::user();
-
-        // Evento crear
-        if($segment=='create'){
-
-            if($user->areasOperario()->first() || (count($user->areasOperario()->first())==0 and count($user->areasResponsable()->first())==0) ){
+        if($page == 'areas'){
+            if ( !(count(Auth::user()->areasResponsable()->first())==0  && count(Auth::user()->areasOperario()->first())==0) ){
+                 return redirect('registros');
+             }else{
                 return $next($request);
-            }else{
-                return redirect('/');
-            }
+             }
+        }else if($page == 'registros'){
 
-        }else{ // Evento modificar
+            $segment =  $request->segments()[1];
+            $user = Auth::user();
 
-            // Si tiene permiso para modificar el registro o es administrador
-            $registro = Registros::findOrFail($segment);
-            if($registro->area()->first()->m_operario->id == $user->id  || (count($user->areasOperario()->first())==0 and count($user->areasResponsable()->first())==0)){
-                return $next($request);
-            }else{
-                return redirect('/'); 
+            // Evento crear
+            if($segment=='create'){
+
+                if($user->areasOperario()->first() || (count($user->areasOperario()->first())==0 and count($user->areasResponsable()->first())==0) ){
+                    return $next($request);
+                }else{
+                    return redirect('/');
+                }
+
+            }else{ // Evento modificar
+
+                // Si tiene permiso para modificar el registro o es administrador
+                $registro = Registros::findOrFail($segment);
+                if($registro->area()->first()->m_operario->id == $user->id  || (count($user->areasOperario()->first())==0 and count($user->areasResponsable()->first())==0)){
+                    return $next($request);
+                }else{
+                    return redirect('/'); 
+                }
             }
+        }else{
+            //
         }
-
+                
         //return abort('403');
 
     }
