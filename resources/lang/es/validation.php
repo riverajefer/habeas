@@ -42,7 +42,7 @@ return [
     'email'                => 'El campo :attribute no corresponde con una dirección de e-mail válida.',
     'file'                 => 'El campo :attribute debe ser un archivo.',
     'filled'               => 'El campo :attribute es obligatorio.',
-    'exists'               => 'El campo :attribute no existe en la base de datos.',
+    'exists'               => 'El valor del campo: :attribute no existe en la base de datos.',
     'image'                => 'El campo :attribute debe ser una imagen.',
     'in'                   => 'El campo :attribute debe ser igual a alguno de estos valores :values',
     'in_array'             => 'El campo :attribute no existe en :other.',

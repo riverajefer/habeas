@@ -34,7 +34,7 @@
                 </div> <!-- /row --> 
                 <br>
                 <div id="load_progress" align="center">
-                    <hr><br>
+                    <br>
                     <img src="{{asset('images/load.gif')}}" alt="">
                     <p>Cargando información...</p>
                 </div> 
@@ -54,8 +54,8 @@
             <h4>Instrucciones</h4>
             <ul>
                 <li>Descargue el archivo base <a href="#" > AQUÌ </a> </li> 
+                <li>Descargar archivo de identificadores: <a href="{{URL::Route('excelMunicipios')}}">AQUÍ</a></li>
                 <li>Complete las celdas</li>
-                <li>Descargar archivo de identificadores para Users, Áreas, Ciudades: <a href="{{URL::Route('excelMunicipios')}}">AQUÍ</a></li>
             </ul> 
         </div>
     </div>

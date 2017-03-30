@@ -212,7 +212,7 @@ class RegistrosController extends Controller
             'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000|uploaded',    
         ]);
 
-        $soporte = '';
+        $soporte = NULL;
         if($request->soporte){
             $soporte = time().'.'.$request->soporte->getClientOriginalExtension();
             $request->soporte->move(public_path('uploads/soportes'), $soporte);
@@ -359,7 +359,7 @@ class RegistrosController extends Controller
             }
         }
 
-        $soporte = $request->input('archivo_soporte');
+        $soporte = NULL;
         if($request->soporte){
             $soporte = time().'.'.$request->soporte->getClientOriginalExtension();
             $request->soporte->move(public_path('uploads/soportes'), $soporte);
@@ -672,7 +672,6 @@ class RegistrosController extends Controller
         //return "Auditoria:  ".$id;
         $registro  = Registros::findOrFail($id);
         $auditoria = $registro->audits()->with('user')->get();
-        //return count($auditoria[0]->old_values);
         return view('registros.auditoria.index', compact('auditoria'));
     }
 
@@ -690,6 +689,7 @@ class RegistrosController extends Controller
 
         $areas = Areas::select('id', 'titulo')->get();
         $mun   = Municipios::all();
+        $tipo_registro = TipoRegistro::select('id', 'titulo')->get();
      
         $ciudades = new Collection;
         foreach($mun as $mun){
@@ -698,7 +698,7 @@ class RegistrosController extends Controller
             );
         }
 
-        return Excel::create('Ciudades_Areas', function($excel) use ($ciudades, $areas, $usuarios) {
+        return Excel::create('Ciudades_Areas', function($excel) use ($ciudades, $areas, $tipo_registro) {
 
 
             // sheet 2 Ciudades
@@ -708,7 +708,6 @@ class RegistrosController extends Controller
                 $sheet->freezeFirstRow();
 				$sheet->fromArray($ciudades);
 	        });
-
 
             // sheet 3 Áreas
             $excel->sheet('Areas', function($sheet) use ($areas) {
@@ -730,8 +729,12 @@ class RegistrosController extends Controller
                 );
 
                 $sheet->fromArray($tipo_documento);
-
             });                        
+            // sheet 3 Tipo Registros
+            $excel->sheet('Tipo de Registro', function($sheet) use ($tipo_registro) {
+                $sheet->freezeFirstRow();
+                $sheet->fromArray($tipo_registro);
+            });               
 
 		})->download();
 
@@ -793,6 +796,7 @@ class RegistrosController extends Controller
                         $dataValidation = array(
                                 'area_id'=>$value->id_area,
                                 'id_ciudad'=>$value->id_ciudad,
+                                'tipo_registro'=>$value->tipo_registro,
                                 'nombre'=>$value->nombre,
                                 'primer_apellido'=>$value->primer_apellido,
                                 'segundo_apellido'=>$value->segundo_apellido,
@@ -819,6 +823,7 @@ class RegistrosController extends Controller
                             $v = Validator::make($dataValidation, [
                                 'email_personal' => 'required|email',
                                 'area_id'        => 'required|exists:Areas,id',
+                                'tipo_registro'  => 'required|exists:tipo_registros,id',
                                 'nombre'=>'required|string|max:80',
                                 'primer_apellido'=>'required|string|max:50',
                                 'segundo_apellido'=>'required|string|max:50',
@@ -866,6 +871,10 @@ class RegistrosController extends Controller
                                 return response()->json(['status' => false, 'errors'=>$errors]);
                             }
 
+                            $estado_cliente = 'Cliente Activo';
+                            if($value->estado_del_cliente == 0){
+                                $estado_cliente = 'Cliente Inactivo';
+                            }
 
                             $newRegistro = new Registros();
                             $newRegistro->nombre = $value->nombre;
@@ -876,23 +885,24 @@ class RegistrosController extends Controller
                             $newRegistro->fecha_nacimiento = $value->fecha_de_nacimiento;
                             $newRegistro->profesion = $value->profesion;
                             $newRegistro->cargo = $value->cargo;
-                            $newRegistro->telefono_personal = $value->empresa;
+                            $newRegistro->telefono_personal = $value->telefono_personal;
+                            $newRegistro->empresa = $value->empresa;
                             $newRegistro->telefono_corporativo = $value->telefono_corporativo;
                             $newRegistro->celular = $value->celular_corporativo;
-                            $newRegistro->celular_corporativo = $value->nombre;
+                            $newRegistro->celular_corporativo = $value->celular_corporativo;
                             $newRegistro->email = $value->email_personal;
                             $newRegistro->email_corporativo = $value->email_corporativo;
                             $newRegistro->direccion = $value->direccion;
                             $newRegistro->municipio_id = $value->id_ciudad;
                             $newRegistro->area_id = $value->id_area;
                             $newRegistro->procedencia = 'Panel de administración Subida masiva';
-                            $newRegistro->tipo_registro = $value->tipo_de_registro;
+                            $newRegistro->tipo_registro = $value->tipo_registro;
                             $newRegistro->menor_de_18 = $value->menor_de_18;
                             $newRegistro->comentarios = $value->comentarios;
                             //$newRegistro->asesor_comercial = $value->nombre;
-                            $newRegistro->estado = 1;
-                            $newRegistro->estado_cliente = $value->estado_del_cliente;
+                            $newRegistro->estado_cliente = $estado_cliente;
                             $newRegistro->creado_por = Auth::user()->id;
+                            $newRegistro->estado = 1;
                             $newRegistro->subida_masiva_id = $subida_id; // logica
                             $newRegistro->save();
                             $count = $count + count($newRegistro);

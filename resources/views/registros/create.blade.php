@@ -21,7 +21,7 @@
             
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
-                    <label for="nombe">Nombre</label>
+                    <label for="nombe">Nombre *</label>
                     <input type="text" class="form-control" id="nombe" name="nombre" placeholder="Nombre" value="{{ old('nombre') }}" autofocus required>
                     @if ($errors->has('nombre'))
                         <span class="help-block">
@@ -33,7 +33,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('primer_apellido') ? ' has-error' : '' }}">
-                    <label for="primer_apellido">Primer apellido</label>
+                    <label for="primer_apellido">Primer apellido *</label>
                     <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" placeholder="Primer apellido" value="{{ old('primer_apellido') }}" required>
                     @if ($errors->has('primer_apellido'))
                         <span class="help-block">
@@ -46,7 +46,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('segundo_apellido') ? ' has-error' : '' }}">
-                    <label for="segundo_apellido">Segundo apellido</label>
+                    <label for="segundo_apellido">Segundo apellido *</label>
                     <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" placeholder="Segundo apellido" value="{{ old('segundo_apellido') }}" required> 
                     @if ($errors->has('segundo_apellido'))
                         <span class="help-block">
@@ -61,7 +61,7 @@
           <div class="row">
              <div class="col-md-4">
                 <div class="form-group{{ $errors->has('tipo_documento') ? ' has-error' : '' }}">
-                    <label for="tipo_documento">Tipo de documento</label>
+                    <label for="tipo_documento">Tipo de documento *</label>
                     <select name="tipo_documento" id="tipo_documento" class="form-control" required>
                        <option value="">Seleccione un tipo de documento</option>
                        @foreach($tipo_documento as $tipo_documento)
@@ -79,7 +79,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('doc') ? ' has-error' : '' }}">
-                    <label for="doc">Número de documento</label>
+                    <label for="doc">Número de documento *</label>
                     <input type="text" class="form-control" id="doc" name="doc" placeholder="Número de docuemnto" value="{{ old('doc') }}" required>
                     @if ($errors->has('doc'))
                         <span class="help-block">
@@ -113,7 +113,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email">Email personal</label>
+                    <label for="email">Email personal *</label>
                     <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
                     @if ($errors->has('email'))
                         <span class="help-block">
@@ -155,7 +155,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('area_id') ? ' has-error' : '' }}">
-                    <label for="area">Área a la que pertenece</label>
+                    <label for="area">Área a la que pertenece *</label>
                     <select name="area_id" id="area"  class="form-control" value="{{ old('area') }}" required>
                        <option value="">Seleccione un área</option>
                         @foreach($areas as $area)
@@ -173,7 +173,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('profesion') ? ' has-error' : '' }}">
-                    <label for="profesion">Profesión</label>
+                    <label for="profesion">Profesión *</label>
                     <input type="text" class="form-control" id="profesion" name="profesion" placeholder="Profesion" value="{{ old('profesion') }}" required>
                     @if ($errors->has('profesion'))
                         <span class="help-block">
@@ -185,7 +185,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('cargo') ? ' has-error' : '' }}">
-                    <label for="cargo">Cargo</label>
+                    <label for="cargo">Cargo *</label>
                     <input type="text" class="form-control" id="cargo" name="cargo" placeholder="Cargo" value="{{ old('cargo') }}" required>
                     @if ($errors->has('cargo'))
                         <span class="help-block">
@@ -201,7 +201,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('empresa') ? ' has-error' : '' }}">
-                    <label for="empresa">Empresa o Entidad</label>
+                    <label for="empresa">Empresa o Entidad *</label>
                     <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Empresa o Entidad" value="{{ old('empresa') }}" required>
                     @if ($errors->has('empresa'))
                         <span class="help-block">
@@ -250,7 +250,7 @@
             </div>  
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('departamento_id') ? ' has-error' : '' }}">
-                    <label for="departamento">Departamento</label>
+                    <label for="departamento">Departamento *</label>
                     <select name="departamento_id" id="departamento" class="form-control" required>
                         <option value="">Seleccione un departamento</option>
                         @foreach($departamentos as $departamento)
@@ -267,7 +267,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('municipio_id') ? ' has-error' : '' }}">
-                    <label for="municipio">Ciudad</label>
+                    <label for="municipio">Ciudad *</label>
                     <select name="municipio_id" id="municipio" class="form-control" required>
                         
                     </select>

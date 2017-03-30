@@ -11,7 +11,7 @@
         <h4>Lista de Registros subidos: {{$registros->first()->created_at}}</h4>
         <ul class="nav nav-pills" style="float:right">
             <li role="presentation">
-                <a href="{{URL::route('registrosTablaCompleta')}}">
+                <a href="{{URL::route('subidaMasiva')}}">
                     <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
                        <i class="fa fa-arrow-left" aria-hidden="true"></i>  Volver
                     </button>  

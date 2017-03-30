@@ -297,7 +297,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('sn') ? ' has-error' : '' }}">
                     <label for="sn">SN</label>
-                    <input type="text" class="form-control" id="sn" name="sn" placeholder="SN" value="{{ $registro->sn }}">
+                    <input type="text" class="form-control" id="sn" name="sn" placeholder="SN" value="{{$registro->sn}}">
                     @if ($errors->has('sn'))
                         <span class="help-block">
                             <strong>{{ $errors->first('sn') }}</strong>

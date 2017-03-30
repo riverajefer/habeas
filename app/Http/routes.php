@@ -12,6 +12,10 @@ Route::get('login/{id?}', 'LoginController@index');
 Route::post('login/', 'LoginController@login');
 Route::get('salir/', 'LoginController@salir');
 
+Route::get('auth', 'LoginController@auth');
+Route::post('auth', 'LoginController@postAuth');
+
+
 /**
 * RUTAS AUTH
 *
@@ -65,21 +69,6 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
 
 Route::get('test', function(){
-
-    return $re =  App\Models\Registros::find(3);
-    //echo $re->audits[0]->id.PHP_EOL;
-    return $re->audits[0]->getModified(true);
-    echo $re->old_values;
-
-    return;
-    return $re->audits;
-
-
-    return  $tables = DB::select('SHOW TABLES');
-    //return $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
-
-    //$users = DB::connection('mysql2')->table("users")->get();
-    //return $users;
     return "Test";
 });
 

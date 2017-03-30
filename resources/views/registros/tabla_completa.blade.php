@@ -22,7 +22,7 @@
                     </a> 
                 </li>
                 <li role="presentation">
-                    <a href="#">
+                    <a href="{{URL::route('subidaMasiva')}}">
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
                             <i class="fa fa-clone" aria-hidden="true"></i> Subida masiva
                         </button>  

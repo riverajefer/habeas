@@ -1,12 +1,4 @@
-1. Migrate
-2. Make auth:
-3. Install plugns
-   Datatable, Roles, Logs, Arisan, PDF, Excel, Graficos, Material
-
-4. Install Tempplate AdminLet
-5. Modelo de BD
-6. Github
-
+LIBRERIAS
 
 Paquetes: https://github.com/chiraggude/awesome-laravel
 Roles: https://github.com/spatie/laravel-permission
@@ -23,109 +15,7 @@ GeoIp:http://lyften.com/projects/laravel-geoip/doc/
 Auditoria https://github.com/owen-it/laravel-auditing-doc/blob/master/README.md, http://www.laravel-auditing.com/docs/3.1
 
 
-Tareas:
-Formulario Login.
-Vuelva a escribir la contraseña
-Crear El Formulario para registros
-
-
-REGISTROS:
-->Roles permisos
-->Modificar Registro
-->Dar de baja Registro
-->Service paralelo Historial de cambios
-->URL Dinamica, por categoria
-->Formulario por área
-->Exportar a Excel =>OKA
-->Importar registros (carga masiva)
-->Reportes
-->Notificaciòn de cambios al email, del encargado
-->Captura info (Geo IP) Registro
-->Mejorar el show de Registros
-
-
-Historial de cambios
-
-Registro actual debe quedar
-->Quien lo creo
-->Quien lo modificó
-->Quien lo mando a la papelera
-->Quien lo eliminó
-
-
-Tabla Historial Registros
-
-registro_id
-
-Fecha de modificación 
-Modificado por
-Ver Registro 
-
-
-Al modificar un registro
-
-Se guarda en el historial el actual
-Y se actualiza, 
-
-
-_______________________________________
-AREAS.
-->Crear el slug
-->rutas slug
-->Formulario publico
-
-->Permisos Modulo Habeas data
-
-
-FORMULARIO PARA DAR DE BAJA
-
-/*******************************************
-NUEVOS CAMPOS EN FORMULARIO DE REGISTRO
-*******************************************/
-
-SN=> varchar
-Asesor comercial => viene del SAP
-Menor a 18
-Dirección
-Teléfono Fijo corporativo
-Teléfono celular 
-Teléfono celular personal
-Correo electrónico corporativo
-Correo electrónico personal
-Tipo de registro 
-    => Colaborador 
-    => Cliente
-    => Proveedor
-(Cliente Activo / Inactivo)
-Comentarios
-
-
-Permisos Modulo
-
-
-Responsable Operario
-
-
-En el Auth, preguntar si el usuario está asignado en el modulo 21
-
-Perfil Responsable
-No puede crear ni editar ni eliminar, Solo vé
-
-Perfil Operario
-Puede hacer todo
-
-Responsable debe cumpir con lo siguiente:
-Estar asignado al modulo de tratamiento de datos Y pertenecer a la tabla de Áreas
-
-
-
-*************************************
-Preguntas:
-->El operario y el Responsable, pueden ser la misma persona ? Si
-->Definir la llave primaria
-->De todos los campos, cuales son obligatorios y cuales no.
-
-
+TEXTOS
 
 Responsabe -> Solo vé
 Operario ->Puede crear actualizar
@@ -145,76 +35,80 @@ Solo vé lo de su area o lo de todas las areas.
 El responsable también entra normal.
 Ya se valida en las vistas y en el middleware
 
-
-http://jsfiddle.net/rBL3D/79/
-
-
 Lrod*2017
 
+
+********************************
+    HECHO
+********************************
 ->  Exportar Excel  ::Check
-->  Permiso Reponsable y operario ::Check
+->  Permisos Reponsable y operario ::Check
 ->  Modificar registro ::Check
 ->  Dar de baja registro (boton) ::Check
-->  Verificar, ajustar formularios publicos ::Check
 ->  Obtener datos como IP, Ubicación, etc para el registro ::Check
-->  Historial de cambios ::check
 ->  Dar de baja registro (formulario) ::ckeck (Pendiente unos texto y más purebas)
 ->  Dado de baja por boton (Alert()) ::check
-->  Campos obligatorios formularios
-->  Tipo de registro:: dejarlo en varchar
-->  Texto formularios
-->  Carga masiva
-->  Enlace desde Codignither
+->  Campos obligatorios formularios  ::check
+
+
+********************************
+    PENDIENTES
+********************************
+->  Carga masiva ::Check (update por clave primaria (email o #doc))
+->  Revisar Historial de cambios (detales)
+
+
+********************************
+    FALTA
+********************************
 ->  Enviar email de Notificaciòn (Responsable y Operario)
+->  Enlace desde Codignither
 ->  Conectar a SAP, Asesores comerciales, esto toca probarlo desde el servidor
 ->  Estadisticas
-
-->  Filtrado por área
-->  Actualizar por llave primaria (Doc, email)
-->  CRUD para Tipo de Registro
-->  Prevent double click
 ->  Acabados Areas
 ->  Acabado generales 
+->  ELIMINAR ÁREA con registros asociados
+->  MOSTRAR EN ALGÚN LADO FORMULARIO PARA DAR DE BAJA
 
 
-Hitorial de cambios
-Campos:
-Id_Registro
-Accion o evento
-Usuario
-Old Values (Antes)
-new values (Despues)
-URL
-IP
-Fecha
-Numero de campos afectados (3) => ver campos => muestra la tabla comparativa
+********************************
+    POR DEFINIR
+********************************
+->  Actualizar por llave primaria (Doc, email)
 
 
-* Nombre
-* Primer apellido
-* Segundo apellido
-* Tipo de documento      
-* Número de documento
-Fecha de nacimiento    
-* Email personal  
-Celular personal             
-Teléfono fijo personal
-* Área a la que pertenece
-* Profesión
-* Cargo
-* Empresa o Entidad
-Teléfono corporativo
-Email corporativo
-Celular corporativo
-* Departamento
-* Ciudad
-Dirección
-SN
-Asesor comercial
-Estado del cliente
-Comentarios
-Tipo de registro
+********************************
+    SI QUEDA TIEMPO
+********************************
+->  Filtrado por área
+->  CRUD para Tipo de Registro
 
-*******************************************
-Subida masiva
+
+********************************
+ EN PROCESO
+********************************
+-> Envío URL Regisro email
+
+
+Email=> Ver Registro
+if(AUTH){
+    ver Registro_id normal
+}else{
+    login
+    Ver Registro
+}
+
+Lanzar al login AUTH:
+El texto que se envía al email del Responsable y Operario (Notificación )
+Actualización de datos para el usuario:
+Usuario:Hospital Universitario Hernando Moncaleano
+Fecha: March 16, 2017
+
+Area de Interes: Comercial
+verifique la información para la respectiva gestión.
+[Enlace a el formulario del usuario]
+
+
+
+
 

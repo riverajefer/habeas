@@ -13,7 +13,7 @@
             @if ($message = Session::get('success'))
                 <div class="alert alert-success alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <p>{{ $message }}</p>
+                    <h4>{{ $message }}</h4>
                 </div>
             @endif
         <form action="{{ URL::to('formulario/guardar') }}" role="form" method="POST">
@@ -248,12 +248,12 @@
             <p style="padding:10px 30px">
             La información del formato, el cual forma parte integral de la presente autorización, la he suministrado de forma voluntaria, y es completa, confiable, veraz, exacta y verídica.
             <br>
-                <a data-fancybox data-caption="Soporte" href="{{asset('files/tratamiento_de_datos.pdf')}}"> 
-                Politica de tratamiento de datos
+                <a data-fancybox data-caption="Politica de tratamiento de datos" href="{{asset('files/tratamiento_de_datos.pdf')}}"> 
+                Ver politica de tratamiento de datos
                 </a>
             </p>
 
-            <div class="col-md-3 col-md-offset-5">
+            <div class="col-md-5 col-md-offset-5">
                 <p>Autoriza el tratamiento de sus datos personales sensibles?: *</p>
                 <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
                     <input type="checkbox" name="autorizo" id="checkbox-1" class="mdl-checkbox__input" required>
