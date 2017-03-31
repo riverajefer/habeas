@@ -119,3 +119,11 @@ verifique la información para la respectiva gestión.
 
 
 
+    function asesores(){
+
+      $this->Modulo_model->bdsapbo->select('*');
+      $this->Modulo_model->bdsapbo->from('v_com_rventas');
+      $query = $this->Modulo_model->bdsapbo->get();
+      return $query->result();
+    }
+

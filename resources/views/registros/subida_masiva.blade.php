@@ -53,7 +53,7 @@
         <div class="col-md-6">
             <h4>Instrucciones</h4>
             <ul>
-                <li>Descargue el archivo base <a href="#" > AQUÌ </a> </li> 
+                <li>Descargue el archivo base (plantilla) <a href="{{asset('files/formato_subida_masiva.xlsx')}}" > AQUÌ </a> </li> 
                 <li>Descargar archivo de identificadores: <a href="{{URL::Route('excelMunicipios')}}">AQUÍ</a></li>
                 <li>Complete las celdas</li>
             </ul> 
