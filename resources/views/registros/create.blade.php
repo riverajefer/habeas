@@ -316,8 +316,8 @@
                     <label for="asesor_comercial">Asesor comercial</label>
                     <select name="asesor_comercial" id="asesor_comercial" class="form-control">
                         <option value="">Seleccione un asesor</option>
-                        <option value="1">Cliente Activo</option>
-                        <option value="2">Cliente Inactivo</option>
+                        <option value="1">Asesor 1</option>
+                        <option value="2">Asesor 2</option>
 
                     </select>
 
@@ -431,7 +431,7 @@
                 format: 'YYYY-MM-DD',
                 viewMode: 'years',
                 maxDate : 'now',
-                minDate : '-1910/12/31',
+                minDate : new Date(1910,12,31),
                 icons: {
                     time: "fa fa-clock-o",
                     date: "fa fa-calendar",

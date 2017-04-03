@@ -117,19 +117,29 @@ class FormularioController extends Controller
 
         $this->saveInfoAgent($registro->id);
 
-        // Aca enviar el correo, para el responsable y el operario
-        $id = 1;
-        $user = User::findOrFail($id);
-        /*
-        Mail::send('emails.registro', ['user' => $user], function ($m) use ($user) {
-            $m->from('hello@app.com', 'Your Application');
+        
+        Mail::queue('emails.registro', ['registro'=>$registro], function ($m) use ($registro) {
 
-            $m->to('riverajefer@gmail.com', 'Jefferson')->subject('Your Reminder!');
-            //$m->to($user->email, $user->name)->subject('Your Reminder!');
+            $email_responsable = $registro->area->m_responsable->email;
+            $email_operario = $registro->area->m_operario->email;
+            $m->from('habeasdata@annardx.com', 'Tratamiento de datos');
+
+            if($email_responsable==$email_operario){
+                $m->to($email_responsable)->subject('Tratamiento de datos, nuevo registro');                
+            }else{
+                $m->to($email_responsable)->cc($email_operario, $name = null)->subject('Tratamiento de datos, nuevo registro');
+            }
         });
-        */
 
-        return back()->with('success','Gracias: Registro creado correctamente');
+
+        Mail::queue('emails.notificacion_user', ['registro'=>$registro], function ($m) use ($registro) {
+            $email = $registro->email;
+            $m->from('habeasdata@annardx.com', 'Tratamiento de datos Annardx');
+            $m->to($email)->subject('Tratamiento de datos, nuevo registro');
+        });
+
+
+        return back()->with('success','Gracias: Información envíada correctamente');
 
      }
 

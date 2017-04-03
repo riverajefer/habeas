@@ -307,7 +307,7 @@
                 format: 'YYYY-MM-DD',
                 viewMode: 'years',
                 maxDate : 'now',
-                minDate : '-1910/12/31',
+                minDate : new Date(1910,12,31),
                 icons: {
                     time: "fa fa-clock-o",
                     date: "fa fa-calendar",

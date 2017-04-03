@@ -39,17 +39,6 @@
 
         dialog.showModal();
 
-/*
-        $('.close').click(function(){
-            dialog.close();
-        });
-
-
-        $('.aceptar').click(function(){
-        });
-*/
-
-
         dialog.querySelector('.close').addEventListener('click', function() {
             dialog.close();
         });
@@ -92,8 +81,6 @@
   }
 
 </script>
-
-
 
 <br>
 <div class="panel panel-default">
@@ -235,9 +222,11 @@
                 </li>  
                 <li class="list-group-item">
                     <span>Avanzado:</span>  
-                    <button id="show-dialog" type="button" class="mdl-button">
-                       {{ $registro->deviceRegistro ? 'VER':''}}
-                    </button>
+                    @if($registro->deviceRegistro)
+                        <button data-toggle="modal" data-target="#myModal" type="button" class="mdl-button">
+                           VER
+                        </button>
+                    @endif
                 </li>                  
                 <li class="list-group-item {{ $registro->estado ? 'Activo': 'Inactivo'  }}">
                     
@@ -259,59 +248,69 @@
     </div>
   </div>
 
-  <dialog class="mdl-dialog">
-    <div class="mdl-dialog__content">
-      <p><b> Información de donde se hizo el registro </b> </p>
-        <ul class="demo-list-item mdl-list">
-        @if($registro->deviceRegistro)
-            <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                    Sistema: {{$registro->deviceRegistro->SO}} {{$registro->deviceRegistro->SO_version}}
-                </span>
-            </li>
-            <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                   Tipo: {{$registro->deviceRegistro->device}}
-                </span>
-            </li>
-            <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                   Navegador: {{$registro->deviceRegistro->browser}}
-                </span>
-            </li> 
-            <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                    IP: {{$registro->deviceRegistro->ip}}
-                </span>
-            </li> 
-            <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                    Dispositivo: {{$registro->deviceRegistro->tipo_device}}
-                </span>
-            </li>  
-            <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                    Pais: {{$registro->deviceRegistro->pais}}
-                </span>
-            </li>
-            <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                    {{$registro->deviceRegistro->departamento}} - 
-                    {{$registro->deviceRegistro->ciudad}}
-                </span>
-            </li>                                                            
-            <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                   Ubicación: {{$registro->deviceRegistro->ubicacion}}
-                </span>
-            </li>
-            @endif 
-        </ul>      
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Más información del registro </h4>
+          </div>
+
+            <ul class="demo-list-item mdl-list">
+            @if($registro->deviceRegistro)
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        Sistema: {{$registro->deviceRegistro->SO}} {{$registro->deviceRegistro->SO_version}}
+                    </span>
+                </li>
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                       Tipo: {{$registro->deviceRegistro->device}}
+                    </span>
+                </li>
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                       Navegador: {{$registro->deviceRegistro->browser}}
+                    </span>
+                </li> 
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        IP: {{$registro->deviceRegistro->ip}}
+                    </span>
+                </li> 
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        Dispositivo: {{$registro->deviceRegistro->tipo_device}}
+                    </span>
+                </li>  
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        Pais: {{$registro->deviceRegistro->pais}}
+                    </span>
+                </li>
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        {{$registro->deviceRegistro->departamento}} - 
+                        {{$registro->deviceRegistro->ciudad}}
+                    </span>
+                </li>                                                            
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                       Ubicación: {{$registro->deviceRegistro->ubicacion}}
+                    </span>
+                </li>
+                @endif 
+            </ul>      
+      </div>
     </div>
-    <div class="mdl-dialog__actions">
-      <button class="mdl-button mdl-js-button mdl-button--accent close">Cerrar</button>
-    </div>
-  </dialog>
+  </div>
+</div>
+
+
 
 
 <div class="row">
@@ -376,17 +375,6 @@
 <script>
 $(function() {
 
-    var dialog = document.querySelector('dialog');
-    var showDialogButton = document.querySelector('#show-dialog');
-    if (! dialog.showModal) {
-      dialogPolyfill.registerDialog(dialog);
-    }
-    showDialogButton.addEventListener('click', function() {
-      dialog.showModal();
-    });
-    dialog.querySelector('.close').addEventListener('click', function() {
-      dialog.close();
-    });
 
 
 	$("[data-fancybox]").fancybox({

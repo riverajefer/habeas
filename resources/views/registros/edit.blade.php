@@ -309,9 +309,8 @@
                 <div class="form-group{{ $errors->has('asesor_comercial') ? ' has-error' : '' }}">
                     <label for="asesor_comercial">Asesor comercial</label>
                     <select name="asesor_comercial" id="asesor_comercial" class="form-control" required>
-                        <option value="1">Cliente Activo</option>
-                        <option value="2">Cliente Inactivo</option>
-
+                        <option value="1">Asesor 1</option>
+                        <option value="2">Asesor 2</option>
                     </select>
 
                     @if ($errors->has('estado_cliente'))

@@ -17,6 +17,7 @@ use Excel;
 use Auth;
 use DB;
 use File;
+use Mail;
 use Validator;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Collection;
@@ -161,7 +162,7 @@ class RegistrosController extends Controller
 
         $departamentos = Departamentos::all();
         $areas =  Auth::user()->areasOperario()->orderBy('titulo','ASC')->get();
-        if(Auth::user()->id==73){
+        if(count(Auth::user()->areasResponsable()->first())==0  && count(Auth::user()->areasOperario()->first())==0){
             $areas = Areas::orderBy('titulo','ASC')->get();
         }
         
@@ -299,7 +300,7 @@ class RegistrosController extends Controller
         $registro = Registros::findOrFail($id);
         $departamentos = Departamentos::all();
         $areas =  Auth::user()->areasOperario()->orderBy('titulo','ASC')->get();
-        if(Auth::user()->id==73){
+        if(count(Auth::user()->areasResponsable()->first())==0  && count(Auth::user()->areasOperario()->first())==0){
             $areas = Areas::orderBy('titulo','ASC')->get();
         }
         $tipo_registro = TipoRegistro::orderBy('titulo','ASC')->get();
@@ -842,7 +843,7 @@ class RegistrosController extends Controller
 
                             $v = Validator::make($dataValidation, [
                                 'email_personal' => 'required|email',
-                                'area_id'        => 'required|exists:Areas,id',
+                                'area_id'        => 'required|exists:areas,id',
                                 'tipo_registro'  => 'required|exists:tipo_registros,id',
                                 'nombre'=>'required|string|max:80',
                                 'primer_apellido'=>'required|string|max:50',
@@ -859,7 +860,7 @@ class RegistrosController extends Controller
                                 'telefono_corporativo'=>'numeric',
                                 'email_corporativo'=>'email|max:100',
                                 'celular_corporativo'=>'numeric',
-                                'id_ciudad'=>'required|exists:Municipios,id',
+                                'id_ciudad'=>'required|exists:municipios,id',
                                 'direccion'=>'max:60',
                                 'sn'=>'max:80',
                                 'estado_del_cliente'=>'max:10',
@@ -923,6 +924,7 @@ class RegistrosController extends Controller
                             $newRegistro->estado_cliente = $estado_cliente;
                             $newRegistro->creado_por = Auth::user()->id;
                             $newRegistro->estado = 1;
+                            $newRegistro->sn = $value->sn;
                             $newRegistro->subida_masiva_id = $subida_id; // logica
                             $newRegistro->save();
                             $count = $count + count($newRegistro);
