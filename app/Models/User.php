@@ -87,6 +87,10 @@ class User extends Authenticatable
       parent::setAttribute($key, $value);
     }
   }
+      public function getReminderEmail() {
+        return $this->email_t4;
+    }
+
 
 
     /**

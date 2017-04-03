@@ -127,3 +127,13 @@ verifique la información para la respectiva gestión.
       return $query->result();
     }
 
+
+
+
+laura.rodriguez@annardx.com
+
+
+Restablecer contraseña:
+redirect, page: Su contraseña se restablcesio correctamente.
+
+

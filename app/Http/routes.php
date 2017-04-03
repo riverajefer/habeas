@@ -8,8 +8,8 @@ Route::get('/', function () {
 });
 
 
-Route::get('login/{id?}', 'LoginController@index');
-Route::post('login/', 'LoginController@login');
+Route::get('ingresar/{id?}', 'LoginController@index');
+Route::post('ingresar/', 'LoginController@login');
 Route::get('salir/', 'LoginController@salir');
 
 Route::get('auth', 'LoginController@auth');
@@ -24,6 +24,7 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('registros', 'RegistrosController', ['except' => ['index']]);
 
+    Route::get('home','RegistrosController@index')->name('registros');
     Route::get('registros','RegistrosController@index')->name('registros');
     Route::get('registros.data','RegistrosController@dataRegistros')->name('dataRegistros');
     Route::post('registros/baja','RegistrosController@darDebaja')->name('baja');
@@ -80,3 +81,6 @@ Route::get('formulario/{slug}', 'FormularioController@formulario');
 Route::post('formulario/guardar', 'FormularioController@guardarFormulario');
 Route::get('formulario/baja/{id}', 'FormularioController@baja');
 Route::post('formulario/baja', 'FormularioController@bajaPost');
+Route::auth();
+
+//Route::get('/home', 'HomeController@index');

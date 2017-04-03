@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-03-2017 a las 23:55:28
+-- Tiempo de generación: 03-04-2017 a las 23:44:53
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -164,7 +164,8 @@ INSERT INTO `audits` (`id`, `user_id`, `event`, `auditable_id`, `auditable_type`
 (88, 2, 'updated', 74, 'App\\Models\\Registros', '{\"estado\":0,\"baja_por\":2}', '{\"estado\":\"1\",\"baja_por\":null}', 'http://localhost/habeas/public/registros/74', '::1', '2017-03-30 20:46:01'),
 (89, 2, 'updated', 74, 'App\\Models\\Registros', '{\"estado\":1,\"baja_por\":null}', '{\"estado\":0,\"baja_por\":2}', 'http://localhost/habeas/public/registros/baja', '::1', '2017-03-30 20:46:09'),
 (90, 2, 'updated', 12, 'App\\Models\\Areas', '{\"operario\":1}', '{\"operario\":\"4\"}', 'http://localhost/habeas/public/areas/12', '::1', '2017-03-30 20:48:13'),
-(91, 1, 'updated', 13, 'App\\Models\\Areas', '{\"operario\":1}', '{\"operario\":\"2\"}', 'http://localhost/habeas/public/areas/13', '::1', '2017-03-30 20:49:32');
+(91, 1, 'updated', 13, 'App\\Models\\Areas', '{\"operario\":1}', '{\"operario\":\"2\"}', 'http://localhost/habeas/public/areas/13', '::1', '2017-03-30 20:49:32'),
+(92, 1, 'created', 75, 'App\\Models\\Registros', '[]', '{\"nombre\":\"juan\",\"primer_apellido\":\"Perez\",\"segundo_apellido\":\"Gonzales\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"3333\",\"email\":\"riverajefer@gmail.com\",\"fecha_nacimiento\":\"2002-01-09\",\"profesion\":\"Publicista\",\"cargo\":\"Comercial\",\"empresa\":\"Annardx\",\"telefono_personal\":\"1234489\",\"celular\":\"32121212\",\"municipio_id\":\"525\",\"procedencia\":\"Formulario_mercadeo\",\"area_id\":\"1\",\"menor_de_18\":true,\"estado\":1,\"id\":75}', 'http://localhost/habeas/public/formulario/guardar', '::1', '2017-04-03 17:52:51');
 
 -- --------------------------------------------------------
 
@@ -1906,7 +1907,8 @@ INSERT INTO `device_registros` (`id`, `registro_id`, `SO`, `SO_version`, `device
 (19, 69, 'Windows', '10.0', 'WebKit', 'Chrome', '190.93.151.78', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.6492, -74.0628', '2017-03-30 20:06:22', '2017-03-30 20:06:22'),
 (20, 70, 'Windows', '10.0', 'WebKit', 'Chrome', '190.93.151.78', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.6492, -74.0628', '2017-03-30 20:08:30', '2017-03-30 20:08:30'),
 (21, 71, 'Windows', '10.0', 'WebKit', 'Chrome', '190.93.151.78', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.6492, -74.0628', '2017-03-30 20:13:45', '2017-03-30 20:13:45'),
-(22, 72, 'Windows', '10.0', 'WebKit', 'Chrome', '190.93.151.78', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.6492, -74.0628', '2017-03-30 20:20:58', '2017-03-30 20:20:58');
+(22, 72, 'Windows', '10.0', 'WebKit', 'Chrome', '190.93.151.78', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.6492, -74.0628', '2017-03-30 20:20:58', '2017-03-30 20:20:58'),
+(23, 75, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31, -72.92', '2017-04-03 17:52:52', '2017-04-03 17:52:52');
 
 -- --------------------------------------------------------
 
@@ -4350,6 +4352,25 @@ INSERT INTO `municipios` (`id`, `nombre_municipio`, `departamento`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('maribel.rodriguez@annardx.com', 'a0fe069eee5dfa1e1f9bf35d425636459de9e00c028d34e79a3655c8dfc00fd2', '2017-04-03 16:33:44');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `perfusr_t21`
 --
 
@@ -5001,7 +5022,8 @@ INSERT INTO `registros` (`id`, `sn`, `nombre`, `primer_apellido`, `segundo_apell
 (71, NULL, 'Camilo', 'Lopez', 'Gonzales', 'Tarjeta de Identidad', '121212145677', NULL, 'Publicista', 'Administración', 'Annardx m', '', '', '', '', 'soporte@sionica.net', '', '', 3, NULL, 6, 'Panel de administración', 0, 0, '', 0, 1, 'Cliente Activo', 2, 2, 0, 0, '2017-03-30 20:13:45', '2017-03-30 20:16:40'),
 (72, '123', 'Jorge', 'Lopez', 'Gonzales', 'NIT', '121212', NULL, 'Publicista', 'Comercial', 'Annardx m', '', '', '', '', 'riverajefer@gmail.com', '', 'Calle 57 # 70-15', 1, NULL, 8, 'Panel de administración', 1, 0, '', 0, 1, 'Cliente Activo', 2, 2, NULL, 0, '2017-03-30 20:20:58', '2017-03-30 20:26:32'),
 (73, NULL, 'Pedro', 'Romero', 'Paez', 'NIT', '85874266', '1985-01-30', 'Ingeniero Industrial', 'Administración', 'Annardx', '78712145', '7848817', '3167890235', '3167890235', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 2, 0, 'Sin comentarios', 0, 1, 'Cliente Activo', 2, 2, NULL, 22, '2017-03-30 20:27:42', '2017-03-30 20:27:52'),
-(74, '333', 'Daniel', 'Romero', 'Ruiz', 'NIT', '1023684', '1985-01-30', 'Ingeniero Industrial', 'Administración', 'Annardx', '78712145', '7848817', '3167890235', '3167890235', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 2, 0, 'Sin comentarios', 0, 0, 'Cliente Activo', 2, 2, 2, 22, '2017-03-30 20:27:42', '2017-03-30 20:46:09');
+(74, '333', 'Daniel', 'Romero', 'Ruiz', 'NIT', '1023684', '1985-01-30', 'Ingeniero Industrial', 'Administración', 'Annardx', '78712145', '7848817', '3167890235', '3167890235', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 2, 0, 'Sin comentarios', 0, 0, 'Cliente Activo', 2, 2, 2, 22, '2017-03-30 20:27:42', '2017-03-30 20:46:09'),
+(75, NULL, 'juan', 'Perez', 'Gonzales', 'Cédula de Ciudadanía', '3333', '2002-01-09', 'Publicista', 'Comercial', 'Annardx', '1234489', NULL, '32121212', NULL, 'riverajefer@gmail.com', NULL, NULL, 525, NULL, 1, 'Formulario_mercadeo', NULL, 1, NULL, 0, 1, NULL, 0, 0, NULL, 0, '2017-04-03 17:52:51', '2017-04-03 17:52:51');
 
 -- --------------------------------------------------------
 
@@ -5205,7 +5227,7 @@ CREATE TABLE `users_t4` (
 --
 
 INSERT INTO `users_t4` (`id_user_t4`, `nom_user_t4`, `email_t4`, `password`, `id_perf_t4`, `ref1_t4`, `estado_t4`, `modini_t4`, `modiniruta_t4`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 'Laura Rodriguez', 'laura.rodriguez@annardx.com', '04b4f85f0ce883a8ced5a685ddfad095', 2, '', 'Activo', 5, 'comercial/listaprecios', '', '', '2017-02-23 20:54:13', '2017-02-23 20:54:13'),
+(1, 'Laura Rodriguez', 'riverajefer@gmail.com', '502c5ae24164cd650feef90b6fdc4599', 2, '', 'Activo', 5, 'comercial/listaprecios', '', '', '2017-04-03 19:36:46', '2017-04-03 19:36:46'),
 (2, 'Maribel Rodriguez', 'maribel.rodriguez@annardx.com', '95192c98732387165bf8e396c0f2dad2', 0, '', 'Activo', NULL, NULL, '', '', '2017-03-07 14:43:32', '2017-03-07 14:43:32'),
 (3, 'Mercadeo', 'mercadeo@annardx.com', 'e10adc3949ba59abbe56e057f20f883e', 1, NULL, 'Activo', NULL, NULL, '', '', '2016-05-06 22:08:07', '2016-05-06 22:08:07'),
 (4, 'Fabio Ramirez', 'fabio.ramirez@annardx.com', '95192c98732387165bf8e396c0f2dad2', 1, NULL, 'Activo', NULL, NULL, '', '', '2016-12-16 18:40:22', '2016-12-16 18:40:22'),
@@ -5431,6 +5453,13 @@ ALTER TABLE `municipios`
   ADD KEY `departamento` (`departamento`);
 
 --
+-- Indices de la tabla `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`),
+  ADD KEY `password_resets_token_index` (`token`);
+
+--
 -- Indices de la tabla `perfusr_t21`
 --
 ALTER TABLE `perfusr_t21`
@@ -5512,12 +5541,12 @@ ALTER TABLE `usuarios_envioinfo_t0`
 -- AUTO_INCREMENT de la tabla `areas`
 --
 ALTER TABLE `areas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `audits`
 --
 ALTER TABLE `audits`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 --
 -- AUTO_INCREMENT de la tabla `company_t14`
 --
@@ -5537,7 +5566,7 @@ ALTER TABLE `dep_t5`
 -- AUTO_INCREMENT de la tabla `device_registros`
 --
 ALTER TABLE `device_registros`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT de la tabla `divdep_dane_t3`
 --
@@ -5582,7 +5611,7 @@ ALTER TABLE `position_t9`
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT de la tabla `sections_t11`
 --

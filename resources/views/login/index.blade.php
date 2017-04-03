@@ -8,7 +8,7 @@
             <div class="panel-heading">Ingresar al módulo habeas data</div>
               <div class="panel-body">
               
-                <form action="{{URL::to('login')}}" method="POST">
+                <form action="{{URL::to('ingresar')}}" method="POST">
                     {{ csrf_field() }}
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                         <label for="pw">Vuelva a escribir la contraseña</label>
