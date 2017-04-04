@@ -20,7 +20,7 @@ class PasswordController extends Controller
 
     use ResetsPasswords;
 
-    protected $redirectPath = '/registros';
+    protected $redirectPath = '/password/reset_ok';
 
 
     /**

@@ -29,7 +29,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('registros.data','RegistrosController@dataRegistros')->name('dataRegistros');
     Route::post('registros/baja','RegistrosController@darDebaja')->name('baja');
 
-    Route::post('municipios','RegistrosController@municipios')->name('municipios');
+    
     Route::get('registros.excel','RegistrosController@exportExcel')->name('exportExcel');
 
     // Tabla completa
@@ -77,10 +77,16 @@ Route::get('test', function(){
 * RUTAS PUBLICAS
 *
 */
+Route::post('municipios','RegistrosController@municipios')->name('municipios');
 Route::get('formulario/{slug}', 'FormularioController@formulario');
 Route::post('formulario/guardar', 'FormularioController@guardarFormulario');
 Route::get('formulario/baja/{id}', 'FormularioController@baja');
 Route::post('formulario/baja', 'FormularioController@bajaPost');
+Route::get('password/reset_ok', function(){
+    return view('auth.passwords.reset_ok');
+    return "Oka reset";
+});
+
 Route::auth();
 
 //Route::get('/home', 'HomeController@index');
