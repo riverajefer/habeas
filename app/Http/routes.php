@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Collection;
 
 Route::get('/', function () {
     if(Auth::check()){
@@ -69,7 +70,17 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
 
 Route::get('test', function(){
-    return "Test";
+    //return "Test";
+     $asesores = Curl::to('http://localhost/pruebas/asesores.json')->get();
+     $collect =  collect(json_decode($asesores, true));
+     $salida =  $collect->contains('SlpName','ANNAR');
+     if($salida){
+         return "existe";
+     }else{
+         return "No existe";
+     }
+
+
 });
 
 

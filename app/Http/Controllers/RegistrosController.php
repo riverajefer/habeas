@@ -20,6 +20,7 @@ use File;
 use Mail;
 use Validator;
 use Jenssegers\Agent\Agent;
+use Ixudra\Curl\Facades\Curl;
 use Illuminate\Support\Collection;
 
 
@@ -267,6 +268,7 @@ class RegistrosController extends Controller
         $registro->estado_cliente = $request->input('estado_cliente');
         $registro->tipo_registro = $request->input('tipo_registro');
         $registro->comentarios = $request->input('comentarios');
+        $registro->asesor_comercial = $request->input('asesor_comercial');
         $registro->estado = 1;
         $registro->save();
 
@@ -420,7 +422,7 @@ class RegistrosController extends Controller
         $registro->modificado_por = Auth::user()->id;
         $registro->estado = $request->input('estado_registro'); // esto tiene que venir dinamico
         $registro->baja_por = $baja_por;
-        $registro;
+        $registro->asesor_comercial = $request->input('asesor_comercial');
         $registro->save();
 
         return redirect('registros')->with('success','Registro actualizado correctamente');
@@ -892,6 +894,16 @@ class RegistrosController extends Controller
                                 return response()->json(['status' => false, 'errors'=>$errors]);
                             }
 
+                            // validation asesores
+                            $asesores = Curl::to('http://localhost/pruebas/asesores.json')->get(); // cambiar esta URL
+                            $collect =  collect(json_decode($asesores, true));
+                            $existe_asesor =  $collect->contains('SlpName',$value->asesor_comercial);
+                            if(!$existe_asesor){
+                                $errors[0] = 'El nombre del asesor no existe en la base de datos';
+                                return response()->json(['status' => false, 'errors'=>$errors]);
+                            }
+                            
+
                             $estado_cliente = 'Cliente Activo';
                             if($value->estado_del_cliente == 0){
                                 $estado_cliente = 'Cliente Inactivo';
@@ -920,7 +932,7 @@ class RegistrosController extends Controller
                             $newRegistro->tipo_registro = $value->tipo_registro;
                             $newRegistro->menor_de_18 = $value->menor_de_18;
                             $newRegistro->comentarios = $value->comentarios;
-                            //$newRegistro->asesor_comercial = $value->nombre;
+                            $newRegistro->asesor_comercial = $value->asesor_comercial;
                             $newRegistro->estado_cliente = $estado_cliente;
                             $newRegistro->creado_por = Auth::user()->id;
                             $newRegistro->estado = 1;

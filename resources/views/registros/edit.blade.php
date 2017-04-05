@@ -309,10 +309,7 @@
                 <div class="form-group{{ $errors->has('asesor_comercial') ? ' has-error' : '' }}">
                     <label for="asesor_comercial">Asesor comercial</label>
                     <select name="asesor_comercial" id="asesor_comercial" class="form-control" required>
-                        <option value="1">Asesor 1</option>
-                        <option value="2">Asesor 2</option>
                     </select>
-
                     @if ($errors->has('estado_cliente'))
                         <span class="help-block">
                             <strong>{{ $errors->first('estado_cliente') }}</strong>
@@ -444,6 +441,21 @@
                     down: "fa fa-arrow-down"
                 }
             });
+
+
+            var asesor = '{{ $registro->asesor_comercial ? $registro->asesor_comercial : 0 }}';
+            $.getJSON(" {!! asset('files/asesores.json') !!} ", function (data) {
+
+                $.each(data, function(index, value){
+                    var select = '';
+                    if( asesor == value.SlpName ){
+                        select = 'selected'
+                    }
+                    $("#asesor_comercial").append('<option value="'+value.SlpName+'" '+select+' >'+value.SlpName+'</option>');
+                    
+                });
+            });   
+
 
             // Select anidados
             var selec = '';

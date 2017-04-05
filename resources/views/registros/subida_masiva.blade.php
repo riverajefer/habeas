@@ -21,8 +21,7 @@
                     <p class="help-block">Archivo de tipo xlsx.</p>
                 </div>  
                 
-                <div id="validation_errors">
-                </div>
+
                 <div class="row">
                     <div class="form-group">
                         <div class="col-md-6">
@@ -45,6 +44,8 @@
                 <div id="load_error" class="alert alert-danger" role="alert">
                    <h4>Ha ocurrido un error, revise el archivo de registro</h4>
                    <p id="error_text"></p>
+                    <div id="validation_errors">
+                    </div>                   
                 </div>
 
             </form>
