@@ -71,9 +71,10 @@ Lrod*2017
 ->  ELIMINAR ÁREA con registros asociados
 ->  MOSTRAR EN ALGÚN LADO FORMULARIO PARA DAR DE BAJA
 ->  Refactorización
+->  Autenticación directo CURl URL Codeigniter
+->  Blur Update
 
-
-********************************
+**********************  **********
     POR DEFINIR
 ********************************
 ->  Actualizar por llave primaria (Doc, email)
@@ -116,16 +117,6 @@ verifique la información para la respectiva gestión.
 [Enlace a el formulario del usuario]
 
 
-
-
-
-    function asesores(){
-
-      $this->Modulo_model->bdsapbo->select('*');
-      $this->Modulo_model->bdsapbo->from('v_com_rventas');
-      $query = $this->Modulo_model->bdsapbo->get();
-      return $query->result();
-    }
 
 
 

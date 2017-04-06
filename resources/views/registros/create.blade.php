@@ -404,12 +404,48 @@
         </form>
     </div>
     <br><br>
+
+
+<!-- Modal buscar si el documento existe -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <div align="center">
+            <img src="{{asset('images/load.gif')}}" alt="Cargando">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 @stop
 
 @push('scripts')
     <script type="text/javascript">
         $(function () {
+
+            $("#doc").focusout(function(){
+                console.log("blur doc");
+                if($(this).val()){
+                    console.log("Hay data");
+                    $('#myModal').modal({backdrop: 'static', keyboard: false})  
+                }else{
+                    console.log("NO Hay data");
+                }
+
+            });
+
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
