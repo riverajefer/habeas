@@ -33,6 +33,9 @@ Route::group(['middleware'=>'auth'], function(){
     
     Route::get('registros.excel','RegistrosController@exportExcel')->name('exportExcel');
 
+    Route::get('valida_doc/{doc}', 'RegistrosController@validaDoc')->name('validaDoc');
+    
+
     // Tabla completa
     Route::get('reg/tabla_completa','RegistrosController@tablaCompleta')->name('registrosTablaCompleta');
     Route::post('reg.tabla_completa','RegistrosController@dataRegistrosTablaCompleta')->name('dataRegistrosTablaCompleta');

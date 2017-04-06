@@ -416,12 +416,16 @@
       </div>
       <div class="modal-body">
         <div align="center">
-            <img src="{{asset('images/load.gif')}}" alt="Cargando">
+            <div id="load">
+                <!--<img src="{{asset('images/load.gif')}}" alt="Cargando">-->
+                <!-- <p>Validando</p>-->
+                <p>Este número de documento ya está registrado</p>
+                <a href="#" class="enlace_update"> Actualizar registro</a>
+            </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
@@ -438,11 +442,19 @@
                 console.log("blur doc");
                 if($(this).val()){
                     console.log("Hay data");
-                    $('#myModal').modal({backdrop: 'static', keyboard: false})  
+                    $.ajax({
+                        url: '{!! asset('valida_doc/') !!}'+'/'+$(this).val(),
+                        success: function(result){
+                            if(result.success){
+                                $('#myModal').modal({backdrop: 'static', keyboard: false})  
+                                $(".enlace_update").attr('href', result.url);
+                            }
+                            console.log("result:", result);
+                        }                        
+                    });
                 }else{
                     console.log("NO Hay data");
                 }
-
             });
 
 
@@ -452,10 +464,10 @@
                 }
             });
 
+
             $.getJSON("http://jsonip.com/?callback=?", function (data) {
                 console.log("IP: ",data.ip);
                 $("#ip").val(data.ip);
-
             });    
             
             var old_asesor = '{{ old('asesor_comercial') ? old('asesor_comercial') : 0 }}';

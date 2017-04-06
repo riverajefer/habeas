@@ -961,4 +961,22 @@ class RegistrosController extends Controller
         return view('registros.registros_subida_masiva', compact('registros'));
     }
 
+    /**
+     * Display a listing of the resource.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function validaDoc($doc){
+        $existeRegistro = Registros::where('doc',$doc)->first();
+        if($existeRegistro){
+            $url = route('registros.edit', ['id' => $existeRegistro->id]);
+            return response()->json(['success' => true, 'registro' => $existeRegistro, 'url'=>$url]);
+        }else{
+            return response()->json(['success' => false]);
+        }
+        return $existeRegistro;
+
+    }
+
 }
