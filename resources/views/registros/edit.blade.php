@@ -444,6 +444,7 @@
 
 
             var asesor = '{{ $registro->asesor_comercial ? $registro->asesor_comercial : 0 }}';
+            //http://190.145.89.228/annarnetp/index.php/prueba/index
             $.getJSON(" {!! route('asesoresSap') !!} ", function (data) {
 
                 $.each(data, function(index, value){
