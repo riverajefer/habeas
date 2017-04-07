@@ -883,7 +883,7 @@ class RegistrosController extends Controller
                             }
 
                             // validation asesores
-                            $asesores = Curl::to('http://localhost/pruebas/asesores.json')->get(); // cambiar esta URL
+                            $asesores = Curl::to('http://190.145.89.228/annarnetp/index.php/prueba/index')->get(); // cambiar esta URL
                             $collect =  collect(json_decode($asesores, true));
                             $existe_asesor =  $collect->contains('SlpName',$value->asesor_comercial);
                             if(!$existe_asesor){
@@ -1015,7 +1015,7 @@ class RegistrosController extends Controller
      * @return \Illuminate\Http\Response CURL asesores SAP
      */
     public function asesoresSap(){
-        return  $asesores = Curl::to('http://localhost/pruebas/asesores.json')->get();
+        return  $asesores = Curl::to('http://190.145.89.228/annarnetp/index.php/prueba/index')->get();
     }
 
 }
