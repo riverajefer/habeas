@@ -72,7 +72,7 @@ Lrod*2017
 ->  MOSTRAR EN ALGÚN LADO FORMULARIO PARA DAR DE BAJA
 ->  Refactorización
 ->  Autenticación directo CURl URL Codeigniter
-->  Blur Update
+->  Blur Update, y Update subida masiva
 
 **********************  **********
     POR DEFINIR

@@ -412,17 +412,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="myModalLabel">Atención !</h4>
       </div>
-      <div class="modal-body">
-        <div align="center">
-            <div id="load">
-                <!--<img src="{{asset('images/load.gif')}}" alt="Cargando">-->
-                <!-- <p>Validando</p>-->
-                <p>Este número de documento ya está registrado</p>
-                <a href="#" class="enlace_update"> Actualizar registro</a>
-            </div>
-        </div>
+      <div align="center" class="modal-body">
+        <h4>Ya existe un registro <br> con este número de documento: <span></span></h4>
+        <a href="#" class="enlace_update"><h4> Actualizar dicho registro </h4></a>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -448,15 +442,18 @@
                             if(result.success){
                                 $('#myModal').modal({backdrop: 'static', keyboard: false})  
                                 $(".enlace_update").attr('href', result.url);
+                                $(".modal-body > h4> span").text(result.registro.doc);
                             }
                             console.log("result:", result);
                         }                        
                     });
-                }else{
-                    console.log("NO Hay data");
                 }
             });
 
+            $('#myModal').on('hidden.bs.modal', function () {
+                $("#doc").val('');
+                $("#doc").focus();
+            })
 
             $.ajaxSetup({
                 headers: {

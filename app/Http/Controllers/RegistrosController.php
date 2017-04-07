@@ -37,7 +37,7 @@ class RegistrosController extends Controller
 
 
         $this->middleware('perfil:registros', ['only'=>[
-            'create', 'edit'
+            'create', 'edit', 'subidaMasiva'
         ]]);
 
         $this->tipo_documento = collect([

@@ -21,6 +21,8 @@
                         </button>
                     </a> 
                 </li>
+            @endunless
+            @if( count(Auth::user()->areasResponsable()->first())==0  && count(Auth::user()->areasOperario()->first())==0 )
                 <li role="presentation">
                     <a href="{{URL::route('subidaMasiva')}}">
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -28,7 +30,7 @@
                         </button>  
                     </a>
                 </li>
-            @endunless
+            @endif        
             <li role="presentation">
                 <a href="{{URL::route('exportExcel')}}">
                     <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
