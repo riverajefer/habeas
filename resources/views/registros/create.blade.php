@@ -63,7 +63,6 @@
                 <div class="form-group{{ $errors->has('tipo_documento') ? ' has-error' : '' }}">
                     <label for="tipo_documento">Tipo de documento *</label>
                     <select name="tipo_documento" id="tipo_documento" class="form-control" required>
-                       <option value="">Seleccione un tipo de documento</option>
                        @foreach($tipo_documento as $tipo_documento)
                         <option value="{{$tipo_documento}}"   {{ (collect(old('tipo_documento'))->contains($tipo_documento)) ? 'selected':'' }}  >{{$tipo_documento}}</option>
                        @endforeach
@@ -468,7 +467,7 @@
             });    
             
             var old_asesor = '{{ old('asesor_comercial') ? old('asesor_comercial') : 0 }}';
-            $.getJSON(" {!! asset('files/asesores.json') !!} ", function (data) {
+            $.getJSON(" {!! route('asesoresSap') !!} ", function (data) {
 
                 $.each(data, function(index, value){
                     var select = '';

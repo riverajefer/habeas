@@ -34,7 +34,6 @@ Solo vé lo de su area o lo de todas las areas.
 
 El responsable también entra normal.
 Ya se valida en las vistas y en el middleware
-
 Lrod*2017
 
 
@@ -49,35 +48,25 @@ Lrod*2017
 ->  Dar de baja registro (formulario) ::ckeck (Pendiente unos texto y más purebas)
 ->  Dado de baja por boton (Alert()) ::check
 ->  Campos obligatorios formularios  ::check
-
-
-********************************
-    PENDIENTES
-********************************
 ->  Carga masiva ::Check (update por clave primaria (email o #doc))
 ->  Revisar Historial de cambios (detales)
+->  Blur Update, y Update subida masiva
+->  MOSTRAR EN ALGÚN LADO FORMULARIO PARA DAR DE BAJA (enlace desde el email)
 
 
 ********************************
     FALTA
 ********************************
-->  Enviar email de Notificaciòn (Responsable y Operario)
 ->  Enlace desde Codignither
-->  Conectar a SAP, Asesores comerciales, esto toca probarlo desde el servidor
-->  Reportes
-->  Acabados Areas
 ->  Muchas pruebas
 ->  Acabado generales 
-->  ELIMINAR ÁREA con registros asociados
-->  MOSTRAR EN ALGÚN LADO FORMULARIO PARA DAR DE BAJA
 ->  Refactorización
 ->  Autenticación directo CURl URL Codeigniter
-->  Blur Update, y Update subida masiva
+->  Reportes
 
-**********************  **********
-    POR DEFINIR
 ********************************
-->  Actualizar por llave primaria (Doc, email)
+ EN PROCESO
+********************************
 
 
 ********************************
@@ -87,39 +76,6 @@ Lrod*2017
 ->  CRUD para Tipo de Registro
 
 
-********************************
- EN PROCESO
-********************************
--> Pruebas, usuario Admin
--> Historial de cambios
-
-
--> Envío URL Regisro email
-
-
-
-Email=> Ver Registro
-if(AUTH){
-    ver Registro_id normal
-}else{
-    login
-    Ver Registro
-}
-
-Lanzar al login AUTH:
-El texto que se envía al email del Responsable y Operario (Notificación )
-Actualización de datos para el usuario:
-Usuario:Hospital Universitario Hernando Moncaleano
-Fecha: March 16, 2017
-
-Area de Interes: Comercial
-verifique la información para la respectiva gestión.
-[Enlace a el formulario del usuario]
-
-
-
-
-
 
 laura.rodriguez@annardx.com
 
@@ -127,4 +83,18 @@ laura.rodriguez@annardx.com
 Restablecer contraseña:
 redirect, page: Su contraseña se restablcesio correctamente.
 
+
+Envio de notificación:
+
+Si quien hace el Registro (Evento):
+No es operario ni responsable
+=> Se le envpia la notificación al UOpera y URepos
+
+Si quien hace el Registro (Evento):
+Es Operario, pero no responsable.
+Enviar registro al responsable
+
+Si quien hace el Registro (Evento):
+Es Operario, y responsable
+No se envia notificación
 

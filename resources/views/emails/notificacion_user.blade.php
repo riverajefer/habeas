@@ -18,7 +18,7 @@
 	<br>
 	<br>
 
-	<a href="http://190.145.89.228/habeas/public/formulario/baja/{{$registro->id}}" style="color:#ccc;">
+	<a href="{{URL::to('formulario/baja/'.$registro->id)}}" style="color:#ccc;">
 		<em>Cancelar suscripción</em>
 	</a>
 

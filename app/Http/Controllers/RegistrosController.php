@@ -37,7 +37,7 @@ class RegistrosController extends Controller
 
 
         $this->middleware('perfil:registros', ['only'=>[
-            'create', 'edit', 'subidaMasiva'
+            'create', 'edit'
         ]]);
 
         $this->tipo_documento = collect([
@@ -92,8 +92,7 @@ class RegistrosController extends Controller
             }
 
             if($user->areasResponsable()->first()){
-   
-                
+                  
                 $areasR =  $user->areasResponsable()->get();
                 $registrosR = new Collection;
 
@@ -104,7 +103,6 @@ class RegistrosController extends Controller
                             $registrosR = $registros->merge(Registros::with('area')->where('area_id', $area->id)->get());
                         }
                         else{
-                            //return $area->id;
                              $registrosR  = $registrosR->merge(Registros::with('area')->where('area_id', $area->id)->get());
                         }                        
                                 
@@ -270,11 +268,14 @@ class RegistrosController extends Controller
         $registro->comentarios = $request->input('comentarios');
         $registro->asesor_comercial = $request->input('asesor_comercial');
         $registro->estado = 1;
+        
         $registro->save();
 
+        $this->enviaNotificacion($registro, 'Nuevo Registro');
         $this->saveInfoAgent($registro->id, $request->input('ip'));
 
-        return redirect('registros')->with('success','Registro creado correctamente');
+
+        return redirect('registros')->with('success','Registro creado correctamente.')->with('registro_id', $registro->id);
     }
    
     /**
@@ -425,7 +426,9 @@ class RegistrosController extends Controller
         $registro->asesor_comercial = $request->input('asesor_comercial');
         $registro->save();
 
-        return redirect('registros')->with('success','Registro actualizado correctamente');
+        $this->enviaNotificacion($registro, 'Modificación Registro');
+
+        return redirect('registros')->with('success','Registro actualizado correctamente')->with('registro_id', $registro->id);
 
     }
 
@@ -455,7 +458,8 @@ class RegistrosController extends Controller
         $registro->estado = 0;
         $registro->baja_por = Auth::user()->id;
         $registro->save();
-        sleep(2);
+        $this->enviaNotificacion($registro, 'Registro dado de baja');
+        sleep(1);
         return response()->json([
             'status' => true,
         ]);
@@ -699,8 +703,6 @@ class RegistrosController extends Controller
     }
 
 
-
-
     /**
      * DESCARGA DEPARTAMENTOS EN EXCEL
      * Display a listing of the resource.
@@ -776,21 +778,6 @@ class RegistrosController extends Controller
     }
 
 
-
-    /**
-     * SUBIDA MASIVA test
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function subidaMasivaTest()
-    {
-
-        return Registros::max('subida_masiva_id') + 1;
-
-        return $path = storage_path('pruebas/formato_subida_masiva.xlsx');
-    }
-
     /**
      * POST SUBIDA MASIVA
      * Display a listing of the resource.
@@ -851,7 +838,8 @@ class RegistrosController extends Controller
                                 'primer_apellido'=>'required|string|max:50',
                                 'segundo_apellido'=>'required|string|max:50',
                                 'tipo_documento'=>'required|numeric',
-                                'doc'=>'required|numeric|unique:registros',
+                                //'doc'=>'required|numeric|unique:registros',
+                                'doc'=>'required|numeric',
                                 'fecha_de_nacimiento'=>'date',
                                 'email_personal'=>'required|email|max:100',
                                 'celular_personal'=>'numeric',
@@ -909,7 +897,8 @@ class RegistrosController extends Controller
                                 $estado_cliente = 'Cliente Inactivo';
                             }
 
-                            $newRegistro = new Registros();
+                            //$newRegistro = new Registros();
+                            $newRegistro = Registros::firstOrCreate(['doc' => $value->documento]);
                             $newRegistro->nombre = $value->nombre;
                             $newRegistro->primer_apellido = $value->primer_apellido;
                             $newRegistro->segundo_apellido = $value->segundo_apellido;
@@ -928,7 +917,7 @@ class RegistrosController extends Controller
                             $newRegistro->direccion = $value->direccion;
                             $newRegistro->municipio_id = $value->id_ciudad;
                             $newRegistro->area_id = $value->id_area;
-                            $newRegistro->procedencia = 'Panel de administración Subida masiva';
+                            $newRegistro->procedencia = 'Subida masiva';
                             $newRegistro->tipo_registro = $value->tipo_registro;
                             $newRegistro->menor_de_18 = $value->menor_de_18;
                             $newRegistro->comentarios = $value->comentarios;
@@ -961,8 +950,9 @@ class RegistrosController extends Controller
         return view('registros.registros_subida_masiva', compact('registros'));
     }
 
+
     /**
-     * Display a listing of the resource.
+     * Valida documento
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -976,7 +966,56 @@ class RegistrosController extends Controller
             return response()->json(['success' => false]);
         }
         return $existeRegistro;
+    }
 
+
+    /**
+     * envía notificación
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function enviaNotificacion($registro, $evento='Nuevo registro'){
+
+        Mail::queue('emails.registro', ['registro'=>$registro, 'origen'=>'PANEL DE ADMINISTRACIÓN', 'evento'=>$evento], function ($m) use ($registro, $evento) {
+
+            $user_auth = Auth::User()->id;
+            $responsable_id = $registro->area->m_responsable->id;
+            $operario_id = $registro->area->m_operario->id;
+            $email_responsable = $registro->area->m_responsable->email;
+            $email_operario = $registro->area->m_operario->email;
+
+            $m->from('habeasdata@annardx.com', 'Tratamiento de datos');
+
+            // "Envio a los dos";
+            if($user_auth!=$operario_id and $user_auth!=$responsable_id){
+
+                // si el responsable y el operario son el mismo usuario, solo se le envia a uno
+                if($responsable_id==$operario_id){
+                    $m->to($email_responsable)->subject('Tratamiento de datos:'.$evento);                
+                }else{
+                   $m->to($email_responsable)->cc($email_operario, $name = null)->subject('Tratamiento de datos: '.$evento);
+                }                
+
+            }elseif($user_auth==$operario_id and $user_auth!=$responsable_id){
+                //"Envio a Responsable";
+                $m->to($email_responsable)->subject('Tratamiento de datos: '.$evento);
+                
+            }elseif($user_auth!=$operario_id and $user_auth==$responsable_id){
+                // "Envio a Operario";
+                $m->to($email_operario)->subject('Tratamiento de datos: '.$evento);
+            }else{
+                //"No se envia a nadie";
+            }
+
+        });
+    }    
+
+    /**
+     * envía notificación
+     * @return \Illuminate\Http\Response CURL asesores SAP
+     */
+    public function asesoresSap(){
+        return  $asesores = Curl::to('http://localhost/pruebas/asesores.json')->get();
     }
 
 }

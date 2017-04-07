@@ -1,7 +1,7 @@
 <div>
 	<h4>
-		Actualización o Registro  de datos para el usuario: 
-		{{$registro->nombre}} {{$registro->primer_apellido}} 
+		Evento:  {{$evento or 'Nuevo Registro'}}
+		Usuario: {{$registro->nombre}} {{$registro->primer_apellido}} 
 	</h4>
 	<ul>	
 		<li>
@@ -11,11 +11,14 @@
 			Fecha: {{$registro->created_at}}
 		</li>
 		<li>
-			Area de Interes: {{$registro->area->titulo}}
+			Área: {{$registro->area->titulo}}
+		</li>
+		<li>	
+			<b>ORIGEN:</b> {{$origen or 'USUARIO'}}
 		</li>
 		<li>
-			Verifique la información para la respectiva gestión, 
-			<a href="http://190.145.89.228/habeas/public/registros/{{$registro->id}}">Aquí</a>
+			Ver Registro, 
+			<a href="{{URL::to('registros/'.$registro->id)}}">Aquí</a><br>
 		</li>
 	</ul>
 </div>

@@ -444,7 +444,7 @@
 
 
             var asesor = '{{ $registro->asesor_comercial ? $registro->asesor_comercial : 0 }}';
-            $.getJSON(" {!! asset('files/asesores.json') !!} ", function (data) {
+            $.getJSON(" {!! route('asesoresSap') !!} ", function (data) {
 
                 $.each(data, function(index, value){
                     var select = '';

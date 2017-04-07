@@ -104,6 +104,9 @@
                 <div class="alert alert-success alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h5>{{ $message }}</h5>
+                    @if(Session::get('registro_id'))
+                        <a href="{{URL::to('registros/'.Session::get('registro_id'))}}">Ver Registro</a>
+                    @endif
                 </div>
             @endif          
          <div class="table-responsive">        
@@ -113,7 +116,7 @@
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Apellidos</th>
-                        <th>Email</th>
+                        <th>Documento</th>
                         <th>Área</th>
                         <th>Operario</th>
                         <th>Responsable</th>
@@ -175,7 +178,7 @@ $(function() {
             { data: 'id', name: 'id' },
             { data: 'nombre', name: 'nombre' },
             { data: 'primer_apellido', name: 'primer_apellido' },
-            { data: 'email', name: 'email' },
+            { data: 'doc', name: 'doc' },
             { data: 'area.titulo', name: 'area.titulo' },
             { data: 'operario', name: 'operario' },
             { data: 'responsable', name: 'responsable' },

@@ -60,5 +60,14 @@ class Registros extends Model implements AuditableContract
         return $this->hasOne('App\Models\DeviceRegistro', 'registro_id');
     }
 
+    /**
+     * Attributes to exclude from the Audit.
+     *
+     * @var array
+     */
+    protected $auditExclude = [
+        'subida_masiva_id',
+    ];
+
 
 }

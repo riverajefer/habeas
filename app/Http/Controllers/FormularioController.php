@@ -68,7 +68,8 @@ class FormularioController extends Controller
             'primer_apellido'=>'required|string',
             'segundo_apellido'=>'required|string',
             'tipo_documento'=>'required|string',
-            'doc'=>'required|string|unique:registros|max:50',
+            //'doc'=>'required|string|unique:registros|max:50',
+            'doc'=>'required|numeric',
             'email'=>'required|email',
             'fecha_nacimiento'=>'required|date',
             'profesion'=>'required|string',
@@ -95,7 +96,8 @@ class FormularioController extends Controller
             }
         }
 
-        $registro = New Registros();
+        //$registro = New Registros();
+        $registro = Registros::firstOrCreate(['doc' => $request->input('doc')]);
         $registro->nombre = $request->input('nombre');
         $registro->primer_apellido = $request->input('primer_apellido');
         $registro->segundo_apellido = $request->input('segundo_apellido');
@@ -224,6 +226,7 @@ class FormularioController extends Controller
                 $registro->estado = 0;
                 $registro->baja_por = 0;
                 $registro->save();
+                $this->enviaNotificacion($registro, 'Dado de baja por el mismo usuario');
                 return back()->with('success','Su suscripción fue cancelada correctamente.');
             }
             else{
@@ -241,6 +244,7 @@ class FormularioController extends Controller
                 $registro->estado = 0;
                 $registro->baja_por = 0;
                 $registro->save();                
+                $this->enviaNotificacion($registro, 'Dado de baja por el mismo usuario');
                 return back()->with('success','Su suscripción fue cancelada correctamente.');
             }
             else{
@@ -257,7 +261,8 @@ class FormularioController extends Controller
             if( ($registro->area_id == $area_id) and ($registro->fecha_nacimiento == $request->input('fecha_nacimiento')) ){
                 $registro->estado = 0;
                 $registro->baja_por = 0;
-                $registro->save();                
+                $registro->save();
+                $this->enviaNotificacion($registro, 'Dado de baja por el mismo usuario');
                 return back()->with('success','Su suscripción fue cancelada correctamente.');
             }      
             else{
@@ -273,16 +278,41 @@ class FormularioController extends Controller
             if( ($registro->area_id == $area_id) and ($registro->doc == $request->input('doc')) ){
                 $registro->estado = 0;
                 $registro->baja_por = 0;
-                $registro->save();                
+                $registro->save();
+                $this->enviaNotificacion($registro, 'Dado de baja por el mismo usuario');                
                 return back()->with('success','Su suscripción fue cancelada correctamente.');
             }   
             else{
                 return back()->with('error_baja','Validación incorrecta, verifica los campos y vuelve a envíar la información ')->withInput();
             }                      
         }
-         return $request->all();
      }
 
+    /**
+     * envía notificación
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function enviaNotificacion($registro, $evento='Nuevo registro'){
+
+        Mail::queue('emails.registro', ['registro'=>$registro, 'origen'=>'MISMO USUARIO', 'evento'=>$evento], function ($m) use ($registro, $evento) {
+
+            $responsable_id = $registro->area->m_responsable->id;
+            $operario_id = $registro->area->m_operario->id;
+            $email_responsable = $registro->area->m_responsable->email;
+            $email_operario = $registro->area->m_operario->email;
+
+            $m->from('habeasdata@annardx.com', 'Tratamiento de datos');
+
+            // si el responsable y el operario son el mismo usuario, solo se le envia a uno
+            if($responsable_id==$operario_id){
+                $m->to($email_responsable)->subject('Tratamiento de datos:'.$evento);                
+            }else{
+                $m->to($email_responsable)->cc($email_operario, $name = null)->subject('Tratamiento de datos: '.$evento);
+            }                
+
+        });
+    }   
 
 }
 

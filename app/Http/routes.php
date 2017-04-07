@@ -9,7 +9,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('ingresar/{id?}', 'LoginController@index');
+Route::get('login/{id?}', 'LoginController@index');
 Route::post('ingresar/', 'LoginController@login');
 Route::get('salir/', 'LoginController@salir');
 
@@ -29,13 +29,11 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('registros','RegistrosController@index')->name('registros');
     Route::get('registros.data','RegistrosController@dataRegistros')->name('dataRegistros');
     Route::post('registros/baja','RegistrosController@darDebaja')->name('baja');
-
     
     Route::get('registros.excel','RegistrosController@exportExcel')->name('exportExcel');
 
     Route::get('valida_doc/{doc}', 'RegistrosController@validaDoc')->name('validaDoc');
     
-
     // Tabla completa
     Route::get('reg/tabla_completa','RegistrosController@tablaCompleta')->name('registrosTablaCompleta');
     Route::post('reg.tabla_completa','RegistrosController@dataRegistrosTablaCompleta')->name('dataRegistrosTablaCompleta');
@@ -64,6 +62,8 @@ Route::group(['middleware'=>'auth'], function(){
 
     // Reportes controller
     Route::get('reportes', 'ReportesController@index')->name('reportes');
+
+    Route::get('asesores_sap', 'RegistrosController@asesoresSap')->name('asesoresSap');
     
 
 });
@@ -73,17 +73,7 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
 
 Route::get('test', function(){
-    //return "Test";
-     $asesores = Curl::to('http://localhost/pruebas/asesores.json')->get();
-     $collect =  collect(json_decode($asesores, true));
-     $salida =  $collect->contains('SlpName','ANNAR');
-     if($salida){
-         return "existe";
-     }else{
-         return "No existe";
-     }
-
-
+    return  $asesores = Curl::to('http://localhost/pruebas/asesores.json')->get();
 });
 
 

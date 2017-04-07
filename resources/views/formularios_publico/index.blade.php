@@ -68,7 +68,6 @@
                 <div class="form-group{{ $errors->has('tipo_documento') ? ' has-error' : '' }}">
                     <label for="tipo_documento">Tipo Documento *</label>
                     <select name="tipo_documento" id="tipo_documento" class="form-control" required>
-                       <option value="">Seleccione un tipo de documento</option>
                        @foreach($tipo_documento as $tipo_documento)
                         <option value="{{$tipo_documento}}"   {{ (collect(old('tipo_documento'))->contains($tipo_documento)) ? 'selected':'' }}  >{{$tipo_documento}}</option>
                        @endforeach
@@ -248,7 +247,7 @@
             <p style="padding:10px 30px">
             La información del formato, el cual forma parte integral de la presente autorización, la he suministrado de forma voluntaria, y es completa, confiable, veraz, exacta y verídica.
             <br>
-                <a data-fancybox data-caption="Politica de tratamiento de datos" href="{{asset('files/tratamiento_de_datos.pdf')}}"> 
+                <a href="http://www.annardx.com/index.php/politica-de-proteccion-de-datos" target="_blank"> 
                 Ver politica de tratamiento de datos
                 </a>
             </p>

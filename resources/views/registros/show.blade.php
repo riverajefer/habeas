@@ -155,19 +155,18 @@
                     <span>Departamento:</span>  
                     {{$registro->municipio->ndepartamento->nombre or ''}}
                 </li>
+                <li class="list-group-item">
+                    <span>Ciudad:</span>  
+                    {{$registro->municipio->nombre_municipio or ''}}
+                </li>                
             </ul>  
         </div>
         <div class="col-md-6">
             <ul class="list-group">
                 <li class="list-group-item">
-                    <span>Ciudad:</span>  
-                    {{$registro->municipio->nombre_municipio or ''}}
-                </li>                
-                <li class="list-group-item">
                     <span>Dirección:</span>  
                     {{$registro->direccion}}
                 </li>                                
-                
                 <li class="list-group-item">
                     <span>Archivo de soporte:</span>  
                     @if($registro->archivo_soporte)
@@ -204,6 +203,14 @@
                     <span>Procedencia del registro:</span>  
                     {{ $registro->procedencia }}
                 </li>  
+                <li class="list-group-item">
+                    <span>Operario:</span>  
+                    {{ $registro->area->m_operario->nombre }}
+                </li>  
+                <li class="list-group-item">
+                    <span>Responsable:</span>  
+                    {{ $registro->area->m_responsable->nombre }}
+                </li>                                  
                 <li class="list-group-item">
                     <span>Registro creado por:</span>  
                     {{ $registro->creadoPor->nombre or 'Usuario' }}
