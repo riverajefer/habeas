@@ -172,7 +172,7 @@ class MyFuncs {
                 }
                 break;
             case 'estado';
-                $colletion->atributo = 'Esatdo';
+                $colletion->atributo = 'Esatado';
                 if($colletion->new){
                     $colletion->new = 'Activo';
                     $colletion->old = 'Inactivo';

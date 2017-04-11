@@ -48,8 +48,6 @@
                     @endif
                 </div> 
 
-
-
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-5">
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
