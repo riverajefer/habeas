@@ -19,22 +19,6 @@ TEXTOS
 
 Responsabe -> Solo vé
 Operario ->Puede crear actualizar
-Pasos. 
-Tomar un Usuario, asignarlo al modulo Tratamiento de datos
-La otra opción es que cuando lo asigne a un área,  de una vez se agregue al modulo de Habeas
-
-Mejor dicho, sino está en el modulo, se agrega.
-
-Entonces, cuando haga el login.
-Verifica, que este en el modulo habeas-> esto ya.
-Luego verifica que sea Responsable, como ?
-Consulto en la tabla de Areas, si el usuario está, entonces, pasa
-Y solo vería, la informacion de su área. ? esta es la pregunta.
-Solo vé lo de su area o lo de todas las areas.
-
-El responsable también entra normal.
-Ya se valida en las vistas y en el middleware
-Lrod*2017
 
 
 ********************************
@@ -52,21 +36,24 @@ Lrod*2017
 ->  Revisar Historial de cambios (detales)
 ->  Blur Update, y Update subida masiva
 ->  MOSTRAR EN ALGÚN LADO FORMULARIO PARA DAR DE BAJA (enlace desde el email)
+->  Enlace desde Codignither
+->  Autenticación directo CURl URL Codeigniter
 
 
 ********************************
     FALTA
 ********************************
-->  Enlace desde Codignither
 ->  Muchas pruebas
 ->  Acabado generales 
 ->  Refactorización
-->  Autenticación directo CURl URL Codeigniter
 ->  Reportes
+->  Asesores en subida masiva
 
 ********************************
  EN PROCESO
 ********************************
+->  Reportes
+->  Asesores en subida masiva
 
 
 ********************************
@@ -75,33 +62,10 @@ Lrod*2017
 ->  Filtrado por área
 ->  CRUD para Tipo de Registro
 
-
+>git reset --hard HEAD
 
 laura.rodriguez@annardx.com
+Lrod*2017
 
-
-Restablecer contraseña:
-redirect, page: Su contraseña se restablcesio correctamente.
-
-
-Envio de notificación:
-
-Si quien hace el Registro (Evento):
-No es operario ni responsable
-=> Se le envpia la notificación al UOpera y URepos
-
-Si quien hace el Registro (Evento):
-Es Operario, pero no responsable.
-Enviar registro al responsable
-
-Si quien hace el Registro (Evento):
-Es Operario, y responsable
-No se envia notificación
-
-En el login, si esta en producción o en server.
-if response == 1
-  redirect. 
-else 
-   no hacer nada
 
 

@@ -123,17 +123,22 @@ class LoginController extends Controller
         $id = $request->input('id');
         $user = User::find($id);
         if(!empty($user)){
-            Auth::loginUsingId($user->id, false);
-            return response()->json([
-                'status' => true,
-            ]);            
-        }else{
-            return response()->json([
-                'status' => false,
-            ]);
+
+            // Valida que el usuario tenga acceso al modulo de habeas data    
+            $modulo_habeas =  $user->modulos()->where('idmodfunc_t20', 17)->get();
+
+            if(count($modulo_habeas)){
+                Auth::loginUsingId($user->id, false);
+                return response()->json([
+                    'status' => true,
+                ]);            
+            }else{
+                return response()->json([
+                    'status' => false,
+                ]);
+            }
         }
     }
-
 
 
     /**
@@ -145,9 +150,5 @@ class LoginController extends Controller
          Auth::logout();
          return redirect('auth');
      }
-
-
-
-
 
 }
