@@ -49,7 +49,7 @@ class LoginController extends Controller
         }
 
         // Valida que el usuario tenga acceso al modulo de habeas data    
-        $modulo_habeas =  $user->modulos()->where('idmodfunc_t20', 17)->get();
+        $modulo_habeas =  $user->modulos()->where('idmodfunc_t20', 21)->get();
 
         if(count($modulo_habeas)){
             Auth::loginUsingId($user->id, false);
@@ -101,7 +101,7 @@ class LoginController extends Controller
         }
 
         // Valida que el usuario tenga acceso al modulo de habeas data    
-        $modulo_habeas =  $user->modulos()->where('idmodfunc_t20', 17)->get();
+        $modulo_habeas =  $user->modulos()->where('idmodfunc_t20', 21)->get();
 
         if(count($modulo_habeas)){
             Auth::loginUsingId($user->id, false);
@@ -125,7 +125,7 @@ class LoginController extends Controller
         if(!empty($user)){
 
             // Valida que el usuario tenga acceso al modulo de habeas data    
-            $modulo_habeas =  $user->modulos()->where('idmodfunc_t20', 17)->get();
+            $modulo_habeas =  $user->modulos()->where('idmodfunc_t20', 21)->get();
 
             if(count($modulo_habeas)){
                 Auth::loginUsingId($user->id, false);

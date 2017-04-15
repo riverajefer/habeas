@@ -48,6 +48,7 @@ Operario ->Puede crear actualizar
 ->  Refactorización
 ->  Reportes
 ->  Asesores en subida masiva
+->  Enlace a AnnarNet en Logo 
 
 ********************************
  EN PROCESO
