@@ -98,3 +98,10 @@ Si quien hace el Registro (Evento):
 Es Operario, y responsable
 No se envia notificación
 
+En el login, si esta en producción o en server.
+if response == 1
+  redirect. 
+else 
+   no hacer nada
+
+

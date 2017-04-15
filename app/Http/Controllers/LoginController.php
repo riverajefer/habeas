@@ -22,7 +22,7 @@ class LoginController extends Controller
 
         $user = User::findOrFail($id);
         $email = $user->email;
-        return view('login.index',compact('email'));
+        return view('login.index',compact('email', 'id'));
     }
 
     /**
@@ -114,6 +114,27 @@ class LoginController extends Controller
     }
 
 
+    /**
+     * Login user.
+     * @param  Request  $request
+     * @return Response
+     */
+    public function loginDirecto(Request $request){
+        $id = $request->input('id');
+        $user = User::find($id);
+        if(!empty($user)){
+            Auth::loginUsingId($user->id, false);
+            return response()->json([
+                'status' => true,
+            ]);            
+        }else{
+            return response()->json([
+                'status' => false,
+            ]);
+        }
+    }
+
+
 
     /**
      * Logout
@@ -124,7 +145,9 @@ class LoginController extends Controller
          Auth::logout();
          return redirect('auth');
      }
-    
+
+
+
 
 
 }

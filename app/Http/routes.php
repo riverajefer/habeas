@@ -16,6 +16,7 @@ Route::get('salir/', 'LoginController@salir');
 Route::get('auth', 'LoginController@auth');
 Route::post('auth', 'LoginController@postAuth');
 
+Route::post('login_directo', 'LoginController@loginDirecto')->name('loginDirecto');
 
 /**
 * RUTAS AUTH
@@ -73,7 +74,9 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
 
 Route::get('test', function(){
-    return  $asesores = Curl::to('http://localhost/pruebas/asesores.json')->get();
+    //return  $asesores = Curl::to('http://localhost/pruebas/asesores.json')->get();
+    $path = storage_path() . "/asesores.json";
+    return $json = json_decode(file_get_contents($path), true);   
 });
 
 

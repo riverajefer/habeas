@@ -431,6 +431,8 @@
     <script type="text/javascript">
         $(function () {
 
+            console.log('APP_ENV: ', '{{ env('APP_ENV') }}' );
+
             $("#doc").focusout(function(){
                 console.log("blur doc");
                 if($(this).val()){
@@ -467,9 +469,15 @@
             });    
             
             var old_asesor = '{{ old('asesor_comercial') ? old('asesor_comercial') : 0 }}';
-            //http://190.145.89.228/annarnetp/index.php/prueba/index
-            $.getJSON(" {!! route('asesoresSap') !!} ", function (data) {
+            var env = '{{ env('APP_ENV') ? env('APP_ENV') : 'server' }}';
+            var url = 'http://190.145.89.228/annarnetp/index.php/prueba/index';
 
+            if(env == 'local'){
+                url = '{!! route('asesoresSap') !!}';
+            }
+            
+            $.getJSON(url, function (data) {
+                console.log("data: ", data);
                 $.each(data, function(index, value){
                     var select = '';
                     if( String(old_asesor) == value.SlpName )

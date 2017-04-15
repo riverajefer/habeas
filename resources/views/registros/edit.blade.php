@@ -444,9 +444,15 @@
 
 
             var asesor = '{{ $registro->asesor_comercial ? $registro->asesor_comercial : 0 }}';
-            //http://190.145.89.228/annarnetp/index.php/prueba/index
-            $.getJSON(" {!! route('asesoresSap') !!} ", function (data) {
+            var env = '{{ env('APP_ENV') ? env('APP_ENV') : 'server' }}';
+            var url = 'http://190.145.89.228/annarnetp/index.php/prueba/index';
 
+            if(env == 'local'){
+                url = '{!! route('asesoresSap') !!}';
+            }            
+
+            $.getJSON(url, function (data) {
+                console.log("data: ", data);
                 $.each(data, function(index, value){
                     var select = '';
                     if( asesor == value.SlpName ){

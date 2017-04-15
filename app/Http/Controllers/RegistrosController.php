@@ -1015,7 +1015,9 @@ class RegistrosController extends Controller
      * @return \Illuminate\Http\Response CURL asesores SAP
      */
     public function asesoresSap(){
-        return  $asesores = Curl::to('http://190.145.89.228/annarnetp/index.php/prueba/index')->get();
+        $path = storage_path() . "/asesores.json";
+        return json_decode(file_get_contents($path), true);   
+        //return  $asesores = Curl::to('http://190.145.89.228/annarnetp/index.php/prueba/index')->get();}
     }
 
 }
