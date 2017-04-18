@@ -61,10 +61,11 @@ Route::group(['middleware'=>'auth'], function(){
     // Auditoria
     Route::get('registros/auditoria/{id}','RegistrosController@auditoria')->name('auditoria');
 
+    Route::get('asesores_sap', 'RegistrosController@asesoresSap')->name('asesoresSap');
+    
     // Reportes controller
     Route::get('reportes', 'ReportesController@index')->name('reportes');
-
-    Route::get('asesores_sap', 'RegistrosController@asesoresSap')->name('asesoresSap');
+    Route::post('reportes/historial_cambios', 'ReportesController@getHistorialCambios')->name('getHistorialCambios');
     
 
 });

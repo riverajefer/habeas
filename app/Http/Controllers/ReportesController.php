@@ -20,8 +20,21 @@ class ReportesController extends Controller
         //return Registros::find(2);
         //return $registros = ;
         $registros = Registros::has('audits')->get(['id', 'nombre', 'empresa']);
-        //eturn Registros::whereBetween('created_at', ['2017-03-10 15:46:36', '2017-03-29 14:42:02'])->get();
+        //return Registros::whereBetween('created_at', ['2017-03-10 15:46:36', '2017-03-29 14:42:02'])->get();
         return view('reportes.index', compact('registros'));
     }
+
+
+    /**
+     * consulta historial.
+     * @param  Request  $request
+     * @return Response
+     */
+     public function getHistorialCambios(Request $request){
+         //return $request->all();
+         return $registros = Registros::has('audits')->whereBetween('created_at', [$request->input('fecha_inicio'), $request->input('fecha_fin')])->get();
+         //return Registros::whereBetween('created_at', [$request->input('fecha_inicio'), $request->input('fecha_fin')])->get();
+     }
+
 
 }
