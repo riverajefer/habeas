@@ -82,6 +82,7 @@
                 });    
 
             }else{
+                $('#myModal').modal('hide');
                 console.log("ambiente server");
                 $.get('http://190.145.89.228/annarnetpruebas/index.php/auth/valida', function(response, status, request) {
                     console.log("response: ",response);
@@ -96,6 +97,8 @@
                                 console.log("agun error");
                             }
                         }); 
+                    }else{
+                        $('#myModal').modal('hide');
                     }
                 });
             }

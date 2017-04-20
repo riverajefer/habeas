@@ -66,6 +66,8 @@ Route::group(['middleware'=>'auth'], function(){
     // Reportes controller
     Route::get('reportes', 'ReportesController@index')->name('reportes');
     Route::post('reportes/historial_cambios', 'ReportesController@getHistorialCambios')->name('getHistorialCambios');
+    Route::get('reportes/historial_cambios_tabla/{id}/{fecha_inicio}/{fecha_fin}', 'ReportesController@getHistorialCambiosTabla')->name('getHistorialCambiosTabla');
+    
     
 
 });

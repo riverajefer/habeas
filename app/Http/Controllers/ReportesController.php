@@ -31,9 +31,35 @@ class ReportesController extends Controller
      * @return Response
      */
      public function getHistorialCambios(Request $request){
-         //return $request->all();
-         return $registros = Registros::has('audits')->whereBetween('created_at', [$request->input('fecha_inicio'), $request->input('fecha_fin')])->get();
+
+         $fecha_inicio = $request->input('fecha_inicio');
+         $fecha_fin    = $request->input('fecha_fin');
+         $registro_id  = $request->input('registro');
+
+         $registro  = Registros::findOrFail($registro_id);
+         $auditoria = $registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio, $fecha_fin])->get();
+         
+         return view('reportes.resul_auditoria', compact('auditoria', 'fecha_inicio', 'fecha_fin', 'registro_id'));         
+
+         //$registros = Registros::has('audits')->whereBetween('created_at', [$request->input('fecha_inicio'), $request->input('fecha_fin')])->get();
+         //$registro  = Registros::findOrFail($id);
+         //return $auditoria = $registros->audits()->with('user')->get();
          //return Registros::whereBetween('created_at', [$request->input('fecha_inicio'), $request->input('fecha_fin')])->get();
+     }
+
+
+    /**
+     * consulta historial.
+     * @param  Request  $request
+     * @return Response
+     */
+     public function getHistorialCambiosTabla($registro_id, $fecha_inicio, $fecha_fin){
+         
+         $registro  = Registros::findOrFail($registro_id);
+         $auditoria = $registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio, $fecha_fin])->get();
+         
+         return view('reportes.resul_auditoria_tabla', compact('auditoria', 'fecha_inicio', 'fecha_fin', 'registro_id'));         
+
      }
 
 

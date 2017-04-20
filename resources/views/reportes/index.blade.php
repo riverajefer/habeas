@@ -2,12 +2,11 @@
 
 @section('content')
 
-    <h4>REPORTES</h4>
-
+@include('reportes.menu')
 
 <div class="panel panel-default">
     <div class="panel-heading"> 
-        <i class="fa fa-user-plus" aria-hidden="true"></i> Reporte
+        <i class="fa fa-bars" aria-hidden="true"></i> Reportes
     </div>
     <div class="panel-body">
         <h4>Consultar historial de cambios entre fechas</h4>
