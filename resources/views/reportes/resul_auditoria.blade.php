@@ -14,7 +14,12 @@
             <a href="{{URL::route('reportes')}}">Nueva consulta</a>
         </div>
         @if(count($auditoria)>0 and $auditoria[0]->event!='created')
-            <a href="{{URL::route('getHistorialCambiosTabla', [$registro_id, $fecha_inicio, $fecha_fin]  )}}">Ver en formato de tabla</a>
+            <div align="center">
+                <a href="{{URL::route('getHistorialCambiosTabla', [$registro_id, $fecha_inicio, $fecha_fin]  )}}"> 
+                    <i class="fa fa-table" aria-hidden="true"></i> Ver en formato de tabla
+                </a>
+            </div>
+            <hr>
         @else
           <div class="alert alert-danger" role="alert">No se encontraron resultados</div>
         @endif

@@ -67,10 +67,9 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('reportes', 'ReportesController@index')->name('reportes');
     Route::post('reportes/historial_cambios', 'ReportesController@getHistorialCambios')->name('getHistorialCambios');
     Route::get('reportes/historial_cambios_tabla/{id}/{fecha_inicio}/{fecha_fin}', 'ReportesController@getHistorialCambiosTabla')->name('getHistorialCambiosTabla');
-    
-    
+    Route::get('reportes/historial_cambios_excel/{id}/{fecha_inicio}/{fecha_fin}', 'ReportesController@getHistorialCambiosExcel')->name('getHistorialCambiosExcel');
 
-});
+}); 
 
 Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
