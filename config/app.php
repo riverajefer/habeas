@@ -169,6 +169,8 @@ return [
         Ixudra\Curl\CurlServiceProvider::class,
         OwenIt\Auditing\AuditingServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+
 
 
     ],
