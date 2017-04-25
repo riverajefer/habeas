@@ -308,7 +308,7 @@
              <div class="col-md-4">
                 <div class="form-group{{ $errors->has('asesor_comercial') ? ' has-error' : '' }}">
                     <label for="asesor_comercial">Asesor comercial</label>
-                    <select name="asesor_comercial" id="asesor_comercial" class="form-control" required>
+                    <select name="asesor_comercial" id="asesor_comercial" class="form-control">
                     </select>
                     @if ($errors->has('estado_cliente'))
                         <span class="help-block">

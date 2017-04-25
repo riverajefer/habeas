@@ -115,6 +115,7 @@ class RegistrosController extends Controller
         }else{
              $registros = Registros::with('area')->get();
         }
+        //return $registros;
 
         return Datatables::of($registros)
             ->addColumn('action', function ($registros) {
@@ -883,6 +884,7 @@ class RegistrosController extends Controller
                             }
 
                             // validation asesores
+                            /*
                             $asesores = Curl::to('http://190.145.89.228/annarnetp/index.php/prueba/index')->get(); // cambiar esta URL
                             $collect =  collect(json_decode($asesores, true));
                             $existe_asesor =  $collect->contains('SlpName',$value->asesor_comercial);
@@ -890,6 +892,7 @@ class RegistrosController extends Controller
                                 $errors[0] = 'El nombre del asesor no existe en la base de datos';
                                 return response()->json(['status' => false, 'errors'=>$errors]);
                             }
+                            */
                             
 
                             $estado_cliente = 'Cliente Activo';

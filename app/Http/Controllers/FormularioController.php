@@ -61,8 +61,7 @@ class FormularioController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function guardarFormulario(Request $request){
-
-
+        //return $request->all();
         $this->validate($request,[
             'nombre'=>'required|string',
             'primer_apellido'=>'required|string',
