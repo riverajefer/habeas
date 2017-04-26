@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-04-2017 a las 01:50:30
+-- Tiempo de generación: 27-04-2017 a las 00:05:09
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -4836,6 +4836,18 @@ CREATE TABLE `permissions` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'crear registros', '2017-04-26 03:35:08', '2017-04-26 03:35:08'),
+(2, 'modificar registros', '2017-04-26 03:35:44', '2017-04-26 03:35:44'),
+(3, 'dar de baja registros', '2017-04-26 03:35:53', '2017-04-26 03:35:53'),
+(4, 'ver registros', '2017-04-26 03:36:02', '2017-04-26 03:36:02'),
+(5, 'subida masiva', '2017-04-26 03:36:19', '2017-04-26 03:36:19'),
+(6, 'reportes', '2017-04-26 03:36:34', '2017-04-26 03:36:34');
+
 -- --------------------------------------------------------
 
 --
@@ -5148,6 +5160,15 @@ CREATE TABLE `roles` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'responsable', '2017-04-26 03:32:08', '2017-04-26 03:32:08'),
+(2, 'operario', '2017-04-26 03:32:53', '2017-04-26 03:32:53'),
+(3, 'admin', '2017-04-26 03:52:54', '2017-04-26 03:52:54');
+
 -- --------------------------------------------------------
 
 --
@@ -5158,6 +5179,13 @@ CREATE TABLE `role_has_permissions` (
   `permission_id` int(10) UNSIGNED NOT NULL,
   `role_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `role_has_permissions`
+--
+
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -5458,6 +5486,18 @@ CREATE TABLE `user_has_permissions` (
   `permission_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `user_has_permissions`
+--
+
+INSERT INTO `user_has_permissions` (`user_id`, `permission_id`) VALUES
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(2, 5),
+(2, 6);
+
 -- --------------------------------------------------------
 
 --
@@ -5468,6 +5508,14 @@ CREATE TABLE `user_has_roles` (
   `role_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `user_has_roles`
+--
+
+INSERT INTO `user_has_roles` (`role_id`, `user_id`) VALUES
+(1, 2),
+(3, 87);
 
 -- --------------------------------------------------------
 
@@ -5792,7 +5840,7 @@ ALTER TABLE `perf_t10`
 -- AUTO_INCREMENT de la tabla `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `permissions_t13`
 --
@@ -5812,7 +5860,7 @@ ALTER TABLE `registros`
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `sections_t11`
 --

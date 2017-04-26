@@ -10,7 +10,6 @@
     </div>
     <div class="panel-body">
         <h4>Consultar historial de cambios entre fechas</h4>
-
         <form action="{{ route('getHistorialCambios') }}" role="form" method="POST">
             {{ csrf_field() }}
             <div class="row">

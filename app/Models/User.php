@@ -111,4 +111,8 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Areas', 'operario');
     }
 
+    public function modulosUser(){
+        return $this->hasMany('App\Models\ModulosUsers', 'iduser_t21');
+    }    
+
 }

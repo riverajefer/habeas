@@ -40,6 +40,10 @@ class RegistrosController extends Controller
             'create', 'edit'
         ]]);
 
+        $this->middleware('role:operario,crear registros', ['only'=>[
+            'create'
+        ]]);        
+
         $this->tipo_documento = collect([
             'Cédula de Ciudadanía',
             'NIT',

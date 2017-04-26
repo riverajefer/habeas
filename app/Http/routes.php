@@ -71,6 +71,13 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('reportes/historial_cambios_tabla/{id}/{fecha_inicio}/{fecha_fin}', 'ReportesController@getHistorialCambiosTabla')->name('getHistorialCambiosTabla');
     Route::get('reportes/historial_cambios_excel/{id}/{fecha_inicio}/{fecha_fin}', 'ReportesController@getHistorialCambiosExcel')->name('getHistorialCambiosExcel');
 
+    // Usuarios roles y permisos
+
+    Route::get('usuarios', 'RolesPermisosController@index')->name('usuarios');
+    Route::post('save_rol', 'RolesPermisosController@saveRol')->name('saveRol');
+    Route::post('save_permisos', 'RolesPermisosController@savePermisos')->name('savePermisos');
+    
+
 }); 
 
 Route::get('save','RegistrosController@saveInfoAgent')->name('save');
@@ -78,7 +85,8 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
 
 Route::get('test', function(){
-    $user = App\Models\User::find(2);
+    $user = App\Models\User::find(87);
+    //return $user->assignRole('operario');
     //$user->assignRole('admin');
     //return $role = Role::create(['name' => 'admin']);
     //$role =  Role::find(3);
@@ -86,8 +94,7 @@ Route::get('test', function(){
     //return (String) $user->hasAllRoles(Role::all());
     
 
-    return $user->givePermissionTo('crear registros');
-   //$user->assignRole('operario', 'responsable');
+    //return $user->givePermissionTo('crear registros');
 
 
     
