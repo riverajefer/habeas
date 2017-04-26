@@ -49,6 +49,11 @@ Operario ->Puede crear actualizar
 ->  Reportes
 ->  Asesores en subida masiva
 ->  Enlace a AnnarNet en Logo 
+->  Roles, permisos
+->  Asesores SAP
+->  Validar cargue de ciudad al hacer correcciones
+->  Incluir varios responsables y Operarios por área
+->  Incluir filtro de Área y registro en el informe de cambios
 
 ********************************
  EN PROCESO

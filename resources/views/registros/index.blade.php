@@ -186,9 +186,6 @@ $(function() {
             { data: 'estado', name: 'estado' },
             { data: 'action', name: 'action', orderable: false, searchable: false}
         ],
-
-
-
     });
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 

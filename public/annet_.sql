@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-04-2017 a las 19:31:44
+-- Tiempo de generación: 26-04-2017 a las 07:06:15
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -196,7 +196,8 @@ INSERT INTO `audits` (`id`, `user_id`, `event`, `auditable_id`, `auditable_type`
 (119, 4, 'created', 91, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Lina\",\"primer_apellido\":\"Perez\",\"segundo_apellido\":\"Gonzales\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"22221113\",\"email\":\"riverajefer@gmail.com\",\"fecha_nacimiento\":\"2011-12-27\",\"profesion\":\"Publicista\",\"cargo\":\"Comercial\",\"empresa\":\"Annardx\",\"telefono_personal\":\"1234489\",\"celular\":\"32121212\",\"municipio_id\":\"634\",\"procedencia\":\"Formulario_mercadeo\",\"area_id\":\"1\",\"menor_de_18\":true,\"estado\":1,\"id\":91}', 'http://localhost/habeas/public/formulario/guardar', '::1', '2017-04-07 18:32:06'),
 (120, 4, 'updated', 91, 'App\\Models\\Registros', '{\"estado\":1,\"baja_por\":null}', '{\"estado\":0,\"baja_por\":0}', 'http://localhost/habeas/public/formulario/baja', '::1', '2017-04-07 18:36:13'),
 (121, 2, 'created', 92, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Daniela\",\"primer_apellido\":\"Doe\",\"segundo_apellido\":\"Perez\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"10272522\",\"email\":\"riverajefer@gmail.com\",\"fecha_nacimiento\":null,\"profesion\":\"Ingeniero Industrial\",\"cargo\":\"Analista\",\"empresa\":\"Annardx\",\"telefono_personal\":\"\",\"archivo_soporte\":null,\"municipio_id\":\"525\",\"area_id\":\"8\",\"procedencia\":\"Panel de administraci\\u00f3n\",\"creado_por\":2,\"menor_de_18\":0,\"sn\":null,\"telefono_corporativo\":\"\",\"celular\":\"\",\"celular_corporativo\":\"\",\"email_corporativo\":\"\",\"direccion\":\"\",\"comentarios\":\"\",\"estado_cliente\":\"Cliente Activo\",\"tipo_registro\":\"\",\"asesor_comercial\":\"ANNAR\",\"estado\":1,\"id\":92}', 'http://190.145.89.228/habeas/public/registros', '192.168.3.1', '2017-04-15 17:11:20'),
-(122, 2, 'updated', 92, 'App\\Models\\Registros', '{\"fecha_nacimiento\":null,\"celular_corporativo\":\"\",\"tipo_registro\":0,\"modificado_por\":0}', '{\"fecha_nacimiento\":\"1990-07-19\",\"celular_corporativo\":\"1213234000\",\"tipo_registro\":\"2\",\"modificado_por\":2}', 'http://190.145.89.228/habeas/public/registros/92', '192.168.3.1', '2017-04-15 17:12:03');
+(122, 2, 'updated', 92, 'App\\Models\\Registros', '{\"fecha_nacimiento\":null,\"celular_corporativo\":\"\",\"tipo_registro\":0,\"modificado_por\":0}', '{\"fecha_nacimiento\":\"1990-07-19\",\"celular_corporativo\":\"1213234000\",\"tipo_registro\":\"2\",\"modificado_por\":2}', 'http://190.145.89.228/habeas/public/registros/92', '192.168.3.1', '2017-04-15 17:12:03'),
+(123, 2, 'updated', 92, 'App\\Models\\Registros', '{\"sn\":null}', '{\"sn\":\"123\"}', 'http://localhost/habeas/public/registros/92', '::1', '2017-04-20 19:26:47');
 
 -- --------------------------------------------------------
 
@@ -3238,7 +3239,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2017_03_06_095203_create_areas_table', 3),
 ('2017_03_13_221127_create_tipo_registros_table', 4),
 ('2017_03_16_131318_create_device_registros_table', 5),
-('2017_03_22_153216_create_audits_table', 6);
+('2017_03_22_153216_create_audits_table', 6),
+('2017_04_25_183526_create_permission_tables', 7);
 
 -- --------------------------------------------------------
 
@@ -4824,6 +4826,31 @@ INSERT INTO `perf_t10` (`id_perf_t10`, `nom_perf_t10`, `obs_t10`, `created_at`, 
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'crear registros', '2017-04-26 03:35:08', '2017-04-26 03:35:08'),
+(2, 'modificar registros', '2017-04-26 03:35:44', '2017-04-26 03:35:44'),
+(3, 'dar de baja registros', '2017-04-26 03:35:53', '2017-04-26 03:35:53'),
+(4, 'ver registros', '2017-04-26 03:36:02', '2017-04-26 03:36:02'),
+(5, 'subida masiva', '2017-04-26 03:36:19', '2017-04-26 03:36:19'),
+(6, 'reportes', '2017-04-26 03:36:34', '2017-04-26 03:36:34');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `permissions_t13`
 --
 
@@ -5118,7 +5145,47 @@ INSERT INTO `registros` (`id`, `sn`, `nombre`, `primer_apellido`, `segundo_apell
 (89, NULL, 'Pedro', 'Perez', 'Gonzales', 'Cédula de Ciudadanía', '23223232', NULL, 'Publicista', 'Comercial', 'Annardx', '', '', '', '', 'riverajefer@gmail.com', '', '', 3, NULL, 8, 'Panel de administración', 0, 0, '', '', 1, 'Cliente Activo', 4, 0, NULL, 0, '2017-04-07 17:33:16', '2017-04-07 17:33:16'),
 (90, NULL, 'juan', 'Perez', 'Gonzales', 'Cédula de Ciudadanía', '34343222', NULL, 'Publicista', 'Comercial', 'Annardx', '', '', '', '', 'riverajefer@gmail.com', '', '', 354, NULL, 8, 'Panel de administración', 0, 0, '', 'VARIOS', 0, 'Cliente Activo', 4, 4, 4, 0, '2017-04-07 17:53:48', '2017-04-07 18:19:24'),
 (91, NULL, 'Lina', 'Perez', 'Gonzales', 'Cédula de Ciudadanía', '22221113', '2011-12-27', 'Publicista', 'Comercial', 'Annardx', '1234489', NULL, '32121212', NULL, 'riverajefer@gmail.com', NULL, NULL, 634, NULL, 1, 'Formulario_mercadeo', NULL, 1, NULL, NULL, 0, NULL, 0, 0, 0, 0, '2017-04-07 18:32:06', '2017-04-07 18:36:13'),
-(92, NULL, 'Daniela', 'Doe', 'Perez', 'Cédula de Ciudadanía', '10272522', '1990-07-19', 'Ingeniero Industrial', 'Analista', 'Annardx', '', '', '', '1213234000', 'riverajefer@gmail.com', '', '', 525, NULL, 8, 'Panel de administración', 2, 0, '', 'ANNAR', 1, 'Cliente Activo', 2, 2, NULL, 0, '2017-04-15 17:11:20', '2017-04-15 17:12:02');
+(92, '123', 'Daniela', 'Doe', 'Perez', 'Cédula de Ciudadanía', '10272522', '1990-07-19', 'Ingeniero Industrial', 'Analista', 'Annardx', '', '', '', '1213234000', 'riverajefer@gmail.com', '', '', 525, NULL, 8, 'Panel de administración', 2, 0, '', 'ANNAR', 1, 'Cliente Activo', 2, 2, NULL, 0, '2017-04-15 17:11:20', '2017-04-20 19:26:47');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'responsable', '2017-04-26 03:32:08', '2017-04-26 03:32:08'),
+(2, 'operario', '2017-04-26 03:32:53', '2017-04-26 03:32:53'),
+(3, 'admin', '2017-04-26 03:52:54', '2017-04-26 03:52:54');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `role_has_permissions`
+--
+
+CREATE TABLE `role_has_permissions` (
+  `permission_id` int(10) UNSIGNED NOT NULL,
+  `role_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `role_has_permissions`
+--
+
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -5411,6 +5478,44 @@ INSERT INTO `users_t4` (`id_user_t4`, `nom_user_t4`, `email_t4`, `password`, `id
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `user_has_permissions`
+--
+
+CREATE TABLE `user_has_permissions` (
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `permission_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `user_has_permissions`
+--
+
+INSERT INTO `user_has_permissions` (`user_id`, `permission_id`) VALUES
+(2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_has_roles`
+--
+
+CREATE TABLE `user_has_roles` (
+  `role_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `user_has_roles`
+--
+
+INSERT INTO `user_has_roles` (`role_id`, `user_id`) VALUES
+(1, 2),
+(2, 2),
+(3, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios_envioinfo_t0`
 --
 
@@ -5568,6 +5673,13 @@ ALTER TABLE `perf_t10`
   ADD PRIMARY KEY (`id_perf_t10`);
 
 --
+-- Indices de la tabla `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `permissions_name_unique` (`name`);
+
+--
 -- Indices de la tabla `permissions_t13`
 --
 ALTER TABLE `permissions_t13`
@@ -5586,6 +5698,20 @@ ALTER TABLE `registros`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `registros_numero_docuemnto_unique` (`doc`),
   ADD KEY `area_id` (`area_id`);
+
+--
+-- Indices de la tabla `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `roles_name_unique` (`name`);
+
+--
+-- Indices de la tabla `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`role_id`),
+  ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
 -- Indices de la tabla `sections_t11`
@@ -5624,6 +5750,19 @@ ALTER TABLE `users_t4`
   ADD PRIMARY KEY (`id_user_t4`);
 
 --
+-- Indices de la tabla `user_has_permissions`
+--
+ALTER TABLE `user_has_permissions`
+  ADD PRIMARY KEY (`user_id`,`permission_id`),
+  ADD KEY `user_has_permissions_permission_id_foreign` (`permission_id`);
+
+--
+-- Indices de la tabla `user_has_roles`
+--
+ALTER TABLE `user_has_roles`
+  ADD PRIMARY KEY (`role_id`,`user_id`);
+
+--
 -- Indices de la tabla `usuarios_envioinfo_t0`
 --
 ALTER TABLE `usuarios_envioinfo_t0`
@@ -5642,7 +5781,7 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT de la tabla `audits`
 --
 ALTER TABLE `audits`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 --
 -- AUTO_INCREMENT de la tabla `company_t14`
 --
@@ -5694,6 +5833,11 @@ ALTER TABLE `perfusr_t21`
 ALTER TABLE `perf_t10`
   MODIFY `id_perf_t10` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT de la tabla `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
 -- AUTO_INCREMENT de la tabla `permissions_t13`
 --
 ALTER TABLE `permissions_t13`
@@ -5708,6 +5852,11 @@ ALTER TABLE `position_t9`
 --
 ALTER TABLE `registros`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+--
+-- AUTO_INCREMENT de la tabla `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `sections_t11`
 --
@@ -5752,6 +5901,25 @@ ALTER TABLE `usuarios_envioinfo_t0`
 --
 ALTER TABLE `municipios`
   ADD CONSTRAINT `municipios_ibfk_1` FOREIGN KEY (`departamento`) REFERENCES `departamentos` (`id`);
+
+--
+-- Filtros para la tabla `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `user_has_permissions`
+--
+ALTER TABLE `user_has_permissions`
+  ADD CONSTRAINT `user_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `user_has_roles`
+--
+ALTER TABLE `user_has_roles`
+  ADD CONSTRAINT `user_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

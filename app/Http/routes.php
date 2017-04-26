@@ -1,5 +1,7 @@
 <?php
 use Illuminate\Support\Collection;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 Route::get('/', function () {
     if(Auth::check()){
@@ -76,6 +78,22 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
 
 Route::get('test', function(){
+    $user = App\Models\User::find(2);
+    //$user->assignRole('admin');
+    //return $role = Role::create(['name' => 'admin']);
+    //$role =  Role::find(3);
+    //return $role->givePermissionTo('crear registros');
+    //return (String) $user->hasAllRoles(Role::all());
+    
+
+    return $user->givePermissionTo('crear registros');
+   //$user->assignRole('operario', 'responsable');
+
+
+    
+
+    //return $permission = Permission::create(['name' => 'reportes']);
+
     //return  $asesores = Curl::to('http://localhost/pruebas/asesores.json')->get();
     $path = storage_path() . "/asesores.json";
     return $json = json_decode(file_get_contents($path), true);   
@@ -99,3 +117,12 @@ Route::get('password/reset_ok', function(){
 Route::auth();
 
 //Route::get('/home', 'HomeController@index');
+
+Route::group(['middleware' => ['role:operario,crear registros']], function () {
+    
+    Route::get('prueba', function(){
+        return $user = App\Models\User::find(2);
+    });
+
+});
+
