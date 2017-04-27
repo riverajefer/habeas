@@ -21,15 +21,37 @@ class RolePermisosMiddleware
         if (Auth::guest()) {
             return redirect($urlOfYourLoginPage);
         }
+
+        $user = $request->user();
+        $roles = $user->roles;
+        $permisos = [];
+        $pasa = false;
+        foreach($roles as $rol){
+            $permisos[] =  $rol->permissions;
+            if(count($rol->permissions) >0){
+                foreach($rol->permissions as $permiso){
+                    if($permiso->name == $permission){
+                        $pasa = true;
+                    }
+                }
+            }
+        }
+
+        if(!$pasa){
+            abort(403);
+        }
+
+
         /*
         if (! $request->user()->hasRole($role)) {
         abort(403);
         }
-        */
+        
         
         if (! $request->user()->can($permission)) {
         abort(403);
         }
+        */
 
         return $next($request);
     }

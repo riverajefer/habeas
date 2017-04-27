@@ -8,6 +8,10 @@ use App\Http\Requests;
 use Datatables;
 use Auth;
 use App\Models\Areas;
+use App\Models\User;
+use App\Models\AreasUsers;
+use App\Models\ModulosUsers;
+
 
 class AreasController extends Controller
 {
@@ -62,7 +66,11 @@ class AreasController extends Controller
      */
     public function create()
     {
-        return view('areas.create');
+
+        $usuarios = User::role(['responsable', 'operario'])->get();
+
+        $operarios    = User::role('operario')->get();
+        return view('areas.create', compact('usuarios', 'operarios'));
     }
 
     /**
@@ -73,26 +81,25 @@ class AreasController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request->all();
         $this->validate($request,[
             'titulo'=>'required|string',
-            'responsable'=>'required',
-            'operario'=>'required',
+            'usuarios'=>'required',
+            'operarios'=>'required',
         ]);
 
-        $reponsable = $request->input('responsable');
-        $operario = $request->input('operario');
+        $usuarios = $request->input('usuarios');
+        $operarios   = $request->input('operarios');
 
-
-        if($reponsable == $operario){
-            //return redirect('errorStore')->with('success','Registro creado correctamente');
-        }
 
         $area = new Areas();
         $area->titulo       = $request->input('titulo');
-        $area->responsable  = $request->input('responsable');
-        $area->operario     = $request->input('operario');
+       // $area->responsable  = $request->input('responsable');
+        //$area->operario     = $request->input('operario');
         $area->slug         = str_slug($request->input('titulo'));
         $area->save();
+
+        $area->users()->attach($usuarios);
 
         // preguntar si e operario y el responsable estáa asignados al modulos habes,
         /// Sino están asignarlos  

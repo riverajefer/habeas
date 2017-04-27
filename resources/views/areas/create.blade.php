@@ -4,7 +4,6 @@
 
 <br>
 
-
 <div class="panel panel-default">
 
     <div class="panel-heading"> 
@@ -28,26 +27,19 @@
                     @endif
                 </div>      
 
-                <div class="form-group{{ $errors->has('responsable') ? ' has-error' : '' }}">
-                    <label for="ajax-select">Usuario Responsable</label><br>
-                    <select id="ajax-select" class="selectpicker with-ajax form-control" name="responsable" required data-live-search="true"></select>
-                    @if ($errors->has('responsable'))
+                <div class="form-group{{ $errors->has('usuarios') ? ' has-error' : '' }}">
+                    <label for="ajax-select">Asignar usuarios</label><br>
+                    <select class="selectpicker form-control" multiple required name="usuarioss[]">
+                        @foreach($usuarios as $user)
+                            <option value="{{$user->id}}">{{$user->nombre}}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('usuarios'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('responsable') }}</strong>
+                            <strong>{{ $errors->first('usuarios') }}</strong>
                         </span>
                     @endif
                 </div>  
-
-                <div class="form-group{{ $errors->has('operario') ? ' has-error' : '' }}">
-                    <label for="ajax-select">Usuario Operario</label><br>
-                    <select id="ajax-select" class="selectpicker with-ajax form-control" name="operario" required data-live-search="true"></select>
-                    @if ($errors->has('operario'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('operario') }}</strong>
-                        </span>
-                    @endif
-                </div> 
-
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-5">
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
@@ -60,45 +52,11 @@
     </div>
 </div>
 
-
 @stop
-
-
 
 @push('scripts')
 <script>
 $(function() {
-
-var options = {
-        ajax        : {
-            url     : '{!! route('usersHabeas') !!}',
-            type    : 'GET',
-            dataType: 'json',
-        },
-        locale        : {
-            emptyTitle: 'Seleccione un usuario'
-        },
-        log           : 3,
-        preprocessData: function (data) {
-            var i, l = data.length, array = [];
-            if (l) {
-                for (i = 0; i < l; i++) {
-                    array.push($.extend(true, data[i], {
-                        text : data[i].nombre,
-                        value: data[i].id,
-                        data : {
-                            subtext: data[i].email
-                        }
-                    }));
-                }
-            }
-            return array;
-        }
-    };
-    $('.selectpicker').selectpicker().filter('.with-ajax').ajaxSelectPicker(options);
-
-    $('select').trigger('change');
-
 
 });
 

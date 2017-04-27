@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-04-2017 a las 07:06:15
+-- Tiempo de generación: 28-04-2017 a las 00:21:04
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -48,7 +48,38 @@ INSERT INTO `areas` (`id`, `titulo`, `responsable`, `operario`, `slug`, `created
 (5, 'Industria', 3, 3, 'industria', '2017-03-09 21:33:05', '2017-03-09 21:33:05'),
 (6, 'Diagnóstica', 3, 3, 'diagnostica', '2017-03-09 21:34:35', '2017-03-09 21:34:35'),
 (7, 'Biología Molecular', 3, 3, 'biologia-molecular', '2017-03-09 21:35:44', '2017-03-24 00:45:17'),
-(8, 'Banco de Sangre', 3, 3, 'banco-de-sangre', '2017-03-09 21:36:18', '2017-03-09 21:36:18');
+(8, 'Banco de Sangre', 3, 3, 'banco-de-sangre', '2017-03-09 21:36:18', '2017-03-09 21:36:18'),
+(9, 'Comercial Dep', 0, 0, 'comercial-dep', '2017-04-27 21:21:03', '2017-04-27 21:21:03');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `areas_users`
+--
+
+CREATE TABLE `areas_users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `area_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `areas_users`
+--
+
+INSERT INTO `areas_users` (`id`, `area_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, NULL, NULL),
+(2, 1, 87, NULL, NULL),
+(3, 2, 2, NULL, NULL),
+(4, 3, 2, '2017-04-27 20:27:33', '2017-04-27 20:27:33'),
+(5, 4, 2, '2017-04-27 20:29:29', '2017-04-27 20:29:29'),
+(6, 4, 3, '2017-04-27 20:29:29', '2017-04-27 20:29:29'),
+(7, 4, 2, '2017-04-27 20:45:38', '2017-04-27 20:45:38'),
+(8, 4, 3, '2017-04-27 20:45:38', '2017-04-27 20:45:38'),
+(9, 9, 2, '2017-04-27 21:21:03', '2017-04-27 21:21:03'),
+(10, 9, 87, '2017-04-27 21:21:03', '2017-04-27 21:21:03');
 
 -- --------------------------------------------------------
 
@@ -197,7 +228,8 @@ INSERT INTO `audits` (`id`, `user_id`, `event`, `auditable_id`, `auditable_type`
 (120, 4, 'updated', 91, 'App\\Models\\Registros', '{\"estado\":1,\"baja_por\":null}', '{\"estado\":0,\"baja_por\":0}', 'http://localhost/habeas/public/formulario/baja', '::1', '2017-04-07 18:36:13'),
 (121, 2, 'created', 92, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Daniela\",\"primer_apellido\":\"Doe\",\"segundo_apellido\":\"Perez\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"10272522\",\"email\":\"riverajefer@gmail.com\",\"fecha_nacimiento\":null,\"profesion\":\"Ingeniero Industrial\",\"cargo\":\"Analista\",\"empresa\":\"Annardx\",\"telefono_personal\":\"\",\"archivo_soporte\":null,\"municipio_id\":\"525\",\"area_id\":\"8\",\"procedencia\":\"Panel de administraci\\u00f3n\",\"creado_por\":2,\"menor_de_18\":0,\"sn\":null,\"telefono_corporativo\":\"\",\"celular\":\"\",\"celular_corporativo\":\"\",\"email_corporativo\":\"\",\"direccion\":\"\",\"comentarios\":\"\",\"estado_cliente\":\"Cliente Activo\",\"tipo_registro\":\"\",\"asesor_comercial\":\"ANNAR\",\"estado\":1,\"id\":92}', 'http://190.145.89.228/habeas/public/registros', '192.168.3.1', '2017-04-15 17:11:20'),
 (122, 2, 'updated', 92, 'App\\Models\\Registros', '{\"fecha_nacimiento\":null,\"celular_corporativo\":\"\",\"tipo_registro\":0,\"modificado_por\":0}', '{\"fecha_nacimiento\":\"1990-07-19\",\"celular_corporativo\":\"1213234000\",\"tipo_registro\":\"2\",\"modificado_por\":2}', 'http://190.145.89.228/habeas/public/registros/92', '192.168.3.1', '2017-04-15 17:12:03'),
-(123, 2, 'updated', 92, 'App\\Models\\Registros', '{\"sn\":null}', '{\"sn\":\"123\"}', 'http://localhost/habeas/public/registros/92', '::1', '2017-04-20 19:26:47');
+(123, 2, 'updated', 92, 'App\\Models\\Registros', '{\"sn\":null}', '{\"sn\":\"123\"}', 'http://localhost/habeas/public/registros/92', '::1', '2017-04-20 19:26:47'),
+(124, 2, 'created', 9, 'App\\Models\\Areas', '[]', '{\"titulo\":\"Comercial Dep\",\"slug\":\"comercial-dep\",\"id\":9}', 'http://localhost/habeas/public/areas', '::1', '2017-04-27 21:21:03');
 
 -- --------------------------------------------------------
 
@@ -3240,7 +3272,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2017_03_13_221127_create_tipo_registros_table', 4),
 ('2017_03_16_131318_create_device_registros_table', 5),
 ('2017_03_22_153216_create_audits_table', 6),
-('2017_04_25_183526_create_permission_tables', 7);
+('2017_04_25_183526_create_permission_tables', 7),
+('2017_04_25_221405_create_areas_users_table', 8);
 
 -- --------------------------------------------------------
 
@@ -5185,7 +5218,15 @@ CREATE TABLE `role_has_permissions` (
 --
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
-(1, 3);
+(1, 2),
+(1, 3),
+(2, 1),
+(2, 3),
+(3, 3),
+(4, 2),
+(4, 3),
+(5, 3),
+(6, 3);
 
 -- --------------------------------------------------------
 
@@ -5491,7 +5532,11 @@ CREATE TABLE `user_has_permissions` (
 --
 
 INSERT INTO `user_has_permissions` (`user_id`, `permission_id`) VALUES
-(2, 1);
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(2, 5);
 
 -- --------------------------------------------------------
 
@@ -5511,7 +5556,7 @@ CREATE TABLE `user_has_roles` (
 INSERT INTO `user_has_roles` (`role_id`, `user_id`) VALUES
 (1, 2),
 (2, 2),
-(3, 2);
+(2, 87);
 
 -- --------------------------------------------------------
 
@@ -5584,6 +5629,12 @@ INSERT INTO `usuarios_envioinfo_t0` (`idusuarios_envioinfo_t0`, `nombre_t0`, `ap
 ALTER TABLE `areas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id` (`id`);
+
+--
+-- Indices de la tabla `areas_users`
+--
+ALTER TABLE `areas_users`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `audits`
@@ -5776,12 +5827,17 @@ ALTER TABLE `usuarios_envioinfo_t0`
 -- AUTO_INCREMENT de la tabla `areas`
 --
 ALTER TABLE `areas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT de la tabla `areas_users`
+--
+ALTER TABLE `areas_users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `audits`
 --
 ALTER TABLE `audits`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 --
 -- AUTO_INCREMENT de la tabla `company_t14`
 --

@@ -33,11 +33,20 @@ class Areas extends Model implements AuditableContract
         return $this->hasMany('App\Models\Registros', 'area_id');
     }
 
-/*
+    /**
+     * Un área tiene muchos usuarios.
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'areas_users', 'area_id', 'user_id')->withTimestamps();
+    }
+
+
+    /*
     public function responsable(){
         return $this->belongsTo('')
     }
-  */  
+    */  
 
 
 }

@@ -40,6 +40,7 @@
           @if( count(Auth::user()->areasResponsable()->first())==0  && count(Auth::user()->areasOperario()->first())==0 )
             <li><a href="{{URL::to('areas')}}">ÁREAS</a></li>
             <li><a href="{{URL::to('reportes')}}">REPORTES</a></li>
+            <li><a href="{{URL::to('roles')}}">ROLES Y PERMISOS</a></li>
           @endif        
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ strtoupper(Auth::user()->nombre) }} <span class="caret"></span></a>

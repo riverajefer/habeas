@@ -94,7 +94,6 @@ class User extends Authenticatable
     }
 
 
-
     /**
      * Los modulos que pertenecen al usuario.
      */
@@ -114,5 +113,12 @@ class User extends Authenticatable
     public function modulosUser(){
         return $this->hasMany('App\Models\ModulosUsers', 'iduser_t21');
     }    
+
+    public function areas(){
+        return $this->belongsToMany('App\Models\Areas', 'areas_users', 'user_id', 'area_id')->withTimestamps();
+    }
+
+
+
 
 }

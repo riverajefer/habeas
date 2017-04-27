@@ -22,10 +22,6 @@
                 <strong>{{ $errors->first('roles') }}</strong>
             </div>
         @endif
-        <a href="{{URL::route('roles')}}" class=" mdl-js-ripple-effect">
-             <i class="fa fa-key" aria-hidden="true"></i>  Gestionar Permisos de Roles
-        </a>
-
 
     </div>
     <table class="table table-striped table-bordered table-hover" id="tabla_users">
@@ -35,6 +31,7 @@
                 <th>Nombre</th>
                 <th>Email</th>
                 <th>Roles</th>
+                <th>Permisos</th>
             </tr>
         </thead>
         <tbody>
@@ -43,8 +40,32 @@
                     <td>{{$user->id}}</td>
                     <td>{{$user->nom_user_t4}}</td>
                     <td>{{$user->email_t4}}</td>
+
                     <td>
-                        <a href="#" data-toggle="modal" data-target="#rolesModal" data-userid="{{$user->id}}" data-uroles="{{$user->roles}}"  data-roles="{{$roles}}" data-titulo="{{ ucwords($user->nom_user_t4) }}">Roles</a>
+                        @if(count($user->roles)>0)
+                            <ul>
+                                @foreach($user->roles as $rol)
+                                    <li>{{ ucwords($rol->name) }}</li>
+                                @endforeach
+                            </ul>
+                            <hr />
+                        @endif
+                        <a href="#" data-toggle="modal" data-target="#rolesModal" data-userid="{{$user->id}}" data-uroles="{{$user->roles}}"  data-roles="{{$roles}}" data-titulo="{{ ucwords($user->nom_user_t4) }}">Modificar o agregar roles</a>
+                    </td>
+                    <td>
+                        @if(count($user->permissions)>0)
+                            <ul>
+                                @foreach($user->permissions as $permission)
+                                    <li>{{ ucwords($permission->name) }}</li>
+                                @endforeach
+                            </ul>
+                            <hr>
+                            <a href="#" data-toggle="modal" data-target="#permisosModal" data-userid="{{$user->id}}" data-upermisos="{{$user->permissions}}"  data-permisos="{{$permisos}}" data-titulo="{{ ucwords($user->nom_user_t4) }}">Modificar o agregar permisos</a>
+                        @else
+                            <a href="#" data-toggle="modal" data-target="#permisosModal" data-userid="{{$user->id}}" data-upermisos="{{$user->permissions}}"  data-permisos="{{$permisos}}" data-titulo="{{ ucwords($user->nom_user_t4) }}">Modificar o agregar permisos</a>
+                        
+                        @endif
+
                     </td>
                 </tr>
             @endforeach
@@ -62,7 +83,7 @@
         <h4 class="modal-title" id="exampleModalLabel">Gestionar roles para: <span></span> </h4>
       </div>
       <div class="modal-body">
-        <p>Lista de Roles</p>
+        <p>Roles</p>
         <form action="{{ route('saveRol') }}" role="form" method="POST">
                 {{ csrf_field() }}
             <div class="lista_roles">
@@ -70,6 +91,35 @@
             <br>
             <input type="hidden" value="" name="user" >
             <input type="submit" data-loading-text="Enviando..."  class="btn btn-success save" value="Guardar" name="save">
+            
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn"  data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal Permisos -->
+<div class="modal fade" id="permisosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Gestionar roles para: <span></span> </h4>
+      </div>
+      <div class="modal-body">
+        <p>Roles</p>
+        <form action="{{ route('savePermisos') }}" role="form" method="POST">
+                {{ csrf_field() }}
+            <div class="lista_permisos">
+            </div>
+            <br>
+            <input type="hidden" value="" name="user" >
+            <input type="submit" data-loading-text="Enviando..." class="btn btn-success save " value="Guardar" name="save">
             
         </form>
       </div>
@@ -152,6 +202,44 @@ $('#rolesModal').on('show.bs.modal', function (event) {
   modal.find('.modal-title > span').text(titulo)
 
 });
+
+
+
+$('#permisosModal').on('show.bs.modal', function (event) {
+  var button    = $(event.relatedTarget); 
+  var titulo    = button.data('titulo');
+  var userPermisos = button.data('upermisos');
+  var permisos     = button.data('permisos');
+  var userid    = button.data('userid');
+
+  console.log("Upermisos: ",userPermisos);
+  console.log("permisos: ",permisos);
+  console.log("userid: ",userid);
+
+  $("input[name='user']").val(userid);
+
+  $('.lista_permisos').empty();
+  var idUR = [];
+
+  $.each(userPermisos, function(key, value){
+      idUR.push(value.id)
+  });
+
+  $.each(permisos, function(key, value){
+      var comp = userPermisos[key];
+      var check = '';
+      if(idUR.contains(value.id)){
+          check = 'checked';
+      }
+      $('.lista_permisos').append('<div class="checkbox"><label><input type="checkbox" name="permisos[]" value="'+value.name+'" '+check+'> '+MaysPrimera(value.name.toLowerCase()) +' </label></div>');
+  });
+
+  var modal = $(this)
+  modal.find('.modal-title > span').text(titulo)
+
+});
+
+
 
 });
 </script>

@@ -75,3 +75,17 @@ Lrod*2017
 
 
 
+Roles: Reposnable, operario, Admin.
+Area tiene muchos usuarios
+
+Los permisos del Rol, aplican para el área.
+Listar todos los registros cuando 
+
+User Auth:
+
+$user->rol->ver?:
+    $user->areas->regisros;
+
+
+
+

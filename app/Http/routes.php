@@ -72,11 +72,11 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('reportes/historial_cambios_excel/{id}/{fecha_inicio}/{fecha_fin}', 'ReportesController@getHistorialCambiosExcel')->name('getHistorialCambiosExcel');
 
     // Usuarios roles y permisos
-
+    Route::get('roles', 'RolesPermisosController@roles')->name('roles');
     Route::get('usuarios', 'RolesPermisosController@index')->name('usuarios');
     Route::post('save_rol', 'RolesPermisosController@saveRol')->name('saveRol');
     Route::post('save_permisos', 'RolesPermisosController@savePermisos')->name('savePermisos');
-    
+    Route::post('save_permisos_rol', 'RolesPermisosController@savePermisosRol')->name('savePermisosRol');
 
 }); 
 
@@ -85,22 +85,63 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
 
 Route::get('test', function(){
-    $user = App\Models\User::find(87);
+
+
+    $user = App\Models\User::find(2);
+    //$areas = App\Models\Areas::find(2);
+    //return $areas->registros;
+
+    //User::has('posts')->get();
+    $areas = $user->areas;
+
+    $registros = [];
+    foreach($areas as $area){
+        $registros[] = $area->registros;
+    }
+    return $registros;
+
+
+
+   $areas = App\Models\Areas::find(4);
+   //return $areas->users;
+
+$users = [2,3];
+return $areas->users()->attach($users);
+
+/*
+$comment = $post->comments()->create([
+    'message' => 'A new comment.',
+]);
+*/
+
+
+
+
+    $user = App\Models\User::find(2);
+    $Elpermiso = 'crear registros';
+    $roles = $user->roles;
+    $permisos = [];
+    $pasa = 'NO';
+    foreach($roles as $rol){
+        $permisos[] =  $rol->permissions;
+        if(count($rol->permissions) >0){
+            foreach($rol->permissions as $permiso){
+                if($permiso->name == $Elpermiso){
+                    $pasa ='Si tiene permiso';
+                }
+            }
+        }
+    }
+    return $pasa;
+
     //return $user->assignRole('operario');
     //$user->assignRole('admin');
     //return $role = Role::create(['name' => 'admin']);
     //$role =  Role::find(3);
     //return $role->givePermissionTo('crear registros');
     //return (String) $user->hasAllRoles(Role::all());
-    
-
     //return $user->givePermissionTo('crear registros');
-
-
-    
-
     //return $permission = Permission::create(['name' => 'reportes']);
-
     //return  $asesores = Curl::to('http://localhost/pruebas/asesores.json')->get();
     $path = storage_path() . "/asesores.json";
     return $json = json_decode(file_get_contents($path), true);   
@@ -132,4 +173,5 @@ Route::group(['middleware' => ['role:operario,crear registros']], function () {
     });
 
 });
+
 
