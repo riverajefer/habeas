@@ -65,7 +65,7 @@
         <div class="panel-body">
         <ul class="nav nav-pills" style="float:right">
 
-            @unless( count(Auth::user()->areasResponsable()->first())>0  && count(Auth::user()->areasOperario()->first())==0 )
+            @if(MyFuncs::usuarioRolPuede('crear registros'))
                 <li role="presentation">
                     <a href="{{URL::to('registros/create')}}">
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -73,16 +73,16 @@
                         </button>
                     </a> 
                 </li>
-                @endunless        
-                @if( count(Auth::user()->areasResponsable()->first())==0  && count(Auth::user()->areasOperario()->first())==0 )
-                    <li role="presentation">
-                        <a href="{{URL::route('subidaMasiva')}}">
-                            <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                                <i class="fa fa-clone" aria-hidden="true"></i> Subida masiva
-                            </button>  
-                        </a>
-                    </li>
-                @endif        
+            @endif
+            @if(MyFuncs::usuarioRolPuede('subida masiva'))
+                <li role="presentation">
+                    <a href="{{URL::route('subidaMasiva')}}">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                            <i class="fa fa-clone" aria-hidden="true"></i> Subida masiva
+                        </button>  
+                    </a>
+                </li>
+            @endif        
             <li role="presentation">
                 <a href="{{URL::route('exportExcel')}}">
                     <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -118,8 +118,6 @@
                         <th>Apellidos</th>
                         <th>Documento</th>
                         <th>Área</th>
-                        <th>Operario</th>
-                        <th>Responsable</th>
                         <th>Procedencia</th>
                         <th>Estado</th>
                         <th>Acciones</th>
@@ -165,7 +163,7 @@ $(function() {
         "language": {
             "url": '//cdn.datatables.net/plug-ins/1.10.13/i18n/Spanish.json'
         },
-        order: [ [8, 'desc'], [0, 'desc']],      
+        order: [ [1, 'desc'], [0, 'desc']],      
         processing: true,
         serverSide: true,
         "createdRow": function( row, data, dataIndex ) {
@@ -179,9 +177,7 @@ $(function() {
             { data: 'nombre', name: 'nombre' },
             { data: 'primer_apellido', name: 'primer_apellido' },
             { data: 'doc', name: 'doc' },
-            { data: 'area.titulo', name: 'area.titulo' },
-            { data: 'operario', name: 'operario' },
-            { data: 'responsable', name: 'responsable' },
+            { data: 'area', name: 'area' },
             { data: 'procedencia', name: 'procedencia' },
             { data: 'estado', name: 'estado' },
             { data: 'action', name: 'action', orderable: false, searchable: false}

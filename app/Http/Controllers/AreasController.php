@@ -24,7 +24,7 @@ class AreasController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('perfil:areas');
+        $this->middleware('role:areas');  
     }
 
     /**

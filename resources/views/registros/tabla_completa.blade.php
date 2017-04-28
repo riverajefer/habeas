@@ -13,7 +13,7 @@
         </div>
         <div class="panel-body">
         <ul class="nav nav-pills" style="float:right">
-            @unless( count(Auth::user()->areasResponsable()->first())>0  && count(Auth::user()->areasOperario()->first())==0 )
+            @if(MyFuncs::usuarioRolPuede('crear registros'))
                 <li role="presentation">
                     <a href="{{URL::to('registros/create')}}">
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -21,8 +21,8 @@
                         </button>
                     </a> 
                 </li>
-            @endunless
-            @if( count(Auth::user()->areasResponsable()->first())==0  && count(Auth::user()->areasOperario()->first())==0 )
+            @endif
+            @if(MyFuncs::usuarioRolPuede('subida masiva'))
                 <li role="presentation">
                     <a href="{{URL::route('subidaMasiva')}}">
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -85,14 +85,12 @@
                         <th>Menor de 18</th>
                         <th>Comentarios</th>
                         <th>Procedencia</th>
-                        <th>Responsable</th>
-                        <th>Operario</th>
                         <th>Creado Por</th>
                         <th>Modificado Por</th>
                         <th>Estado</th>
                         <th>Fecha de creación</th>
                         <th>Fecha de modificación</th>
-                        <th>Acciones</th>
+                        <th>Ver más</th>
                     </tr>
                 </thead>
             </table>   
@@ -162,8 +160,6 @@ $(function() {
             { data: 'menor_de_18', name: 'menor_de_18' }, // ajustar
             { data: 'comentarios', name: 'comentarios' }, // ajustar
             { data: 'procedencia', name: 'procedencia' },
-            { data: 'area.m_responsable.nombre', name: 'area.m_responsable.nombre' },
-            { data: 'area.m_operario.nombre', name: 'area.m_operario.nombre' },
             { data: 'creado_por.nombre', name: 'creado_por.nombre'},
             { data: 'modificado_por', name: 'modificado_por'},
             { data: 'estado', name: 'estado'},

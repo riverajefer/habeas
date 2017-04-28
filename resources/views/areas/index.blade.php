@@ -32,8 +32,6 @@
                         <th>Id</th>
                         <th>Titulo</th>
                         <th>Enlace</th>
-                        <th>Responsable</th>
-                        <th>Operario</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -59,8 +57,6 @@ $(function() {
             { data: 'id', name: 'id' },
             { data: 'titulo', name: 'titulo' },
             { data: 'slug', name: 'slug' },
-            { data: 'm_responsable.nombre', name: 'm_responsable.nombre' },
-            { data: 'm_operario.nombre', name: 'm_operario.nombre' },
             { data: 'action', name: 'action', orderable: false, searchable: false}
         ],
     });

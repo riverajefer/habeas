@@ -11,16 +11,24 @@ use Excel;
 class ReportesController extends Controller
 {
 
+
+    /**
+     * Create a new authentication controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('role:reportes');  
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        //return Registros::find(2);
-        //return $registros = ;
         $registros = Registros::has('audits')->get(['id', 'nombre', 'empresa']);
-        //return Registros::whereBetween('created_at', ['2017-03-10 15:46:36', '2017-03-29 14:42:02'])->get();
         return view('reportes.index', compact('registros'));
     }
 
@@ -40,10 +48,6 @@ class ReportesController extends Controller
          $auditoria = $registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio, $fecha_fin])->get();
          
          return view('reportes.resul_auditoria', compact('auditoria', 'fecha_inicio', 'fecha_fin', 'registro_id'));         
-         //$registros = Registros::has('audits')->whereBetween('created_at', [$request->input('fecha_inicio'), $request->input('fecha_fin')])->get();
-         //$registro  = Registros::findOrFail($id);
-         //return $auditoria = $registros->audits()->with('user')->get();
-         //return Registros::whereBetween('created_at', [$request->input('fecha_inicio'), $request->input('fecha_fin')])->get();
      }
 
 

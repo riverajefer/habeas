@@ -7,6 +7,7 @@ use App\Models\Areas;
 use App\Models\Departamentos;
 use App\Models\Municipios;
 use App\Models\TipoRegistro;
+use Auth;
 
 
 class MyFuncs {
@@ -205,6 +206,28 @@ class MyFuncs {
 
         }
         return $collection;
+    }
+
+
+    public static function usuarioRolPuede($permission){
+
+        $user =  Auth::user();
+
+        $roles = $user->roles;
+        $permisos = [];
+        $pasa = false;
+        foreach($roles as $rol){
+            $permisos[] =  $rol->permissions;
+            if(count($rol->permissions) >0){
+                foreach($rol->permissions as $permiso){
+                    if($permiso->name == $permission){
+                        $pasa = true;
+                    }
+                }
+            }
+        }
+
+        return $pasa;
     }
 
 

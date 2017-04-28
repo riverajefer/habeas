@@ -86,8 +86,45 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
 Route::get('test', function(){
 
+//return $permission = Permission::create(['name' => 'roles y permisos']);
+
+
+        $user =  Auth::user();
+        $areas = $user->areas;
+
+        $registros = new Collection;
+        foreach($areas as $area){
+            $registros = $registros->merge(App\Models\Registros::with('area')->with('area.m_responsable')->with('area.m_operario')->with('municipio')->with('municipio.ndepartamento')->with('creadoPor')->with('modificadoPor')->with('tipoRegistro')->where('area_id', $area->id)->get());
+        }
+        return $registros;
+
+
+
 
     $user = App\Models\User::find(2);
+
+
+    $permission = 'modificar registros';
+    $puede = MyFuncs::usuarioRolPuede($user, $permission);
+    return  (String) $puede;
+
+        $roles = $user->roles;
+        $permisos = [];
+        $pasa = false;
+        foreach($roles as $rol){
+            $permisos[] =  $rol->permissions;
+            if(count($rol->permissions) >0){
+                foreach($rol->permissions as $permiso){
+                    if($permiso->name == $permission){
+                        $pasa = true;
+                    }
+                }
+            }
+        }
+        return (String) $pasa;
+
+
+
     //$areas = App\Models\Areas::find(2);
     //return $areas->registros;
 

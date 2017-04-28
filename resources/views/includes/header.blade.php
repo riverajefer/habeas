@@ -26,20 +26,23 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> REGISTROS <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="{{URL::to('registros')}}">  <i class="fa fa-list" aria-hidden="true"></i> lista de registros</a></li>
-              @unless( count(Auth::user()->areasResponsable()->first())>0  && count(Auth::user()->areasOperario()->first())==0 )
+              @if(MyFuncs::usuarioRolPuede('crear registros'))
                 <li><a href="{{URL::to('registros/create')}}"> <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo registro</a></li>
-                
-              @endunless
-              @if( count(Auth::user()->areasResponsable()->first())==0  && count(Auth::user()->areasOperario()->first())==0 )
+              @endif
+              @if(MyFuncs::usuarioRolPuede('subida masiva'))
                 <li><a href="{{URL::to('reg/subida_masiva')}}"> <i class="fa fa-clone" aria-hidden="true"></i> Subida masiva</a></li>
               @endif  
               <li><a href="{{URL::route('exportExcel')}}">  <i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar en Excel</a></li>
               <li><a href="{{URL::route('registrosTablaCompleta')}}">  <i class="fa fa-table" aria-hidden="true"></i> Tabla expandida</a></li>
             </ul>
           </li>
-          @if( count(Auth::user()->areasResponsable()->first())==0  && count(Auth::user()->areasOperario()->first())==0 )
+          @if(MyFuncs::usuarioRolPuede('areas'))
             <li><a href="{{URL::to('areas')}}">ÁREAS</a></li>
+          @endif
+          @if(MyFuncs::usuarioRolPuede('reportes'))
             <li><a href="{{URL::to('reportes')}}">REPORTES</a></li>
+          @endif
+          @if(MyFuncs::usuarioRolPuede('roles y permisos'))
             <li><a href="{{URL::to('roles')}}">ROLES Y PERMISOS</a></li>
           @endif        
           <li class="dropdown">

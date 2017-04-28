@@ -208,8 +208,14 @@
                     {{ $registro->area->m_operario->nombre }}
                 </li>  
                 <li class="list-group-item">
-                    <span>Responsable:</span>  
-                    {{ $registro->area->m_responsable->nombre }}
+                    <span>Encargados:</span>  
+                    @if(count($registro->area->users)>0)
+                    <ul>
+                      @foreach($registro->area->users as $user)
+                        <li>{{$user->nombre}}</li>
+                      @endforeach
+                    </ul>
+                    @endif
                 </li>                                  
                 <li class="list-group-item">
                     <span>Registro creado por:</span>  
@@ -323,7 +329,8 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
             <ul class="nav nav-pills">
-                @unless( count(Auth::user()->areasResponsable()->first())>0  && count(Auth::user()->areasOperario()->first())==0 )
+
+                @if(MyFuncs::usuarioRolPuede('crear registros'))
                     <li role="presentation">
                         <a href="{{URL::to('registros/create')}}">
                             <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -331,6 +338,9 @@
                             </button>
                         </a> 
                     </li>
+                @endif
+
+                @if(MyFuncs::usuarioRolPuede('modificar registros'))
                     <li role="presentation">
                         <a href="{{URL::to('registros/'.$registro->id.'/edit')}}" title="Actualizar registro">
                             <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -338,6 +348,9 @@
                             </button>  
                         </a>
                     </li>
+                @endif
+
+                @if(MyFuncs::usuarioRolPuede('baja'))
                     @if($registro->estado==1)
                         <li role="presentation">
                             <a onclick="eliminar( {{$registro->id}} )" href="javascript:void(0)" title="Dar de baja el registro">
@@ -346,8 +359,8 @@
                                 </button>  
                             </a>
                         </li>
-                    @endif                 
-                @endunless        
+                    @endif
+                @endif                 
 
                 <li role="presentation">
                     <a href="{{URL::to('registros')}}" title="Ver lista de registros">

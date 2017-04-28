@@ -7,6 +7,8 @@ use Auth;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
+use App\HElpers\MyFuncs;
+
 class RolePermisosMiddleware
 {
     /**
@@ -16,28 +18,14 @@ class RolePermisosMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $role, $permission)
+    public function handle($request, Closure $next, $permission)
     {
         if (Auth::guest()) {
             return redirect($urlOfYourLoginPage);
         }
 
-        $user = $request->user();
-        $roles = $user->roles;
-        $permisos = [];
-        $pasa = false;
-        foreach($roles as $rol){
-            $permisos[] =  $rol->permissions;
-            if(count($rol->permissions) >0){
-                foreach($rol->permissions as $permiso){
-                    if($permiso->name == $permission){
-                        $pasa = true;
-                    }
-                }
-            }
-        }
-
-        if(!$pasa){
+        $puede = MyFuncs::usuarioRolPuede($permission);
+        if(!$puede){
             abort(403);
         }
 

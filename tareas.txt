@@ -60,6 +60,14 @@ Operario ->Puede crear actualizar
 ********************************
 ->  Reportes
 ->  Asesores en subida masiva
+->  Ajustar areas (Modificar)
+->  Aseores Listar
+->  Incluir varios responsables y Operarios por área
+->  Validar el despliegue del listado de Asesores
+->  Validar cargue de ciudad al hacer correcciones
+->  Incluir filtro de Área y registro en el informe de cambios
+->  Validar cargue de plantilla adjunta
+->  listar Usuarios encargados
 
 
 ********************************
