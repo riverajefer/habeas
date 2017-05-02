@@ -21,7 +21,7 @@ class Authenticate
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('auth');
+                return redirect()->guest('http://190.145.89.228/annarnetpruebas/index.php/auth/login/ok/R3JhY2lhcyBwb3IgdXNhciBudWVzdHJvIHNlcnZpY2lv');
             }
         }
 

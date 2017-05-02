@@ -13,7 +13,7 @@
         <form action="{{ route('getHistorialCambios') }}" role="form" method="POST">
             {{ csrf_field() }}
             <div class="row">
-                <div class="col-md-4 col-md-offset-2">
+                <div class="col-md-4">
                     <div class="form-group{{ $errors->has('fecha') ? ' has-error' : '' }}">
                         <label for="departamento">Fecha *</label>            
                         <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
@@ -23,13 +23,26 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group{{ $errors->has('registro') ? ' has-error' : '' }}">
-                        <label for="departamento">Registro *</label>
-                        <select name="registro" id="departamento" class="form-control" required>
-                            <option value="">Seleccione un registro</option>
-                            @foreach($registros as $registro)
-                                <option value="{{$registro->id}}">{{$registro->nombre}} - {{$registro->empresa or 'NULL'}}</option>
+                    <div class="form-group{{ $errors->has('area') ? ' has-error' : '' }}">
+                        <label for="area">Áreas *</label>
+                        <select name="area" id="area" class="form-control" required>
+                            <option value="">Seleccione un área</option>
+                            @foreach($areas as $area)
+                                <option value="{{$area->id}}">{{$area->titulo}}</option>
                             @endforeach
+                        </select>
+                        @if ($errors->has('area'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('area') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>                
+
+                <div class="col-md-4">
+                    <div class="form-group{{ $errors->has('registro') ? ' has-error' : '' }}">
+                        <label for="registro">Registro *</label>
+                        <select name="registro" id="registro" class="form-control" required>
                         </select>
                         @if ($errors->has('registro'))
                             <span class="help-block">
@@ -93,6 +106,36 @@
                     $("input[name='fecha_inicio']").val(picker.startDate.format('YYYY-MM-DD'));
                     $("input[name='fecha_fin']").val(picker.endDate.format('YYYY-MM-DD'));
                 });
+
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $("#area").change(function(){
+                console.log("change");
+                $("#area option:selected").each(function () {
+
+                    var elegido = $(this).val();
+                    $("#registro").empty();
+                    $("#registro").append('<option value="0">Todos</option>')
+
+                    $.post('{!! route('registrosByArea') !!}', {id:elegido}, function(data){
+                        console.log("retunr data: ", data);
+                        if(data.length>0){
+                            $.each(data, function(index,value){
+                                $("#registro").append('<option value='+value.id+'  >('+value.id+') '+value.nombre+'- '+value.empresa+'</option>')
+                            });
+                        }
+                    });
+
+                });
+            });
+
+
+
         });
     </script>
 @endpush

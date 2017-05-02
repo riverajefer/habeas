@@ -170,7 +170,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
                     <label for="telefono">Teléfono Fijo</label>
-                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono fijo" value="{{ old('telefono') }}">
+                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono fijo" value="{{ old('telefono') }}" required>
                     @if ($errors->has('telefono'))
                         <span class="help-block">
                             <strong>{{ $errors->first('telefono') }}</strong>
@@ -200,7 +200,7 @@
                     <select name="departamento_id" id="departamento" class="form-control" required>
                         <option value="">Seleccione un departamento</option>
                         @foreach($departamentos as $departamento)
-                             <option value="{{$departamento->id}}">{{$departamento->nombre}}</option>
+                             <option value="{{$departamento->id}}" {{$departamento->id == old('departamento_id') ? 'selected':'' }} >{{$departamento->nombre}}</option>
                         @endforeach
                     </select>
                     @if ($errors->has('departamento_id'))
@@ -314,6 +314,28 @@
                     down: "fa fa-arrow-down"
                 }
             });
+
+            var old_departamento = '{{ old('departamento_id') ? old('departamento_id') : 0 }}';
+            var old_municipio = '{{ old('municipio_id') ? old('municipio_id') : 0 }}';
+
+            if(old_departamento!=0){
+                console.log("selecte: ",old_departamento)
+                    var elegido = old_departamento;
+                    $("#municipio").empty();
+
+                    $.post('{!! route('municipios') !!}', {id:elegido}, function(data){
+                        console.log("retunr data: ", data);
+                        if(data.length>0){
+                            $.each(data, function(index,value){
+                                if(value.id==old_municipio){
+                                    $("#municipio").append('<option value='+value.id+' selected >'+value.nombre_municipio+'</option>')
+                                }else{
+                                    $("#municipio").append('<option value='+value.id+'  >'+value.nombre_municipio+'</option>')
+                                }
+                            });
+                        }
+                    });                
+            }
 
             // Select anidados
 

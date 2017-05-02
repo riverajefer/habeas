@@ -16,7 +16,7 @@
         
         @if(count($auditoria)>0 and $auditoria[0]->event!='created')
             <div align="center">
-                <a href="{{URL::route('getHistorialCambiosExcel', [$registro_id, $fecha_inicio, $fecha_fin]  )}}"> 
+                <a href="{{URL::route('getHistorialCambiosExcel', [$area_id, $registro_id, $fecha_inicio, $fecha_fin]  )}}"> 
                     <i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar en Excel
                 </a>
             </div>

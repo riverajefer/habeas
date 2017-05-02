@@ -79,7 +79,7 @@ class FormularioController extends Controller
             'departamento_id'=>'required',
             'municipio_id'=>'required',
             'autorizo'=>'required',
-            'g-recaptcha-response' => 'required|recaptcha',
+            'g-recaptcha-response' => 'required',
         ]);
 
 

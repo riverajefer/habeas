@@ -46,6 +46,8 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('reg/subida_masiva','RegistrosController@postSubidaMasiva')->name('postSubidaMasiva');
     Route::get('reg/subida_masiva_registros/{id}','RegistrosController@subidaMasivaRegistros')->name('subidaMasivaRegistros');
 
+    Route::post('registros_area','RegistrosController@registrosByArea')->name('registrosByArea');
+
     Route::get('reg/subida_masiva_test','RegistrosController@subidaMasivaTest')->name('subidaMasivaTest');
   
     // Descarga excel municipios
@@ -68,8 +70,8 @@ Route::group(['middleware'=>'auth'], function(){
     // Reportes controller
     Route::get('reportes', 'ReportesController@index')->name('reportes');
     Route::post('reportes/historial_cambios', 'ReportesController@getHistorialCambios')->name('getHistorialCambios');
-    Route::get('reportes/historial_cambios_tabla/{id}/{fecha_inicio}/{fecha_fin}', 'ReportesController@getHistorialCambiosTabla')->name('getHistorialCambiosTabla');
-    Route::get('reportes/historial_cambios_excel/{id}/{fecha_inicio}/{fecha_fin}', 'ReportesController@getHistorialCambiosExcel')->name('getHistorialCambiosExcel');
+    Route::get('reportes/historial_cambios_tabla/{area_id}/{registro_id}/{fecha_inicio}/{fecha_fin}', 'ReportesController@getHistorialCambiosTabla')->name('getHistorialCambiosTabla');
+    Route::get('reportes/historial_cambios_excel/{area_id}/{registro_id}/{fecha_inicio}/{fecha_fin}', 'ReportesController@getHistorialCambiosExcel')->name('getHistorialCambiosExcel');
 
     // Usuarios roles y permisos
     Route::get('roles', 'RolesPermisosController@roles')->name('roles');
@@ -77,6 +79,8 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('save_rol', 'RolesPermisosController@saveRol')->name('saveRol');
     Route::post('save_permisos', 'RolesPermisosController@savePermisos')->name('savePermisos');
     Route::post('save_permisos_rol', 'RolesPermisosController@savePermisosRol')->name('savePermisosRol');
+
+
 
 }); 
 
@@ -87,7 +91,6 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 Route::get('test', function(){
 
 //return $permission = Permission::create(['name' => 'roles y permisos']);
-
 
         $user =  Auth::user();
         $areas = $user->areas;

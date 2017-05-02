@@ -29,7 +29,7 @@
 
                 <div class="form-group{{ $errors->has('usuarios') ? ' has-error' : '' }}">
                     <label for="ajax-select">Asignar usuarios</label><br>
-                    <select class="selectpicker form-control" multiple required name="usuarioss[]">
+                    <select class="selectpicker form-control" multiple required name="usuarios[]">
                         @foreach($usuarios as $user)
                             <option value="{{$user->id}}">{{$user->nombre}}</option>
                         @endforeach

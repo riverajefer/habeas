@@ -51,7 +51,7 @@ class AreasController extends Controller
         return Datatables::of($areas)
             ->addColumn('action', function ($areas) {
                 return '
-                    <a class="btn btn-xs btn-link link-warning" href="areas/'.$areas->id.'/edit" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a class="btn btn-xs btn-link link-warning" href="areas/'.$areas->id.'/edit" data-toggle="tooltip" data-placement="top" title="Modificar">Modificar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                     ';
             })        
             ->editColumn('titulo', '{{$titulo}}')
@@ -68,9 +68,7 @@ class AreasController extends Controller
     {
 
         $usuarios = User::role(['responsable', 'operario'])->get();
-
-        $operarios    = User::role('operario')->get();
-        return view('areas.create', compact('usuarios', 'operarios'));
+        return view('areas.create', compact('usuarios'));
     }
 
     /**
@@ -81,30 +79,20 @@ class AreasController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request->all();
         $this->validate($request,[
             'titulo'=>'required|string',
             'usuarios'=>'required',
-            'operarios'=>'required',
         ]);
 
-        $usuarios = $request->input('usuarios');
-        $operarios   = $request->input('operarios');
-
+        $usuarios  = $request->input('usuarios');
 
         $area = new Areas();
-        $area->titulo       = $request->input('titulo');
-       // $area->responsable  = $request->input('responsable');
-        //$area->operario     = $request->input('operario');
-        $area->slug         = str_slug($request->input('titulo'));
+        $area->titulo  = $request->input('titulo');
+        $area->slug    = str_slug($request->input('titulo'));
         $area->save();
-
         $area->users()->attach($usuarios);
 
-        // preguntar si e operario y el responsable estáa asignados al modulos habes,
-        /// Sino están asignarlos  
-
-        return redirect('areas')->with('success','Registro creado correctamente');
+        return redirect('areas')->with('success','Área creada correctamente');
     }
 
     /**
@@ -126,11 +114,10 @@ class AreasController extends Controller
      */
     public function edit($id)
     {
-        $area = Areas::with('m_operario')->with('m_responsable')->get()->find($id);
-        if(!$area){
-            abort(404);
-        }
-        return view('areas.edit', compact('area'));
+        $area = Areas::findOrFail($id);
+        $usuarios_s = $area->users;
+        $usuarios   = User::role(['responsable', 'operario'])->get();
+        return view('areas.edit', compact('area', 'usuarios', 'usuarios_s'));
     }
 
     /**
@@ -142,13 +129,19 @@ class AreasController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $area = Areas::findOrFail($id);
         $this->validate($request,[
             'titulo'=>'required|string',
-            'responsable'=>'required',
-            'operario'=>'required',
+            'usuarios'=>'required',
         ]);
-        Areas::findOrFail($id)->update($request->all());
-        return redirect('areas')->with('success','Registro modificado correctamente');
+
+        $usuarios  = $request->input('usuarios');
+
+        $area->titulo  = $request->input('titulo');
+        $area->save();
+        $area->users()->sync($usuarios);
+
+        return redirect('areas')->with('success','Área modificada correctamente');
     }
 
     /**
@@ -164,3 +157,4 @@ class AreasController extends Controller
 
     
 }
+

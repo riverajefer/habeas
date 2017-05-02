@@ -51,9 +51,9 @@ Operario ->Puede crear actualizar
 ->  Enlace a AnnarNet en Logo 
 ->  Roles, permisos
 ->  Asesores SAP
-->  Validar cargue de ciudad al hacer correcciones
 ->  Incluir varios responsables y Operarios por área
 ->  Incluir filtro de Área y registro en el informe de cambios
+
 
 ********************************
  EN PROCESO
@@ -68,6 +68,13 @@ Operario ->Puede crear actualizar
 ->  Incluir filtro de Área y registro en el informe de cambios
 ->  Validar cargue de plantilla adjunta
 ->  listar Usuarios encargados
+
+===============================
+Para producción cambiar:
+Autenticate.php
+Header, enlace Logo
+LoginController Logout
+================================
 
 
 ********************************

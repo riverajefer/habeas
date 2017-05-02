@@ -895,4 +895,19 @@ class RegistrosController extends Controller
         //return  $asesores = Curl::to('http://190.145.89.228/annarnetp/index.php/prueba/index')->get();}
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function registrosByArea(Request $request)
+    {
+        //return $request->all();
+        $id_area = $request->input('id');
+        $areas = Areas::find($id_area);
+        return $registros = $areas->registros;
+    }
+
+
 }

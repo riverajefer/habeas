@@ -253,7 +253,7 @@
                     <select name="departamento_id" id="departamento" class="form-control" required>
                         <option value="">Seleccione un departamento</option>
                         @foreach($departamentos as $departamento)
-                             <option value="{{$departamento->id}}">{{$departamento->nombre}}</option>
+                             <option value="{{$departamento->id}}" {{$departamento->id == old('departamento_id') ? 'selected':'' }}>{{$departamento->nombre}}</option>
                         @endforeach
                     </select>
                     @if ($errors->has('departamento_id'))
@@ -461,6 +461,32 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+
+           /* ==================  Recarga los select dependientes al return  ===========================*/
+
+            var old_departamento = '{{ old('departamento_id') ? old('departamento_id') : 0 }}';
+            var old_municipio = '{{ old('municipio_id') ? old('municipio_id') : 0 }}';
+
+            if(old_departamento!=0){
+                console.log("selecte: ",old_departamento)
+                    var elegido = old_departamento;
+                    $("#municipio").empty();
+
+                    $.post('{!! route('municipios') !!}', {id:elegido}, function(data){
+                        console.log("retunr data: ", data);
+                        if(data.length>0){
+                            $.each(data, function(index,value){
+                                if(value.id==old_municipio){
+                                    $("#municipio").append('<option value='+value.id+' selected >'+value.nombre_municipio+'</option>')
+                                }else{
+                                    $("#municipio").append('<option value='+value.id+'  >'+value.nombre_municipio+'</option>')
+                                }
+                            });
+                        }
+                    });                
+            }
+
 
 
             $.getJSON("http://jsonip.com/?callback=?", function (data) {
