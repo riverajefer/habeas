@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Models\Registros;
 use App\Models\Areas;
 use Excel;
+use Carbon\Carbon;
+
 
 class ReportesController extends Controller
 {
@@ -40,27 +42,28 @@ class ReportesController extends Controller
      * @return Response
      */
      public function getHistorialCambios(Request $request){
-         //return $request->all();
 
-         $fecha_inicio = $request->input('fecha_inicio');
-         $fecha_fin    = $request->input('fecha_fin');
-         $registro_id  = $request->input('registro');
-         $area_id      = $request->input('area');
+        $fecha_inicio = $request->input('fecha_inicio');
+        $fecha_fin    = $request->input('fecha_fin');
+        $registro_id  = $request->input('registro');
+        $area_id      = $request->input('area');
+
+        $date1 = str_replace('-', '/', $fecha_inicio);
+        $fecha_inicio_c = date('Y-m-d',strtotime($date1 . "-1 days"));
+        $date2 = str_replace('-', '/', $fecha_fin);
+        $fecha_fin_c = date('Y-m-d',strtotime($date2 . "+1 days"));
 
          if($registro_id==0){
               $auditoria = collect();
               $area = Areas::find($area_id);
               $registros = $area->registros;
               foreach($registros as $registro){
-                  $auditoria = $auditoria->merge($registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio, $fecha_fin])->get());
-                  //$auditoria = $auditoria->merge($registro->audits()->with('user')->get());
+                  $auditoria = $auditoria->merge($registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio_c, $fecha_fin_c])->get());
               }
          }else{
             $registro  = Registros::findOrFail($registro_id);
-            $auditoria = $registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio, $fecha_fin])->get();
-          //  $auditoria = $registro->audits()->with('user')->get();
+            $auditoria = $registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio_c, $fecha_fin_c])->get();
          }
-
          
          return view('reportes.resul_auditoria', compact('auditoria', 'fecha_inicio', 'fecha_fin', 'registro_id', 'area_id'));         
      }
@@ -73,19 +76,23 @@ class ReportesController extends Controller
      */
      public function getHistorialCambiosTabla($area_id, $registro_id, $fecha_inicio, $fecha_fin){
 
+        $date1 = str_replace('-', '/', $fecha_inicio);
+        $fecha_inicio_c = date('Y-m-d',strtotime($date1 . "-1 days"));
+        $date2 = str_replace('-', '/', $fecha_fin);
+        $fecha_fin_c = date('Y-m-d',strtotime($date2 . "+1 days"));
+
          if($registro_id==0){
               $auditoria = collect();
               $area = Areas::find($area_id);
               $registros = $area->registros;
               foreach($registros as $registro){
-                  $auditoria = $auditoria->merge($registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio, $fecha_fin])->get());
-                 // $auditoria = $auditoria->merge($registro->audits()->with('user')->get());
+                  $auditoria = $auditoria->merge($registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio_c, $fecha_fin_c])->get());
               }
          }else{
             $registro  = Registros::findOrFail($registro_id);
-            $auditoria = $registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio, $fecha_fin])->get();
-            //$auditoria = $registro->audits()->with('user')->get();
-         }         
+            $auditoria = $registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio_c, $fecha_fin_c])->get();
+         }
+                
          return view('reportes.resul_auditoria_tabla', compact('auditoria', 'fecha_inicio', 'fecha_fin', 'registro_id', 'area_id'));
      }
 
@@ -100,17 +107,22 @@ class ReportesController extends Controller
         $excel = \App::make('excel');
         Excel::create('Historial_de_Cambios', function($excel) use ($registro_id, $fecha_inicio, $fecha_fin, $area_id) {
 
+            $date1 = str_replace('-', '/', $fecha_inicio);
+            $fecha_inicio_c = date('Y-m-d',strtotime($date1 . "-1 days"));
+            $date2 = str_replace('-', '/', $fecha_fin);
+            $fecha_fin_c = date('Y-m-d',strtotime($date2 . "+1 days"));
+
             if($registro_id==0){
                 $auditoria = collect();
                 $area = Areas::find($area_id);
                 $registros = $area->registros;
                 foreach($registros as $registro){
-                    $auditoria = $auditoria->merge($registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio, $fecha_fin])->get());
+                    $auditoria = $auditoria->merge($registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio_c, $fecha_fin_c])->get());
                 }
             }else{
                 $registro  = Registros::findOrFail($registro_id);
-                $auditoria = $registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio, $fecha_fin])->get();
-            } 
+                $auditoria = $registro->audits()->with('user')->whereBetween('created_at', [$fecha_inicio_c, $fecha_fin_c])->get();
+            }
 
 			$excel->sheet('Historial_de_Cambios', function($sheet) use ($auditoria)
 	        {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-04-2017 a las 20:49:25
+-- Tiempo de generación: 03-05-2017 a las 06:08:50
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -41,14 +41,38 @@ CREATE TABLE `areas` (
 --
 
 INSERT INTO `areas` (`id`, `titulo`, `responsable`, `operario`, `slug`, `created_at`, `updated_at`) VALUES
-(1, 'Mercadeo', 2, 2, 'mercadeo', '2017-03-09 21:31:18', '2017-03-30 19:38:02'),
-(2, 'Financiera', 2, 2, 'financiera', '2017-03-09 21:31:42', '2017-03-09 21:31:42'),
-(3, 'Soporte Técnico', 2, 3, 'soporte-tecnico', '2017-03-09 21:32:21', '2017-03-09 21:32:21'),
-(4, 'Veterinaria', 2, 2, 'veterinaria', '2017-03-09 21:32:54', '2017-03-09 21:32:54'),
-(5, 'Industria', 2, 2, 'industria', '2017-03-09 21:33:05', '2017-03-09 21:33:05'),
-(6, 'Diagnóstica', 2, 2, 'diagnostica', '2017-03-09 21:34:35', '2017-03-09 21:34:35'),
-(7, 'Biología Molecular', 2, 2, 'biologia-molecular', '2017-03-09 21:35:44', '2017-03-24 00:45:17'),
-(8, 'Banco de Sangre', 2, 2, 'banco-de-sangre', '2017-03-09 21:36:18', '2017-03-09 21:36:18');
+(1, 'Mercadeo', 3, 3, 'mercadeo', '2017-03-09 21:31:18', '2017-03-30 19:38:02'),
+(2, 'Financiera', 3, 3, 'financiera', '2017-03-09 21:31:42', '2017-03-09 21:31:42'),
+(3, 'Soporte Técnico', 3, 3, 'soporte-tecnico', '2017-03-09 21:32:21', '2017-03-09 21:32:21'),
+(4, 'Veterinaria', 3, 3, 'veterinaria', '2017-03-09 21:32:54', '2017-03-09 21:32:54'),
+(5, 'Industria', 3, 3, 'industria', '2017-03-09 21:33:05', '2017-03-09 21:33:05'),
+(6, 'Diagnóstica', 3, 3, 'diagnostica', '2017-03-09 21:34:35', '2017-03-09 21:34:35'),
+(7, 'Biología Molecular', 3, 3, 'biologia-molecular', '2017-03-09 21:35:44', '2017-03-24 00:45:17'),
+(8, 'Banco de Sangre', 3, 3, 'banco-de-sangre', '2017-03-09 21:36:18', '2017-03-09 21:36:18');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `areas_users`
+--
+
+CREATE TABLE `areas_users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `area_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `areas_users`
+--
+
+INSERT INTO `areas_users` (`id`, `area_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(23, 8, 87, '2017-05-02 00:24:43', '2017-05-02 00:24:43'),
+(25, 1, 87, '2017-05-02 00:24:52', '2017-05-02 00:24:52'),
+(27, 4, 87, '2017-05-02 00:26:25', '2017-05-02 00:26:25'),
+(28, 1, 2, '2017-05-02 00:27:08', '2017-05-02 00:27:08');
 
 -- --------------------------------------------------------
 
@@ -194,7 +218,24 @@ INSERT INTO `audits` (`id`, `user_id`, `event`, `auditable_id`, `auditable_type`
 (117, 4, 'updated', 90, 'App\\Models\\Registros', '{\"municipio_id\":517}', '{\"municipio_id\":\"354\"}', 'http://localhost/habeas/public/registros/90', '::1', '2017-04-07 18:15:40'),
 (118, 4, 'updated', 90, 'App\\Models\\Registros', '{\"estado\":1,\"baja_por\":null}', '{\"estado\":0,\"baja_por\":4}', 'http://localhost/habeas/public/registros/baja', '::1', '2017-04-07 18:19:25'),
 (119, 4, 'created', 91, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Lina\",\"primer_apellido\":\"Perez\",\"segundo_apellido\":\"Gonzales\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"22221113\",\"email\":\"riverajefer@gmail.com\",\"fecha_nacimiento\":\"2011-12-27\",\"profesion\":\"Publicista\",\"cargo\":\"Comercial\",\"empresa\":\"Annardx\",\"telefono_personal\":\"1234489\",\"celular\":\"32121212\",\"municipio_id\":\"634\",\"procedencia\":\"Formulario_mercadeo\",\"area_id\":\"1\",\"menor_de_18\":true,\"estado\":1,\"id\":91}', 'http://localhost/habeas/public/formulario/guardar', '::1', '2017-04-07 18:32:06'),
-(120, 4, 'updated', 91, 'App\\Models\\Registros', '{\"estado\":1,\"baja_por\":null}', '{\"estado\":0,\"baja_por\":0}', 'http://localhost/habeas/public/formulario/baja', '::1', '2017-04-07 18:36:13');
+(120, 4, 'updated', 91, 'App\\Models\\Registros', '{\"estado\":1,\"baja_por\":null}', '{\"estado\":0,\"baja_por\":0}', 'http://localhost/habeas/public/formulario/baja', '::1', '2017-04-07 18:36:13'),
+(121, 2, 'created', 92, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Daniela\",\"primer_apellido\":\"Doe\",\"segundo_apellido\":\"Perez\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"10272522\",\"email\":\"riverajefer@gmail.com\",\"fecha_nacimiento\":null,\"profesion\":\"Ingeniero Industrial\",\"cargo\":\"Analista\",\"empresa\":\"Annardx\",\"telefono_personal\":\"\",\"archivo_soporte\":null,\"municipio_id\":\"525\",\"area_id\":\"8\",\"procedencia\":\"Panel de administraci\\u00f3n\",\"creado_por\":2,\"menor_de_18\":0,\"sn\":null,\"telefono_corporativo\":\"\",\"celular\":\"\",\"celular_corporativo\":\"\",\"email_corporativo\":\"\",\"direccion\":\"\",\"comentarios\":\"\",\"estado_cliente\":\"Cliente Activo\",\"tipo_registro\":\"\",\"asesor_comercial\":\"ANNAR\",\"estado\":1,\"id\":92}', 'http://190.145.89.228/habeas/public/registros', '192.168.3.1', '2017-04-15 17:11:20'),
+(122, 2, 'updated', 92, 'App\\Models\\Registros', '{\"fecha_nacimiento\":null,\"celular_corporativo\":\"\",\"tipo_registro\":0,\"modificado_por\":0}', '{\"fecha_nacimiento\":\"1990-07-19\",\"celular_corporativo\":\"1213234000\",\"tipo_registro\":\"2\",\"modificado_por\":2}', 'http://190.145.89.228/habeas/public/registros/92', '192.168.3.1', '2017-04-15 17:12:03'),
+(123, 2, 'updated', 92, 'App\\Models\\Registros', '{\"sn\":null}', '{\"sn\":\"123\"}', 'http://localhost/habeas/public/registros/92', '::1', '2017-04-20 19:26:47'),
+(124, 2, 'created', 9, 'App\\Models\\Areas', '[]', '{\"titulo\":\"Comercial Dep\",\"slug\":\"comercial-dep\",\"id\":9}', 'http://localhost/habeas/public/areas', '::1', '2017-04-27 21:21:03'),
+(125, 2, 'updated', 91, 'App\\Models\\Registros', '{\"telefono_corporativo\":null,\"celular_corporativo\":null,\"email_corporativo\":null,\"direccion\":null,\"tipo_registro\":null,\"comentarios\":null,\"asesor_comercial\":null,\"estado\":0,\"estado_cliente\":null,\"modificado_por\":0,\"baja_por\":0}', '{\"telefono_corporativo\":\"\",\"celular_corporativo\":\"\",\"email_corporativo\":\"\",\"direccion\":\"\",\"tipo_registro\":0,\"comentarios\":\"\",\"asesor_comercial\":\"VARIOS\",\"estado\":\"1\",\"estado_cliente\":\"Cliente Activo\",\"modificado_por\":2,\"baja_por\":null}', 'http://localhost/habeas/public/registros/91', '::1', '2017-04-28 20:32:46'),
+(126, 2, 'created', 10, 'App\\Models\\Areas', '[]', '{\"titulo\":\"Nueva\",\"slug\":\"nueva\",\"id\":10}', 'http://localhost:81/habeas/public/areas', '::1', '2017-05-01 22:40:59'),
+(127, 2, 'created', 11, 'App\\Models\\Areas', '[]', '{\"titulo\":\"Nueva B\",\"slug\":\"nueva-b\",\"id\":11}', 'http://localhost:81/habeas/public/areas', '::1', '2017-05-01 22:50:10'),
+(128, 2, 'updated', 16, 'App\\Models\\Registros', '{\"nombre\":\"Pedro\",\"segundo_apellido\":\"Paez\",\"fecha_nacimiento\":\"2012-12-29\",\"profesion\":\"Ingeniero\",\"telefono_personal\":\"1234489\",\"celular\":\"25555002\",\"municipio_id\":525,\"area_id\":8,\"procedencia\":\"Administraci\\u00f3n\",\"menor_de_18\":1}', '{\"nombre\":\"Daniela\",\"segundo_apellido\":\"Perez\",\"fecha_nacimiento\":\"2012-01-03\",\"profesion\":\"Ingeniero Industrial\",\"telefono_personal\":\"74715485\",\"celular\":\"3118765\",\"municipio_id\":\"517\",\"area_id\":\"1\",\"procedencia\":\"Formulario_mercadeo\",\"menor_de_18\":true}', 'http://localhost:81/habeas/public/formulario/guardar', '::1', '2017-05-02 00:47:36'),
+(129, 2, 'updated', 16, 'App\\Models\\Registros', '{\"fecha_nacimiento\":\"2012-01-03\",\"celular\":\"3118765\",\"municipio_id\":517,\"menor_de_18\":1}', '{\"fecha_nacimiento\":\"1992-01-07\",\"celular\":\"3100287372\",\"municipio_id\":\"491\",\"menor_de_18\":false}', 'http://localhost:81/habeas/public/formulario/guardar', '::1', '2017-05-02 01:12:10'),
+(130, 2, 'updated', 16, 'App\\Models\\Registros', '{\"nombre\":\"Daniela\",\"celular\":\"3100287372\",\"email\":\"jrivera@bancoink.com\",\"municipio_id\":491,\"menor_de_18\":0}', '{\"nombre\":\"Carlos\",\"celular\":\"3118765\",\"email\":\"riverajefer@gmail.com\",\"municipio_id\":\"522\",\"menor_de_18\":false}', 'http://localhost:81/habeas/public/formulario/guardar', '::1', '2017-05-02 01:12:58'),
+(131, 2, 'updated', 16, 'App\\Models\\Registros', '{\"nombre\":\"Carlos\",\"primer_apellido\":\"Doe\",\"fecha_nacimiento\":\"1992-01-07\",\"empresa\":\"Annardx\",\"celular\":\"3118765\",\"email\":\"riverajefer@gmail.com\",\"municipio_id\":522,\"menor_de_18\":0}', '{\"nombre\":\"Daniela\",\"primer_apellido\":\"Romero\",\"fecha_nacimiento\":\"2016-05-10\",\"empresa\":\"Annardx m\",\"celular\":\"3100287372\",\"email\":\"jrivera@bancoink.com\",\"municipio_id\":\"525\",\"menor_de_18\":true}', 'http://localhost:81/habeas/public/formulario/guardar', '::1', '2017-05-02 01:17:13'),
+(132, 2, 'updated', 16, 'App\\Models\\Registros', '{\"primer_apellido\":\"Romero\",\"fecha_nacimiento\":\"2016-05-10\",\"empresa\":\"Annardx m\",\"telefono_personal\":\"74715485\",\"menor_de_18\":1}', '{\"primer_apellido\":\"Doe\",\"fecha_nacimiento\":\"2001-12-31\",\"empresa\":\"Annardx\",\"telefono_personal\":\"1234489\",\"menor_de_18\":true}', 'http://localhost:81/habeas/public/formulario/guardar', '::1', '2017-05-02 01:18:16'),
+(133, 2, 'created', 93, 'App\\Models\\Registros', '[]', '{\"nombre\":\"Daniela\",\"primer_apellido\":\"Romero\",\"segundo_apellido\":\"Perez\",\"tipo_documento\":\"C\\u00e9dula de Ciudadan\\u00eda\",\"doc\":\"12343\",\"email\":\"riverajefer@gmail.com\",\"fecha_nacimiento\":\"2011-12-26\",\"profesion\":\"Ingeniero Industrial\",\"cargo\":\"Analista\",\"empresa\":\"Annardx\",\"telefono_personal\":\"\",\"archivo_soporte\":null,\"municipio_id\":\"366\",\"area_id\":\"6\",\"procedencia\":\"Panel de administraci\\u00f3n\",\"creado_por\":2,\"menor_de_18\":1,\"sn\":null,\"telefono_corporativo\":\"\",\"celular\":\"\",\"celular_corporativo\":\"\",\"email_corporativo\":\"\",\"direccion\":\"\",\"comentarios\":\"\",\"estado_cliente\":\"Cliente Activo\",\"tipo_registro\":\"\",\"asesor_comercial\":\"\",\"estado\":1,\"id\":93}', 'http://localhost:81/habeas/public/registros', '::1', '2017-05-02 01:23:17'),
+(134, 2, 'updated', 93, 'App\\Models\\Registros', '{\"direccion\":\"\",\"municipio_id\":366,\"tipo_registro\":0,\"asesor_comercial\":\"\",\"modificado_por\":0}', '{\"direccion\":\"Calle 57 # 70-180\",\"municipio_id\":\"370\",\"tipo_registro\":\"2\",\"asesor_comercial\":\"VARIOS\",\"modificado_por\":2}', 'http://localhost:81/habeas/public/registros/93', '::1', '2017-05-02 01:24:01'),
+(135, 2, 'updated', 49, 'App\\Models\\Registros', '{\"empresa\":null,\"telefono_personal\":\"Annardx\",\"celular_corporativo\":\"Daniel\",\"asesor_comercial\":\"0\",\"estado_cliente\":\"1\",\"modificado_por\":0}', '{\"empresa\":\"Annardx\",\"telefono_personal\":\"78787\",\"celular_corporativo\":\"787878\",\"asesor_comercial\":\"VARIOS\",\"estado_cliente\":\"Cliente Activo\",\"modificado_por\":2}', 'http://localhost:81/habeas/public/registros/49', '::1', '2017-05-02 03:32:05'),
+(136, 2, 'updated', 49, 'App\\Models\\Registros', '{\"sn\":null,\"telefono_personal\":\"78787\"}', '{\"sn\":\"12233\",\"telefono_personal\":\"32324454\"}', 'http://localhost:81/habeas/public/registros/49', '::1', '2017-05-03 01:07:09'),
+(137, 2, 'updated', 75, 'App\\Models\\Registros', '{\"procedencia\":\"Panel de administraci\\u00f3n Subida masiva\",\"creado_por\":4}', '{\"procedencia\":\"Subida masiva\",\"creado_por\":2}', 'http://localhost:81/habeas/public/reg/subida_masiva', '::1', '2017-05-03 04:07:15');
 
 -- --------------------------------------------------------
 
@@ -307,7 +348,14 @@ INSERT INTO `device_registros` (`id`, `registro_id`, `SO`, `SO_version`, `device
 (32, 88, 'Windows', '10.0', 'WebKit', 'Chrome', '190.93.151.78', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.6492, -74.0628', '2017-04-07 17:32:08', '2017-04-07 17:32:08'),
 (33, 89, 'Windows', '10.0', 'WebKit', 'Chrome', '190.93.151.78', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.6492, -74.0628', '2017-04-07 17:33:16', '2017-04-07 17:33:16'),
 (34, 90, 'Windows', '10.0', 'WebKit', 'Chrome', '190.93.151.78', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.6492, -74.0628', '2017-04-07 17:53:51', '2017-04-07 17:53:51'),
-(35, 91, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31, -72.92', '2017-04-07 18:32:07', '2017-04-07 18:32:07');
+(35, 91, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31, -72.92', '2017-04-07 18:32:07', '2017-04-07 18:32:07'),
+(36, 92, 'Windows', '10.0', 'WebKit', 'Chrome', '181.49.66.55', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.71099, -74.0721', '2017-04-15 17:11:21', '2017-04-15 17:11:21'),
+(37, 16, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31, -72.92', '2017-05-02 00:47:38', '2017-05-02 00:47:38'),
+(38, 16, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31, -72.92', '2017-05-02 01:12:11', '2017-05-02 01:12:11'),
+(39, 16, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31, -72.92', '2017-05-02 01:12:59', '2017-05-02 01:12:59'),
+(40, 16, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31, -72.92', '2017-05-02 01:17:14', '2017-05-02 01:17:14'),
+(41, 16, 'Windows', '10.0', 'WebKit', 'Chrome', '::1', 'Desktop', 'United States', 'Connecticut', 'New Haven', '41.31, -72.92', '2017-05-02 01:18:17', '2017-05-02 01:18:17'),
+(42, 93, 'Windows', '10.0', 'WebKit', 'Chrome', '181.49.71.55', 'Desktop', 'Colombia', 'Bogota D.C.', 'Bogotá', '4.6492, -74.0628', '2017-05-02 01:23:18', '2017-05-02 01:23:18');
 
 -- --------------------------------------------------------
 
@@ -331,7 +379,9 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2017_03_06_095203_create_areas_table', 3),
 ('2017_03_13_221127_create_tipo_registros_table', 4),
 ('2017_03_16_131318_create_device_registros_table', 5),
-('2017_03_22_153216_create_audits_table', 6);
+('2017_03_22_153216_create_audits_table', 6),
+('2017_04_25_183526_create_permission_tables', 7),
+('2017_04_25_221405_create_areas_users_table', 8);
 
 -- --------------------------------------------------------
 
@@ -1470,7 +1520,34 @@ CREATE TABLE `password_resets` (
 --
 
 INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
-('maribel.rodriguez@annardx.com', 'a0fe069eee5dfa1e1f9bf35d425636459de9e00c028d34e79a3655c8dfc00fd2', '2017-04-03 16:33:44');
+('maribel.rodriguez@annardx.com', 'dc447413058e5dfd31683b08254ec0a87ccb8ffd418ecd9556799509649b4150', '2017-04-15 16:47:05');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'crear registros', '2017-04-26 03:35:08', '2017-04-26 03:35:08'),
+(2, 'modificar registros', '2017-04-26 03:35:44', '2017-04-26 03:35:44'),
+(3, 'baja', '2017-04-26 03:35:53', '2017-04-26 03:35:53'),
+(4, 'ver registros', '2017-04-26 03:36:02', '2017-04-26 03:36:02'),
+(5, 'subida masiva', '2017-04-26 03:36:19', '2017-04-26 03:36:19'),
+(6, 'reportes', '2017-04-26 03:36:34', '2017-04-26 03:36:34'),
+(9, 'areas', '2017-04-28 21:02:10', '2017-04-28 21:02:10'),
+(10, 'roles y permisos', '2017-04-28 21:02:27', '2017-04-28 21:02:27');
 
 -- --------------------------------------------------------
 
@@ -1528,7 +1605,7 @@ INSERT INTO `registros` (`id`, `sn`, `nombre`, `primer_apellido`, `segundo_apell
 (6, '', 'Juan', 'Romero', 'Paez', 'Cédula de Ciudadanía', '4343434', '1991-12-31', 'Ingeniero', 'Analista', 'Annardx', '74715485', '', NULL, NULL, '', NULL, '', 525, NULL, 1, 'Formulario_mercadeo', 0, 0, NULL, '0', 1, '0', 0, 0, 0, 0, '2017-03-10 21:15:19', '2017-03-10 21:15:19'),
 (7, '', 'Daniela', 'Diaz', 'Gonzales', 'Cédula de Ciudadanía', '3434343', '1991-12-31', 'Publicista', 'Comercial', 'Annardx', '74715485', '', NULL, NULL, '', NULL, '', 525, '', 2, 'Administración', 0, 0, NULL, '0', 1, '0', 0, 2, 0, 0, '2017-03-10 21:16:42', '2017-03-10 21:22:24'),
 (9, '', 'Jose', 'Romero', 'Paez', 'Cédula de Ciudadanía', '34343453545', '1981-12-29', 'Ingeniero', 'Comercial', 'Annardx', '1234489', '', NULL, NULL, '', NULL, '', 525, '', 6, 'Administración', 0, 0, NULL, '0', 1, '0', 2, 0, 0, 0, '2017-03-10 21:26:44', '2017-03-10 21:26:44'),
-(16, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '123', '2012-12-29', 'Ingeniero', 'Analista', 'Annardx', '1234489', '', '25555002', '12345', 'jrivera@bancoink.com', '', '', 525, NULL, 8, 'Administración', 0, 1, '', 'VARIOS', 1, 'Cliente Activo', 2, 2, NULL, 0, '2017-03-13 03:59:27', '2017-04-07 14:35:22'),
+(16, NULL, 'Daniela', 'Doe', 'Perez', 'Cédula de Ciudadanía', '123', '2001-12-31', 'Ingeniero Industrial', 'Analista', 'Annardx', '1234489', '', '3100287372', '12345', 'jrivera@bancoink.com', '', '', 525, NULL, 1, 'Formulario_mercadeo', 0, 1, '', 'VARIOS', 1, 'Cliente Activo', 2, 2, NULL, 0, '2017-03-13 03:59:27', '2017-05-02 01:18:16'),
 (17, NULL, 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '1238', '1992-01-14', 'Ingeniero', 'Analista', 'Annardx', '1234489', NULL, NULL, NULL, 'jrivera@bancoink.com', NULL, NULL, 525, '', 8, 'Administración', NULL, 0, NULL, '0', 1, '0', 2, 0, 0, 0, '2017-03-13 04:01:29', '2017-03-13 04:01:29'),
 (18, '1234', 'Pedro', 'Doe', 'Paez', 'Cédula de Ciudadanía', '11121', '1999-12-28', 'Ingeniero', 'Analista', 'Annardx', '74715485', NULL, '32121212', '12132343', 'jrivera@bancoink.com', 'jrivera@bancoink.com', 'Calle falsa 123', 525, '1489460418.png', 8, 'Administración', 1, 1, 'Hola mundo', '0', 0, 'Cliente Activo', 2, 0, 0, 0, '2017-03-14 03:00:18', '2017-03-14 03:00:18'),
 (20, '12123600', 'Danielm', 'Romerom', 'Ariasm', 'Cédula de Ciudadanía', '7638238200', '1993-10-28', 'Ingeniero Industrial m', 'Administración m', 'Annardx m', '3232445400', '233445500', '310028737200', '1213234000', 'jriveramm@bancoink.com', 'jriveramc@bancoink.com', 'Calle 57 # 70-180', 70, '1489679807.png', 6, 'Administración', 3, 0, 'No tengo comentaros mod00', '0', 0, 'Cliente Inactivo', 2, 2, 0, 0, '2017-03-16 14:33:32', '2017-03-16 16:23:16'),
@@ -1553,7 +1630,7 @@ INSERT INTO `registros` (`id`, `sn`, `nombre`, `primer_apellido`, `segundo_apell
 (46, NULL, 'Pedro', 'Romero', 'Paez', 'NIT', '202020', '1985-01-30', 'Ingeniero Industrial', 'Administración', NULL, 'Annardx', '7848817', '3167890235', 'Pedro', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 0, 0, 'Sin comentarios', '0', 1, '1', 2, 0, NULL, 12, '2017-03-29 19:31:22', '2017-03-29 19:31:22'),
 (47, NULL, 'Pedro', 'Romero', 'Paez', 'NIT', '20202000', '1985-01-30', 'Ingeniero Industrial', 'Administración', NULL, 'Annardx', '7848817', '3167890235', 'Pedro', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 0, 0, 'Sin comentarios', '0', 1, '1', 2, 0, NULL, 13, '2017-03-29 19:37:08', '2017-03-29 19:37:08'),
 (48, NULL, 'Pedro', 'Romero', 'Paez', 'NIT', '20202011', '1985-01-30', 'Ingeniero Industrial', 'Administración', NULL, 'Annardx', '7848817', '3167890235', 'Pedro', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 0, 0, 'Sin comentarios', '0', 1, '1', 2, 0, NULL, 14, '2017-03-29 19:37:54', '2017-03-29 19:37:54'),
-(49, NULL, 'Daniel', 'Romero', 'Ruiz', 'NIT', '7474700', '1985-01-30', 'Ingeniero Industrial', 'Administración', NULL, 'Annardx', '7848817', '3167890235', 'Daniel', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 0, 0, 'Sin comentarios', '0', 0, '1', 2, 0, 2, 14, '2017-03-29 19:37:54', '2017-04-06 22:01:27'),
+(49, '12233', 'Daniel', 'Romero', 'Ruiz', 'NIT', '7474700', '1985-01-30', 'Ingeniero Industrial', 'Administración', 'Annardx', '32324454', '7848817', '3167890235', '787878', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 0, 0, 'Sin comentarios', 'VARIOS', 0, 'Cliente Activo', 2, 2, 2, 14, '2017-03-29 19:37:54', '2017-05-03 01:07:09'),
 (50, NULL, 'Pedro', 'Romero', 'Paez', 'NIT', '20202088', '1985-01-30', 'Ingeniero Industrial', 'Administración', NULL, 'Annardx', '7848817', '3167890235', 'Pedro', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 0, 0, 'Sin comentarios', '0', 1, '1', 2, 0, NULL, 15, '2017-03-29 19:42:02', '2017-03-29 19:42:02'),
 (51, NULL, 'Daniel', 'Romero', 'Ruiz', 'NIT', '7474777', '1985-01-30', 'Ingeniero Industrial', 'Administración', NULL, 'Annardx', '7848817', '3167890235', 'Daniel', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 0, 0, 'Sin comentarios', '0', 1, '1', 2, 0, NULL, 15, '2017-03-29 19:42:03', '2017-03-29 19:42:03'),
 (52, NULL, 'Pedro', 'Romero', 'Paez', 'NIT', '787878', '1985-01-30', 'Ingeniero Industrial', 'Administración', NULL, 'Annardx', '7848817', '3167890235', 'Pedro', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 0, 0, 'Sin comentarios', '0', 1, '1', 2, 0, NULL, 16, '2017-03-29 21:55:28', '2017-03-29 21:55:28'),
@@ -1579,7 +1656,7 @@ INSERT INTO `registros` (`id`, `sn`, `nombre`, `primer_apellido`, `segundo_apell
 (72, '123', 'Jorge', 'Lopez', 'Gonzales', 'NIT', '121212', NULL, 'Publicista', 'Comercial', 'Annardx m', '', '', '', '', 'riverajefer@gmail.com', '', 'Calle 57 # 70-15', 1, NULL, 8, 'Panel de administración', 1, 0, '', '0', 1, 'Cliente Activo', 2, 2, NULL, 0, '2017-03-30 20:20:58', '2017-03-30 20:26:32'),
 (73, NULL, 'Pedro', 'Romero', 'Paez', 'NIT', '85874266', '1985-01-30', 'Ingeniero Industrial', 'Administración', 'Annardx', '78712145', '7848817', '3167890235', '3167890235', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 2, 0, 'Sin comentarios', '0', 1, 'Cliente Activo', 2, 2, NULL, 22, '2017-03-30 20:27:42', '2017-03-30 20:27:52'),
 (74, '333', 'Daniel', 'Romero', 'Ruiz', 'NIT', '1023684', '1985-01-30', 'Ingeniero Industrial', 'Administración', 'Annardx', '78712145', '7848817', '3167890235', '3167890235', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 2, 0, 'Sin comentarios', '0', 0, 'Cliente Activo', 2, 2, 2, 22, '2017-03-30 20:27:42', '2017-03-30 20:46:09'),
-(75, '123', 'Carlos', 'Romero', 'Paez', 'NIT', '3333', '1985-01-30', 'Ingeniero Industrial', 'Administración', 'Annardx', '78712145', '7848817', '3167890235', '3167890235', 'email@example.com', 'email@example.com', 'Calle 65 # 60-18', 525, NULL, 1, 'Panel de administración Subida masiva', 3, 0, 'Sin comentarios', 'COLCAN', 1, 'Cliente Activo', 4, 0, NULL, 28, '2017-04-03 17:52:51', '2017-04-07 15:05:50'),
+(75, '123', 'Carlos', 'Romero', 'Paez', 'NIT', '3333', '1985-01-30', 'Ingeniero Industrial', 'Administración', 'Annardx', '78712145', '7848817', '3167890235', '3167890235', 'email@example.com', 'email@example.com', 'Calle 65 # 60-18', 525, NULL, 1, 'Subida masiva', 3, 0, 'Sin comentarios', 'COLCAN', 1, 'Cliente Activo', 2, 0, NULL, 29, '2017-04-03 17:52:51', '2017-05-03 04:07:15'),
 (76, NULL, 'juan', 'Perez', 'Gonzales', 'Cédula de Ciudadanía', '7412', NULL, 'Publicista', 'Comercial', 'Annardx', '', '2334455', '', '', 'riverajefer@gmail.com', '', '', 135, NULL, 8, 'Panel de administración', 2, 0, '', 'COLCAN', 1, 'Cliente Activo', 2, 2, NULL, 0, '2017-04-05 19:43:19', '2017-04-05 19:52:39'),
 (77, '123', 'Carlos', 'Romero', 'Paez', 'NIT', '325610', '1985-01-30', 'Ingeniero Industrial', 'Administración', 'Annardx', '78712145', '7848817', '3167890235', '3167890235', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 3, 0, 'Sin comentarios', 'COLCANp', 1, 'Cliente Activo', 4, 0, NULL, 23, '2017-04-05 20:02:39', '2017-04-05 20:02:39'),
 (78, '123', 'Carlos', 'Romero', 'Paez', 'NIT', '858585220', '1985-01-30', 'Ingeniero Industrial', 'Administración', 'Annardx', '78712145', '7848817', '3167890235', '3167890235', 'email@example.com', 'email@example.com', 'Calle 65 # 60-15', 525, NULL, 1, 'Panel de administración Subida masiva', 3, 0, 'Sin comentarios', 'COLCAN', 1, 'Cliente Activo', 4, 0, NULL, 24, '2017-04-05 21:43:19', '2017-04-05 21:43:19'),
@@ -1595,7 +1672,66 @@ INSERT INTO `registros` (`id`, `sn`, `nombre`, `primer_apellido`, `segundo_apell
 (88, NULL, 'juan', 'Perez', 'Gonzales', 'Cédula de Ciudadanía', '454543343', NULL, 'Publicista', 'Comercial', 'Annardx', '', '', '', '', 'riverajefer@gmail.com', '', '', 128, NULL, 7, 'Panel de administración', 0, 0, '', '', 1, 'Cliente Activo', 4, 0, NULL, 0, '2017-04-07 17:32:08', '2017-04-07 17:32:08'),
 (89, NULL, 'Pedro', 'Perez', 'Gonzales', 'Cédula de Ciudadanía', '23223232', NULL, 'Publicista', 'Comercial', 'Annardx', '', '', '', '', 'riverajefer@gmail.com', '', '', 3, NULL, 8, 'Panel de administración', 0, 0, '', '', 1, 'Cliente Activo', 4, 0, NULL, 0, '2017-04-07 17:33:16', '2017-04-07 17:33:16'),
 (90, NULL, 'juan', 'Perez', 'Gonzales', 'Cédula de Ciudadanía', '34343222', NULL, 'Publicista', 'Comercial', 'Annardx', '', '', '', '', 'riverajefer@gmail.com', '', '', 354, NULL, 8, 'Panel de administración', 0, 0, '', 'VARIOS', 0, 'Cliente Activo', 4, 4, 4, 0, '2017-04-07 17:53:48', '2017-04-07 18:19:24'),
-(91, NULL, 'Lina', 'Perez', 'Gonzales', 'Cédula de Ciudadanía', '22221113', '2011-12-27', 'Publicista', 'Comercial', 'Annardx', '1234489', NULL, '32121212', NULL, 'riverajefer@gmail.com', NULL, NULL, 634, NULL, 1, 'Formulario_mercadeo', NULL, 1, NULL, NULL, 0, NULL, 0, 0, 0, 0, '2017-04-07 18:32:06', '2017-04-07 18:36:13');
+(91, NULL, 'Lina', 'Perez', 'Gonzales', 'Cédula de Ciudadanía', '22221113', '2011-12-27', 'Publicista', 'Comercial', 'Annardx', '1234489', '', '32121212', '', 'riverajefer@gmail.com', '', '', 634, NULL, 1, 'Formulario_mercadeo', 0, 1, '', 'VARIOS', 1, 'Cliente Activo', 0, 2, NULL, 0, '2017-04-07 18:32:06', '2017-04-28 20:32:46'),
+(92, '123', 'Daniela', 'Doe', 'Perez', 'Cédula de Ciudadanía', '10272522', '1990-07-19', 'Ingeniero Industrial', 'Analista', 'Annardx', '', '', '', '1213234000', 'riverajefer@gmail.com', '', '', 525, NULL, 8, 'Panel de administración', 2, 0, '', 'ANNAR', 1, 'Cliente Activo', 2, 2, NULL, 0, '2017-04-15 17:11:20', '2017-04-20 19:26:47'),
+(93, NULL, 'Daniela', 'Romero', 'Perez', 'Cédula de Ciudadanía', '12343', '2011-12-26', 'Ingeniero Industrial', 'Analista', 'Annardx', '', '', '', '', 'riverajefer@gmail.com', '', 'Calle 57 # 70-180', 370, NULL, 6, 'Panel de administración', 2, 1, '', 'VARIOS', 1, 'Cliente Activo', 2, 2, NULL, 0, '2017-05-02 01:23:17', '2017-05-02 01:24:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'responsable', '2017-04-26 03:32:08', '2017-04-26 03:32:08'),
+(2, 'operario', '2017-04-26 03:32:53', '2017-04-26 03:32:53'),
+(3, 'admin', '2017-04-26 03:52:54', '2017-04-26 03:52:54');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `role_has_permissions`
+--
+
+CREATE TABLE `role_has_permissions` (
+  `permission_id` int(10) UNSIGNED NOT NULL,
+  `role_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `role_has_permissions`
+--
+
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 1),
+(2, 2),
+(2, 3),
+(3, 1),
+(3, 2),
+(3, 3),
+(4, 1),
+(4, 2),
+(4, 3),
+(5, 1),
+(5, 3),
+(6, 1),
+(6, 3),
+(9, 1),
+(10, 1);
 
 -- --------------------------------------------------------
 
@@ -1619,6 +1755,47 @@ INSERT INTO `tipo_registros` (`id`, `titulo`, `created_at`, `updated_at`) VALUES
 (2, 'Cliente', '2017-03-13 12:19:28', '2017-03-13 12:19:28'),
 (3, 'Proveedor', '2017-03-13 12:19:28', '2017-03-13 12:19:28');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_has_permissions`
+--
+
+CREATE TABLE `user_has_permissions` (
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `permission_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `user_has_permissions`
+--
+
+INSERT INTO `user_has_permissions` (`user_id`, `permission_id`) VALUES
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(2, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_has_roles`
+--
+
+CREATE TABLE `user_has_roles` (
+  `role_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `user_has_roles`
+--
+
+INSERT INTO `user_has_roles` (`role_id`, `user_id`) VALUES
+(1, 2),
+(2, 87);
+
 --
 -- Índices para tablas volcadas
 --
@@ -1629,6 +1806,12 @@ INSERT INTO `tipo_registros` (`id`, `titulo`, `created_at`, `updated_at`) VALUES
 ALTER TABLE `areas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id` (`id`);
+
+--
+-- Indices de la tabla `areas_users`
+--
+ALTER TABLE `areas_users`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `audits`
@@ -1664,6 +1847,13 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_token_index` (`token`);
 
 --
+-- Indices de la tabla `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `permissions_name_unique` (`name`);
+
+--
 -- Indices de la tabla `registros`
 --
 ALTER TABLE `registros`
@@ -1672,10 +1862,37 @@ ALTER TABLE `registros`
   ADD KEY `area_id` (`area_id`);
 
 --
+-- Indices de la tabla `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `roles_name_unique` (`name`);
+
+--
+-- Indices de la tabla `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`role_id`),
+  ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
+
+--
 -- Indices de la tabla `tipo_registros`
 --
 ALTER TABLE `tipo_registros`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `user_has_permissions`
+--
+ALTER TABLE `user_has_permissions`
+  ADD PRIMARY KEY (`user_id`,`permission_id`),
+  ADD KEY `user_has_permissions_permission_id_foreign` (`permission_id`);
+
+--
+-- Indices de la tabla `user_has_roles`
+--
+ALTER TABLE `user_has_roles`
+  ADD PRIMARY KEY (`role_id`,`user_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -1687,20 +1904,35 @@ ALTER TABLE `tipo_registros`
 ALTER TABLE `areas`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
+-- AUTO_INCREMENT de la tabla `areas_users`
+--
+ALTER TABLE `areas_users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+--
 -- AUTO_INCREMENT de la tabla `audits`
 --
 ALTER TABLE `audits`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 --
 -- AUTO_INCREMENT de la tabla `device_registros`
 --
 ALTER TABLE `device_registros`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+--
+-- AUTO_INCREMENT de la tabla `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+--
+-- AUTO_INCREMENT de la tabla `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tipo_registros`
 --
@@ -1715,6 +1947,25 @@ ALTER TABLE `tipo_registros`
 --
 ALTER TABLE `municipios`
   ADD CONSTRAINT `municipios_ibfk_1` FOREIGN KEY (`departamento`) REFERENCES `departamentos` (`id`);
+
+--
+-- Filtros para la tabla `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `user_has_permissions`
+--
+ALTER TABLE `user_has_permissions`
+  ADD CONSTRAINT `user_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `user_has_roles`
+--
+ALTER TABLE `user_has_roles`
+  ADD CONSTRAINT `user_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
