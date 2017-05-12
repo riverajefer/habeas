@@ -116,7 +116,7 @@ class FormularioController extends Controller
         $registro->estado = 1;
         $registro->save();
 
-        $this->saveInfoAgent($registro->id);
+        //$this->saveInfoAgent($registro->id);
 
         
         Mail::queue('emails.registro', ['registro'=>$registro], function ($m) use ($registro) {

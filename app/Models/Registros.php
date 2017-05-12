@@ -66,7 +66,7 @@ class Registros extends Model implements AuditableContract
      * @var array
      */
     protected $auditExclude = [
-        'subida_masiva_id',
+        'subida_masiva_id'
     ];
 
 
