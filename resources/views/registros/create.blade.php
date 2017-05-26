@@ -317,9 +317,9 @@
                         <option value="">Seleccione un asesor comercial</option>
                     </select>
 
-                    @if ($errors->has('estado_cliente'))
+                    @if ($errors->has('asesor_comercial'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('estado_cliente') }}</strong>
+                            <strong>{{ $errors->first('asesor_comercial') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -496,7 +496,8 @@
             
             var old_asesor = '{{ old('asesor_comercial') ? old('asesor_comercial') : 0 }}';
             var env = '{{ env('APP_ENV') ? env('APP_ENV') : 'server' }}';
-            var url = 'http://190.145.89.228/annarnetp/index.php/prueba/index';
+            //var url = 'http://190.145.89.228/annarnetp/index.php/prueba/index';
+            var url = 'http://190.145.89.228/habeas/public/test';
 
             if(env == 'local'){
                 url = '{!! route('asesoresSap') !!}';
@@ -506,11 +507,11 @@
                 console.log("data: ", data);
                 $.each(data, function(index, value){
                     var select = '';
-                    if( String(old_asesor) == value.SlpName )
+                    if( String(old_asesor) == value.nombre )
                     {
                         select = 'selected'
                     }
-                    $("#asesor_comercial").append('<option value="'+value.SlpName+'" '+select+' >'+value.SlpName+'</option>');
+                    $("#asesor_comercial").append('<option value="'+value.nombre+'" '+select+' >'+value.nombre+'</option>');
                 });
             });                        
 

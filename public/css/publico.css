@@ -102,4 +102,16 @@ label {
 .im-centered { margin: auto; max-width: 300px;}
 
 
+.aviso-privacidad{
+    padding: 0px 15px;
+}
+.aviso-privacidad p{
+    padding:5px 30px; 
+    text-align: justify;
+    line-height: 21px;
+    margin: 0px;
+}
+.aviso-privacidad ol{
+    margin-left: 20px;
+}
 

@@ -349,6 +349,7 @@
                         </a>
                     </li>
                 @endif
+                <!--
 
                 @if(MyFuncs::usuarioRolPuede('baja'))
                     @if($registro->estado==1)
@@ -360,7 +361,18 @@
                             </a>
                         </li>
                     @endif
-                @endif                 
+                @endif                   
+                -->
+
+                    @if($registro->estado==1)
+                        <li role="presentation">
+                            <a onclick="eliminar( {{$registro->id}} )" href="javascript:void(0)" title="Dar de baja el registro">
+                                <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i> Dar de baja el registro
+                                </button>  
+                            </a>
+                        </li>
+                    @endif
 
                 <li role="presentation">
                     <a href="{{URL::to('registros')}}" title="Ver lista de registros">

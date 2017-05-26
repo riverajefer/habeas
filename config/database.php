@@ -65,21 +65,17 @@ return [
             'strict' => false,
             'engine' => null,
         ],
-/*
-        'mysql2' => [
-            'driver' => 'mysql',
-            'host' => 'localhost',
-            'port' => '3306',
-            'database' => 'datatable',
-            'username' => 'root',
-            'password' => '',
-            'charset' => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix' => '',
-            'strict' => false,
-            'engine' => null,
-        ],        
-*/
+
+        'mssql' => [
+            'driver'   => 'mssql',
+            'host'     => '192.168.3.3',
+            'database' => 'ANNARNETP',
+            'username' => 'annet',
+            'password' => 'Annardx2016*',
+            //'charset'  => 'latin1',
+            'prefix'   => '',
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', 'localhost'),

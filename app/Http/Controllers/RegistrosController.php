@@ -23,7 +23,7 @@ use Jenssegers\Agent\Agent;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Support\Collection;
 use App\HElpers\MyFuncs;
-
+use Response;
 class RegistrosController extends Controller
 {
 
@@ -127,7 +127,8 @@ class RegistrosController extends Controller
         $tipo_registro = TipoRegistro::orderBy('titulo','ASC')->get();
         $tipo_documento = $this->tipo_documento;
         $estado_cliente = $this->estado_cliente;
-        return view('registros.create', compact('departamentos', 'areas', 'tipo_registro', 'tipo_documento', 'estado_cliente'));
+        $asesores = $this->asesores();
+        return view('registros.create', compact('departamentos', 'areas', 'tipo_registro', 'tipo_documento', 'estado_cliente', 'asesores'));
     }
 
 
@@ -907,6 +908,22 @@ class RegistrosController extends Controller
         $id_area = $request->input('id');
         $areas = Areas::find($id_area);
         return $registros = $areas->registros;
+    }
+
+
+    public function asesores(){
+
+	    $sql = DB::connection('mssql')->select("SELECT a.slpname FROM [ANNAR SAS].dbo.OSLP a");
+	    $asesores = [];
+	    foreach ($sql as $key => $value) {
+	        if($value->slpname!=false){
+	            $valor = utf8_decode($value->slpname);
+	            $asesores[] = array("nombre"=>$valor);
+	        }
+	    }
+	    //return $asesores;
+	    return Response::json($asesores);
+
     }
 
 

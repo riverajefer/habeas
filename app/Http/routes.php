@@ -89,102 +89,38 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
 
 Route::get('test', function(){
+      //  $role =  Role::find(1);
+   // return $role->givePermissionTo('nuevo permiso');
+    return $permission = Permission::create(['name' => 'nuevo permiso']);
+    //return "test";
+    //return $tablas = DB::connection('mssql')->select('select * from obs_list');
+    //return  DB::connection('mssql')->getPdo();    
+    //return DB::connection('mssql')->select("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'");
 
-//return $permission = Permission::create(['name' => 'roles y permisos']);
-
-        $user =  Auth::user();
-        $areas = $user->areas;
-
-        $registros = new Collection;
-        foreach($areas as $area){
-            $registros = $registros->merge(App\Models\Registros::with('area')->with('area.m_responsable')->with('area.m_operario')->with('municipio')->with('municipio.ndepartamento')->with('creadoPor')->with('modificadoPor')->with('tipoRegistro')->where('area_id', $area->id)->get());
-        }
-        return $registros;
-
-
-
-
-    $user = App\Models\User::find(2);
-
-
-    $permission = 'modificar registros';
-    $puede = MyFuncs::usuarioRolPuede($user, $permission);
-    return  (String) $puede;
-
-        $roles = $user->roles;
-        $permisos = [];
-        $pasa = false;
-        foreach($roles as $rol){
-            $permisos[] =  $rol->permissions;
-            if(count($rol->permissions) >0){
-                foreach($rol->permissions as $permiso){
-                    if($permiso->name == $permission){
-                        $pasa = true;
-                    }
-                }
-            }
-        }
-        return (String) $pasa;
-
-
-
-    //$areas = App\Models\Areas::find(2);
-    //return $areas->registros;
-
-    //User::has('posts')->get();
-    $areas = $user->areas;
-
-    $registros = [];
-    foreach($areas as $area){
-        $registros[] = $area->registros;
-    }
-    return $registros;
-
-
-
-   $areas = App\Models\Areas::find(4);
-   //return $areas->users;
-
-$users = [2,3];
-return $areas->users()->attach($users);
-
-/*
-$comment = $post->comments()->create([
-    'message' => 'A new comment.',
-]);
-*/
-
-
-
-
-    $user = App\Models\User::find(2);
-    $Elpermiso = 'crear registros';
-    $roles = $user->roles;
-    $permisos = [];
-    $pasa = 'NO';
-    foreach($roles as $rol){
-        $permisos[] =  $rol->permissions;
-        if(count($rol->permissions) >0){
-            foreach($rol->permissions as $permiso){
-                if($permiso->name == $Elpermiso){
-                    $pasa ='Si tiene permiso';
-                }
-            }
+    $sql = DB::connection('mssql')->select("SELECT a.slpname FROM [ANNAR SAS].dbo.OSLP a");
+    $salida = [];
+    foreach ($sql as $key => $value) {
+        if($value->slpname!=false){
+            //$salida[] = json_encode($value->slpname, JSON_UNESCAPED_UNICODE);
+            //trim($string,'"');
+            $valor = utf8_decode($value->slpname);
+            $salida[] = array("nombre"=>$valor);
         }
     }
-    return $pasa;
+    //return $result = json_encode($sql, JSON_UNESCAPED_UNICODE);
+    return Response::json($salida);
 
-    //return $user->assignRole('operario');
-    //$user->assignRole('admin');
-    //return $role = Role::create(['name' => 'admin']);
-    //$role =  Role::find(3);
-    //return $role->givePermissionTo('crear registros');
-    //return (String) $user->hasAllRoles(Role::all());
-    //return $user->givePermissionTo('crear registros');
-    //return $permission = Permission::create(['name' => 'reportes']);
-    //return  $asesores = Curl::to('http://localhost/pruebas/asesores.json')->get();
-    $path = storage_path() . "/asesores.json";
-    return $json = json_decode(file_get_contents($path), true);   
+    return $salida;
+    var_dump($salida);
+
+
+
+    try {
+        DB::connection('mssql')->getPdo();
+        return "Conexión ok";
+    } catch (\Exception $e) {
+        die("Could not connect to the database.  Please check your configuration.");
+    }
 });
 
 

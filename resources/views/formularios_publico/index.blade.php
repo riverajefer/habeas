@@ -23,6 +23,7 @@
           <div class="row">
             
             <div class="seg-titulo"> DATOS PERSONALES </div>
+            <p style="padding-left: 20px">Los campos marcados con (*) con obligatorios</p>
             
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
@@ -141,7 +142,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email">Correo Electrónico Personal *</label>
+                    <label for="email">Correo Electrónico *</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
                     @if ($errors->has('email'))
                         <span class="help-block">
@@ -193,7 +194,7 @@
 
         </div><!-- /row -->
         <div class="row">
-
+        <p style="padding-left: 20px"><em> Seleccione primero el departamento y luego la ciudad. </em> </p>
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('departamento_id') ? ' has-error' : '' }}">
                     <label for="departamento">Departamento *</label>
@@ -244,19 +245,33 @@
 
         <hr>    
         <div class="row">
-            <p style="padding:10px 30px">
-            La información del formato, el cual forma parte integral de la presente autorización, la he suministrado de forma voluntaria, y es completa, confiable, veraz, exacta y verídica.
-            <br>
-                <a href="http://www.annardx.com/index.php/politica-de-proteccion-de-datos" target="_blank"> 
-                Ver politica de tratamiento de datos
-                </a>
-            </p>
+            <div class="aviso-privacidad">
+                <p>
+                    En cumplimiento con la ley 1581 de 2012 y el decreto reglamentario 1377 de 2013, informamos que mediante el registro de sus datos personales en el presente formulario <b>ANNAR DIAGNOSTICA IMPORT SAS</b> requiere su autorización para la recolección, almacenamiento, uso y tratamiento de los datos de personas naturales y jurídicas y aquellos derivados de relaciones con terceros, en el desarrollo de su objeto comercial, únicamente en los siguientes casos:
+                </p>
+                    <ol>
+                        <li>Realizar actividades comerciales y de mercadeo.</li>
+                        <li>Actos que se deriven del vínculo comercial.</li>
+                    </ol>
+                <p>
+                    Adicionalmente para el envío de información referente a la prestación de nuestros servicios a través de propuestas, boletines, publicaciones e invitaciones a nuestros seminarios.
+                </p>
+                <p>
+                    Sus datos serán tratados conforme nuestra política de tratamiento de información, publicada en:
+                    <a href="http://www.annardx.com/index.php/politica-de-proteccion-de-datos" target="_blank"> 
+                    http://www.annardx.com/index.php/politica-de-proteccion-de-datos
+                    </a>
+                </p>
+                <p>
+                    Por lo anterior con el ingreso de la información en este formulario y su aceptación expresa, manifiesta que he sido informado que como Titular de información tiene derecho a conocer, actualizar, rectificar y revocar la autorización de sus datos personales y/o solicitar la supresión en los casos en que sea procedente y adicionalmente que conoce que el canal dispuesto por ANNAR <b>DIAGNOSTICA IMPORT SAS</b>  para atención a sus solicitudes es el correo electrónico  habeasdata@annardx.com    
+                </p>
+                <p>Gracias por su interés</p>
+            </div>
 
-            <div class="col-md-5 col-md-offset-5">
-                <p>Autoriza el tratamiento de sus datos personales sensibles?: *</p>
+            <div class="col-md-5 col-md-offset-4">
                 <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
                     <input type="checkbox" name="autorizo" id="checkbox-1" class="mdl-checkbox__input" required>
-                    <span class="mdl-checkbox__label">Si autorizo</span>
+                    <span class="mdl-checkbox__label">Habilite si autoriza el tratamiento de sus datos personales</span>
                 </label>
                 @if ($errors->has('autorizo'))
                     <span class="help-block">
@@ -276,7 +291,7 @@
                     </button>
                 </div>
             </div>  
-            <br><br>            
+            <br><br><br>            
         </div> <!-- /row -->
         <input type="hidden" value="Formulario_{{$slug}}" name="procedencia">
         <input type="hidden" value="{{$area->id}}" name="area_id">
@@ -291,6 +306,7 @@
         </form>
     </div>
 </div>
+<br>
 @stop
 
 @push('scripts')

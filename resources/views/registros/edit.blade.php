@@ -445,7 +445,8 @@
 
             var asesor = '{{ $registro->asesor_comercial ? $registro->asesor_comercial : 0 }}';
             var env = '{{ env('APP_ENV') ? env('APP_ENV') : 'server' }}';
-            var url = 'http://190.145.89.228/annarnetp/index.php/prueba/index';
+            //var url = 'http://190.145.89.228/annarnetp/index.php/prueba/index';
+            var url = 'http://190.145.89.228/habeas/public/test';
 
             if(env == 'local'){
                 url = '{!! route('asesoresSap') !!}';
@@ -455,10 +456,10 @@
                 console.log("data: ", data);
                 $.each(data, function(index, value){
                     var select = '';
-                    if( asesor == value.SlpName ){
+                    if( asesor == value.nombre ){
                         select = 'selected'
                     }
-                    $("#asesor_comercial").append('<option value="'+value.SlpName+'" '+select+' >'+value.SlpName+'</option>');
+                    $("#asesor_comercial").append('<option value="'+value.nombre+'" '+select+' >'+value.nombre+'</option>');
                     
                 });
             });   

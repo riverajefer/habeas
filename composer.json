@@ -20,7 +20,9 @@
         "ixudra/curl": "6.*",
         "owen-it/laravel-auditing": "^4.0",
         "greggilbert/recaptcha": "dev-master",
-        "spatie/laravel-permission": "^1.12"
+        "spatie/laravel-permission": "^1.12",
+        "miinto/laravel-mssql": "dev-master"
+
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
