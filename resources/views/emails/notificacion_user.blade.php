@@ -18,7 +18,8 @@
 	<br>
 	<br>
 
-	<a href="{{URL::to('formulario/baja/'.$registro->id)}}" style="color:#ccc;">
+	<p>Dar clic en el siguiente enlace para cancelar suscripción</p>
+	<a href="{{URL::to('formulario/baja/'.$registro->id)}}" style="color:#a5a0a0;">
 		<em>Cancelar suscripción</em>
 	</a>
 

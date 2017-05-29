@@ -89,9 +89,13 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
 
 Route::get('test', function(){
+
+    //return $permission = Permission::create(['name' => 'dar de baja']);
+    $registro =  App\Models\Registros::find(107);
+    $area = $registro->area;
+    return $area->users;
       //  $role =  Role::find(1);
-   // return $role->givePermissionTo('nuevo permiso');
-    return $permission = Permission::create(['name' => 'nuevo permiso']);
+   // return $permission = Permission::create(['name' => 'nuevo permiso']);
     //return "test";
     //return $tablas = DB::connection('mssql')->select('select * from obs_list');
     //return  DB::connection('mssql')->getPdo();    

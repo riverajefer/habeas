@@ -51,8 +51,6 @@ Operario ->Puede crear actualizar
 ->  Enlace a AnnarNet en Logo 
 ->  Roles, permisos
 ->  Asesores SAP
-->  Incluir varios responsables y Operarios por área
-->  Incluir filtro de Área y registro en el informe de cambios
 
 
 ********************************
@@ -60,8 +58,6 @@ Operario ->Puede crear actualizar
 ********************************
 ->  Reportes
 ->  Asesores en subida masiva
-->  Ajustar areas (Modificar)
-->  Aseores Listar
 ->  Incluir varios responsables y Operarios por área
 ->  Validar el despliegue del listado de Asesores
 ->  Validar cargue de ciudad al hacer correcciones
@@ -88,18 +84,6 @@ LoginController Logout
 laura.rodriguez@annardx.com
 Lrod*2017
 
-
-
-Roles: Reposnable, operario, Admin.
-Area tiene muchos usuarios
-
-Los permisos del Rol, aplican para el área.
-Listar todos los registros cuando 
-
-User Auth:
-
-$user->rol->ver?:
-    $user->areas->regisros;
 
 
 

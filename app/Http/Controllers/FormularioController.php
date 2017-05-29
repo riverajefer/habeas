@@ -116,19 +116,16 @@ class FormularioController extends Controller
         $registro->estado = 1;
         $registro->save();
 
-        //$this->saveInfoAgent($registro->id);
+        $this->saveInfoAgent($registro->id);
 
         
         Mail::queue('emails.registro', ['registro'=>$registro], function ($m) use ($registro) {
 
-            $email_responsable = $registro->area->m_responsable->email;
-            $email_operario = $registro->area->m_operario->email;
             $m->from('habeasdata@annardx.com', 'Tratamiento de datos');
-
-            if($email_responsable==$email_operario){
-                $m->to($email_responsable)->subject('Tratamiento de datos, nuevo registro');                
-            }else{
-                $m->to($email_responsable)->cc($email_operario, $name = null)->subject('Tratamiento de datos, nuevo registro');
+            $area = $registro->area;
+            $users = $area->users;
+            foreach($users as $user){
+                $m->to($user->email)->subject('Tratamiento de datos, nuevo registro');                
             }
         });
 
@@ -183,8 +180,6 @@ class FormularioController extends Controller
     }
 
 
-
-
     /**
      * Store a id user.
      * @param  String  $slug
@@ -195,8 +190,6 @@ class FormularioController extends Controller
          $areas = Areas::all();
          $tipo_documento = $this->tipo_documento;
          return view('formularios_publico.baja', compact('registro', 'areas', 'tipo_documento'));
-         return "Baja: ".$id;
-
      }
 
 
@@ -296,19 +289,13 @@ class FormularioController extends Controller
 
         Mail::queue('emails.registro', ['registro'=>$registro, 'origen'=>'MISMO USUARIO', 'evento'=>$evento], function ($m) use ($registro, $evento) {
 
-            $responsable_id = $registro->area->m_responsable->id;
-            $operario_id = $registro->area->m_operario->id;
-            $email_responsable = $registro->area->m_responsable->email;
-            $email_operario = $registro->area->m_operario->email;
-
             $m->from('habeasdata@annardx.com', 'Tratamiento de datos');
 
-            // si el responsable y el operario son el mismo usuario, solo se le envia a uno
-            if($responsable_id==$operario_id){
-                $m->to($email_responsable)->subject('Tratamiento de datos:'.$evento);                
-            }else{
-                $m->to($email_responsable)->cc($email_operario, $name = null)->subject('Tratamiento de datos: '.$evento);
-            }                
+            $area = $registro->area;
+            $users = $area->users;
+            foreach($users as $user){
+                $m->to($user->email)->subject('Tratamiento de datos, nuevo registro');                
+            }
 
         });
     }   

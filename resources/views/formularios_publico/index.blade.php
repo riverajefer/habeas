@@ -85,7 +85,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('doc') ? ' has-error' : '' }}">
                     <label for="doc">Número de Documento *</label>
-                    <input type="text" class="form-control" id="doc" name="doc" placeholder="Número de documento" value="{{ old('doc') }}" required>
+                    <input type="number" class="form-control" id="doc" name="doc" placeholder="Número de documento" value="{{ old('doc') }}" required>
                     @if ($errors->has('doc'))
                         <span class="help-block">
                             <strong>{{ $errors->first('doc') }}</strong>
@@ -171,7 +171,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
                     <label for="telefono">Teléfono Fijo</label>
-                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono fijo" value="{{ old('telefono') }}" required>
+                    <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Teléfono fijo" value="{{ old('telefono') }}" required>
                     @if ($errors->has('telefono'))
                         <span class="help-block">
                             <strong>{{ $errors->first('telefono') }}</strong>
@@ -183,7 +183,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('celular') ? ' has-error' : '' }}">
                     <label for="celular">Teléfono Celular Personal *</label>
-                    <input type="text" class="form-control" id="celular" name="celular" placeholder="Celular" value="{{ old('celular') }}" required>
+                    <input type="number" class="form-control" id="celular" name="celular" placeholder="Celular" value="{{ old('celular') }}" required>
                     @if ($errors->has('celular'))
                         <span class="help-block">
                             <strong>{{ $errors->first('celular') }}</strong>

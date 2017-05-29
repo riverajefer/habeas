@@ -190,7 +190,6 @@ $(function() {
 		// Options will go here
 	});
 
-
 });
 </script>
 @endpush

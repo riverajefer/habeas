@@ -181,7 +181,7 @@
                 </li>   
                 <li class="list-group-item">
                     <span>Asesor comercial:</span>  
-                    {{ $registro->asesor_comercial }}
+                    {{ $registro->asesor_comercial or '' }}
                 </li>   
                 <li class="list-group-item">
                     <span>Estado del cliente:</span>  
@@ -201,20 +201,16 @@
                 </li>                                                                                                    
                 <li class="list-group-item">
                     <span>Procedencia del registro:</span>  
-                    {{ $registro->procedencia }}
-                </li>  
-                <li class="list-group-item">
-                    <span>Operario:</span>  
-                    {{ $registro->area->m_operario->nombre }}
+                    {{ $registro->procedencia or '' }}
                 </li>  
                 <li class="list-group-item">
                     <span>Encargados:</span>  
                     @if(count($registro->area->users)>0)
-                    <ul>
-                      @foreach($registro->area->users as $user)
-                        <li>{{$user->nombre}}</li>
-                      @endforeach
-                    </ul>
+                        <ul>
+                        @foreach($registro->area->users as $user)
+                            <li>{{$user->nombre}}</li>
+                        @endforeach
+                        </ul>
                     @endif
                 </li>                                  
                 <li class="list-group-item">
@@ -270,7 +266,7 @@
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Más información del registro </h4>
+            <h4 class="modal-title" id="myModalLabel">Avanzado</h4>
           </div>
 
             <ul class="demo-list-item mdl-list">
@@ -349,9 +345,8 @@
                         </a>
                     </li>
                 @endif
-                <!--
-
-                @if(MyFuncs::usuarioRolPuede('baja'))
+                
+                @if(MyFuncs::usuarioRolPuede('dar de baja'))
                     @if($registro->estado==1)
                         <li role="presentation">
                             <a onclick="eliminar( {{$registro->id}} )" href="javascript:void(0)" title="Dar de baja el registro">
@@ -361,19 +356,7 @@
                             </a>
                         </li>
                     @endif
-                @endif                   
-                -->
-
-                    @if($registro->estado==1)
-                        <li role="presentation">
-                            <a onclick="eliminar( {{$registro->id}} )" href="javascript:void(0)" title="Dar de baja el registro">
-                                <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i> Dar de baja el registro
-                                </button>  
-                            </a>
-                        </li>
-                    @endif
-
+                @endif    
                 <li role="presentation">
                     <a href="{{URL::to('registros')}}" title="Ver lista de registros">
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect">

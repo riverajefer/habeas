@@ -46,12 +46,12 @@ class AreasController extends Controller
     public function dataAreas()
     {
 
-        $areas = Areas::with('m_responsable')->with('m_operario')->select('areas.*');
+        $areas = Areas::all();
         //$areas = Areas::query();
         return Datatables::of($areas)
             ->addColumn('action', function ($areas) {
                 return '
-                    <a class="btn btn-xs btn-link link-warning" href="areas/'.$areas->id.'/edit" data-toggle="tooltip" data-placement="top" title="Modificar">Modificar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a class="btn btn-xs btn-link link-warning" href="areas/'.$areas->id.'/edit" data-toggle="tooltip" data-placement="top" title="Modificar"> Ver-Modificar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                     ';
             })        
             ->editColumn('titulo', '{{$titulo}}')

@@ -83,7 +83,15 @@ class RolesPermisosController extends Controller
          $permisos =  $request->input('permisos');
          $user_id = $request->input('user');
          $user = User::find($user_id);
-         $user->syncPermissions($permisos);
+         try{
+            // try code
+            $user->syncPermissions($permisos);
+        } 
+        catch(\Exception $e){
+            // catch code
+            return "algo fallo: ".$e;
+        }
+
          return redirect('usuarios')->with('success', 'Permisos asignados correctamente');
      }
 

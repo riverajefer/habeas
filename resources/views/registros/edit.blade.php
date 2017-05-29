@@ -79,7 +79,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('doc') ? ' has-error' : '' }}">
                     <label for="doc">Número de documento</label>
-                    <input type="text" class="form-control" id="doc" name="doc" placeholder="Número de docuemnto" value="{{ $registro->doc }}" required>
+                    <input type="number" class="form-control" id="doc" name="doc" placeholder="Número de docuemnto" value="{{ $registro->doc }}" required>
                     @if ($errors->has('doc'))
                         <span class="help-block">
                             <strong>{{ $errors->first('doc') }}</strong>
@@ -121,7 +121,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('celular') ? ' has-error' : '' }}">
                     <label for="celular">Celular personal</label>
-                    <input type="text" class="form-control" id="celular" name="celular" placeholder="Número de celular" value="{{ $registro->celular }}">
+                    <input type="number" class="form-control" id="celular" name="celular" placeholder="Número de celular" value="{{ $registro->celular }}">
                     @if ($errors->has('celular'))
                         <span class="help-block">
                             <strong>{{ $errors->first('celular') }}</strong>
@@ -133,7 +133,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('telefono_personal') ? ' has-error' : '' }}">
                     <label for="telefono_personal">Teléfono fijo personal</label>
-                    <input type="text" class="form-control" id="telefono_personal" name="telefono_personal" placeholder="Teléfono personal" value="{{ $registro->telefono_personal }}">
+                    <input type="number" class="form-control" id="telefono_personal" name="telefono_personal" placeholder="Teléfono personal" value="{{ $registro->telefono_personal }}">
                     @if ($errors->has('telefono_personal'))
                         <span class="help-block">
                             <strong>{{ $errors->first('telefono_personal') }}</strong>
@@ -209,7 +209,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('telefono_corporativo') ? ' has-error' : '' }}">
                     <label for="telefono_corporativo">Teléfono corporativo</label>
-                    <input type="text" class="form-control" id="telefono_corporativo" name="telefono_corporativo" placeholder="Teléfono" value="{{ $registro->telefono_corporativo }}">
+                    <input type="number" class="form-control" id="telefono_corporativo" name="telefono_corporativo" placeholder="Teléfono" value="{{ $registro->telefono_corporativo }}">
                     @if ($errors->has('telefono_corporativo'))
                         <span class="help-block">
                             <strong>{{ $errors->first('telefono_corporativo') }}</strong>
@@ -236,7 +236,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('celular_corporativo') ? ' has-error' : '' }}">
                     <label for="celular_corporativo">Celular corporativo</label>
-                    <input type="text" class="form-control" id="celular_corporativo" name="celular_corporativo" placeholder="Celular corporativo" value="{{ $registro->celular_corporativo }}">
+                    <input type="number" class="form-control" id="celular_corporativo" name="celular_corporativo" placeholder="Celular corporativo" value="{{ $registro->celular_corporativo }}">
                     @if ($errors->has('celular_corporativo'))
                         <span class="help-block">
                             <strong>{{ $errors->first('celular_corporativo') }}</strong>

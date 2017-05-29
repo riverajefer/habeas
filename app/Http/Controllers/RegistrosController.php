@@ -38,7 +38,9 @@ class RegistrosController extends Controller
         $this->middleware('role:crear registros', ['only'=>['create', 'store']]);  
         $this->middleware('role:ver registros',   ['only'=>['index', 'show']]);
         $this->middleware('role:modificar registros',   ['only'=>['edit']]);
-
+        $this->middleware('role:dar de baja',   ['only'=>['darDebaja']]);
+        $this->middleware('role:subida masiva',   ['only'=>['subidaMasiva']]);
+        
         $this->tipo_documento = collect([
             'Cédula de Ciudadanía',
             'NIT',
@@ -96,7 +98,7 @@ class RegistrosController extends Controller
                     $history = '<a class="btn btn-link" href="registros/auditoria/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="No hay cambios"><i class="fa fa-history" aria-hidden="true"></i></a>';
 
                     $delete = '';
-                    if($registros->estado){
+                    if($registros->estado and MyFuncs::usuarioRolPuede('dar de baja')){
                         $delete = '<a class="btn btn-link link-danger" data-token="'.csrf_token().'"  data-toggle="tooltip" data-placement="top" onClick="eliminar('.$registros->id.')" title="Dar de baja"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
                     }
 
@@ -127,7 +129,9 @@ class RegistrosController extends Controller
         $tipo_registro = TipoRegistro::orderBy('titulo','ASC')->get();
         $tipo_documento = $this->tipo_documento;
         $estado_cliente = $this->estado_cliente;
+
         $asesores = $this->asesores();
+        
         return view('registros.create', compact('departamentos', 'areas', 'tipo_registro', 'tipo_documento', 'estado_cliente', 'asesores'));
     }
 
@@ -165,10 +169,8 @@ class RegistrosController extends Controller
             'direccion'=>'max:60',
 
             'sn'=>'max:80',
-            //'asesor_comercial'=>'required',
             'estado_cliente'=>'required',
             'comentarios'=>'max:800',
-            //'tipo_registro'=>'required',
             'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000|uploaded',    
         ]);
 
@@ -233,7 +235,6 @@ class RegistrosController extends Controller
 
         $this->enviaNotificacion($registro, 'Nuevo Registro');
         $this->saveInfoAgent($registro->id, $request->input('ip'));
-
 
         return redirect('registros')->with('success','Registro creado correctamente.')->with('registro_id', $registro->id);
     }
@@ -309,10 +310,8 @@ class RegistrosController extends Controller
             'direccion'=>'max:60',
 
             'sn'=>'max:80',
-            //'asesor_comercial'=>'required',
             'estado_cliente'=>'required',
             'comentarios'=>'max:800',
-            //'tipo_registro'=>'required',
             'estado_registro'=>'required',
             'archivo' => 'mimes:jpeg,png,jpg,gif,svg,pdf|max:10000|uploaded',    
         ]);
@@ -402,7 +401,6 @@ class RegistrosController extends Controller
     public function destroy($id)
     {
         //
-
     }
 
     /**
@@ -485,11 +483,7 @@ class RegistrosController extends Controller
     public function exportExcel()
     {
 
-        //$registros = Registros::all();
-        //return view('registros.excel', compact('registros'));
-
         $excel = \App::make('excel');
-
         Excel::create('Registros', function($excel) {
  
             $excel->sheet('Registros', function($sheet) {
@@ -661,8 +655,6 @@ class RegistrosController extends Controller
      */
     public function postSubidaMasiva(Request $request)
     {
-        // aca se puede hacer la validación $request->file('file')->getClientOriginalExtension();
-        //return File::extension($request->file('file')->getRealPath());
 
         sleep(1);
 
@@ -756,24 +748,12 @@ class RegistrosController extends Controller
                                 return response()->json(['status' => false, 'errors'=>$errors]);
                             }
 
-                            // validation asesores
-                            /*
-                            $asesores = Curl::to('http://190.145.89.228/annarnetp/index.php/prueba/index')->get(); // cambiar esta URL
-                            $collect =  collect(json_decode($asesores, true));
-                            $existe_asesor =  $collect->contains('SlpName',$value->asesor_comercial);
-                            if(!$existe_asesor){
-                                $errors[0] = 'El nombre del asesor no existe en la base de datos';
-                                return response()->json(['status' => false, 'errors'=>$errors]);
-                            }
-                            */
-                            
 
                             $estado_cliente = 'Cliente Activo';
                             if($value->estado_del_cliente == 0){
                                 $estado_cliente = 'Cliente Inactivo';
                             }
 
-                            //$newRegistro = new Registros();
                             $newRegistro = Registros::firstOrCreate(['doc' => $value->documento]);
                             $newRegistro->nombre = $value->nombre;
                             $newRegistro->primer_apellido = $value->primer_apellido;
@@ -855,33 +835,13 @@ class RegistrosController extends Controller
         Mail::queue('emails.registro', ['registro'=>$registro, 'origen'=>'PANEL DE ADMINISTRACIÓN', 'evento'=>$evento], function ($m) use ($registro, $evento) {
 
             $user_auth = Auth::User()->id;
-            $responsable_id = $registro->area->m_responsable->id;
-            $operario_id = $registro->area->m_operario->id;
-            $email_responsable = $registro->area->m_responsable->email;
-            $email_operario = $registro->area->m_operario->email;
-
+            
             $m->from('habeasdata@annardx.com', 'Tratamiento de datos');
-
-            // "Envio a los dos";
-            if($user_auth!=$operario_id and $user_auth!=$responsable_id){
-
-                // si el responsable y el operario son el mismo usuario, solo se le envia a uno
-                if($responsable_id==$operario_id){
-                    $m->to($email_responsable)->subject('Tratamiento de datos:'.$evento);                
-                }else{
-                   $m->to($email_responsable)->cc($email_operario, $name = null)->subject('Tratamiento de datos: '.$evento);
-                }                
-
-            }elseif($user_auth==$operario_id and $user_auth!=$responsable_id){
-                //"Envio a Responsable";
-                $m->to($email_responsable)->subject('Tratamiento de datos: '.$evento);
-                
-            }elseif($user_auth!=$operario_id and $user_auth==$responsable_id){
-                // "Envio a Operario";
-                $m->to($email_operario)->subject('Tratamiento de datos: '.$evento);
-            }else{
-                //"No se envia a nadie";
-            }
+            $area = $registro->area;
+            $users = $area->users;
+            foreach($users as $user){
+                $m->to($user->email)->subject('Tratamiento de datos, nuevo registro');                
+            }             
 
         });
     }    
@@ -912,15 +872,19 @@ class RegistrosController extends Controller
 
 
     public function asesores(){
+        if(env('APP_ENV')=='local'){
+            $asesores = [];
+        }else{
+            $sql = DB::connection('mssql')->select("SELECT a.slpname FROM [ANNAR SAS].dbo.OSLP a");
+            $asesores = [];
+            foreach ($sql as $key => $value) {
+                if($value->slpname!=false){
+                    $valor = utf8_decode($value->slpname);
+                    $asesores[] = array("nombre"=>$valor);
+                }
+            }            
+        }
 
-	    $sql = DB::connection('mssql')->select("SELECT a.slpname FROM [ANNAR SAS].dbo.OSLP a");
-	    $asesores = [];
-	    foreach ($sql as $key => $value) {
-	        if($value->slpname!=false){
-	            $valor = utf8_decode($value->slpname);
-	            $asesores[] = array("nombre"=>$valor);
-	        }
-	    }
 	    //return $asesores;
 	    return Response::json($asesores);
 
