@@ -346,7 +346,7 @@
                     </li>
                 @endif
                 
-                @if(MyFuncs::usuarioRolPuede('dar de baja'))
+                @if(MyFuncs::usuarioRolPuede('dar de baja registro'))
                     @if($registro->estado==1)
                         <li role="presentation">
                             <a onclick="eliminar( {{$registro->id}} )" href="javascript:void(0)" title="Dar de baja el registro">

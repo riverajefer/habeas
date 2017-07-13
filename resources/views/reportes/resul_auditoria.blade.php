@@ -13,6 +13,7 @@
             Resultado historial de cambios entre el <b>{{$fecha_inicio}}</b> al <b>{{$fecha_fin}}</b><br>
             <a href="{{URL::route('reportes')}}">Nueva consulta</a>
         </div>
+        <!--
         @if(count($auditoria)>0 and $auditoria[0]->event!='created')
             <div align="center">
                 <a href="{{URL::route('getHistorialCambiosTabla', [$area_id, $registro_id, $fecha_inicio, $fecha_fin]  )}}"> 
@@ -27,6 +28,13 @@
           </div>
           
         @endif
+        -->
+
+            <div align="center">
+                <a href="{{URL::route('getHistorialCambiosTabla', [$area_id, $registro_id, $fecha_inicio, $fecha_fin]  )}}"> 
+                    <i class="fa fa-table" aria-hidden="true"></i> Ver en formato de tabla
+                </a>
+            </div>        
         @forelse ($auditoria as $audit)
 
         @if($audit->event!='created')

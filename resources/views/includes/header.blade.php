@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <a class="navbar-brand" rel="home" href="http://190.145.89.228/annarnetpruebas/index.php/home" title="AnnarNet">
+        <a class="navbar-brand" rel="home" href="http://190.145.89.228/annarnetp/index.php/home" title="AnnarNet">
             <img class="img-brand"  src="{{asset('images/annar_net.png')}}">
         </a>
     </div>

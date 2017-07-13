@@ -148,7 +148,7 @@ class LoginController extends Controller
      */
      public function salir(){
          Auth::logout();
-         return redirect('http://190.145.89.228/annarnetpruebas/index.php/auth/login/ok/R3JhY2lhcyBwb3IgdXNhciBudWVzdHJvIHNlcnZpY2lv');
+         return redirect('http://190.145.89.228/annarnetpruebas/index.php/Auth/logout');
      }
 
 }

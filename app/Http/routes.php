@@ -89,42 +89,22 @@ Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
 
 Route::get('test', function(){
+    $role =  Role::find(3);
+    return $role->givePermissionTo('roles y permisos');
+    //return Permission::all();
+    //return Permission::findByName('crear registros');
+    return Permission::findByName('dar de baja registro');
 
-    //return $permission = Permission::create(['name' => 'dar de baja']);
+    return Permission::findByName('dar de baja registros');
+    $permission = Permission::create(['name' => 'dar de baja registros']);
+    $role =  Role::find(3);
+    return $role->givePermissionTo('ver registros');
+
     $registro =  App\Models\Registros::find(107);
     $area = $registro->area;
     return $area->users;
-      //  $role =  Role::find(1);
-   // return $permission = Permission::create(['name' => 'nuevo permiso']);
-    //return "test";
-    //return $tablas = DB::connection('mssql')->select('select * from obs_list');
-    //return  DB::connection('mssql')->getPdo();    
-    //return DB::connection('mssql')->select("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'");
-
-    $sql = DB::connection('mssql')->select("SELECT a.slpname FROM [ANNAR SAS].dbo.OSLP a");
-    $salida = [];
-    foreach ($sql as $key => $value) {
-        if($value->slpname!=false){
-            //$salida[] = json_encode($value->slpname, JSON_UNESCAPED_UNICODE);
-            //trim($string,'"');
-            $valor = utf8_decode($value->slpname);
-            $salida[] = array("nombre"=>$valor);
-        }
-    }
-    //return $result = json_encode($sql, JSON_UNESCAPED_UNICODE);
-    return Response::json($salida);
-
-    return $salida;
-    var_dump($salida);
 
 
-
-    try {
-        DB::connection('mssql')->getPdo();
-        return "Conexión ok";
-    } catch (\Exception $e) {
-        die("Could not connect to the database.  Please check your configuration.");
-    }
 });
 
 
