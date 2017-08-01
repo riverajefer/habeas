@@ -4,18 +4,20 @@
 
 <br> 
 <h5>HISTORIAL DE CAMBIOS</h5>
+
+
 @forelse ($auditoria as $audit)
 
-@if($audit->event!='created')
+@if($audit->event!='created' and ($audit->user!=Null))
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
 
             <div class="panel {{ $audit->event=='created' ? 'panel-info' : 'panel-success'}}">
                 <div class="panel-heading">
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                    El Registro <a href="{{URL::to('registros/'.$audit->auditable_id)}}"> {{$audit->auditable_id}} </a> 
+                    El Registro <a href="{{URL::to('registros/'.$audit->auditable_id)}}"> {{$audit->auditable_id or ''}} </a> 
                     fue <b>{{$audit->event=='created'? 'Creado':'Modificado'}} </b>
-                    por el usuario: <b> {{  $audit->user->nombre }} </b> el día <b> {{$audit->created_at}} </b>
+                    por el usuario: <b> {{  $audit->user->nombre or 'Mismo Usuario' }} </b> el día <b> {{$audit->created_at or '' }} </b>
                 </div>
             <table class="table table-striped table-condensed table-bordered table-hover table-condensed mdl-data-table" id="registros-table">
                 <thead>

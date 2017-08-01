@@ -93,7 +93,7 @@ class RegistrosController extends Controller
                         $edit =  '<a class="btn btn-link link-warning" href="registros/'.$registros->id.'/edit" data-toggle="tooltip" data-placement="top" title="Actualizar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
                     }
 
-                    $history = '<a class="btn btn-link" href="registros/auditoria/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="No hay cambios"><i class="fa fa-history" aria-hidden="true"></i></a>';
+                    $history = '<a class="btn btn-link" href="registros/auditoria/'.$registros->id.'" data-toggle="tooltip" data-placement="top" title="Historial de cambios"><i class="fa fa-history" aria-hidden="true"></i></a>';
 
                     $delete = '';
                     if($registros->estado and MyFuncs::usuarioRolPuede('dar de baja registro') ){
@@ -386,7 +386,7 @@ class RegistrosController extends Controller
         $registro->asesor_comercial = $request->input('asesor_comercial');
         $registro->save();
 
-        $this->enviaNotificacion($registro, 'Modificación Registro');
+       // $this->enviaNotificacion($registro, 'Modificación Registro');
 
         return redirect('registros')->with('success','Registro actualizado correctamente')->with('registro_id', $registro->id);
 
@@ -852,38 +852,25 @@ class RegistrosController extends Controller
      */
     public function enviaNotificacion($registro, $evento='Nuevo registro'){
 
-        Mail::queue('emails.registro', ['registro'=>$registro, 'origen'=>'PANEL DE ADMINISTRACIÓN', 'evento'=>$evento], function ($m) use ($registro, $evento) {
+            try{
+               // try code
+                Mail::queue('emails.registro', ['registro'=>$registro, 'origen'=>'PANEL DE ADMINISTRACIÓN', 'evento'=>$evento], function ($m) use ($registro, $evento) {
 
-            $user_auth = Auth::User()->id;
-            $responsable_id = $registro->area->m_responsable->id;
-            $operario_id = $registro->area->m_operario->id;
-            $email_responsable = $registro->area->m_responsable->email;
-            $email_operario = $registro->area->m_operario->email;
-
-            $m->from('habeasdata@annardx.com', 'Tratamiento de datos');
-
-            // "Envio a los dos";
-            if($user_auth!=$operario_id and $user_auth!=$responsable_id){
-
-                // si el responsable y el operario son el mismo usuario, solo se le envia a uno
-                if($responsable_id==$operario_id){
-                    $m->to($email_responsable)->subject('Tratamiento de datos:'.$evento);                
-                }else{
-                   $m->to($email_responsable)->cc($email_operario, $name = null)->subject('Tratamiento de datos: '.$evento);
-                }                
-
-            }elseif($user_auth==$operario_id and $user_auth!=$responsable_id){
-                //"Envio a Responsable";
-                $m->to($email_responsable)->subject('Tratamiento de datos: '.$evento);
-                
-            }elseif($user_auth!=$operario_id and $user_auth==$responsable_id){
-                // "Envio a Operario";
-                $m->to($email_operario)->subject('Tratamiento de datos: '.$evento);
-            }else{
-                //"No se envia a nadie";
+                    $m->from('habeasdata@annardx.com', 'Tratamiento de datos');
+                    $area = $registro->area;
+                    $users = $area->users;
+                    foreach($users as $user){
+                        $m->to($user->email)->subject('Tratamiento de datos'.$evento);                
+                    }
+                });
+                                     
+            } 
+            catch(\Exception $e){
+               // catch code
             }
 
-        });
+
+
     }    
 
     /**

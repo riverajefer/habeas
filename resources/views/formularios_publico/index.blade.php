@@ -3,10 +3,13 @@
 @section('content')
 
 <br>
+<img src="{{asset('images/banner.jpg')}}" alt="Banner" class="img-responsive">
+
 <div class="panel panel-default">
     <div class="panel-heading"> 
         Formulario: {{$area->titulo}}
     </div>
+
 
     <div class="panel-body">
 
@@ -23,7 +26,7 @@
           <div class="row">
             
             <div class="seg-titulo"> DATOS PERSONALES </div>
-            <p style="padding-left: 20px">Los campos marcados con (*) con obligatorios</p>
+            <p style="padding-left: 20px">Los campos marcados con (*) son obligatorios</p>
             
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
@@ -70,7 +73,7 @@
                     <label for="tipo_documento">Tipo Documento *</label>
                     <select name="tipo_documento" id="tipo_documento" class="form-control" required>
                        @foreach($tipo_documento as $tipo_documento)
-                        <option value="{{$tipo_documento}}"   {{ (collect(old('tipo_documento'))->contains($tipo_documento)) ? 'selected':'' }}  >{{$tipo_documento}}</option>
+                        <option value="{{$tipo_documento}}" {{ (collect(old('tipo_documento'))->contains($tipo_documento)) ? 'selected':'' }}  >{{$tipo_documento}}</option>
                        @endforeach
                     </select>
 
@@ -159,7 +162,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('empresa') ? ' has-error' : '' }}">
                     <label for="empresa">Empresa o Entidad *</label>
-                    <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Empresa o Entidad" value="{{ old('empresa') }}" required>
+                    <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Empresa o Entidad (Digite N/A si no aplica)" value="{{ old('empresa') }}" required>
                     @if ($errors->has('empresa'))
                         <span class="help-block">
                             <strong>{{ $errors->first('empresa') }}</strong>
@@ -170,7 +173,7 @@
 
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
-                    <label for="telefono">Teléfono Fijo</label>
+                    <label for="telefono">Teléfono Fijo *</label>
                     <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Teléfono fijo" value="{{ old('telefono') }}" required>
                     @if ($errors->has('telefono'))
                         <span class="help-block">
@@ -249,10 +252,18 @@
                 <p>
                     En cumplimiento con la ley 1581 de 2012 y el decreto reglamentario 1377 de 2013, informamos que mediante el registro de sus datos personales en el presente formulario <b>ANNAR DIAGNOSTICA IMPORT SAS</b> requiere su autorización para la recolección, almacenamiento, uso y tratamiento de los datos de personas naturales y jurídicas y aquellos derivados de relaciones con terceros, en el desarrollo de su objeto comercial, únicamente en los siguientes casos:
                 </p>
+                @if(count($finalidad)>0)
+                    <ol>
+                        @foreach($finalidad as $fin)
+                            <li>{{$fin->descrip}}</li>
+                        @endforeach
+                    </ol>
+                @else
                     <ol>
                         <li>Realizar actividades comerciales y de mercadeo.</li>
                         <li>Actos que se deriven del vínculo comercial.</li>
                     </ol>
+                @endif
                 <p>
                     Adicionalmente para el envío de información referente a la prestación de nuestros servicios a través de propuestas, boletines, publicaciones e invitaciones a nuestros seminarios.
                 </p>

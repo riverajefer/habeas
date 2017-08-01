@@ -37,7 +37,7 @@
             </div>        
         @forelse ($auditoria as $audit)
 
-        @if($audit->event!='created' and ($audit->user!=Null))
+        @if($audit->event!='created')
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
 
@@ -69,8 +69,7 @@
                                         {!!MyFuncs::fn_atributo($attribute, $audit, $modified)->new!!}
                                     </td>
                                 </tr>
-                            @endforeach                        
-
+                            @endforeach
                         </tbody>
                     </table>
                     </div>

@@ -79,32 +79,20 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('save_rol', 'RolesPermisosController@saveRol')->name('saveRol');
     Route::post('save_permisos', 'RolesPermisosController@savePermisos')->name('savePermisos');
     Route::post('save_permisos_rol', 'RolesPermisosController@savePermisosRol')->name('savePermisosRol');
-
-
-
 }); 
 
 Route::get('save','RegistrosController@saveInfoAgent')->name('save');
 
-
-
 Route::get('test', function(){
-    $role =  Role::find(3);
-    return $role->givePermissionTo('roles y permisos');
-    //return Permission::all();
-    //return Permission::findByName('crear registros');
-    return Permission::findByName('dar de baja registro');
 
-    return Permission::findByName('dar de baja registros');
-    $permission = Permission::create(['name' => 'dar de baja registros']);
-    $role =  Role::find(3);
-    return $role->givePermissionTo('ver registros');
+    return App\Models\TipoDocumento::all();
+    //$sql = DB::connection('mssql')->select("SELECT a.* FROM [ANNAR SAS].dbo.OCPR a WHERE CardCode = 'SN00047' ");
 
-    $registro =  App\Models\Registros::find(107);
-    $area = $registro->area;
-    return $area->users;
+    $sql = DB::connection('mssql')->select("UPDATE [ANNAR SAS].dbo.OCPR set Notes1 = 'Y' where CardCode ='SN00047' ");
+    
 
-
+    //Update OCPR set Notes1 = 'Y' where CardCode ='SN00047' and email='xxxx'
+    return var_dump($sql);
 });
 
 

@@ -11,7 +11,7 @@
     </thead>
 <tbody>
     @forelse ($auditoria as $audit)
-        @if($audit->event!='created')                        
+        @if($audit->event!='created' and ($audit->user!=Null))                        
             @foreach ($audit->getModified() as $attribute => $modified)
                 <tr>
                     <td>

@@ -9,11 +9,14 @@ use App\Models\Registros;
 use App\Models\Areas;
 use App\Models\Departamentos;
 use App\Models\Municipios;
+use App\Models\Finalidades;
 use Jenssegers\Agent\Agent;
 use App\Models\DeviceRegistro;
 use App\Models\User;
 use Carbon\Carbon; 
 use Mail;
+use DB;
+
 class FormularioController extends Controller
 {
 
@@ -27,11 +30,10 @@ class FormularioController extends Controller
 
         $this->tipo_documento = collect([
             'Cédula de Ciudadanía',
-            'NIT',
             'Tarjeta de Identidad',
             'Registro Civil',
             'Pasaporte',
-            'Carné Diplomático',
+            'Cédula de Extranjería'
         ]);
        
     }    
@@ -43,12 +45,15 @@ class FormularioController extends Controller
      */
      public function formulario($slug='publico'){
 
+         
         $area = Areas::whereSlug($slug)->first();
+        $finalidad = $area->finalidad;
         $tipo_documento = $this->tipo_documento;
+        //$tipo_documento = TipoDocumento::all();
         
         if(!empty($area)){
             $departamentos = Departamentos::all();
-            return view('formularios_publico.index', compact('departamentos', 'area', 'slug', 'tipo_documento'));
+            return view('formularios_publico.index', compact('departamentos', 'area', 'slug', 'tipo_documento','finalidad'));
         }else{
             abort(404);
         }
@@ -135,6 +140,16 @@ class FormularioController extends Controller
             $m->from('habeasdata@annardx.com', 'Tratamiento de datos Annardx');
             $m->to($email)->subject('Tratamiento de datos, nuevo registro');
         });
+
+        try{
+            // try code
+            //$sql = DB::connection('mssql')->select("UPDATE [ANNAR SAS].dbo.OCPR set Notes1 = 'Y' where CardCode ='SN00047' and email='$registro->email' ");
+            
+        } 
+        catch(\Exception $e){
+            // catch code
+        }
+
 
 
         return back()->with('success','Gracias: Información envíada correctamente');

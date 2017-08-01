@@ -42,6 +42,12 @@ class Areas extends Model implements AuditableContract
     }
 
 
+    public function finalidad(){
+        return $this->hasMany('App\Models\Finalidades', 'id_area');
+    }    
+    
+
+
     /*
     public function responsable(){
         return $this->belongsTo('')
